@@ -1,6 +1,7 @@
 export class Place {
   location: { lat: number, lng: number };
   averagePrice: number;
+  rating: number;
   reviews: number;
   allowed: boolean;
   images: [string];

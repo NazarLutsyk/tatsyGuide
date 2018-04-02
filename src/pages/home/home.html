@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle left>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      logo
+    </ion-title>
+    <button ion-button menuToggle="rightSideMenu" right>
+      <ion-icon name="options"></ion-icon>
+    </button>
+  </ion-navbar>
+  <ion-searchbar>
+  </ion-searchbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let place of places" (click)="toDetails(place)">
+      <ion-thumbnail item-start>
+        <img [src]='place.images[0]'>
+      </ion-thumbnail>
+      <span item-right> <ion-icon name="star" ></ion-icon> {{place.rating}}</span>
+      <h2>{{place.name}} </h2>
+      <p>{{place.description}}</p>
+
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+
+
+<!--[(ngModel)]="myInput"-->
+<!--[showCancelButton]="shouldShowCancel"-->
+<!--(ionInput)="onInput($event)"-->
+<!--(ionCancel)="onCancel($event)"-->

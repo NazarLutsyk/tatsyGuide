@@ -5,6 +5,7 @@ export class FullPlaceDTO {
   location: { lat: number, lng: number };
   avaragePrice: number;
   reviews: number;
+  rating: number;
   allowed: boolean;
   images: [string];
   types: [string];
@@ -28,6 +29,7 @@ export class FullPlaceDTO {
   constructor(place: Place, placeMultiLang: PlacesMultilang) {
     this.location = place.location;
     this.avaragePrice = place.averagePrice;
+    this.rating = place.rating;
     this.reviews = place.reviews;
     this.allowed = place.allowed;
     this.images = place.images;
