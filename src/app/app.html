@@ -1,13 +1,9 @@
-
-
 <ion-menu [content]="content" side="left" id="leftSideMenu" type="overlay">
-
   <ion-header>
     <ion-toolbar>
       <ion-title>Side menu</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <ion-content>
     <ion-list>
 
@@ -19,7 +15,6 @@
       </ion-item>
     </ion-list>
   </ion-content>
-
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
@@ -29,20 +24,66 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title>Side menu</ion-title>
+      <ion-title>SDR {{searchObject.sort}} {{searchObject.range.lower}}{{searchObject.range.upper}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <ion-list>
+
+    <!--<form (ngSubmit)="search($event)" [formGroup]="formValuesObject">-->
+    <ion-list radio-group [(ngModel)]="searchObject.sort">
 
       <ion-item>
-        <button> asd</button>
+        <ion-label>Рейтинг</ion-label>
+        <ion-radio value="rating"></ion-radio>
       </ion-item>
       <ion-item>
-        <button> qwe</button>
+        <ion-label>Середній чек</ion-label>
+        <ion-radio value="averagePrice"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Алфавіт</ion-label>
+        <ion-radio value="name"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Віддаленість</ion-label>
+        <ion-radio value="location"></ion-radio>
       </ion-item>
     </ion-list>
+    <ion-item>
+      <ion-label *ngIf="searchObject.direction !=true">спадання</ion-label>
+      <ion-label *ngIf="searchObject.direction !=false">зростання</ion-label>
+      <ion-checkbox color="danger" checked="false" [(ngModel)]="searchObject.direction"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-range dualKnobs="true" [(ngModel)]="searchObject.range" min="0" max="600" step="1">
+        <span range-left>{{searchObject.range.lower}}</span>
+        <span range-right>{{searchObject.range.upper}}</span>
+
+
+      </ion-range>
+      <br>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Тип закладу</ion-label>
+      <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
+        <ion-option value="xxx" *ngFor="let placeType of placeTypes">{{placeType}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
+      <ion-label>{{feature}}</ion-label>
+      <ion-checkbox color="energized" checked="true" color="dark"
+                    [(ngModel)]="searchObject.filterFeature[feature]"></ion-checkbox>
+    </ion-item>
+
+
+    <button ion-button type="submit" block (click)="show(searchObject)">Знайти</button>
+    <!--</form>-->
+
   </ion-content>
 
 </ion-menu>

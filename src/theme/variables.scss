@@ -82,7 +82,8 @@ ion-header {
 ion-icon {
   &[name="options"],
   &[name="menu"],
-  &[name="star"]{
+  &[name="star"],
+  &[name="eye"]{
 
     color: #f6900a;
 
@@ -91,3 +92,5 @@ ion-icon {
 }
 
 $searchbar-ios-background-color: map-get($colors, defaultApp);;
+
+

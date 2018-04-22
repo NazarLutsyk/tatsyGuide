@@ -1,0 +1,136 @@
+<!--
+  Generated template for the PlaceInfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-slides>
+    <ion-slide *ngFor="let image of place.images">
+      <ion-img src="{{globalHost}}{{image}}"></ion-img>
+    </ion-slide>
+
+  </ion-slides>
+
+
+  <ion-item-group>
+
+
+    <ion-item icon-left="eye" icon-right="star">
+      <ion-icon name="eye"></ion-icon>
+      {{place.reviews}}
+      <ion-icon name="star"></ion-icon>
+      {{place.rating}}
+    </ion-item>
+    <ion-item>
+      <p *ngFor="let tc of place.topCategories">
+        {{tc}}
+      </p>
+
+    </ion-item>
+    <ion-item>
+      {{place.averagePrice}}
+    </ion-item>
+
+    <ion-item text-wrap> Опис
+      <p>{{place.multilang[0].description}}</p>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="call"></ion-icon>
+      {{place.phone}}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="at"></ion-icon>
+      {{place.email}}
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon name="wifi" *ngIf="place.features.wifi" padding-right="5px"></ion-icon>
+      <ion-icon name="car" *ngIf="place.features.parking" padding-right="5px"></ion-icon>
+      <ion-icon name="microphone" *ngIf="place.features.karaoke" padding-right="5px"></ion-icon>
+      <ion-icon name="glasses" *ngIf="place.features.vipRoom" padding-right="5px"></ion-icon>
+    </ion-item>
+
+
+    <!--<ion-item>-->
+      <!--<button (click)="x()" ion-button icon-left>-->
+        <!--показати на карті розташування {{place.multilang[0].name}}-->
+      <!--</button>-->
+    <!--</ion-item>-->
+
+
+    <!--<ion-item>-->
+      <!--<button (click)="goToPlace()" ion-button icon-left>-->
+        <!--<ion-icon name="navigate"></ion-icon>-->
+        <!--прокласти маршрут до {{place.multilang[0].name}}-->
+      <!--</button>-->
+    <!--</ion-item>-->
+
+
+    <div id="map"></div>
+
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            день
+          </ion-col>
+          <ion-col> початок</ion-col>
+          <ion-col>
+            кінець
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Пн</ion-col>
+          <ion-col> {{place.days["1"].start}}</ion-col>
+          <ion-col> {{place.days["1"].end}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Вт</ion-col>
+          <ion-col> {{place.days["2"].start}}</ion-col>
+          <ion-col> {{place.days["2"].end}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Ср</ion-col>
+          <ion-col> {{place.days["3"].start}}</ion-col>
+          <ion-col> {{place.days["3"].end}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Чт</ion-col>
+          <ion-col> {{place.days["4"].start}}</ion-col>
+          <ion-col> {{place.days["4"].end}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Пт</ion-col>
+          <ion-col> {{place.days["1"].start}}</ion-col>
+          <ion-col> {{place.days["1"].end}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Сб</ion-col>
+          <ion-col> {{place.days["1"].start}}</ion-col>
+          <ion-col> {{place.days["1"].end}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col> Нд</ion-col>
+          <ion-col> {{place.days["1"].start}}</ion-col>
+          <ion-col> {{place.days["1"].end}}</ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+    </ion-item>
+
+  </ion-item-group>
+</ion-content>

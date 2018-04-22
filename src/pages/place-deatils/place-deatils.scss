@@ -1,15 +1,37 @@
 page-place-deatils {
-  ion-slides{
-    height: 30%;
+  ion-slides {
+    height: 30vh;
+    ion-slide {
+      background-color: #f6900a;
+    }
+    ion-slide ion-img {
+      width: 100%;
+      height: 31vh;
+    }
+
+    ion-slide img {
+      height: 100% !important;
+      width: 100% !important;
+    }
+
+  }
+
+  //.activated {
+  //  background-color: red;
+  //}
+
+  //.tab-item-active{
+  //  background:green;
+  //}
+
+  //.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+  //  color: red;
+  //}
+
+  //$tabs-md-tab-icon-color-active: red;
+  .tabs-md .tab-button[aria-selected=true] .tab-button-icon , .tabs-md .tab-button[aria-selected=true]{
+    color: map-get($colors, defaultApp);
   }
 }
 
-#map_canvas{
-  height: 200px;
-  width: 200px;
-  border: 1px solid black;
-}
 
-//#map {
-//  height: 100%;
-//}
