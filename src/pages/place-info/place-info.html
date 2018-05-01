@@ -13,7 +13,7 @@
 
 <ion-content>
 
-  <ion-slides>
+  <ion-slides margin-bottom="8px">
     <ion-slide *ngFor="let image of place.images">
       <ion-img src="{{globalHost}}{{image}}"></ion-img>
     </ion-slide>
@@ -21,116 +21,208 @@
   </ion-slides>
 
 
-  <ion-item-group>
+  <ion-grid>
+    <ion-row>
+
+      <ion-col col>
+        <span class="colorSilver">Reviews:</span>
+        {{place.reviews}}
+        <ion-icon name="eye"></ion-icon>
+      </ion-col>
 
 
-    <ion-item icon-left="eye" icon-right="star">
-      <ion-icon name="eye"></ion-icon>
-      {{place.reviews}}
-      <ion-icon name="star"></ion-icon>
-      {{place.rating}}
-    </ion-item>
-    <ion-item>
-      <p *ngFor="let tc of place.topCategories">
-        {{tc}}
-      </p>
 
-    </ion-item>
-    <ion-item>
-      {{place.averagePrice}}
-    </ion-item>
+      <ion-col col-4 text-right><span class="colorSilver">Rating:</span></ion-col>
+      <ion-col col-2 class="iconWrapper">
+        <ion-icon name="star"></ion-icon>
+        {{place.rating}}
+      </ion-col>
+    </ion-row>
 
-    <ion-item text-wrap> Опис
-      <p>{{place.multilang[0].description}}</p>
+    <ion-row>
+      <ion-col col>
+        <mat-accordion>
 
-    </ion-item>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Description
+            </mat-expansion-panel-header>
 
-    <ion-item>
-      <ion-icon name="call"></ion-icon>
-      {{place.phone}}
-    </ion-item>
-    <ion-item>
-      <ion-icon name="at"></ion-icon>
-      {{place.email}}
-    </ion-item>
+            <p>{{place.multilang[0].description}}</p>
 
 
-    <ion-item>
-      <ion-icon name="wifi" *ngIf="place.features.wifi" padding-right="5px"></ion-icon>
-      <ion-icon name="car" *ngIf="place.features.parking" padding-right="5px"></ion-icon>
-      <ion-icon name="microphone" *ngIf="place.features.karaoke" padding-right="5px"></ion-icon>
-      <ion-icon name="glasses" *ngIf="place.features.vipRoom" padding-right="5px"></ion-icon>
-    </ion-item>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Information
+            </mat-expansion-panel-header>
+
+            <ul>
+              <li>
+                <ion-icon name="checkmark" *ngIf="place.features.wifi" padding-right="5px"></ion-icon>
+                wifi
+              </li>
+              <li>
+                <ion-icon name="checkmark" *ngIf="place.features.parking" padding-right="5px"></ion-icon>
+                parking
+              </li>
+              <li>
+                <ion-icon name="checkmark" *ngIf="place.features.karaoke" padding-right="5px"></ion-icon>
+                karaoke
+              </li>
+              <li>
+                <ion-icon name="checkmark" *ngIf="place.features.vipRoom" padding-right="5px"></ion-icon>
+                vipRoom
+              </li>
+            </ul>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+
+      </ion-col>
+    </ion-row>
+
+    <div class="otherInformation">
+      <ion-row>
+        <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
+          <ion-icon name="cash"></ion-icon>
+        </ion-col>
+        <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
+          <span>Average price</span>
+          {{place.averagePrice}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
+          <ion-icon name="call"></ion-icon>
+        </ion-col>
+        <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
+          {{place.phone}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
+          <ion-icon name="time"></ion-icon>
+        </ion-col>
+        <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
+          {{place.days["1"].start}} -
+          {{place.days["1"].end}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
+          <ion-icon name="ios-mail-outline"></ion-icon>
+        </ion-col>
+        <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
+          {{place.email}}
+        </ion-col>
+      </ion-row>
+      <ion-row margin-top="15px">
+        <ion-col>Connect to manager</ion-col>
+        <ion-col col-2 class="iconWrapper">
+          <ion-icon name="md-mail"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row margin-top="10px">
+        <button ion-button full color="defaultApp">Drinker</button>
+<!--TODO add action to drinker functional to this button-->
+      </ion-row>
+    </div>
+  </ion-grid>
+
+  <!--<ion-item-group>-->
+  <!--<ion-grid>-->
+
+  <!--<ion-item>-->
+  <!--<span item-start="">Переглядів {{place.reviews}}-->
+  <!--<ion-icon name="eye"></ion-icon>-->
+  <!--</span>-->
+  <!--<span item-end="">Рейтинг-->
+  <!--<ion-icon name="star"></ion-icon>-->
+  <!--{{place.rating}}-->
+  <!--</span>-->
+
+  <!--</ion-item>-->
+  <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
+  <!--&lt;!&ndash;<p *ngFor="let tc of place.topCategories">&ndash;&gt;-->
+  <!--&lt;!&ndash;{{tc}}&ndash;&gt;-->
+  <!--&lt;!&ndash;</p>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
+  <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
+  <!--&lt;!&ndash;{{place.averagePrice}}&ndash;&gt;-->
+  <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
 
 
-    <!--<ion-item>-->
-      <!--<button (click)="x()" ion-button icon-left>-->
-        <!--показати на карті розташування {{place.multilang[0].name}}-->
-      <!--</button>-->
-    <!--</ion-item>-->
+  <!--<ion-item>-->
+  <!--<ion-icon name="call"></ion-icon>-->
+  <!--{{place.phone}}-->
+  <!--</ion-item>-->
+  <!--<ion-item>-->
+  <!--<ion-icon name="at"></ion-icon>-->
+  <!--{{place.email}}-->
+  <!--</ion-item>-->
 
 
-    <!--<ion-item>-->
-      <!--<button (click)="goToPlace()" ion-button icon-left>-->
-        <!--<ion-icon name="navigate"></ion-icon>-->
-        <!--прокласти маршрут до {{place.multilang[0].name}}-->
-      <!--</button>-->
-    <!--</ion-item>-->
+  <!--<ion-item>-->
+  <!--<ion-icon name="wifi" *ngIf="place.features.wifi" padding-right="5px"></ion-icon>-->
+  <!--<ion-icon name="car" *ngIf="place.features.parking" padding-right="5px"></ion-icon>-->
+  <!--<ion-icon name="microphone" *ngIf="place.features.karaoke" padding-right="5px"></ion-icon>-->
+  <!--<ion-icon name="glasses" *ngIf="place.features.vipRoom" padding-right="5px"></ion-icon>-->
+  <!--</ion-item>-->
 
 
-    <div id="map"></div>
+  <!--<ion-item>-->
+  <!--<ion-grid>-->
+  <!--<ion-row>-->
+  <!--<ion-col>-->
+  <!--день-->
+  <!--</ion-col>-->
+  <!--<ion-col> початок</ion-col>-->
+  <!--<ion-col>-->
+  <!--кінець-->
+  <!--</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col> Пн</ion-col>-->
+  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
+  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col> Вт</ion-col>-->
+  <!--<ion-col> {{place.days["2"].start}}</ion-col>-->
+  <!--<ion-col> {{place.days["2"].end}}</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col> Ср</ion-col>-->
+  <!--<ion-col> {{place.days["3"].start}}</ion-col>-->
+  <!--<ion-col> {{place.days["3"].end}}</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col> Чт</ion-col>-->
+  <!--<ion-col> {{place.days["4"].start}}</ion-col>-->
+  <!--<ion-col> {{place.days["4"].end}}</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col> Пт</ion-col>-->
+  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
+  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col> Сб</ion-col>-->
+  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
+  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
+  <!--</ion-row>-->
+  <!--<ion-row>-->
+  <!--<ion-col> Нд</ion-col>-->
+  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
+  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
+  <!--</ion-row>-->
+  <!--</ion-grid>-->
 
 
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            день
-          </ion-col>
-          <ion-col> початок</ion-col>
-          <ion-col>
-            кінець
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col> Пн</ion-col>
-          <ion-col> {{place.days["1"].start}}</ion-col>
-          <ion-col> {{place.days["1"].end}}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col> Вт</ion-col>
-          <ion-col> {{place.days["2"].start}}</ion-col>
-          <ion-col> {{place.days["2"].end}}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col> Ср</ion-col>
-          <ion-col> {{place.days["3"].start}}</ion-col>
-          <ion-col> {{place.days["3"].end}}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col> Чт</ion-col>
-          <ion-col> {{place.days["4"].start}}</ion-col>
-          <ion-col> {{place.days["4"].end}}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col> Пт</ion-col>
-          <ion-col> {{place.days["1"].start}}</ion-col>
-          <ion-col> {{place.days["1"].end}}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col> Сб</ion-col>
-          <ion-col> {{place.days["1"].start}}</ion-col>
-          <ion-col> {{place.days["1"].end}}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col> Нд</ion-col>
-          <ion-col> {{place.days["1"].start}}</ion-col>
-          <ion-col> {{place.days["1"].end}}</ion-col>
-        </ion-row>
-      </ion-grid>
+  <!--</ion-item>-->
 
-
-    </ion-item>
-
-  </ion-item-group>
+  <!--&lt;!&ndash;</ion-item-group>&ndash;&gt;-->
 </ion-content>

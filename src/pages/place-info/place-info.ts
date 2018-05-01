@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
-import {host1, host2} from "../../configs/GlobalVariables";
 import {MapPage} from "../map/map";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
@@ -22,14 +21,14 @@ export class PlaceInfoPage {
   globalHost: string;
   place: Place;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, platform: Platform, gc: GlobalConfigsService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    platform: Platform,
+    gc: GlobalConfigsService,
+    private events: Events
+  ) {
     this.place = this.navParams.data;
-    // if (platform.is("android")) {
-    //   this.globalHost = host2;
-    // } else {
-    //   this.globalHost = host1;
-    // }
-
     this.globalHost = gc.getGlobalHost();
 
   }
@@ -47,4 +46,5 @@ export class PlaceInfoPage {
   goToPlace(): void {
     window.location = `geo:${this.place.location.lat},${this.place.location.lng};u=35;`
   }
+
 }

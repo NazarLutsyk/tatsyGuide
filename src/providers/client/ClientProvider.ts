@@ -8,7 +8,6 @@ import {RatingProvider} from "../rating/rating-provider";
 import {DepartmentProvider} from "../department/department-provider";
 import {BonuseProvider} from "../bonuse/bonuseProvider";
 import {EventProvider} from "../event/EventProvider";
-import {News} from "../../models/promo/news/News";
 import {NewsProvider} from "../news/NewsProvider";
 import {Platform} from "ionic-angular";
 
@@ -43,7 +42,7 @@ export class ClientProvider {
 
 
   }
-  
+
 
   getClients(target = {}, fetch = {}) {
     let fetchSendedMessages = JSON.stringify({sendedMessages: {}});
@@ -127,4 +126,10 @@ export class ClientProvider {
       console.log(clients);
     });
   }
+
+
+  // getCurrentPrincipal() {
+  //   console.log(`${this.globalHost}/auth/principal`);
+  //   return this.http.get<Client>(`${this.globalHost}/auth/principal`);
+  // }
 }

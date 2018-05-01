@@ -19,7 +19,7 @@
   <ion-content padding>
     <div *ngFor="let promo of place.promos">
       <div *ngIf="promo.kind=='News'">
-        <ion-img [src]="promo.images[0]"></ion-img>
+        <ion-img [src]="promo.images"></ion-img>
         <p>{{promo.kind}} {{promo.multilang[0].header}} {{promo.multilang[0].description}}</p></div>
     </div>
   </ion-content>

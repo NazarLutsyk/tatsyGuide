@@ -1,20 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {Events, NavController, Platform} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
-import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
-import {PlaceTypeProvider} from "../../providers/place-type/place-type";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {Place} from "../../models/place/Place";
 import {host1, host2} from "../../configs/GlobalVariables";
+import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
+import {Client} from "../../models/client/Client";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage implements OnInit {
+
   places: Place[];
   globalHost: string;
+  principal: Client;
 
   constructor(
     public navCtrl: NavController,
@@ -22,6 +25,7 @@ export class HomePage implements OnInit {
     private clientService: ClientProvider,
     private bonuseService: BonuseProvider,
     private events: Events,
+    private storage: Storage,
     platform: Platform
   ) {
 
@@ -47,15 +51,25 @@ export class HomePage implements OnInit {
       this.places = value;
       console.log(value[0]);
     });
-    // this.placesService.getAllPlaces2().subscribe(value => console.log(value));
-    // console.log(this.placesService.getAllPlaces2());
+
 
 
   }
 
   toDetails(place) {
     this.navCtrl.push(PlaceDeatilsPage, place);
+    // this.navCtrl.setRoot(PlaceDeatilsPage,place);
   }
+  ionViewDidEnter(){
+    console.log("home enter");
+
+    this.storage.get('currentPrincipal').then(value => {
+
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!!");
+      console.log(JSON.parse(value))});
+
+  }
+
 
 
 }

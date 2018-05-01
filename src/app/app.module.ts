@@ -3,14 +3,12 @@ import {ErrorHandler, NgModule} from '@angular/core';
 import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import {MyApp} from './app.component';
-import {HomePage} from '../pages/home/home';
 import {PlacesProvider} from '../providers/places-service/PlacesProvider';
 import {HttpClientModule} from "@angular/common/http";
-import {PlaceDeatilsPage} from "../pages/place-deatils/place-deatils";
-import {MapPage} from "../pages/map/map";
-import {AgmCoreModule} from "@agm/core";
 import {BonuseProvider} from '../providers/bonuse/bonuseProvider';
 import {PlaceTypeProvider} from '../providers/place-type/place-type';
 import {EventProvider} from "../providers/event/EventProvider";
@@ -20,43 +18,49 @@ import {DrinkApplicationProvider} from "../providers/drinkApplication/drinkAppli
 import {RatingProvider} from "../providers/rating/rating-provider";
 import {DepartmentProvider} from "../providers/department/department-provider";
 import {ClientProvider} from "../providers/client/ClientProvider";
-import {EventPage} from "../pages/event/event";
-import {BonusePage} from "../pages/bonuse/bonuse";
-import {NewsPage} from "../pages/news/news";
-import {PlaceInfoPage} from "../pages/place-info/place-info";
 import {GlobalConfigsService} from "../configs/GlobalConfigsService";
+import {Geolocation} from '@ionic-native/geolocation';
+import {TestimonialPage} from "../pages/testimonial/testimonial";
+import {HomePageModule} from "../pages/home/home.module";
+import {PlaceDetailsModule} from "../pages/place-deatils/place-details.module";
+import {MapModule} from "../pages/map/map.module";
+import {EventPageModule} from "../pages/event/event.module";
+import {BonusePageModule} from "../pages/bonuse/bonuse.module";
+import {NewsPageModule} from "../pages/news/news.module";
+import {PlaceInfoPageModule} from "../pages/place-info/place-info.module";
+import {TestimonialPageModule} from "../pages/testimonial/testimonial.module";
+import {LoginPage} from "../pages/login/login";
+import {LoginPageModule} from "../pages/login/login.module";
+import {SignUpPageModule} from "../pages/sign-up/sign-up.module";
+import {SignInPageModule} from "../pages/sign-in/sign-in.module";
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    PlaceDeatilsPage,
-    MapPage,
-    EventPage,
-    BonusePage,
-    NewsPage,
-    PlaceInfoPage
 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyBGmyqfYXWuVBwLJFWiZiXJZ0zCgDawUqA"
-    })
+    BrowserAnimationsModule,
+    HomePageModule,
+    PlaceDetailsModule,
+    MapModule,
+    EventPageModule,
+    BonusePageModule,
+    NewsPageModule,
+    PlaceInfoPageModule,
+    TestimonialPageModule,
+    LoginPageModule,
+    SignUpPageModule,
+    SignInPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    PlaceDeatilsPage,
-    MapPage,
-    EventPage,
-    BonusePage,
-    NewsPage,
-    PlaceInfoPage
+
+    TestimonialPage
   ],
   providers: [
     StatusBar,
@@ -72,7 +76,8 @@ import {GlobalConfigsService} from "../configs/GlobalConfigsService";
     RatingProvider,
     DepartmentProvider,
     ClientProvider,
-    GlobalConfigsService
+    GlobalConfigsService,
+    Geolocation,
   ]
 })
 export class AppModule {

@@ -1,25 +1,31 @@
-<!--
-  Generated template for the PlaceDeatilsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{place.multilang[0].name}} asdasdasdasdasdasd sa asd asd asd asd asd asd a da das das ds<span *ngIf="!place.allowed">not allowed</span></ion-title>
+    <ion-title>
+      <ion-row>
+        <ion-col col-10>{{place.multilang[0].name}} <span *ngIf="!place.allowed">not allowed</span></ion-col>
+        <ion-col col-2>
+          <span (click)="addToFavorite(place)" >
+            <ion-icon name="heart-outline" *ngIf="!isFavorite"></ion-icon>
+            <ion-icon name="heart" *ngIf="isFavorite"></ion-icon>
+          </span>
+
+        </ion-col>
+
+      </ion-row>
+
+    </ion-title>
+
   </ion-navbar>
 
 </ion-header>
 
 
-
-
-
-  <ion-tabs class="tabs-basic">
-    <ion-tab [root]="placeInfoPage" tabTitle="місце" tabIcon="beer" [rootParams]="place" ></ion-tab>
-    <ion-tab [root]="eventsPage" tabTitle="події" tabIcon="bowtie" [rootParams]="place"></ion-tab>
-    <ion-tab [root]="bonusesPage" tabTitle="акції" tabIcon="ribbon" [rootParams]="place"></ion-tab>
-    <ion-tab [root]="newsPage" tabTitle="новини" tabIcon="information" [rootParams]="place"></ion-tab>
-    <ion-tab [root]="mapPage" tabTitle="карта" tabIcon="map" [rootParams]="place"></ion-tab>
-  </ion-tabs>
+<ion-tabs class="tabs-basic" tabsPlacement="bottom">
+  <ion-tab [root]="placeInfoPage" tabTitle="місце" tabIcon="beer" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="eventsPage" tabTitle="події" tabIcon="bowtie" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="bonusesPage" tabTitle="акції" tabIcon="ribbon" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="newsPage" tabTitle="новини" tabIcon="information" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="mapPage" tabTitle="карта" tabIcon="map" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="testimonialsPage" tabTitle="testimonial" tabIcon="podium" [rootParams]="place"></ion-tab>
+</ion-tabs>

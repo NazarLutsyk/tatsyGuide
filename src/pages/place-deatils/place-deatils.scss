@@ -16,22 +16,29 @@ page-place-deatils {
 
   }
 
-  //.activated {
-  //  background-color: red;
-  //}
-
-  //.tab-item-active{
-  //  background:green;
-  //}
-
-  //.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
-  //  color: red;
-  //}
-
-  //$tabs-md-tab-icon-color-active: red;
-  .tabs-md .tab-button[aria-selected=true] .tab-button-icon , .tabs-md .tab-button[aria-selected=true]{
+  .tabs .tab-button[aria-selected=true] .tab-button-icon, .tabs .tab-button[aria-selected=true] {
     color: map-get($colors, defaultApp);
+    background: white;
   }
+
+  .tab-button {
+    background: white;
+  }
+
+  .toolbar-background {
+    background: map_get($colors, defaultApp);
+  }
+  ion-header {
+    ion-icon {
+      color: #fff;
+    }
+    .toolbar-title {
+      color: #fff;
+
+    }
+
+  }
+
 }
 
 

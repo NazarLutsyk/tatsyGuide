@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      logo
+      logo <span *ngIf="principal">{{principal.name}}</span>
     </ion-title>
     <button ion-button menuToggle="rightSideMenu" right>
       <ion-icon name="options"></ion-icon>
@@ -14,27 +14,32 @@
   </ion-searchbar>
 </ion-header>
 
+
 <ion-content padding>
-  <ion-list [virtualScroll]="places" [approxItemHeight] = "'132px'">
+
+
+  <ion-list [virtualScroll]="places" [approxItemHeight]="'132px'">
+    <!--<ion-list >-->
     <!--<ion-item *ngFor="let place of places" (click)="toDetails(place)">-->
+
     <ion-item *virtualItem="let place" (click)="toDetails(place)">
       <ion-thumbnail item-start>
         <img [src]="globalHost+place.images[0]">
       </ion-thumbnail>
-      <span item-right> <ion-icon name="star"></ion-icon> {{place.rating}} </span>
       <h2>{{place.multilang[0].name}}</h2>
+      <span> <ion-icon name="star"></ion-icon> {{place.rating}} </span>
+      <ion-icon item-end name="ios-arrow-dropright"></ion-icon>
 
-      <!--<p>{{place.types[0].multilang[0].name}}</p>-->
-
-      <p>{{place.multilang[0].description}}</p>
+      <p><span *ngFor="let placeType of place.types">{{placeType.multilang[0].name}} </span></p>
+      <p>{{place.multilang[0].address.city}} {{place.multilang[0].address.street}}
+        {{place.multilang[0].address.number}}</p>
       <p>{{place.distance | number : '3.1-2'}} км</p>
-      <p><span *ngFor="let placeType of place.types">{{placeType.multilang[0].name}}</span></p>
+
+      <!--TODO add adress of place here with city-->
+
     </ion-item>
   </ion-list>
+
 </ion-content>
 
 
-<!--[(ngModel)]="myInput"-->
-<!--[showCancelButton]="shouldShowCancel"-->
-<!--(ionInput)="onInput($event)"-->
-<!--(ionCancel)="onCancel($event)"-->

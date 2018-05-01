@@ -6,18 +6,35 @@
   </ion-header>
   <ion-content>
     <ion-list>
+      <button ion-button (click)="logout()">logout</button>
 
       <ion-item>
-        <button> asd</button>
+      </ion-item>
+
+      <ion-item>
+        <span> My Places</span>
+      </ion-item>
+
+      <ion-item>
+        <span (click)="goToFavorite()"> Favorite Places</span>
       </ion-item>
       <ion-item>
-        <button> qwe</button>
+        <span> My Estimates</span>
       </ion-item>
+
+      <ion-item>
+        <span> Messages</span>
+      </ion-item>
+      <ion-item>
+        <span (click)="goToLoginRegistration()"> login/registration</span>
+      </ion-item>
+
+
     </ion-list>
   </ion-content>
 </ion-menu>
 
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav #myNav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 
 <ion-menu [content]="content" side="right" id="rightSideMenu" type="overlay">
@@ -76,7 +93,7 @@
 
     <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
       <ion-label>{{feature}}</ion-label>
-      <ion-checkbox color="energized" checked="true" color="dark"
+      <ion-checkbox color="dark"
                     [(ngModel)]="searchObject.filterFeature[feature]"></ion-checkbox>
     </ion-item>
 

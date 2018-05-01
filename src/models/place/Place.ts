@@ -1,5 +1,4 @@
 import {Bonuse} from "../promo/bonus/Bonuse";
-import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {HashTag} from "../hashTag/HashTag";
 import {TopPlace} from "../tops/TopPlace";
 import {PlaceType} from "../placeType/PlaceType";
@@ -20,7 +19,6 @@ export class Place {
   rating: number;//+
   allowed: boolean; //+
   avatar: string;//??????? откуда берется вообще?
-  adress: string; // + todo map with logic!
   location: { lat: number, lng: number }; // +- todo add map cursor when create this option
   features: { wifi: boolean, parking: boolean, vipRoom: boolean, karaoke: boolean }; //+
   topCategories: string[]; //+
@@ -46,7 +44,8 @@ export class Place {
   departments: Department[];
 
 
-  constructor(id: string, phone: string, email: string, averagePrice: number, reviews: number, rating: number, allowed: boolean, avatar: string, adress: string = 'пл. Князя Святослава 5в/2', location: { lat: number; lng: number }, features: { wifi: boolean; parking: boolean; vipRoom: boolean; karaoke: boolean }, topCategories: string[], images: string[], days, promos: Bonuse[], hashTags: HashTag[], tops: TopPlace[], types: PlaceType[], multilang: PlaceMultilang, complaints: Complaint[], drinkApplications: DrinkApplication[], ratings: Rating[], departments: Department[]) {
+
+  constructor(id: string, phone: string, email: string, averagePrice: number, reviews: number, rating: number, allowed: boolean, avatar: string,  location: { lat: number; lng: number }, features: { wifi: boolean; parking: boolean; vipRoom: boolean; karaoke: boolean }, topCategories: string[], images: string[], days, promos: Bonuse[], hashTags: HashTag[], tops: TopPlace[], types: PlaceType[], multilang: PlaceMultilang, complaints: Complaint[], drinkApplications: DrinkApplication[], ratings: Rating[], departments: Department[]) {
 
     this._id = id;
     this.phone = phone;
@@ -56,7 +55,6 @@ export class Place {
     this.rating = rating;
     this.allowed = allowed;
     this.avatar = avatar;
-    this.adress = adress;
     this.location = location;
     this.features = features;
     // this.features = {wifi:true , karaoke:true, parking:true,vipRoom:true};

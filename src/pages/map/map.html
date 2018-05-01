@@ -13,14 +13,15 @@
 </ion-header>
 
 
-<ion-content  class="map-page">
+<ion-content class="map-page">
 
 
   <ion-fab left bottom class="fab-map">
-    <button ion-fab  (click)="goToPlace()"><ion-icon name="navigate"></ion-icon></button>
+    <button ion-fab (click)="goToPlace()">
+      <ion-icon name="navigate"></ion-icon>
+    </button>
   </ion-fab>
   <agm-map id="map" [latitude]="map.lat" [longitude]="map.lng" [zoom]="map.zoom">
-    <agm-marker [latitude]="map.lat" [longitude]="map.lng" ></agm-marker>
-
+    <agm-marker [latitude]="map.lat" [longitude]="map.lng"></agm-marker>
   </agm-map>
 </ion-content>

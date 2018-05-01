@@ -5,12 +5,14 @@ export class PlaceMultilang {
   name: string;
   description: string;
   place: Place;
+  address: { city: string, street: string, number: string };
 
 
-  constructor(id: string, name: string, description: string, place: Place) {
+  constructor(id: string, name: string, description: string, place: Place , address: { city: string, street: string, number: string }) {
     this._id = id;
     this.name = name;
     this.description = description;
     this.place = place;
+    this.address = address;
   }
 }
