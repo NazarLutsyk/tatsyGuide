@@ -10,7 +10,6 @@ import {Client} from "../../models/client/Client";
 import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-// ionic cordova platform rm android && ionic cordova platform add android &&  ionic cordova prepare android && ionic cordova build android && ionic cordova run android
 
 @Component({
   selector: 'page-home',

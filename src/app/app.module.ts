@@ -35,6 +35,7 @@ import {SignUpPageModule} from "../pages/sign-up/sign-up.module";
 import {SignInPageModule} from "../pages/sign-in/sign-in.module";
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker-application.module";
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker
     ClientProvider,
     GlobalConfigsService,
     Geolocation,
-    NativePageTransitions
+    NativePageTransitions,
+    AuthProvider
   ]
 })
 export class AppModule {
