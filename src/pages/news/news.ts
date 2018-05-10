@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
@@ -18,10 +18,15 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 export class NewsPage {
 
   place: Place;
+  globalHost: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private   gc: GlobalConfigsService) {
     this.place = this.navParams.data;
+
+    this.globalHost = this.gc.getGlobalHost();
+
   }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewsPage');
   }

@@ -1,15 +1,9 @@
 import {Component} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
-import {MapPage} from "../map/map";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 
-/**
- * Generated class for the PlaceInfoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 declare var window: any;
 
 @IonicPage()
@@ -22,6 +16,7 @@ export class PlaceInfoPage {
   place: Place;
 
   constructor(
+    private app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
     platform: Platform,
@@ -37,14 +32,23 @@ export class PlaceInfoPage {
     console.log('ionViewDidLoad PlaceInfoPage');
   }
 
-  x(): void {
-    // alert("goToMapPage");
-    this.navCtrl.push(MapPage, this.place);
-    console.log("xxxx");
-  }
+  // x(): void {
+  //   // alert("goToMapPage");
+  //   this.navCtrl.push(MapPage, this.place);
+  //   console.log("xxxx");
+  // }
 
   goToPlace(): void {
     window.location = `geo:${this.place.location.lat},${this.place.location.lng};u=35;`
+  }
+
+
+  goToCreateDrinkerApplication(place) {
+    // TODO check this 2127 may 9
+
+    this.app.getRootNavs().push(DrinkerApplicationPage, {place, disable: true});
+
+
   }
 
 }

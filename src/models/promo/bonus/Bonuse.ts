@@ -9,8 +9,8 @@ export class Bonuse extends Promo{
   translation: BonuseMultilang;
 
 
-  constructor(id: string, images: string[], author: Client, place: Place, startDate: string, endDate: string, translation: BonuseMultilang) {
-    super(id, images, author, place);
+  constructor(id: string, image: string, author: Client, place: Place, startDate: string, endDate: string, translation: BonuseMultilang) {
+    super(id, image, author, place);
     this.startDate = startDate;
     this.endDate = endDate;
     this.translation = translation;

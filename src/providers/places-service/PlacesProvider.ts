@@ -43,7 +43,7 @@ export class PlacesProvider {
     private geolocation: Geolocation,
     platform: Platform,
     private events: Events,
-    private storage : Storage
+    private storage: Storage
   ) {
 
     if (platform.is("android")) {
@@ -60,7 +60,7 @@ export class PlacesProvider {
 
 
   getFavoritePlaces() {
-    // todo fetch favorite objects
+    // drinkerApplication fetch favorite objects
 
   }
 
@@ -75,8 +75,9 @@ export class PlacesProvider {
     let placesRequest = this
       .http
       .get<Place[]>(this.globalHost + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
-    console.log(this.globalHost + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
+    console.log("place provider", this.globalHost + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
     return placesRequest.pipe(switchMap((places) => {
+        console.log("im swithc map");
         let placeIds = [];
         for (const place of places) {
           placeIds.push(place._id);

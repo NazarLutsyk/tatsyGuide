@@ -17,10 +17,16 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 })
 export class EventPage {
 
+  globalHost: string;
   place: Place;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private   gc: GlobalConfigsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private   gc: GlobalConfigsService,
+  ) {
     this.place = this.navParams.data;
+
+
+    this.globalHost = this.gc.getGlobalHost();
   }
 
   ionViewDidLoad() {

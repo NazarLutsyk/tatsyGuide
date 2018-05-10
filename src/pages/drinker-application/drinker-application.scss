@@ -1,0 +1,10 @@
+page-drinker-application {
+  .button {
+    background: map-get($colors, defaultApp);
+  }
+  .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: map_get($colors, defaultApp) ;
+    box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp);
+  }
+}
+

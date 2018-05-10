@@ -7,8 +7,8 @@ export class Event extends Promo{
   translation: EventMultilang;
 
 
-  constructor(id: string, images: string[], author: Client, place: Place, translation: EventMultilang) {
-    super(id, images, author, place);
+  constructor(id: string, image: string, author: Client, place: Place, translation: EventMultilang) {
+    super(id, image, author, place);
     this.translation = translation;
   }
 }

@@ -19,7 +19,7 @@ export class Place {
   rating: number;//+
   allowed: boolean; //+
   avatar: string;//??????? откуда берется вообще?
-  location: { lat: number, lng: number }; // +- todo add map cursor when create this option
+  location: { lat: number, lng: number }; // +- drinkerApplication add map cursor when create this option
   features: { wifi: boolean, parking: boolean, vipRoom: boolean, karaoke: boolean }; //+
   topCategories: string[]; //+
   images: string[]; //+

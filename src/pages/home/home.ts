@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Events, NavController, Platform} from 'ionic-angular';
+import {Events, NavController, NavParams, Platform} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {ClientProvider} from "../../providers/client/ClientProvider";
@@ -8,6 +8,9 @@ import {host1, host2} from "../../configs/GlobalVariables";
 import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 import {Client} from "../../models/client/Client";
 import {Storage} from "@ionic/storage";
+import {HttpClient} from "@angular/common/http";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+// ionic cordova platform rm android && ionic cordova platform add android &&  ionic cordova prepare android && ionic cordova build android && ionic cordova run android
 
 @Component({
   selector: 'page-home',
@@ -20,7 +23,10 @@ export class HomePage implements OnInit {
   principal: Client;
 
   constructor(
+    private http: HttpClient,
+    private globalVars: GlobalConfigsService,
     public navCtrl: NavController,
+    private navParams : NavParams,
     private placesService: PlacesProvider,
     private clientService: ClientProvider,
     private bonuseService: BonuseProvider,
@@ -47,11 +53,11 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    console.log("onInit home page");
     this.placesService.getAllPlaces().subscribe(value => {
+      console.log("onInit home page", value);
       this.places = value;
-      console.log(value[0]);
     });
-
 
 
   }
@@ -60,15 +66,14 @@ export class HomePage implements OnInit {
     this.navCtrl.push(PlaceDeatilsPage, place);
     // this.navCtrl.setRoot(PlaceDeatilsPage,place);
   }
-  ionViewDidEnter(){
-    console.log("home enter");
 
-    this.storage.get('currentPrincipal').then(value => {
+  ionViewDidEnter() {
+    console.log("principal on home page", `${this.globalVars.getGlobalHost()}/auth/principal`);
+    this.http.get(`${this.globalVars.getGlobalHost()}/auth/principal`).subscribe(value => {
 
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!");
-      console.log(JSON.parse(value))});
-
+    });
   }
+
 
 
 

@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { EventPage } from './event';
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {EventPage} from './event';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,8 @@ import { EventPage } from './event';
   ],
   imports: [
     IonicPageModule.forChild(EventPage),
+    MatExpansionModule
   ],
 })
-export class EventPageModule {}
+export class EventPageModule {
+}

@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -6,6 +5,25 @@
 
 </ion-header>
 
-<ion-content padding>
-  testimonial
+<ion-content>
+
+  <ion-list [virtualScroll]="ratings" [approxItemHeight]="'200px'">
+
+    <ion-item>
+    </ion-item>
+
+
+    <ion-item *virtualItem="let rating">
+      <ion-icon item-start name="star">
+        {{rating.value}}
+      </ion-icon>
+      <h2>{{rating.client.name}}</h2>
+      <p>{{rating.comment}}</p>
+      <p>check : {{rating.price}}</p>
+
+    </ion-item>
+
+  </ion-list>
+
+
 </ion-content>

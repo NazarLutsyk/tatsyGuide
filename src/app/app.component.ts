@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, NgZone, ViewChild} from '@angular/core';
 import {Events, MenuController, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -7,10 +7,10 @@ import {HomePage} from '../pages/home/home';
 import {PlaceTypeProvider} from "../providers/place-type/place-type";
 import {PlacesProvider} from "../providers/places-service/PlacesProvider";
 import {LoginPage} from "../pages/login/login";
-import {Storage} from "@ionic/storage";
 import {GlobalConfigsService} from "../configs/GlobalConfigsService";
 import {HttpClient} from "@angular/common/http";
 import {host2} from "../configs/GlobalVariables";
+import {Client} from "../models/client/Client";
 
 
 @Component({
@@ -24,43 +24,37 @@ export class MyApp {
   rootPage: any = HomePage;
   placeTypes = [];
   searchObject = {range: {lower: 0, upper: 10000}, direction: false, filterFeature: {}};
+  isAuthenticated: boolean = false;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private placeTypeService: PlaceTypeProvider,
-              // private formBuilder: FormBuilder,
               private placeService: PlacesProvider,
               private events: Events,
               private menuController: MenuController,
-              private storage: Storage,
               private globalConfig: GlobalConfigsService,
-              private http: HttpClient
+              private http: HttpClient,
+              private _ngZone: NgZone
   ) {
 
 
     platform
-      .ready()
+      .ready().then(
+      () => {
+        // Okay, so the platform is ready and our plugins are available.
+        // Here you can do any higher level native things you might need.
+        statusBar.styleDefault();
+        splashScreen.hide();
+      }
+    );
 
-      .then(
-        () => {
-          // Okay, so the platform is ready and our plugins are available.
-          // Here you can do any higher level native things you might need.
-          statusBar
-            .styleDefault();
-
-          splashScreen
-            .hide();
-
-        }
-      )
-    ;
-
-
-    console.log("my app load");
-// this.storage.get("currentPrincipal").then(value => console.log(value));
-    this.storage.get("currentPrincipal").then();
-
+    this.events.subscribe("changeAuthState", value => {
+      console.log('i will change value to - ', value);
+      this._ngZone.run(() => {
+        this.isAuthenticated = true;
+      })
+    })
 
   }
 
@@ -77,6 +71,7 @@ export class MyApp {
   }
 
   show(so) {
+    //subscriber is in home.ts
     this.events.publish('functionCall:find', so);
   }
 
@@ -90,14 +85,32 @@ export class MyApp {
   }
 
 
-  ionViewDidEnter(){
-    console.log("enter");
-    this.storage.get("currentPrincipal").then(value => console.log(value));
+  logout() {
+    console.log('logout', `${host2}/auth/logout`);
+    this._ngZone.run(() => {
+      this.isAuthenticated = false;
+      console.log('in logout function', this.isAuthenticated)
+    });
+    this.http.get(`${host2}/auth/logout`).subscribe(value => {
+      console.log("logout was done");
+    });
   }
 
-  logout(){
-    console.log('logout');
-    this.http.get(`${host2}/auth/logout`);
+  checkDoINeedShowLogout() {
+    this.http.get<Client>(`${host2}/auth/principal`).subscribe(value => {
+      this._ngZone.run(() => {
+        if (!value._id) { // not logined
+          this.changeIsAuthValue();
+        }
+      })
+
+    });
+
+  }
+
+
+  changeIsAuthValue() {
+    this.isAuthenticated = !this.isAuthenticated;
   }
 
 }

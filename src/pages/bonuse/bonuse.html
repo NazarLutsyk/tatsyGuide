@@ -13,15 +13,37 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
 
-  <ion-content padding>
-    <div *ngFor="let promo of place.promos">
-      <div *ngIf="promo.kind=='Bonuse'">
-        <ion-img [src]="promo.images"></ion-img>
-        <p>{{promo.kind}} {{promo.multilang[0].header}} {{promo.multilang[0].description}}</p></div>
-    </div>
-  </ion-content>
+  <span *ngFor="let promo of place.promos">
+    <ion-card *ngIf="promo.kind=='Bonuse'">
+
+    <img src="{{globalHost+promo.image}}"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{promo.multilang[0].header}}
+      </ion-card-title>
+      <p>
+        {{promo.multilang[0].description}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+  </span>
+
+
+  <!--<ion-row *ngFor="let promo of place.promos">-->
+    <!--<ion-col col-12 *ngIf="promo.kind=='Bonuse'" >-->
+      <!--<ion-img [src]="globalHost+promo.image"></ion-img>-->
+    <!--</ion-col>-->
+    <!--<ion-col col-12 *ngIf="promo.kind=='Bonuse'" >-->
+      <!--<p>{{promo.kind}} {{promo.multilang[0].header}} {{promo.multilang[0].description}}</p>-->
+
+    <!--</ion-col>-->
+    <!--<ion-col col-12 *ngIf="promo.kind=='Bonuse'">-->
+      <!--Data of event-->
+
+    <!--</ion-col>-->
+  <!--</ion-row>-->
 
 
 </ion-content>

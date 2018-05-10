@@ -11,6 +11,7 @@ import {BonusePage} from "../bonuse/bonuse";
 import {PlaceInfoPage} from "../place-info/place-info";
 import {TestimonialPage} from "../testimonial/testimonial";
 import {Storage} from "@ionic/storage";
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 
 @Component({
@@ -30,11 +31,14 @@ export class PlaceDeatilsPage {
   mapPage = MapPage;
   testimonialsPage = TestimonialPage;
 
+
+
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               platform: Platform,
               private menuController: MenuController,
-              private storage: Storage
+              private storage: Storage,
   ) {
     this.place = this.navParams.data;
     console.log(this.place);
@@ -69,6 +73,8 @@ export class PlaceDeatilsPage {
     this.isFavorite = !this.isFavorite;
 
   }
+
+
 
 }
 
