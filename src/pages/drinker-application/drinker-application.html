@@ -34,8 +34,8 @@
       <ion-datetime [(ngModel)]="drinkerApplicationObject.date" name="money"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>Place</ion-label>
-      <ion-input type="text" [(ngModel)]="drinkerApplicationObject.place.multilang[0].name" name="title"></ion-input>
+      <ion-label>Place {{isActive}}</ion-label>
+      <ion-input type="text" [(ngModel)]="drinkerApplicationObject.place.multilang[0].name" name="title" [disabled]="isActive"></ion-input>
     </ion-item>
 
     <!--TODO fetch client wich is registred-->

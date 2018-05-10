@@ -64,7 +64,6 @@ export class HomePage implements OnInit {
 
   toDetails(place) {
     this.navCtrl.push(PlaceDeatilsPage, place);
-    // this.navCtrl.setRoot(PlaceDeatilsPage,place);
   }
 
   ionViewDidEnter() {

@@ -62,7 +62,6 @@ import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker
   bootstrap: [IonicApp],
   entryComponents: [
 
-    TestimonialPage
   ],
   providers: [
     StatusBar,

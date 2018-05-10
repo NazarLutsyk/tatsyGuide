@@ -9,7 +9,7 @@ import {PlacesProvider} from "../providers/places-service/PlacesProvider";
 import {LoginPage} from "../pages/login/login";
 import {GlobalConfigsService} from "../configs/GlobalConfigsService";
 import {HttpClient} from "@angular/common/http";
-import {host2} from "../configs/GlobalVariables";
+import {host2, lang} from "../configs/GlobalVariables";
 import {Client} from "../models/client/Client";
 
 
@@ -61,10 +61,11 @@ export class MyApp {
 
   ngOnInit() {
     this.placeTypeService
-      .getPlaceTypes({}, [{placeTypeMultilang: {query: {lang: "5acf2559ab842f11f8362409"}}}])
+      .getPlaceTypes({}, [{placeTypeMultilang: {query: {lang: lang}}}])
       .subscribe(placeTypes => {
         for (const placeType of placeTypes) {
-          this.placeTypes.push(placeType.multilang);
+          console.log(placeType);
+          this.placeTypes.push(placeType.multilang[0].name);
         }
       });
 
@@ -75,9 +76,6 @@ export class MyApp {
     this.events.publish('functionCall:find', so);
   }
 
-  goToFavorite() {
-    this.events.publish("favoritePlaces");
-  }
 
   goToLoginRegistration() {
     this.navCtrl.push(LoginPage);

@@ -57,10 +57,10 @@ export class PlaceDeatilsPage {
   }
 
   async ionViewDidEnter() {
-    console.log("enter");
-    if (await this.storage.get(this.place._id)) {
-      this.isFavorite = true;
-    }
+    // console.log("enter");
+    // if (await this.storage.get(this.place._id)) {
+    //   this.isFavorite = true;
+    // }
 
   }
 

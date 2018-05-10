@@ -32,11 +32,6 @@ export class PlaceInfoPage {
     console.log('ionViewDidLoad PlaceInfoPage');
   }
 
-  // x(): void {
-  //   // alert("goToMapPage");
-  //   this.navCtrl.push(MapPage, this.place);
-  //   console.log("xxxx");
-  // }
 
   goToPlace(): void {
     window.location = `geo:${this.place.location.lat},${this.place.location.lng};u=35;`
@@ -45,8 +40,8 @@ export class PlaceInfoPage {
 
   goToCreateDrinkerApplication(place) {
     // TODO check this 2127 may 9
-
-    this.app.getRootNavs().push(DrinkerApplicationPage, {place, disable: true});
+    console.log("asdasd");
+    this.app.getRootNav().push(DrinkerApplicationPage, {place, disabled: true});
 
 
   }

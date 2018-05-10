@@ -27,6 +27,8 @@ export class DrinkerApplicationPage {
 
   drinkerApplicationObject: DrinkerApplicationObjectTemplate = new DrinkerApplicationObjectTemplate();
 
+  isActive: boolean;
+
   logForm() {
     //todo add save to database logic
     console.log(this.drinkerApplicationObject)
@@ -37,6 +39,8 @@ export class DrinkerApplicationPage {
   ) {
     // TODO check this 2127 may 9
     this.drinkerApplicationObject.place = this.navParams.data.place;
+    this.isActive = this.navParams.data.disabled;
+    console.log(this.isActive);
   }
 
   ionViewDidLoad() {
