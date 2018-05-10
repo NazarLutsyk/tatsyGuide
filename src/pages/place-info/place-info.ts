@@ -39,8 +39,7 @@ export class PlaceInfoPage {
 
 
   goToCreateDrinkerApplication(place) {
-    // TODO check this 2127 may 9
-    console.log("asdasd");
+   
     this.app.getRootNav().push(DrinkerApplicationPage, {place, disabled: true});
 
 

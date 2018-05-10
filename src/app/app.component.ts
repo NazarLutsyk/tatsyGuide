@@ -11,6 +11,7 @@ import {GlobalConfigsService} from "../configs/GlobalConfigsService";
 import {HttpClient} from "@angular/common/http";
 import {host2, lang} from "../configs/GlobalVariables";
 import {Client} from "../models/client/Client";
+import {AuthProvider} from "../providers/auth/auth";
 
 
 @Component({
@@ -35,7 +36,8 @@ export class MyApp {
               private menuController: MenuController,
               private globalConfig: GlobalConfigsService,
               private http: HttpClient,
-              private _ngZone: NgZone
+              private _ngZone: NgZone,
+              private auth: AuthProvider
   ) {
 
 
@@ -84,32 +86,33 @@ export class MyApp {
 
 
   logout() {
-    console.log('logout', `${host2}/auth/logout`);
-    this._ngZone.run(() => {
-      this.isAuthenticated = false;
-      console.log('in logout function', this.isAuthenticated)
-    });
-    this.http.get(`${host2}/auth/logout`).subscribe(value => {
+      this.auth.logOut().subscribe(value => {
       console.log("logout was done");
-    });
-  }
-
-  checkDoINeedShowLogout() {
-    this.http.get<Client>(`${host2}/auth/principal`).subscribe(value => {
       this._ngZone.run(() => {
-        if (!value._id) { // not logined
-          this.changeIsAuthValue();
-        }
-      })
-
+        this.isAuthenticated = false;
+        console.log('in logout function', this.isAuthenticated)
+      });
     });
 
+
   }
 
+  // checkDoINeedShowLogout() {
+  //   this.http.get<Client>(`${host2}/auth/principal`).subscribe(value => {
+  //     this._ngZone.run(() => {
+  //       if (!value._id) { // not logined
+  //         this.changeIsAuthValue();
+  //       }
+  //     })
+  //
+  //   });
+  //
+  // }
 
-  changeIsAuthValue() {
-    this.isAuthenticated = !this.isAuthenticated;
-  }
+
+  // changeIsAuthValue() {
+  //   this.isAuthenticated = !this.isAuthenticated;
+  // }
 
 }
 

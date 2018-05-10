@@ -2,9 +2,8 @@ import {Component} from '@angular/core';
 import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {zip} from "rxjs/observable/zip";
+import {AuthProvider} from "../../providers/auth/auth";
 import {HomePage} from "../home/home";
-import {Storage} from "@ionic/storage";
 
 /**
  * Generated class for the SignUpPage page.
@@ -34,27 +33,19 @@ export class SignUpPage {
     private http: HttpClient,
     private globalVars: GlobalConfigsService,
     private app: App,
-    private storage: Storage
+    private auth: AuthProvider,
   ) {
 
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignUpPage');
-  }
-
   signUpMe() {
-    console.log("signUpMe");
-    var obj = {name: this.name, surname: this.surname, email: this.email, login: this.login, password: this.password};
-
-    zip(this.http.post(`${this.globalVars.getGlobalHost()}/auth/local/signup`, obj)).subscribe(response => {
-
-
-      console.log(response);
+    this.auth.registration({
+      name: this.name, surname: this.surname, email: this.email,
+      login: this.login, password: this.password
+    }).subscribe(response => {
       if (response) {
 
-        this.storage.set(`currentPrincipal`, JSON.stringify(response[0]));
         this.app.getRootNav().setRoot(HomePage);
       }
 
@@ -62,7 +53,6 @@ export class SignUpPage {
       this.message = "user with this login already exist"
 
     })
-
 
   }
 

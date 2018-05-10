@@ -3,6 +3,7 @@ import {App, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {HomePage} from "../home/home";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -21,25 +22,25 @@ export class SignInPage {
     private http: HttpClient,
     private globalVars: GlobalConfigsService,
     private app: App,
-    private events: Events
+    private events: Events,
+    private auth: AuthProvider,
   ) {
 
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignInPage');
-  }
 
   signInMe() {
     var obj = {login: this.login, password: this.password};
 
-    this.http.post(`${this.globalVars.getGlobalHost()}/auth/local/signin`, obj, {observe: 'response'}).subscribe((response) => {
+    this.auth.logIn(obj).subscribe((response) => {
         if (response) {
+          // todo delete on production
           this.http.get(`${this.globalVars.getGlobalHost()}/auth/principal`).subscribe(principal => {
             console.log("principal in sign in", principal);
 
           });
+          
           this.events.publish("changeAuthState", true);
           this.app.getRootNav().setRoot(HomePage);
 
