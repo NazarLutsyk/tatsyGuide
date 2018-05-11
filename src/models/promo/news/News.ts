@@ -1,14 +1,19 @@
-import {NewsMultilang} from "./NewsMultilang";
+import {NewsMultilang} from "../../multilang/NewsMultilang";
 import {Client} from "../../client/Client";
 import {Place} from "../../place/Place";
 import {Promo} from "../Promo";
 
-export class News extends Promo{
-  translation: NewsMultilang;
+export class News extends Promo {
 
-
-  constructor(id: string, image: string, author: Client, place: Place, translation: NewsMultilang) {
-    super(id, image, author, place);
-    this.translation = translation;
+  constructor(
+    public id: string = '',
+    public image: string = '',
+    public author: Client = null,
+    public place: Place = null,
+    public startDate: string = '',
+    public endDate: string = '',
+    public multilang: NewsMultilang = null
+  ) {
+    super(id, image, author, place, startDate, endDate);
   }
 }

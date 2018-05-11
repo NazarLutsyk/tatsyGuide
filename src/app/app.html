@@ -6,9 +6,6 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-button (click)="logout()" *ngIf="isAuthenticated">logout</button>
-
-
       <ion-item>
         <span> My Places</span>
       </ion-item>
@@ -23,17 +20,20 @@
       <ion-item>
         <span> Messages</span>
       </ion-item>
-      <ion-item>
-        <span (click)="goToLoginRegistration()"> login/registration</span>
+
+      <ion-item (click)="logout()" *ngIf="principal">
+        <span>logout</span>
       </ion-item>
 
+      <ion-item *ngIf="!principal">
+        <span (click)="goToLoginRegistration()"> login/registration</span>
+      </ion-item>
 
     </ion-list>
   </ion-content>
 </ion-menu>
 
 <ion-nav #myNav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
-
 
 <ion-menu [content]="content" side="right" id="rightSideMenu" type="overlay">
 

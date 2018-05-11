@@ -1,13 +1,10 @@
-import {PlaceTypeMultilang} from "./PlaceTypeMultilang";
+import {PlaceTypeMultilang} from "../multilang/PlaceTypeMultilang";
 
 export class PlaceType {
-  _id: string;
-  multilang: PlaceTypeMultilang;
-
-
-  constructor(id: string, multilang: PlaceTypeMultilang) {
-    this._id = id;
-    this.multilang = multilang;
+  constructor(
+    public id: string = '',
+    public multilang: PlaceTypeMultilang = null
+  ) {
   }
 
   public getMultilang(){

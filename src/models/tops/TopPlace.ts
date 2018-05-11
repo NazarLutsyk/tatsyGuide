@@ -1,19 +1,13 @@
 import {Place} from "../place/Place";
 
 export class TopPlace {
-  _id: string;
-  startDate: string;
-  endDate: string;
-  price: number;
-  actual: boolean;
-  place: Place;
-  
-  constructor(id: string, startDate: string, endDate: string, price: number, actual: boolean, place: Place) {
-    this._id = id;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.price = price;
-    this.actual = actual;
-    this.place = place;
+  constructor(
+    public id: string = '',
+    public startDate: string = '',
+    public endDate: string = '',
+    public price: number = 0,
+    public actual: boolean = false,
+    public place: Place = null
+  ) {
   }
 }

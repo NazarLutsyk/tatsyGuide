@@ -1,9 +1,7 @@
 export class HashTag {
-  _id: string;
-  value: string;
-
-  constructor(id: string, value: string) {
-    this._id = id;
-    this.value = value;
+  constructor(
+    public id: string = '',
+    public value: string = ''
+  ) {
   }
 }

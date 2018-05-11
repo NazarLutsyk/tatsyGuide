@@ -7,48 +7,26 @@ import {Promo} from "../promo/Promo";
 import {Message} from "../message/Message";
 
 export class Client {
-  _id:String;
-  name: string;
-  surname: string;
-  login: string;
-  password: string;
-  facebookId: string;
-  googleId: string;
-  city: string;
-  phone: string;
-  email: string;
-  avatar: string;
-  roles: string[];
-  favoritePlaces: Place[];
-  complaints: Complaint[];
-  drinkApplications: DrinkApplication[];
-  ratings: Rating[];
-  departments: Department[];
-  promos: Promo[];
-  sendedMessages: Message[];
-  receivedMessages: Message[];
-
-
-  constructor(id: String, name: string, surname: string, login: string, password: string, facebookId: string, googleId: string, city: string, phone: string, email: string, avatar: string, roles: string[], favoritePlaces: Place[], complaints: Complaint[], drinkApplications: DrinkApplication[], ratings: Rating[], departments: Department[], promos: Promo[], sendedMessages: Message[], receivedMessages: Message[]) {
-    this._id = id;
-    this.name = name;
-    this.surname = surname;
-    this.login = login;
-    this.password = password;
-    this.facebookId = facebookId;
-    this.googleId = googleId;
-    this.city = city;
-    this.phone = phone;
-    this.email = email;
-    this.avatar = avatar;
-    this.roles = roles;
-    this.favoritePlaces = favoritePlaces;
-    this.complaints = complaints;
-    this.drinkApplications = drinkApplications;
-    this.ratings = ratings;
-    this.departments = departments;
-    this.promos = promos;
-    this.sendedMessages = sendedMessages;
-    this.receivedMessages = receivedMessages;
-  }
+  constructor(
+              public id: string = '',
+              public name: string = '',
+              public surname: string = '',
+              public login: string = '',
+              public password: string = '',
+              public facebookId: string = '',
+              public googleId: string = '',
+              public city: string = '',
+              public phone: string = '',
+              public email: string = '',
+              public avatar: string = '',
+              public roles: string[] = [],
+              public favoritePlaces: Place[] = [],
+              public complaints: Complaint[] = [],
+              public drinkApplications: DrinkApplication[] = [],
+              public ratings: Rating[] = [],
+              public departments: Department[] = [],
+              public promos: Promo[] = [],
+              public sendedMessages: Message[] = [],
+              public receivedMessages: Message[] = []
+  ) {}
 }

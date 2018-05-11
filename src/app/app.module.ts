@@ -8,7 +8,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 
 import {MyApp} from './app.component';
 import {PlacesProvider} from '../providers/places-service/PlacesProvider';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {BonuseProvider} from '../providers/bonuse/bonuseProvider';
 import {PlaceTypeProvider} from '../providers/place-type/place-type';
 import {EventProvider} from "../providers/event/EventProvider";
@@ -36,6 +36,8 @@ import {SignInPageModule} from "../pages/sign-in/sign-in.module";
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker-application.module";
 import { AuthProvider } from '../providers/auth/auth';
+import { HttpInterceptorProvider } from '../providers/http-interceptor/http-interceptor';
+import { LangProvider } from '../providers/lang/lang';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,13 @@ import { AuthProvider } from '../providers/auth/auth';
     GlobalConfigsService,
     Geolocation,
     NativePageTransitions,
-    AuthProvider
+    AuthProvider,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorProvider,
+      multi: true
+    },
+    LangProvider
   ]
 })
 export class AppModule {

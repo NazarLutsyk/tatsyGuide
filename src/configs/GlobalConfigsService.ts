@@ -1,20 +1,32 @@
 import {Injectable} from "@angular/core";
 import {Platform} from "ionic-angular";
-import {host1, host2} from "./GlobalVariables";
+import {AuthProvider} from "../providers/auth/auth";
+import {Observable} from "rxjs/Observable";
+import {Client} from "../models/client/Client";
 
 @Injectable()
 export class GlobalConfigsService {
-  private globalHost = host1;
+  private globalHost;
+  private globalLang;
 
-  constructor(platform: Platform) {
-    if (platform.is("android")) {
-      this.globalHost = host2
-    }
+  constructor(
+    private platform: Platform,
+  ) {
+    // todo
+    // if (platform.is("android")) {
+    //   this.globalHost = 'https://192.168.1.25:3000';
+    // }else {
+      this.globalHost = 'https://localhost:3000';
+    // }
   }
 
   getGlobalHost(): string {
-    console.log(this.globalHost);
     return this.globalHost;
+  }
+
+  getGlobalLang() {
+    this.globalLang = '5af5a4ead1bf8a28542a615b';
+    return this.globalLang;
   }
 
 }

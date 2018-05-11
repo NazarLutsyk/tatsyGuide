@@ -1,6 +1,5 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {host1, host2} from "../../configs/GlobalVariables";
 import {Client} from "../../models/client/Client";
 import {ComplaintProvider} from "../complaint/complaint-provider";
 import {DrinkApplicationProvider} from "../drinkApplication/drinkApplication-provider";
@@ -9,22 +8,13 @@ import {DepartmentProvider} from "../department/department-provider";
 import {BonuseProvider} from "../bonuse/bonuseProvider";
 import {EventProvider} from "../event/EventProvider";
 import {NewsProvider} from "../news/NewsProvider";
-import {Platform} from "ionic-angular";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
-/*
-  Generated class for the BonuseProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ClientProvider {
-  globalHost: string;
-
 
   constructor(
-    platform: Platform,
-    public http: HttpClient,
+    private http: HttpClient,
     private complaintService: ComplaintProvider,
     private drinkApplicationService: DrinkApplicationProvider,
     private ratingService: RatingProvider,
@@ -32,31 +22,24 @@ export class ClientProvider {
     private bonuseService: BonuseProvider,
     private eventService: EventProvider,
     private newsService: NewsProvider,
+    private globalConfig: GlobalConfigsService
   ) {
-
-    if (platform.is("android")) {
-      this.globalHost = host2;
-    } else {
-      this.globalHost = host1;
-    }
-
-
   }
 
 
   getClients(target = {}, fetch = {}) {
     let fetchSendedMessages = JSON.stringify({sendedMessages: {}});
     let fetchReceivedMessages = JSON.stringify({receivedMessages: {}});
-    this.http.get<Client[]>(this.globalHost + `/api/clients?fetch=[${fetchSendedMessages},${fetchReceivedMessages}]`).subscribe(clients => {
+    this.http.get<Client[]>(this.globalConfig.getGlobalHost() + `/api/clients?fetch=[${fetchSendedMessages},${fetchReceivedMessages}]`).subscribe(clients => {
       let clientIds = [];
       for (const client of clients) {
-        clientIds.push(client._id);
+        clientIds.push(client.id);
       }
       this.complaintService.getComplaints({}, [{"place": {}}]).subscribe(complaints => {
         for (const complaint of complaints) {
           for (const client of clients) {
             if (!client.complaints) client.complaints = [];
-            if (client._id === complaint.client) {
+            if (client.id === complaint.client) {
               client.complaints.push(complaint);
             }
           }
@@ -66,7 +49,7 @@ export class ClientProvider {
         for (const drinkApplication of drinkApplications) {
           for (const client of clients) {
             if (!client.drinkApplications) client.drinkApplications = [];
-            if (client._id === drinkApplication.organizer) {
+            if (client.id === drinkApplication.organizer) {
               client.drinkApplications.push(drinkApplication);
             }
           }
@@ -76,7 +59,7 @@ export class ClientProvider {
         for (const rating of ratings) {
           for (const client of clients) {
             if (!client.ratings) client.ratings = [];
-            if (client._id === rating.client) {
+            if (client.id === rating.client) {
               client.ratings.push(rating);
             }
           }
@@ -86,7 +69,7 @@ export class ClientProvider {
         for (const department of departments) {
           for (const client of clients) {
             if (!client.departments) client.departments = [];
-            if (client._id === department.client) {
+            if (client.id === department.client) {
               client.departments.push(department);
             }
           }
@@ -96,7 +79,7 @@ export class ClientProvider {
         for (const singleNews of news) {
           for (const client of clients) {
             if (!client.promos) client.promos = [];
-            if (client._id === singleNews.author) {
+            if (client.id === singleNews.author) {
               client.promos.push(singleNews);
             }
           }
@@ -106,7 +89,7 @@ export class ClientProvider {
         for (const event of events) {
           for (const client of clients) {
             if (!client.promos) client.promos = [];
-            if (client._id === event.author) {
+            if (client.id === event.author) {
               client.promos.push(event);
             }
           }
@@ -116,20 +99,12 @@ export class ClientProvider {
         for (const bonuse of bonuses) {
           for (const client of clients) {
             if (!client.promos) client.promos = [];
-            if (client._id === bonuse.author) {
+            if (client.id === bonuse.author) {
               client.promos.push(bonuse);
             }
           }
         }
       });
-      console.log('clients');
-      console.log(clients);
     });
   }
-
-
-  // getCurrentPrincipal() {
-  //   console.log(`${this.globalHost}/auth/principal`);
-  //   return this.http.get<Client>(`${this.globalHost}/auth/principal`);
-  // }
 }

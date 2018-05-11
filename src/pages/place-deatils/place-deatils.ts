@@ -4,7 +4,6 @@ import {MenuController, NavController, NavParams, Platform} from 'ionic-angular'
 import {GoogleMap} from '@ionic-native/google-maps';
 import {MapPage} from "../map/map";
 import {Place} from "../../models/place/Place";
-import {host1, host2} from "../../configs/GlobalVariables";
 import {EventPage} from "../event/event";
 import {NewsPage} from "../news/news";
 import {BonusePage} from "../bonuse/bonuse";
@@ -41,13 +40,6 @@ export class PlaceDeatilsPage {
               private storage: Storage,
   ) {
     this.place = this.navParams.data;
-    console.log(this.place);
-
-    if (platform.is("android")) {
-      this.globalHost = host2;
-    } else {
-      this.globalHost = host1;
-    }
 
     let menus = this.menuController.getMenus();
     for (const menu of menus) {
@@ -56,22 +48,13 @@ export class PlaceDeatilsPage {
 
   }
 
-  async ionViewDidEnter() {
-    // console.log("enter");
-    // if (await this.storage.get(this.place._id)) {
-    //   this.isFavorite = true;
-    // }
-
-  }
-
   addToFavorite(place: Place) {
     if (this.isFavorite) {
-      this.storage.remove(place._id);
+      this.storage.remove(place.id);
     } else {
-      this.storage.set(this.place._id, JSON.stringify(place));
+      this.storage.set(this.place.id, JSON.stringify(place));
     }
     this.isFavorite = !this.isFavorite;
-
   }
 
 

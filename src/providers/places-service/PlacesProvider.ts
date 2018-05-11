@@ -4,7 +4,6 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/map';
 import {Place} from "../../models/place/Place";
 import {Events, Platform} from "ionic-angular";
-import {host1, host2, lang} from "../../configs/GlobalVariables";
 import {BonuseProvider} from "../bonuse/bonuseProvider";
 import {PlaceTypeProvider} from "../place-type/place-type";
 import {EventProvider} from "../event/EventProvider";
@@ -20,6 +19,7 @@ import _ from 'lodash';
 import {Geolocation} from '@ionic-native/geolocation';
 import {fromPromise} from "rxjs/observable/fromPromise";
 import {Storage} from "@ionic/storage";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 declare var window: any;
 declare var position: any;
@@ -27,11 +27,8 @@ declare var position: any;
 @Injectable()
 export class PlacesProvider {
 
-  private globalHost: string;
-
-
   constructor(
-    public http: HttpClient, plt: Platform,
+    private http: HttpClient, plt: Platform,
     private bonuseProvider: BonuseProvider,
     private eventProvider: EventProvider,
     private newsProvider: NewsProvider,
@@ -41,20 +38,14 @@ export class PlacesProvider {
     private ratingService: RatingProvider,
     private departmentService: DepartmentProvider,
     private geolocation: Geolocation,
-    platform: Platform,
     private events: Events,
-    private storage: Storage
+    private storage: Storage,
+    private globalConfig: GlobalConfigsService
   ) {
 
-    if (platform.is("android")) {
-      this.globalHost = host2;
-    } else {
-      this.globalHost = host1;
-    }
     this.events.subscribe("favoritePlaces", () => {
       console.log("favoritePlaces");
       this.getAllPlaces();
-
     })
   }
 
@@ -69,18 +60,17 @@ export class PlacesProvider {
     let fetchHahTags = JSON.stringify({hashTag: {}});
     let fetchTopPlaces = JSON.stringify({topPlace: {}});
     let fetchTypes = JSON.stringify({placeType: {}});
-    let fetchPlaceMultilang = JSON.stringify({placeMultilang: {query: {lang: lang}}});
+    let fetchPlaceMultilang = JSON.stringify({placeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}});
     // let fetchTypes = JSON.stringify({placeType: {query: {lang: lang}}});
 
     let placesRequest = this
       .http
-      .get<Place[]>(this.globalHost + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
-    console.log("place provider", this.globalHost + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
+      .get<Place[]>(this.globalConfig.getGlobalHost() + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
     return placesRequest.pipe(switchMap((places) => {
         console.log("im swithc map");
         let placeIds = [];
         for (const place of places) {
-          placeIds.push(place._id);
+          placeIds.push(place.id);
         }
         let targetToBonuses = {
           query: {
@@ -91,7 +81,7 @@ export class PlacesProvider {
           {
             bonuseMultilang: {
               query: {
-                lang: lang
+                lang: this.globalConfig.getGlobalLang()
               }
             },
           },
@@ -108,7 +98,7 @@ export class PlacesProvider {
           {
             eventMultilang: {
               query: {
-                lang: lang
+                lang: this.globalConfig.getGlobalLang()
               }
             },
 
@@ -126,7 +116,7 @@ export class PlacesProvider {
           {
             newsMultilang: {
               query: {
-                lang: lang
+                lang: this.globalConfig.getGlobalLang()
               }
             },
 
@@ -177,7 +167,7 @@ export class PlacesProvider {
         ];
         let fetchToPlaceType = [
           {
-            placeTypeMultilang: {query: {lang: lang}}
+            placeTypeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}
           }
         ];
         let bonuses = this.bonuseProvider.getBonuses(targetToBonuses, fetchToBonuses);
@@ -193,7 +183,7 @@ export class PlacesProvider {
           (bonuses, events, news, placeTypesWithMultilang, complaints, drinkApplications, ratings, departments, geoPosition) => {
             for (const bonuse of bonuses) {
               for (const place of places) {
-                if (bonuse.place === place._id) {
+                if (bonuse.place === place.id) {
                   if (!place.promos) place.promos = [];
                   place.promos.push(bonuse);
                 }
@@ -201,7 +191,7 @@ export class PlacesProvider {
             } // bonuses merge loop
             for (const event of events) {
               for (const place of places) {
-                if (event.place === place._id) {
+                if (event.place === place.id) {
                   if (!place.promos) place.promos = [];
                   place.promos.push(event);
                 }
@@ -209,7 +199,7 @@ export class PlacesProvider {
             }
             for (const singleNews of news) {
               for (const place of places) {
-                if (singleNews.place === place._id) {
+                if (singleNews.place === place.id) {
                   if (!place.promos) place.promos = [];
                   place.promos.push(singleNews);
                 }
@@ -219,7 +209,7 @@ export class PlacesProvider {
               let newTypes: PlaceType[] = [];
               for (const oldType of place.types) {
                 for (const newType of placeTypesWithMultilang) {
-                  if (oldType._id === newType._id) {
+                  if (oldType.id === newType._id) {
                     newTypes.push(newType);
                   }
                 }
@@ -229,45 +219,38 @@ export class PlacesProvider {
             for (const complaint of complaints) {
               for (const place of places) {
                 if (!place.complaints) place.complaints = [];
-                if (place._id === complaint.place)
+                if (place.id === complaint.place)
                   place.complaints.push(complaint)
               }
             }
             for (const drinkApp of drinkApplications) {
               for (const place of places) {
                 if (!place.drinkApplications) place.drinkApplications = [];
-                if (place._id === drinkApp.place)
+                if (place.id === drinkApp.place)
                   place.drinkApplications.push(drinkApp)
               }
             }
             for (const rating of ratings) {
               for (const place of places) {
                 if (!place.ratings) place.ratings = [];
-                if (place._id === rating.place)
+                if (place.id === rating.place)
                   place.ratings.push(rating)
               }
             }
             for (const department of departments) {
               for (const place of places) {
                 if (!place.departments) place.departments = [];
-                if (place._id === department.place)
+                if (place.id === department.place)
                   place.departments.push(department);
               }
             }
 
-
             for (const place of places) {
               place.distance = this.findDistance(geoPosition.coords, place);
-
             }
             return places;
-
-          } // in zip magic functions
-        ) // zip
-
-
-      }
-      )
+          })
+      })
     );
 
   }

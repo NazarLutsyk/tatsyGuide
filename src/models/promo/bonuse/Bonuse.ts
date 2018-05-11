@@ -1,11 +1,9 @@
-import {EventMultilang} from "../../multilang/EventMultilang";
+import {BonuseMultilang} from "../../multilang/BonuseMultilang";
 import {Client} from "../../client/Client";
 import {Place} from "../../place/Place";
 import {Promo} from "../Promo";
 
-export class Event extends Promo {
-
-
+export class Bonuse extends Promo {
   constructor(
     public id: string = '',
     public image: string = '',
@@ -13,7 +11,7 @@ export class Event extends Promo {
     public place: Place = null,
     public startDate: string = '',
     public endDate: string = '',
-    public multilang: EventMultilang = null
+    public multilang: BonuseMultilang = null
   ) {
     super(id, image, author, place, startDate, endDate);
   }
