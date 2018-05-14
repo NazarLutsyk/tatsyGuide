@@ -28,19 +28,27 @@ export class TestimonialPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TestimonialPage');
-    this.ratingProvider.getRatingsOfCurrentPlace(this.navParams.data._id).subscribe(value => this.ratings = value);
-
+  ngOnInit() {
+    console.log('init');
+    this.loadRatings();
   }
+
+  ionViewDidLoad(){
+    console.log('did load');
+  }
+
 
 
   leaveTestimonial() {
-    console.log("asdsd");
-    let modelComponent = this.modal.create(ModalTestimonialPage);
+    let modelComponent = this.modal.create(ModalTestimonialPage, {_id: this.navParams.data._id});
+    modelComponent.onDidDismiss(() => {
+      this.loadRatings();
+    });
     modelComponent.present();
-
-
   }
 
+  loadRatings(){
+    let query = {query : {place: this.navParams.data._id}};
+    this.ratingProvider.getRatings(query).subscribe(value => this.ratings = value);
+  }
 }

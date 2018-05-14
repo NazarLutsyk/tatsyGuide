@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Rating} from "../../models/rating/Rating";
+import {RatingProvider} from "../../providers/rating/rating-provider";
 
 /**
  * Generated class for the ModalTestimonialPage page.
@@ -23,7 +25,8 @@ export class ModalTestimonialPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public viewController: ViewController
+              public viewController: ViewController,
+              private ratingService: RatingProvider
   ) {
   }
 
@@ -37,10 +40,8 @@ export class ModalTestimonialPage {
   }
 
   logForm() {
-    console.log(this.text, this.stars, +this.sum);
-    // todo Nazik add testimonial
-    // todo SZ do event subscription that fetch testimonials for place
-
+    let rating = new Rating(null, this.stars, this.text, this.sum, null, this.navParams.data._id);
+    this.ratingService.create(rating).subscribe();
     this.dismiss();
   }
 

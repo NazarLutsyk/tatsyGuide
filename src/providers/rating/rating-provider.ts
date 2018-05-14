@@ -10,18 +10,13 @@ export class RatingProvider {
   constructor(
     private http: HttpClient,
     private globalConfig: GlobalConfigsService
-    ) {
+  ) {
   }
 
-  getRatings(target = {}, fetch = {}) {
+  getRatings(target = {}, fetch = {}):Observable<Rating[]> {
     target = JSON.stringify(target);
     fetch = JSON.stringify(fetch);
-    return this.http.get<any[]>(this.globalConfig.getGlobalHost()+ `/api/ratings?target=${target}&fetch=${fetch}`);
-  }
-
-  getRatingsOfCurrentPlace(placeID): Observable<Rating[]> {
-    let fetch = JSON.stringify({place: {_id: placeID}});
-    return this.http.get<Rating[]>(this.globalConfig.getGlobalHost()+ `/api/ratings?fetch=[${fetch}]`);
+    return this.http.get<Rating[]>(this.globalConfig.getGlobalHost() + `/api/ratings?target=${target}&fetch=${fetch}`);
   }
 
   create(rating: Rating): Observable<Rating> {
