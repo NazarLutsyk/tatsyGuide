@@ -1,0 +1,7 @@
+page-modal-testimonial {
+
+  button[ion-button][block]{
+    background: map_get($colors,defaultApp) !important;
+
+  }
+}

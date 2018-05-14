@@ -1,3 +1,11 @@
 page-testimonial {
+  ion-fab {
+    top: calc(100% - 90px);
+    left: calc(30% - 90px);
+    z-index: 50;
+    button {
+      background: map_get($colors , defaultApp )!important;
+    }
+  }
 
 }

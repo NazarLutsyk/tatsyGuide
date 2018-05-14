@@ -56,6 +56,7 @@ export class MyApp implements OnInit {
       this.principal = principal;
     });
 
+
     zip(
       this.auth.loadPrincipal(),
       this.placeTypeService

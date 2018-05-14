@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {AlertController, App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
+import {HttpClient} from "@angular/common/http";
 
 declare var window: any;
 
@@ -21,7 +22,9 @@ export class PlaceInfoPage {
     public navParams: NavParams,
     platform: Platform,
     gc: GlobalConfigsService,
-    private events: Events
+    private events: Events,
+    private alertController: AlertController,
+    private http: HttpClient
   ) {
     this.place = this.navParams.data;
     this.globalHost = gc.getGlobalHost();
@@ -39,10 +42,44 @@ export class PlaceInfoPage {
 
 
   goToCreateDrinkerApplication(place) {
-   
+
     this.app.getRootNav().push(DrinkerApplicationPage, {place, disabled: true});
 
 
   }
+
+  connectToManager() {
+    console.log("asdasd");
+    let alert = this.alertController.create({
+      title: 'message', inputs: [
+        {
+          name: 'email',
+          placeholder: 'email'
+        },
+        {
+          name: 'message',
+          placeholder: 'message',
+
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'send',
+          handler: data => {
+            // todo send data to admin`s email !!!!
+            // todo tune drinker`s api to mail
+            this.http.post(`${this.globalHost}/mail/send`, data);
+            console.log(data);
+
+          }
+        }
+
+      ]
+    });
+    alert.present();
+
+  }
+
 
 }

@@ -38,6 +38,7 @@ import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpInterceptorProvider } from '../providers/http-interceptor/http-interceptor';
 import { LangProvider } from '../providers/lang/lang';
+import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testimonial.module";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { LangProvider } from '../providers/lang/lang';
     LoginPageModule,
     SignUpPageModule,
     SignInPageModule,
-    DrinkerApplicationPageModule
+    DrinkerApplicationPageModule,
+    ModalTestimonialPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

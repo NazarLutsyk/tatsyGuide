@@ -113,8 +113,13 @@
       </ion-row>
       <ion-row margin-top="15px">
         <ion-col>Connect to manager</ion-col>
-        <ion-col col-2 class="iconWrapper">
-          <ion-icon name="md-mail"></ion-icon>
+        <ion-col col-2 >
+
+          <button ion-button class="iconWrapper" (click)="connectToManager()">
+            <ion-icon name="md-mail"></ion-icon>
+
+          </button>
+
         </ion-col>
       </ion-row>
       <ion-row margin-top="10px">
@@ -125,98 +130,4 @@
     </div>
   </ion-grid>
 
-  <!--<ion-item-group>-->
-  <!--<ion-grid>-->
-
-  <!--<ion-item>-->
-  <!--<span item-start="">Переглядів {{place.reviews}}-->
-  <!--<ion-icon name="eye"></ion-icon>-->
-  <!--</span>-->
-  <!--<span item-end="">Рейтинг-->
-  <!--<ion-icon name="star"></ion-icon>-->
-  <!--{{place.rating}}-->
-  <!--</span>-->
-
-  <!--</ion-item>-->
-  <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
-  <!--&lt;!&ndash;<p *ngFor="let tc of place.topCategories">&ndash;&gt;-->
-  <!--&lt;!&ndash;{{tc}}&ndash;&gt;-->
-  <!--&lt;!&ndash;</p>&ndash;&gt;-->
-
-  <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
-  <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
-  <!--&lt;!&ndash;{{place.averagePrice}}&ndash;&gt;-->
-  <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
-
-
-  <!--<ion-item>-->
-  <!--<ion-icon name="call"></ion-icon>-->
-  <!--{{place.phone}}-->
-  <!--</ion-item>-->
-  <!--<ion-item>-->
-  <!--<ion-icon name="at"></ion-icon>-->
-  <!--{{place.email}}-->
-  <!--</ion-item>-->
-
-
-  <!--<ion-item>-->
-  <!--<ion-icon name="wifi" *ngIf="place.features.wifi" padding-right="5px"></ion-icon>-->
-  <!--<ion-icon name="car" *ngIf="place.features.parking" padding-right="5px"></ion-icon>-->
-  <!--<ion-icon name="microphone" *ngIf="place.features.karaoke" padding-right="5px"></ion-icon>-->
-  <!--<ion-icon name="glasses" *ngIf="place.features.vipRoom" padding-right="5px"></ion-icon>-->
-  <!--</ion-item>-->
-
-
-  <!--<ion-item>-->
-  <!--<ion-grid>-->
-  <!--<ion-row>-->
-  <!--<ion-col>-->
-  <!--день-->
-  <!--</ion-col>-->
-  <!--<ion-col> початок</ion-col>-->
-  <!--<ion-col>-->
-  <!--кінець-->
-  <!--</ion-col>-->
-  <!--</ion-row>-->
-  <!--<ion-row>-->
-  <!--<ion-col> Пн</ion-col>-->
-  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
-  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
-  <!--</ion-row>-->
-  <!--<ion-row>-->
-  <!--<ion-col> Вт</ion-col>-->
-  <!--<ion-col> {{place.days["2"].start}}</ion-col>-->
-  <!--<ion-col> {{place.days["2"].end}}</ion-col>-->
-  <!--</ion-row>-->
-  <!--<ion-row>-->
-  <!--<ion-col> Ср</ion-col>-->
-  <!--<ion-col> {{place.days["3"].start}}</ion-col>-->
-  <!--<ion-col> {{place.days["3"].end}}</ion-col>-->
-  <!--</ion-row>-->
-  <!--<ion-row>-->
-  <!--<ion-col> Чт</ion-col>-->
-  <!--<ion-col> {{place.days["4"].start}}</ion-col>-->
-  <!--<ion-col> {{place.days["4"].end}}</ion-col>-->
-  <!--</ion-row>-->
-  <!--<ion-row>-->
-  <!--<ion-col> Пт</ion-col>-->
-  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
-  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
-  <!--</ion-row>-->
-  <!--<ion-row>-->
-  <!--<ion-col> Сб</ion-col>-->
-  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
-  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
-  <!--</ion-row>-->
-  <!--<ion-row>-->
-  <!--<ion-col> Нд</ion-col>-->
-  <!--<ion-col> {{place.days["1"].start}}</ion-col>-->
-  <!--<ion-col> {{place.days["1"].end}}</ion-col>-->
-  <!--</ion-row>-->
-  <!--</ion-grid>-->
-
-
-  <!--</ion-item>-->
-
-  <!--&lt;!&ndash;</ion-item-group>&ndash;&gt;-->
 </ion-content>

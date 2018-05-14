@@ -25,7 +25,7 @@ export class GlobalConfigsService {
   }
 
   getGlobalLang() {
-    this.globalLang = '5af5a4ead1bf8a28542a615b';
+    this.globalLang = '5af86bf70dfc611c94549a9f';
     return this.globalLang;
   }
 
