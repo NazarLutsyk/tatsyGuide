@@ -20,6 +20,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {fromPromise} from "rxjs/observable/fromPromise";
 import {Storage} from "@ionic/storage";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
 
 declare var window: any;
 declare var position: any;
@@ -44,15 +45,8 @@ export class PlacesProvider {
   ) {
 
     this.events.subscribe("favoritePlaces", () => {
-      console.log("favoritePlaces");
       this.getAllPlaces();
     })
-  }
-
-
-  getFavoritePlaces() {
-    // drinkerApplication fetch favorite objects
-
   }
 
   getAllPlaces(target = {}) {
@@ -67,7 +61,6 @@ export class PlacesProvider {
       .http
       .get<Place[]>(this.globalConfig.getGlobalHost() + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
     return placesRequest.pipe(switchMap((places) => {
-        console.log("im swithc map");
         let placeIds = [];
         for (const place of places) {
           placeIds.push(place.id);
@@ -252,7 +245,14 @@ export class PlacesProvider {
           })
       })
     );
+  }
 
+  create(place: Place): Observable<Place> {
+    return this.http.post<Place>(`${this.globalConfig.getGlobalHost()}/api/places`, place);
+  }
+
+  update(id: string, place: Place): Observable<Place> {
+    return this.http.put<Place>(`${this.globalConfig.getGlobalHost()}/api/places/${id}`, place);
   }
 
 

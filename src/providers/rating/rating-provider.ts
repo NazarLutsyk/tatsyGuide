@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Rating} from "../../models/rating/Rating";
 import {Observable} from "rxjs/Observable";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Rating} from "../../models/rating/Rating";
 
 @Injectable()
 export class RatingProvider {
@@ -21,8 +21,15 @@ export class RatingProvider {
 
   getRatingsOfCurrentPlace(placeID): Observable<Rating[]> {
     let fetch = JSON.stringify({place: {_id: placeID}});
-    console.log(this.globalConfig.getGlobalHost()+ `/api/ratings?fetch=[${fetch}]`);
     return this.http.get<Rating[]>(this.globalConfig.getGlobalHost()+ `/api/ratings?fetch=[${fetch}]`);
+  }
+
+  create(rating: Rating): Observable<Rating> {
+    return this.http.post<Rating>(`${this.globalConfig.getGlobalHost()}/api/ratings`, rating);
+  }
+
+  update(id: string, rating: Rating): Observable<Rating> {
+    return this.http.put<Rating>(`${this.globalConfig.getGlobalHost()}/api/ratings/${id}`, rating);
   }
 
 

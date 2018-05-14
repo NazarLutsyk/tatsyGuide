@@ -33,8 +33,16 @@ import {LoginPage} from "../pages/login/login";
 import {LoginPageModule} from "../pages/login/login.module";
 import {SignUpPageModule} from "../pages/sign-up/sign-up.module";
 import {SignInPageModule} from "../pages/sign-in/sign-in.module";
-import { NativePageTransitions } from '@ionic-native/native-page-transitions';
+import {NativePageTransitions} from '@ionic-native/native-page-transitions';
 import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker-application.module";
+import {HashTagProvider} from '../providers/hash-tag/hash-tag';
+import {MessageProvider} from '../providers/message/message';
+import {TopPlaceProvider} from '../providers/top-place/top-place';
+import {BonuseMultilangProvider} from '../providers/bonuse-multilang/bonuse-multilang';
+import {EventMultilangProvider} from '../providers/event-multilang/event-multilang';
+import {NewsMultilangProvider} from '../providers/news-multilang/news-multilang';
+import {PlaceMultilangProvider} from '../providers/place-multilang/place-multilang';
+import {PlaceTypeMultilangProvider} from '../providers/place-type-multilang/place-type-multilang';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpInterceptorProvider } from '../providers/http-interceptor/http-interceptor';
 import { LangProvider } from '../providers/lang/lang';
@@ -66,7 +74,6 @@ import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testi
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-
   ],
   providers: [
     StatusBar,
@@ -91,7 +98,15 @@ import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testi
       useClass: HttpInterceptorProvider,
       multi: true
     },
-    LangProvider
+    LangProvider,
+    HashTagProvider,
+    MessageProvider,
+    TopPlaceProvider,
+    BonuseMultilangProvider,
+    EventMultilangProvider,
+    NewsMultilangProvider,
+    PlaceMultilangProvider,
+    PlaceTypeMultilangProvider,
   ]
 })
 export class AppModule {

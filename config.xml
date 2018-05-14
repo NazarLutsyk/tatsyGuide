@@ -5,7 +5,7 @@
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <preference name="ScrollEnabled" value="false" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
@@ -91,5 +91,6 @@
     <plugin name="cordova-sqlite-storage" spec="^2.3.1" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <allow-navigation href="http://192.168.137.1:8100" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="~7.0.0" />
+    <allow-navigation href="http://192.168.1.14:8100" />
 </widget>

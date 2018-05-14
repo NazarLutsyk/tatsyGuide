@@ -1,5 +1,5 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {Events, NavController, NavParams, Platform} from 'ionic-angular';
+import {Events, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {ClientProvider} from "../../providers/client/ClientProvider";
@@ -11,6 +11,7 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
 import {zip} from 'rxjs/observable/zip';
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'page-home',
@@ -51,23 +52,33 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.principal.subscribe((principal) => {
-      this.principal = principal;
-    });
-
-    zip(
-      this.auth.loadPrincipal(),
-      this.placesService.getAllPlaces()
-    ).subscribe(
-      ([principal, places]) => {
-        this.places = places;
-      },
-      (err) => {
-        console.log(err);
-      });
+    this.auth.principal.subscribe(principal => this.principal = principal);
+    this.auth.loadPrincipal().subscribe();
+      this.onLoad().subscribe();
   }
 
   toDetails(place) {
     this.navCtrl.push(PlaceDeatilsPage, place);
   }
+
+  doRefresh(refresher: Refresher) {
+    this.onLoad().subscribe(() => {
+        refresher.complete();
+    });
+  }
+
+  onLoad(){
+    return new Observable((subscriber) => {
+        this.placesService.getAllPlaces().subscribe((places) => {
+          this.places = places;
+          subscriber.next();
+          subscriber.complete();
+        },(error) => {
+          console.log(error);
+          subscriber.error(error);
+        });
+    });
+
+  }
+
 }

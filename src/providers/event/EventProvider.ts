@@ -1,10 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Event} from "../../models/promo/event/Event";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class EventProvider {
-  private globalHost: string;
 
   constructor(
     private http: HttpClient,
@@ -16,6 +17,14 @@ export class EventProvider {
     target = JSON.stringify(target);
     fetch = JSON.stringify(fetch);
     return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/events?target=${target}&fetch=${fetch}`);
+  }
+
+  create(event: Event): Observable<Event>{
+    return this.http.post<Event>(`${this.globalConfig.getGlobalHost()}/api/events`, event);
+  }
+
+  update(id:string, event: Event): Observable<Event>{
+    return this.http.put<Event>(`${this.globalConfig.getGlobalHost()}/api/events/${id}`, event);
   }
 
 

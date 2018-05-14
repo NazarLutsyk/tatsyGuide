@@ -12,6 +12,8 @@ import {HttpClient} from "@angular/common/http";
 import {AuthProvider} from "../providers/auth/auth";
 import {Client} from "../models/client/Client";
 import {zip} from "rxjs/observable/zip";
+import {Observable} from "rxjs/Observable";
+import {LangProvider} from "../providers/lang/lang";
 
 
 @Component({
@@ -27,13 +29,12 @@ export class MyApp implements OnInit {
   searchObject = {range: {lower: 0, upper: 10000}, direction: false, filterFeature: {}};
   principal: Client = null;
 
-  // isAuthenticated: boolean;
-
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private placeTypeService: PlaceTypeProvider,
               private placeService: PlacesProvider,
+              private langService: LangProvider,
               private events: Events,
               private menuController: MenuController,
               private globalConfig: GlobalConfigsService,
@@ -48,10 +49,12 @@ export class MyApp implements OnInit {
         splashScreen.hide();
       }
     );
+    this.globalConfig.langService = this.langService;
   }
 
 
   ngOnInit() {
+
     this.auth.principal.subscribe((principal) => {
       this.principal = principal;
     });
