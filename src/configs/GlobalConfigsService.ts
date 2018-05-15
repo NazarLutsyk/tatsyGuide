@@ -23,12 +23,13 @@ export class GlobalConfigsService {
   }
 
   getGlobalLang() {
-    if (!this.globalLang) {
-      this.langService.find({name: "ukr"}).subscribe(([lang]) => {
-        this.globalLang = lang;
-      });
-    }
-    return this.globalLang;
+    // if (!this.globalLang) {
+    //   this.langService.find({name: "ukr"}).subscribe(([lang]) => {
+    //     this.globalLang = lang;
+    //   });
+    // }
+    // return this.globalLang;
+    return "5afadbc5e0d1371a9c4fb278";
   }
 
 }

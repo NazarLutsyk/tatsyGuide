@@ -12,6 +12,8 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
 import {zip} from 'rxjs/observable/zip';
 import {Observable} from "rxjs/Observable";
+import {ObjectUtils} from "../../utils/ObjectUtils";
+import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 
 @Component({
   selector: 'page-home',
@@ -33,6 +35,7 @@ export class HomePage implements OnInit {
     private bonuseService: BonuseProvider,
     private events: Events,
     private auth: AuthProvider,
+    private placeMultilangService: PlaceMultilangProvider,
     private storage: Storage,
     platform: Platform,
     private _ngZone: NgZone
@@ -41,14 +44,54 @@ export class HomePage implements OnInit {
     this.globalHost = globalVars.getGlobalHost();
 
     this.events.subscribe('functionCall:find', eventData => {
-      this.placesService.sortingAndFiltering(this.places, eventData).subscribe(value => {
-        this.places = value;
-      }, (err) => {
-        console.log(err);
+
+      let filter: any = {};
+      let sort: any = {};
+
+      if (eventData.placeType) {
+        filter.types = eventData.placeType;
+      }
+      for (const feature in eventData.filterFeature) {
+        if (!eventData.filterFeature[feature]) delete eventData.filterFeature[feature];
+        filter['features.' + feature] = eventData.filterFeature[feature];
+      }
+      if (!ObjectUtils.isEmpty(eventData.range)) {
+        filter.averagePrice = {$gte: eventData.range.lower, $lte: eventData.range.upper};
+      }
+      if (eventData.sort === 'rating' || eventData.sort === 'averagePrice') {
+        sort[eventData.sort] = eventData.direction ? 1 : -1
+      }
+
+      let target = {query: filter, sort: sort};
+
+      this.onLoad(target).subscribe(places => {
+        this.places = places;
+        if (eventData.sort === 'location') {
+          this.places = this.places.sort((a, b) => {
+            if (eventData.direction > 0)
+              return a.distance - b.distance;
+            else {
+              return b.distance - a.distance;
+            }
+          });
+        }
+        if (eventData.sort === 'name') {
+          let placeIds = this.places.map(elem => (<any>elem)._id);
+          let target = {
+            query: {place: {$in: placeIds}, lang: this.globalVars.getGlobalLang()},
+            sort: {[eventData.sort]: eventData.direction ? 1 : -1},
+          };
+          this.placeMultilangService.getPlaceMultilangs(target, {}).subscribe((multilangs) => {
+            let multilangIds = multilangs.map(elem => elem.place);
+
+            this.places = this.places.sort((a, b) => {
+              return multilangIds.findIndex(id => (<any>a)._id === id) -
+              multilangIds.findIndex(id => (<any>b)._id === id)
+            });
+          });
+        }
       });
-
-    })
-
+    });
   }
 
   ngOnInit() {
@@ -68,9 +111,9 @@ export class HomePage implements OnInit {
     });
   }
 
-  onLoad() {
+  onLoad(target: Object = {}) {
     return new Observable<Place[]>((subscriber) => {
-      this.placesService.getAllPlaces().subscribe((places) => {
+      this.placesService.getAllPlaces(target).subscribe((places) => {
         subscriber.next(places);
         subscriber.complete();
       }, (error) => {

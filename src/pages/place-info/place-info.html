@@ -28,7 +28,7 @@
       <ion-col col-4 text-right><span class="colorSilver">Rating:</span></ion-col>
       <ion-col col-2 class="iconWrapper">
         <ion-icon name="star"></ion-icon>
-        {{place.rating}}
+        {{place.rating| number:'1.0-2'}}
       </ion-col>
     </ion-row>
 

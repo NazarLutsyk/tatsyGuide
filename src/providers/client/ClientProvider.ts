@@ -61,7 +61,7 @@ export class ClientProvider {
         for (const rating of ratings) {
           for (const client of clients) {
             if (!client.ratings) client.ratings = [];
-            if (client.id === rating.client) {
+            if (client.id === (<any>rating).client) {
               client.ratings.push(rating);
             }
           }

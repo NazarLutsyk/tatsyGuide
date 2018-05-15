@@ -54,19 +54,16 @@ export class MyApp implements OnInit {
 
 
   ngOnInit() {
-
     this.auth.principal.subscribe((principal) => {
       this.principal = principal;
     });
-
-
     zip(
       this.auth.loadPrincipal(),
       this.placeTypeService
         .getPlaceTypes({}, [{placeTypeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}}])
     ).subscribe(([principal, placeTypes]) => {
       for (const placeType of placeTypes) {
-        this.placeTypes.push(placeType.multilang[0].name);
+        this.placeTypes.push(placeType);
       }
     }, (err) => {
       console.log(err);
@@ -76,7 +73,6 @@ export class MyApp implements OnInit {
   show(so) {
     this.events.publish('functionCall:find', so);
   }
-
 
   goToLoginRegistration() {
     this.navCtrl.push(LoginPage);

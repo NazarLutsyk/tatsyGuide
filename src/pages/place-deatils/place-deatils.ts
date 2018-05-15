@@ -50,25 +50,23 @@ export class PlaceDeatilsPage {
       menu.swipeEnable(false);
     }
     this.auth.loadPrincipal().subscribe((principal) => {
-      this.principal = principal;
-      let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
-      if (favouriteIndex >= 0) {
-        this.isFavorite = true;
-      } else {
-        this.isFavorite = false;
+      if (this.principal) {
+        this.principal = principal;
+        let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
+        if (favouriteIndex >= 0) {
+          this.isFavorite = true;
+        } else {
+          this.isFavorite = false;
+        }
+      }else {
+        this.isFavorite = false
       }
     });
 
   }
 
   addToFavorite(place: Place) {
-    // if (this.isFavorite) {
-    //   this.storage.remove(place.id);
-    // } else {
-    //   this.storage.set(this.place.id, JSON.stringify(place));
-    // }
     let favouriteIndex = this.principal.favoritePlaces.indexOf(this.place);
-    console.log(favouriteIndex);
     if (favouriteIndex >= 0) {
       this.principal.favoritePlaces.splice(favouriteIndex, 1);
     } else {
@@ -76,7 +74,7 @@ export class PlaceDeatilsPage {
     }
     this.clientService
       .update((<any>this.principal)._id, {favoritePlaces: this.principal.favoritePlaces})
-      .subscribe(user => console.log(user));
+      .subscribe();
     this.isFavorite = !this.isFavorite;
   }
 

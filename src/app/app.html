@@ -66,8 +66,8 @@
       </ion-item>
     </ion-list>
     <ion-item>
-      <ion-label *ngIf="searchObject.direction !=true">спадання</ion-label>
-      <ion-label *ngIf="searchObject.direction !=false">зростання</ion-label>
+      <ion-label *ngIf="searchObject.direction != true">спадання</ion-label>
+      <ion-label *ngIf="searchObject.direction != false">зростання</ion-label>
       <ion-checkbox color="danger" checked="false" [(ngModel)]="searchObject.direction"></ion-checkbox>
     </ion-item>
 
@@ -81,11 +81,10 @@
       <br>
     </ion-item>
 
-
     <ion-item>
       <ion-label>Тип закладу</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
-        <ion-option value="xxx" *ngFor="let placeType of placeTypes">{{placeType}}</ion-option>
+        <ion-option value="{{placeType._id}}" *ngFor="let placeType of placeTypes">{{placeType.multilang[0].name}}</ion-option>
       </ion-select>
     </ion-item>
 
