@@ -10,7 +10,10 @@ import {BonusePage} from "../bonuse/bonuse";
 import {PlaceInfoPage} from "../place-info/place-info";
 import {TestimonialPage} from "../testimonial/testimonial";
 import {Storage} from "@ionic/storage";
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+import {NativePageTransitions, NativeTransitionOptions} from '@ionic-native/native-page-transitions';
+import {AuthProvider} from "../../providers/auth/auth";
+import {Client} from "../../models/client/Client";
+import {ClientProvider} from "../../providers/client/ClientProvider";
 
 
 @Component({
@@ -29,8 +32,7 @@ export class PlaceDeatilsPage {
   newsPage = NewsPage;
   mapPage = MapPage;
   testimonialsPage = TestimonialPage;
-
-
+  principal: Client;
 
 
   constructor(public navCtrl: NavController,
@@ -38,6 +40,8 @@ export class PlaceDeatilsPage {
               platform: Platform,
               private menuController: MenuController,
               private storage: Storage,
+              private auth: AuthProvider,
+              private clientService: ClientProvider
   ) {
     this.place = this.navParams.data;
 
@@ -45,18 +49,36 @@ export class PlaceDeatilsPage {
     for (const menu of menus) {
       menu.swipeEnable(false);
     }
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
+      if (favouriteIndex >= 0) {
+        this.isFavorite = true;
+      } else {
+        this.isFavorite = false;
+      }
+    });
 
   }
 
   addToFavorite(place: Place) {
-    if (this.isFavorite) {
-      this.storage.remove(place.id);
+    // if (this.isFavorite) {
+    //   this.storage.remove(place.id);
+    // } else {
+    //   this.storage.set(this.place.id, JSON.stringify(place));
+    // }
+    let favouriteIndex = this.principal.favoritePlaces.indexOf(this.place);
+    console.log(favouriteIndex);
+    if (favouriteIndex >= 0) {
+      this.principal.favoritePlaces.splice(favouriteIndex, 1);
     } else {
-      this.storage.set(this.place.id, JSON.stringify(place));
+      this.principal.favoritePlaces.push(this.place);
     }
+    this.clientService
+      .update((<any>this.principal)._id, {favoritePlaces: this.principal.favoritePlaces})
+      .subscribe(user => console.log(user));
     this.isFavorite = !this.isFavorite;
   }
-
 
 
 }

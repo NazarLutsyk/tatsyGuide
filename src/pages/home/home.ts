@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.auth.principal.subscribe(principal => this.principal = principal);
     this.auth.loadPrincipal().subscribe();
-      this.onLoad().subscribe();
+    this.onLoad().subscribe(places => this.places = places);
   }
 
   toDetails(place) {
@@ -62,21 +62,21 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(refresher: Refresher) {
-    this.onLoad().subscribe(() => {
-        refresher.complete();
+    this.onLoad().subscribe((places) => {
+      this.places = places;
+      refresher.complete();
     });
   }
 
-  onLoad(){
-    return new Observable((subscriber) => {
-        this.placesService.getAllPlaces().subscribe((places) => {
-          this.places = places;
-          subscriber.next();
-          subscriber.complete();
-        },(error) => {
-          console.log(error);
-          subscriber.error(error);
-        });
+  onLoad() {
+    return new Observable<Place[]>((subscriber) => {
+      this.placesService.getAllPlaces().subscribe((places) => {
+        subscriber.next(places);
+        subscriber.complete();
+      }, (error) => {
+        console.log(error);
+        subscriber.error(error);
+      });
     });
 
   }

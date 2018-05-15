@@ -13,10 +13,10 @@ export class RatingProvider {
   ) {
   }
 
-  getRatings(target = {}, fetch = {}):Observable<Rating[]> {
+  getRatings(target = {}, fetch = {}):Observable<any[]> {
     target = JSON.stringify(target);
     fetch = JSON.stringify(fetch);
-    return this.http.get<Rating[]>(this.globalConfig.getGlobalHost() + `/api/ratings?target=${target}&fetch=${fetch}`);
+    return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/ratings?target=${target}&fetch=${fetch}`);
   }
 
   create(rating: Rating): Observable<Rating> {

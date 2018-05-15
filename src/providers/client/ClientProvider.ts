@@ -109,7 +109,7 @@ export class ClientProvider {
       });
     });
   }
-  update(id:string, client: Client): Observable<Client>{
+  update(id:string, client: any): Observable<Client>{
     return this.http.put<Client>(`${this.globalConfig.getGlobalHost()}/api/clients/${id}`, client);
   }
 }

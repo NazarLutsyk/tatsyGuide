@@ -7,8 +7,7 @@ import {Promo} from "../promo/Promo";
 import {Message} from "../message/Message";
 
 export class Client {
-  constructor(
-              public id: string = '',
+  constructor(public id: string = '',
               public name: string = '',
               public surname: string = '',
               public login: string = '',
@@ -27,6 +26,6 @@ export class Client {
               public departments: Department[] = [],
               public promos: Promo[] = [],
               public sendedMessages: Message[] = [],
-              public receivedMessages: Message[] = []
-  ) {}
+              public receivedMessages: Message[] = []) {
+  }
 }

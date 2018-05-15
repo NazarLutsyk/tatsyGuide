@@ -74,7 +74,6 @@ export class PlaceInfoPage {
 
           }
         }
-
       ]
     });
     alert.present();
