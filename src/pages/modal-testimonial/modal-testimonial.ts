@@ -3,12 +3,7 @@ import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular
 import {Rating} from "../../models/rating/Rating";
 import {RatingProvider} from "../../providers/rating/rating-provider";
 
-/**
- * Generated class for the ModalTestimonialPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({

@@ -47,6 +47,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { HttpInterceptorProvider } from '../providers/http-interceptor/http-interceptor';
 import { LangProvider } from '../providers/lang/lang';
 import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testimonial.module";
+import {CreatePlacePageModule} from "../pages/create-place/create-place.module";
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testi
     SignUpPageModule,
     SignInPageModule,
     DrinkerApplicationPageModule,
-    ModalTestimonialPageModule
+    ModalTestimonialPageModule,
+    CreatePlacePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
