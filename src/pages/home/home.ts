@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewRef} from '@angular/core';
 import {Events, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
@@ -6,14 +6,13 @@ import {ClientProvider} from "../../providers/client/ClientProvider";
 import {Place} from "../../models/place/Place";
 import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 import {Client} from "../../models/client/Client";
-import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
-import {zip} from 'rxjs/observable/zip';
 import {Observable} from "rxjs/Observable";
 import {ObjectUtils} from "../../utils/ObjectUtils";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
+import {debounceTime, distinctUntilChanged, pluck} from "rxjs/operators";
 
 @Component({
   selector: 'page-home',
@@ -36,18 +35,12 @@ export class HomePage implements OnInit {
     private events: Events,
     private auth: AuthProvider,
     private placeMultilangService: PlaceMultilangProvider,
-    private storage: Storage,
     platform: Platform,
-    private _ngZone: NgZone
   ) {
-
     this.globalHost = globalVars.getGlobalHost();
-
-    this.events.subscribe('functionCall:find', eventData => {
-
+    this.events.subscribe('functionCall:find', (eventData) => {
       let filter: any = {};
       let sort: any = {};
-
       if (eventData.placeType) {
         filter.types = eventData.placeType;
       }
@@ -61,9 +54,7 @@ export class HomePage implements OnInit {
       if (eventData.sort === 'rating' || eventData.sort === 'averagePrice') {
         sort[eventData.sort] = eventData.direction ? 1 : -1
       }
-
       let target = {query: filter, sort: sort};
-
       this.onLoad(target).subscribe(places => {
         this.places = places;
         if (eventData.sort === 'location') {
@@ -86,11 +77,12 @@ export class HomePage implements OnInit {
 
             this.places = this.places.sort((a, b) => {
               return multilangIds.findIndex(id => (<any>a)._id === id) -
-              multilangIds.findIndex(id => (<any>b)._id === id)
+                multilangIds.findIndex(id => (<any>b)._id === id)
             });
           });
         }
       });
+
     });
   }
 
@@ -98,10 +90,13 @@ export class HomePage implements OnInit {
     this.auth.principal.subscribe(principal => this.principal = principal);
     this.auth.loadPrincipal().subscribe();
     this.onLoad().subscribe(places => this.places = places);
+
   }
 
   toDetails(place) {
-    this.navCtrl.push(PlaceDeatilsPage, place);
+    this.placesService.findOne(place.id).subscribe((foundedPlace) => {
+      this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
+    });
   }
 
   doRefresh(refresher: Refresher) {
@@ -121,7 +116,23 @@ export class HomePage implements OnInit {
         subscriber.error(error);
       });
     });
-
   }
 
+  onSearchPlaces(event) {
+    setTimeout(() => {
+      this.searchPlaces(event.target.value);
+    }, 500);
+  }
+
+  searchPlaces(value: string) {
+    this.placeMultilangService
+      .getPlaceMultilangs({query: {name: {$regex: value, $options: "i"}}})
+      .subscribe((multilangs) => {
+        let placeIds = multilangs.map(multilang => multilang.place);
+        this.onLoad({query: {_id: placeIds}})
+          .subscribe(places => {
+            this.places = places;
+          });
+      })
+  }
 }

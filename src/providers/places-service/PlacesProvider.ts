@@ -247,6 +247,141 @@ export class PlacesProvider {
     );
   }
 
+  findOne(id: string, fetch = {}) {
+    let fetchHahTags = JSON.stringify({hashTag: {}});
+    let fetchTopPlaces = JSON.stringify({topPlace: {}});
+    let fetchTypes = JSON.stringify({placeType: {}});
+    let fetchPlaceMultilang = JSON.stringify({placeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}});
+
+    let placesRequest = this
+      .http
+      .get<Place>(this.globalConfig.getGlobalHost() + `/api/places/${id}?&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
+    return placesRequest.pipe(switchMap((place) => {
+        let placeId = place.id;
+        let targetToBonuses = {
+          query: {
+            place: placeId
+          }
+        };
+        let fetchToBonuses = [
+          {
+            bonuseMultilang: {
+              query: {
+                lang: this.globalConfig.getGlobalLang()
+              }
+            },
+          },
+          {
+            client: {}
+          }
+        ];
+        let targetToEvents = {
+          query: {
+            place: placeId
+          }
+        };
+        let fetchToEvents = [
+          {
+            eventMultilang: {
+              query: {
+                lang: this.globalConfig.getGlobalLang()
+              }
+            },
+
+          },
+          {
+            client: {}
+          }
+        ];
+        let targetToNews = {
+          query: {
+            place: placeId
+          }
+        };
+        let fetchToNews = [
+          {
+            newsMultilang: {
+              query: {
+                lang: this.globalConfig.getGlobalLang()
+              }
+            },
+
+          },
+          {
+            client: {}
+          }
+        ];
+        let targetToComplaints = {
+          query: {
+            place: placeId
+          }
+        };
+        let fetchToComplaints = [
+          {
+            client: {}
+          }
+        ];
+        let targetToDrinkApp = {
+          query: {
+            place: placeId
+          }
+        };
+        let fetchToDrinkApp = [
+          {
+            client: {}
+          }
+        ];
+        let targetToRating = {
+          query: {
+            place: placeId
+          }
+        };
+        let fetchToRating = [
+          {
+            client: {}
+          }
+        ];
+        let targetToDepartment = {
+          query: {
+            place: placeId
+          }
+        };
+        let fetchToDepartment = [
+          {
+            client: {}
+          }
+        ];
+        let fetchToPlaceType = [
+          {
+            placeTypeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}
+          }
+        ];
+        let bonuses = this.bonuseProvider.getBonuses(targetToBonuses, fetchToBonuses);
+        let events = this.eventProvider.getEvents(targetToEvents, fetchToEvents);
+        let news = this.newsProvider.getNews(targetToNews, fetchToNews);
+        let placeTypes = this.placeTypeService.getPlaceTypes({}, fetchToPlaceType);
+        let complaints = this.complaintProvider.getComplaints(targetToComplaints, fetchToComplaints);
+        let drinkApplications = this.drinkApplicationProvider.getDrinkApplications(targetToDrinkApp, fetchToDrinkApp);
+        let ratings = this.ratingService.getRatings(targetToRating, fetchToRating);
+        let departments = this.departmentService.getDepartments(targetToDepartment, fetchToDepartment);
+        let geopositionObservable = fromPromise(this.geolocation.getCurrentPosition());
+        return zip(bonuses, events, news, placeTypes, complaints, drinkApplications, ratings, departments, geopositionObservable,
+          (bonuses, events, news, placeTypesWithMultilang, complaints, drinkApplications, ratings, departments, geoPosition) => {
+            place.promos = bonuses;
+            place.promos = events;
+            place.promos = news;
+            place.types = placeTypesWithMultilang;
+            place.complaints = complaints;
+            place.drinkApplications = drinkApplications;
+            place.ratings = ratings;
+            place.departments = departments;
+            place.distance = this.findDistance(geoPosition.coords, place);
+            return place;
+          })
+      })
+    );
+  }
+
   create(place: Place): Observable<Place> {
     return this.http.post<Place>(`${this.globalConfig.getGlobalHost()}/api/places`, place);
   }
