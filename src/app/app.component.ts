@@ -12,7 +12,6 @@ import {HttpClient} from "@angular/common/http";
 import {AuthProvider} from "../providers/auth/auth";
 import {Client} from "../models/client/Client";
 import {zip} from "rxjs/observable/zip";
-import {Observable} from "rxjs/Observable";
 import {LangProvider} from "../providers/lang/lang";
 import {CreatePlacePage} from "../pages/create-place/create-place";
 
@@ -95,7 +94,9 @@ export class MyApp implements OnInit {
     });
 
   }
-  goToCreatePlacePage(){
+
+  goToCreatePlacePage() {
+    this.menuController.close();
     this.navCtrl.push(CreatePlacePage);
 
   }

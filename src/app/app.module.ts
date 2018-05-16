@@ -49,6 +49,11 @@ import { LangProvider } from '../providers/lang/lang';
 import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testimonial.module";
 import {CreatePlacePageModule} from "../pages/create-place/create-place.module";
 
+/*file transfer etc*/
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -109,6 +114,12 @@ import {CreatePlacePageModule} from "../pages/create-place/create-place.module";
     NewsMultilangProvider,
     PlaceMultilangProvider,
     PlaceTypeMultilangProvider,
+    FileTransfer,
+    // FileUploadOptions, ???
+    FileTransferObject,
+    File,
+    Camera
+
   ]
 })
 export class AppModule {
