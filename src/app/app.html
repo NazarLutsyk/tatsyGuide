@@ -60,6 +60,11 @@
         <span (click)="goToLoginRegistration()"> login/registration</span>
       </ion-item>
 
+      <ion-item *ngIf="!principal">
+        <span (click)="goToCreatePlacePage()"></span>
+
+      </ion-item>
+
     </ion-list>
   </ion-content>
 </ion-menu>
