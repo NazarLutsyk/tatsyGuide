@@ -14,6 +14,7 @@ import {Client} from "../models/client/Client";
 import {zip} from "rxjs/observable/zip";
 import {Observable} from "rxjs/Observable";
 import {LangProvider} from "../providers/lang/lang";
+import {CreatePlacePage} from "../pages/create-place/create-place";
 
 
 @Component({
@@ -88,6 +89,10 @@ export class MyApp implements OnInit {
     }, (error) => {
       console.log(error);
     });
+
+  }
+  goToCreatePlacePage(){
+    this.navCtrl.push(CreatePlacePage);
 
   }
 
