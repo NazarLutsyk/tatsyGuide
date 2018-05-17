@@ -4,7 +4,6 @@ import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatExpansionModule} from '@angular/material/expansion';
 
 import {MyApp} from './app.component';
 import {PlacesProvider} from '../providers/places-service/PlacesProvider';
@@ -20,7 +19,6 @@ import {DepartmentProvider} from "../providers/department/department-provider";
 import {ClientProvider} from "../providers/client/ClientProvider";
 import {GlobalConfigsService} from "../configs/GlobalConfigsService";
 import {Geolocation} from '@ionic-native/geolocation';
-import {TestimonialPage} from "../pages/testimonial/testimonial";
 import {HomePageModule} from "../pages/home/home.module";
 import {PlaceDetailsModule} from "../pages/place-deatils/place-details.module";
 import {MapModule} from "../pages/map/map.module";
@@ -29,7 +27,6 @@ import {BonusePageModule} from "../pages/bonuse/bonuse.module";
 import {NewsPageModule} from "../pages/news/news.module";
 import {PlaceInfoPageModule} from "../pages/place-info/place-info.module";
 import {TestimonialPageModule} from "../pages/testimonial/testimonial.module";
-import {LoginPage} from "../pages/login/login";
 import {LoginPageModule} from "../pages/login/login.module";
 import {SignUpPageModule} from "../pages/sign-up/sign-up.module";
 import {SignInPageModule} from "../pages/sign-in/sign-in.module";
@@ -43,16 +40,18 @@ import {EventMultilangProvider} from '../providers/event-multilang/event-multila
 import {NewsMultilangProvider} from '../providers/news-multilang/news-multilang';
 import {PlaceMultilangProvider} from '../providers/place-multilang/place-multilang';
 import {PlaceTypeMultilangProvider} from '../providers/place-type-multilang/place-type-multilang';
-import { AuthProvider } from '../providers/auth/auth';
-import { HttpInterceptorProvider } from '../providers/http-interceptor/http-interceptor';
-import { LangProvider } from '../providers/lang/lang';
+import {AuthProvider} from '../providers/auth/auth';
+import {HttpInterceptorProvider} from '../providers/http-interceptor/http-interceptor';
+import {LangProvider} from '../providers/lang/lang';
 import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testimonial.module";
 import {CreatePlacePageModule} from "../pages/create-place/create-place.module";
-
 /*file transfer etc*/
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
-import { Camera } from '@ionic-native/camera';
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
+import {File} from '@ionic-native/file';
+import {Camera} from '@ionic-native/camera';
+import {MyPlacesPageModule} from "../pages/my-places/my-places.module";
+import {MyFavoritePlacesPageModule} from "../pages/my-favorite-places/my-favorite-places.module";
+import {MyRatingsPageModule} from "../pages/my-ratings/my-ratings.module";
 
 @NgModule({
   declarations: [
@@ -77,7 +76,10 @@ import { Camera } from '@ionic-native/camera';
     SignInPageModule,
     DrinkerApplicationPageModule,
     ModalTestimonialPageModule,
-    CreatePlacePageModule
+    CreatePlacePageModule,
+    MyPlacesPageModule,
+    MyFavoritePlacesPageModule,
+    MyRatingsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

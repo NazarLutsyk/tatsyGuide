@@ -9,10 +9,6 @@
 
   <ion-list [virtualScroll]="ratings" [approxItemHeight]="'200px'">
 
-    <ion-item>
-    </ion-item>
-
-
     <ion-item *virtualItem="let rating">
       <ion-icon item-start name="star">
         {{rating.value}}

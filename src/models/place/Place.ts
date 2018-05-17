@@ -40,6 +40,14 @@ export class Place {
       5: { start: string, end: string };
       6: { start: string, end: string };
       7: { start: string, end: string };
+    } = {
+      1: {start: "", end: ""},
+      2: {start: "", end: ""},
+      3: {start: "", end: ""},
+      4: {start: "", end: ""},
+      5: {start: "", end: ""},
+      6: {start: "", end: ""},
+      7: {start: "", end: ""},
     },
     public promos: Bonuse[] = [],
     public hashTags: HashTag[] = [],

@@ -382,7 +382,7 @@ export class PlacesProvider {
     );
   }
 
-  create(place: Place): Observable<Place> {
+  create(place: Object): Observable<Place> {
     return this.http.post<Place>(`${this.globalConfig.getGlobalHost()}/api/places`, place);
   }
 

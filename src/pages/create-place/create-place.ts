@@ -1,52 +1,13 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {NgForm} from "@angular/forms";
-
-
-// public name: string = '', +
-//   public description: string = '', +
-//   public address: { city: string, street: string, number: string }, +
-
-// public id: string = '', + default
-//   public phone: string = '', +
-//   public email: string = '', +
-//   public averagePrice: number = 0, -!
-//   public reviews: number = 0, -!
-//   public rating: number = 0, -!
-//   public allowed: boolean = false, -!
-//   public avatar: string = '',  +?
-//   public distance: number = 0, -!
-//   public location: { +-
-//   lat: number;
-//   lng: number;
-// } = {lat: 0, lng: 0},
-//   public features: {
-//   wifi: boolean; +
-//   parking: boolean; +
-//   vipRoom: boolean; +
-//   karaoke: boolean +
-// } = {wifi: false, parking: false, vipRoom: false, karaoke: false},
-//   public topCategories: string[] = [], ???
-//   public images: string[] = [],
-//   public days: {
-//   1: { start: string, end: string };
-//   2: { start: string, end: string };
-//   3: { start: string, end: string };
-//   4: { start: string, end: string };
-//   5: { start: string, end: string };
-//   6: { start: string, end: string };
-//   7: { start: string, end: string };
-// },
-// public promos: Bonuse[] = [], Later
-//   public hashTags: HashTag[] = [],  Later
-//   public tops: TopPlace[] = [], Later
-//   public types: PlaceType[] = [], +
-//   public multilang: PlaceMultilang = null,
-//   public complaints: Complaint[] = [], -
-//   public drinkApplications: DrinkApplication[] = [], -
-//   public ratings: Rating[] = [], -
-//   public departments: Department[] = [] -
+import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
+import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {PlaceMultilang} from "../../models/multilang/PlaceMultilang";
+import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
+import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 
 @IonicPage()
 @Component({
@@ -55,17 +16,63 @@ import {NgForm} from "@angular/forms";
 })
 export class CreatePlacePage {
 
-  place : Place;
+  placeTypes: PlaceTypeMultilang[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private placeTypeMultilangService: PlaceTypeMultilangProvider,
+    private placeMultilangService: PlaceMultilangProvider,
+    private placeService: PlacesProvider,
+    private globalConfig: GlobalConfigsService,
+    private navCtrl: NavController
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CreatePlacePage');
+  ngOnInit() {
+    this.placeTypeMultilangService.getPlaceTypeMultilangs({query: {lang: this.globalConfig.getGlobalLang()}}, {})
+      .subscribe((placeTypes) => {
+        this.placeTypes = placeTypes;
+      })
   }
 
 
   createPlace(form: NgForm) {
-    console.log(form);
+    const formPlace = form.form.value;
+    for (let key in formPlace.features) {
+      if (typeof formPlace.features[key] === 'string') {
+        formPlace.features[key] = true;
+      }
+    }
+
+    let placeMultilang = {
+      name: formPlace.name,
+      description: formPlace.description,
+      address: {
+        city: formPlace.address.city,
+        street: formPlace.address.street,
+        number: formPlace.address.number
+      },
+      lang: this.globalConfig.getGlobalLang(),
+      place: ''
+    };
+    let place = {
+      phone: formPlace.phone,
+      email: formPlace.email,
+      features: formPlace.features,
+      types: formPlace.types,
+      days: {
+        1: {start: formPlace.days[1].start, end: formPlace.days[1].end},
+        2: {start: formPlace.days[1].start, end: formPlace.days[1].end},
+        3: {start: formPlace.days[1].start, end: formPlace.days[1].end},
+        4: {start: formPlace.days[1].start, end: formPlace.days[1].end},
+        5: {start: formPlace.days[1].start, end: formPlace.days[1].end},
+        6: {start: formPlace.days[1].start, end: formPlace.days[1].end},
+        7: {start: formPlace.days[1].start, end: formPlace.days[1].end}
+      }
+    };
+
+    this.placeService.create(place).subscribe((place) => {
+      placeMultilang.place = (<any>place)._id;
+      this.placeMultilangService.create(placeMultilang).subscribe(multilang => this.navCtrl.goToRoot({updateUrl: true}));
+    });
   }
 }

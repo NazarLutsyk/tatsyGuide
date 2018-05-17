@@ -14,6 +14,9 @@ import {Client} from "../models/client/Client";
 import {zip} from "rxjs/observable/zip";
 import {LangProvider} from "../providers/lang/lang";
 import {CreatePlacePage} from "../pages/create-place/create-place";
+import {MyPlacesPage} from "../pages/my-places/my-places";
+import {MyFavoritePlacesPage} from "../pages/my-favorite-places/my-favorite-places";
+import {MyRatingsPage} from "../pages/my-ratings/my-ratings";
 
 
 @Component({
@@ -94,7 +97,21 @@ export class MyApp implements OnInit {
   goToCreatePlacePage() {
     this.menuController.close();
     this.navCtrl.push(CreatePlacePage);
+  }
 
+  goToMyPlacesPage() {
+    this.menuController.close();
+    this.navCtrl.push(MyPlacesPage);
+  }
+
+  goToMyFavoritePlacesPage() {
+    this.menuController.close();
+    this.navCtrl.push(MyFavoritePlacesPage);
+  }
+
+  goToMyRatingsPage() {
+    this.menuController.close();
+    this.navCtrl.push(MyRatingsPage);
   }
 
 }

@@ -43,6 +43,9 @@ export class PlaceDeatilsPage {
               private auth: AuthProvider,
               private clientService: ClientProvider
   ) {
+  }
+
+  ngOnInit(){
     this.place = this.navParams.data;
 
     let menus = this.menuController.getMenus();
@@ -50,7 +53,7 @@ export class PlaceDeatilsPage {
       menu.swipeEnable(false);
     }
     this.auth.loadPrincipal().subscribe((principal) => {
-      if (this.principal) {
+      if (principal) {
         this.principal = principal;
         let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
         if (favouriteIndex >= 0) {
@@ -58,15 +61,14 @@ export class PlaceDeatilsPage {
         } else {
           this.isFavorite = false;
         }
-      }else {
+      } else {
         this.isFavorite = false
       }
     });
-
   }
 
   addToFavorite(place: Place) {
-    let favouriteIndex = this.principal.favoritePlaces.indexOf(this.place);
+    let favouriteIndex = this.principal.favoritePlaces.indexOf((<any>this.place)._id);
     if (favouriteIndex >= 0) {
       this.principal.favoritePlaces.splice(favouriteIndex, 1);
     } else {

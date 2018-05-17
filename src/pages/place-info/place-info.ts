@@ -71,7 +71,6 @@ export class PlaceInfoPage {
             // todo tune drinker`s api to mail
             this.http.post(`${this.globalHost}/mail/send`, data);
             console.log(data);
-
           }
         }
       ]

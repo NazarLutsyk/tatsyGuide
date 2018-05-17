@@ -19,7 +19,7 @@ export class PlaceMultilangProvider {
     return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/placeMultilangs?target=${target}&fetch=${fetch}`);
   }
 
-  create(placeMultilang: PlaceMultilang): Observable<PlaceMultilang>{
+  create(placeMultilang: Object): Observable<PlaceMultilang>{
     return this.http.post<PlaceMultilang>(`${this.globalConfig.getGlobalHost()}/api/placeMultilangs`, placeMultilang);
   }
 

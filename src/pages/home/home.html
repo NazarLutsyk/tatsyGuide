@@ -26,7 +26,7 @@
 
     <ion-item *virtualItem="let place" (click)="toDetails(place)">
       <ion-thumbnail item-start>
-        <img [src]="globalHost+place.images[0]">
+        <img [src]="globalHost+place.avatar">
       </ion-thumbnail>
       <h2>{{place.multilang[0].name}}</h2>
       <span> <ion-icon name="star"></ion-icon> {{place.rating| number:'1.0-2'}} </span>
