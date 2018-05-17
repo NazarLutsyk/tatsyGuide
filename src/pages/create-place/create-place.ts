@@ -7,6 +7,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 import {ChooseLocationPage} from "../choose-location/choose-location";
+import {AddAvatarAndPhotosPage} from "../add-avatar-and-photos/add-avatar-and-photos";
 
 @IonicPage()
 @Component({
@@ -74,10 +75,11 @@ export class CreatePlacePage {
       }
     };
 
-    this.placeService.create(place).subscribe((place) => {
-      placeMultilang.place = (<any>place)._id;
-      this.placeMultilangService.create(placeMultilang).subscribe(multilang => this.navCtrl.goToRoot({updateUrl: true}));
-    });
+    // this.placeService.create(place).subscribe((place) => {
+    //   placeMultilang.place = (<any>place)._id;
+    //   this.placeMultilangService.create(placeMultilang).subscribe(multilang => this.navCtrl.goToRoot({updateUrl: true}));
+    // });
+    this.navCtrl.push(AddAvatarAndPhotosPage);
   }
 
 

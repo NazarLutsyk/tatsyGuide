@@ -53,6 +53,7 @@ import {MyPlacesPageModule} from "../pages/my-places/my-places.module";
 import {MyFavoritePlacesPageModule} from "../pages/my-favorite-places/my-favorite-places.module";
 import {MyRatingsPageModule} from "../pages/my-ratings/my-ratings.module";
 import {ChooseLocationPageModule} from "../pages/choose-location/choose-location.module";
+import {AddAvatarAndPhotosPage} from "../pages/add-avatar-and-photos/add-avatar-and-photos";
 
 @NgModule({
   declarations: [
@@ -81,11 +82,11 @@ import {ChooseLocationPageModule} from "../pages/choose-location/choose-location
     MyPlacesPageModule,
     MyFavoritePlacesPageModule,
     MyRatingsPageModule,
-    ChooseLocationPageModule
+    ChooseLocationPageModule,
+    AddAvatarAndPhotosPage
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-  ],
+  entryComponents: [],
   providers: [
     StatusBar,
     SplashScreen,
