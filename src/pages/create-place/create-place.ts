@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
-import {Place} from "../../models/place/Place";
+import {Events, IonicPage, NavController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
 import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {PlaceMultilang} from "../../models/multilang/PlaceMultilang";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
+import {ChooseLocationPage} from "../choose-location/choose-location";
 
 @IonicPage()
 @Component({
@@ -19,12 +18,17 @@ export class CreatePlacePage {
   placeTypes: PlaceTypeMultilang[] = [];
 
   constructor(
+    private event: Events,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     private placeMultilangService: PlaceMultilangProvider,
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
     private navCtrl: NavController
   ) {
+
+    this.event.subscribe("choosePosition", (data) => {
+      console.log(data);
+    })
   }
 
   ngOnInit() {
@@ -74,5 +78,10 @@ export class CreatePlacePage {
       placeMultilang.place = (<any>place)._id;
       this.placeMultilangService.create(placeMultilang).subscribe(multilang => this.navCtrl.goToRoot({updateUrl: true}));
     });
+  }
+
+
+  goToChooseLocation() {
+    this.navCtrl.push(ChooseLocationPage)
   }
 }

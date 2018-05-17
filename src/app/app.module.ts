@@ -52,6 +52,7 @@ import {Camera} from '@ionic-native/camera';
 import {MyPlacesPageModule} from "../pages/my-places/my-places.module";
 import {MyFavoritePlacesPageModule} from "../pages/my-favorite-places/my-favorite-places.module";
 import {MyRatingsPageModule} from "../pages/my-ratings/my-ratings.module";
+import {ChooseLocationPageModule} from "../pages/choose-location/choose-location.module";
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import {MyRatingsPageModule} from "../pages/my-ratings/my-ratings.module";
     CreatePlacePageModule,
     MyPlacesPageModule,
     MyFavoritePlacesPageModule,
-    MyRatingsPageModule
+    MyRatingsPageModule,
+    ChooseLocationPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
