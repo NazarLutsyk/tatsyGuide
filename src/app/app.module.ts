@@ -53,7 +53,8 @@ import {MyPlacesPageModule} from "../pages/my-places/my-places.module";
 import {MyFavoritePlacesPageModule} from "../pages/my-favorite-places/my-favorite-places.module";
 import {MyRatingsPageModule} from "../pages/my-ratings/my-ratings.module";
 import {ChooseLocationPageModule} from "../pages/choose-location/choose-location.module";
-import {AddAvatarAndPhotosPage} from "../pages/add-avatar-and-photos/add-avatar-and-photos";
+import {AddAvatarAndPhotosPageModule} from "../pages/add-avatar-and-photos/add-avatar-and-photos.module";
+import {ImagePicker} from "@ionic-native/image-picker";
 
 @NgModule({
   declarations: [
@@ -83,7 +84,7 @@ import {AddAvatarAndPhotosPage} from "../pages/add-avatar-and-photos/add-avatar-
     MyFavoritePlacesPageModule,
     MyRatingsPageModule,
     ChooseLocationPageModule,
-    AddAvatarAndPhotosPage
+    AddAvatarAndPhotosPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -123,8 +124,8 @@ import {AddAvatarAndPhotosPage} from "../pages/add-avatar-and-photos/add-avatar-
     // FileUploadOptions, ???
     FileTransferObject,
     File,
-    Camera
-
+    Camera,
+    ImagePicker
   ]
 })
 export class AppModule {

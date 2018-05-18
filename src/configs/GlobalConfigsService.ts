@@ -12,9 +12,9 @@ export class GlobalConfigsService {
     private platform: Platform,
   ) {
     // if (platform.is("android")) {
-    //   this.globalHost = 'https://192.168.1.25:3000';
+      this.globalHost = 'https://192.168.1.14:3000';
     // }else {
-      this.globalHost = 'https://localhost:3000';
+    //   this.globalHost = 'https://localhost:3000';
     // }
   }
 
@@ -29,7 +29,7 @@ export class GlobalConfigsService {
     //   });
     // }
     // return this.globalLang;
-    return "5afd703da441a4206c86769f";
+    return "5afd9d96a39d10247822860e";
   }
 
 }

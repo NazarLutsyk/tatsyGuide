@@ -13,6 +13,7 @@
 <ion-content padding>
   <ion-list [virtualScroll]="places" [approxItemHeight]="'132px'">
     <ion-item *virtualItem="let place" (click)="toDetails(place)">
+      <ion-icon item-start name="trash" (click)="removeFavoritePlace(place,$event)"></ion-icon>
       <ion-thumbnail item-start>
         <img [src]="globalHost+place.avatar">
       </ion-thumbnail>
@@ -24,7 +25,6 @@
       <p>{{place.multilang[0].address.city}} {{place.multilang[0].address.street}}
         {{place.multilang[0].address.number}}</p>
       <p>{{place.distance | number : '3.1-2'}} км</p>
-
     </ion-item>
   </ion-list>
 

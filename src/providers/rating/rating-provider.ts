@@ -13,7 +13,7 @@ export class RatingProvider {
   ) {
   }
 
-  getRatings(target = {}, fetch = {}):Observable<any[]> {
+  getRatings(target = {}, fetch = {}): Observable<any[]> {
     target = JSON.stringify(target);
     fetch = JSON.stringify(fetch);
     return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/ratings?target=${target}&fetch=${fetch}`);
@@ -25,6 +25,10 @@ export class RatingProvider {
 
   update(id: string, rating: Rating): Observable<Rating> {
     return this.http.put<Rating>(`${this.globalConfig.getGlobalHost()}/api/ratings/${id}`, rating);
+  }
+
+  remove(id: string) {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/ratings/${id}`).subscribe();
   }
 
 

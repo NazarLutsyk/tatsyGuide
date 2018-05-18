@@ -41,4 +41,9 @@ export class MyRatingsPage {
       this.ratings = value
     });
   }
+
+  removeRating(rating) {
+    this.ratingProvider.remove(rating._id);
+    this.ratings.splice(this.ratings.indexOf(rating),1);
+  }
 }

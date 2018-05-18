@@ -16,6 +16,7 @@ import {AddAvatarAndPhotosPage} from "../add-avatar-and-photos/add-avatar-and-ph
 })
 export class CreatePlacePage {
 
+  location: any = {lat: 0, lng: 0};
   placeTypes: PlaceTypeMultilang[] = [];
 
   constructor(
@@ -28,7 +29,8 @@ export class CreatePlacePage {
   ) {
 
     this.event.subscribe("choosePosition", (data) => {
-      console.log(data);
+      this.location.lat = data.lat;
+      this.location.lng = data.lng;
     })
   }
 
@@ -72,14 +74,15 @@ export class CreatePlacePage {
         5: {start: formPlace.days[1].start, end: formPlace.days[1].end},
         6: {start: formPlace.days[1].start, end: formPlace.days[1].end},
         7: {start: formPlace.days[1].start, end: formPlace.days[1].end}
-      }
+      },
+      location: this.location
     };
-
-    // this.placeService.create(place).subscribe((place) => {
-    //   placeMultilang.place = (<any>place)._id;
-    //   this.placeMultilangService.create(placeMultilang).subscribe(multilang => this.navCtrl.goToRoot({updateUrl: true}));
-    // });
-    this.navCtrl.push(AddAvatarAndPhotosPage);
+    this.placeService.create(place).subscribe((place) => {
+      placeMultilang.place = (<any>place)._id;
+      this.placeMultilangService.create(placeMultilang).subscribe(multilang => {
+        this.navCtrl.push(AddAvatarAndPhotosPage,{id: (<any>place)._id});
+      });
+    });
   }
 
 

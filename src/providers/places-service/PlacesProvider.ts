@@ -433,8 +433,22 @@ export class PlacesProvider {
     }
 
     return findDistance();
-
   }
+
+  upload(id, files: { avatar?: string, images?: string[] }): Observable<Place> {
+    let url = `https://localhost:3000/api/places/${id}`;
+    let data = new FormData();
+    if (files.avatar)
+      data.append('avatar', files.avatar);
+    if (files.images.length > 0)
+      data.append('images', new Blob(files.images));
+
+    return this.http.put<Place>(url, data);
+  }
+
+  remove(_id: any) {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/places/${_id}`).subscribe();
+  }
+
+
 }
-
-

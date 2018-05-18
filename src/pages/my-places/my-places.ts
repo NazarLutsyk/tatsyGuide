@@ -43,7 +43,7 @@ export class MyPlacesPage {
   }
 
   ngOnInit() {
-    this.auth.principal.subscribe(principal => {
+    this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.departmentService
         .getDepartments({query: {client: (<any>this.principal)._id, roles: 'BOSS_PLACE'}})
@@ -52,7 +52,6 @@ export class MyPlacesPage {
           this.onLoad({query: {_id: placeIds}}).subscribe(places => this.places = places);
         });
     });
-    this.auth.loadPrincipal().subscribe();
   }
 
   toDetails(place) {
@@ -72,5 +71,11 @@ export class MyPlacesPage {
         subscriber.error(error);
       });
     });
+  }
+
+  removePlace(place, $event) {
+    event.stopPropagation();
+    this.places.splice(this.places.indexOf(place), 1);
+    this.placesService.remove(place._id);
   }
 }

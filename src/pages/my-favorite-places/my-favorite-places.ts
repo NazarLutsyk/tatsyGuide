@@ -39,11 +39,13 @@ export class MyFavoritePlacesPage {
   }
 
   ngOnInit() {
-    this.auth.principal.subscribe(principal => {
+    // this.auth.principal.subscribe(principal => {
+    //   this.onLoad({query: {_id: this.principal.favoritePlaces}}).subscribe(places => this.places = places);
+    // });
+    this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.onLoad({query: {_id: this.principal.favoritePlaces}}).subscribe(places => this.places = places);
     });
-    this.auth.loadPrincipal().subscribe();
   }
 
   toDetails(place) {
@@ -63,5 +65,14 @@ export class MyFavoritePlacesPage {
         subscriber.error(error);
       });
     });
+  }
+
+  removeFavoritePlace(place, event) {
+    event.stopPropagation();
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.places.splice(this.places.indexOf(place), 1);
+      this.clientService.update((<any>principal)._id, {favoritePlaces: this.places}).subscribe();
+    });
+
   }
 }

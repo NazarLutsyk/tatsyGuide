@@ -14,6 +14,7 @@
       <h2>{{rating?.client.name}}</h2>
       <p>{{rating?.comment}}</p>
       <p>check : {{rating?.price}}</p>
+      <ion-icon item-start name="trash" (click)="removeRating(rating)"></ion-icon>
     </ion-item>
   </ion-list>
 
