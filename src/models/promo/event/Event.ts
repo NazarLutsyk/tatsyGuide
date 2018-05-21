@@ -13,7 +13,7 @@ export class Event extends Promo {
     public place: Place = null,
     public startDate: string = '',
     public endDate: string = '',
-    public multilang: EventMultilang = null
+    public multilang: EventMultilang[] = []
   ) {
     super(id, image, author, place, startDate, endDate);
   }

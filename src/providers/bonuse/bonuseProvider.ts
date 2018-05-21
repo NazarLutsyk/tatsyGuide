@@ -12,17 +12,21 @@ export class BonuseProvider {
   ) {
   }
 
-  getBonuses(target = {}, fetch = {}) {
-    target = JSON.stringify(target);
-    fetch = JSON.stringify(fetch);
-    return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/bonuses?target=${target}&fetch=${fetch}`);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/bonuses?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
   }
 
-  create(bonuse: Bonuse): Observable<Bonuse>{
+  create(bonuse: Bonuse): Observable<Bonuse> {
     return this.http.post<Bonuse>(`${this.globalConfig.getGlobalHost()}/api/bonuses`, bonuse);
   }
 
-  update(id:string, bonuse: Bonuse): Observable<Bonuse>{
+  update(id: string, bonuse: Bonuse): Observable<Bonuse> {
     return this.http.put<Bonuse>(`${this.globalConfig.getGlobalHost()}/api/bonuses/${id}`, bonuse);
   }
 

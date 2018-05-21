@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TopPlace} from "../../models/tops/TopPlace";
@@ -13,10 +13,14 @@ export class TopPlaceProvider {
   ) {
   }
 
-  getTopPlaces(target, fetch): Observable<TopPlace[]> {
-    target = JSON.stringify(target);
-    fetch = JSON.stringify(fetch);
-    return this.http.get<TopPlace[]>(this.globalConfig.getGlobalHost() + `/api/topPlaces?target=${target}&fetch=${fetch}`);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/topPlaces?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
   }
 
   create(topPlace: TopPlace): Observable<TopPlace> {

@@ -14,6 +14,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <access launch-external="yes" origin="geo:*" />
     <platform name="android">
+        <preference name="loadUrlTimeoutValue" value="700000" />
         <allow-navigation href="*" />
         <allow-intent href="*" />
         <allow-intent href="market:*" />
@@ -95,8 +96,9 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
-    <engine name="android" spec="7.0.0" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.10">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="your usage message" />
     </plugin>
+    <engine name="android" spec="7.0.0" />
+    <plugin name="com-badrit-base64" spec="^0.2.0" />
 </widget>

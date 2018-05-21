@@ -11,7 +11,7 @@ export class Bonuse extends Promo {
     public place: Place = null,
     public startDate: string = '',
     public endDate: string = '',
-    public multilang: BonuseMultilang = null
+    public multilang: BonuseMultilang[] = []
   ) {
     super(id, image, author, place, startDate, endDate);
   }

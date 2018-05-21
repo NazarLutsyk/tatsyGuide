@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {RatingProvider} from "../../providers/rating/rating-provider";
 import {Rating} from "../../models/rating/Rating";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
@@ -29,16 +29,8 @@ export class TestimonialPage {
   }
 
   ngOnInit() {
-    console.log('init');
     this.loadRatings();
   }
-
-  ionViewDidLoad(){
-    console.log('did load');
-  }
-
-
-
   leaveTestimonial() {
     let modelComponent = this.modal.create(ModalTestimonialPage, {_id: this.navParams.data._id});
     modelComponent.onDidDismiss(() => {
@@ -48,7 +40,11 @@ export class TestimonialPage {
   }
 
   loadRatings(){
-    let query = {query : {place: this.navParams.data._id}};
-    this.ratingProvider.getRatings(query).subscribe(value => this.ratings = value);
+    let query =
+      {
+        query : {place: this.navParams.data._id},
+        populate: [{path: 'client'}]
+      };
+    this.ratingProvider.find(query).subscribe(value => this.ratings = value);
   }
 }

@@ -15,7 +15,7 @@
 
 <ion-content>
 
-  <span *ngFor="let promo of place.promos">
+  <span *ngFor="let promo of news">
     <ion-card *ngIf="promo.kind=='News'">
 
     <img src="{{globalHost+promo.image}}"/>
@@ -29,20 +29,5 @@
     </ion-card-content>
   </ion-card>
   </span>
-
-
-  <!--<ion-row *ngFor="let promo of place.promos">-->
-  <!--<ion-col col-12 *ngIf="promo.kind=='News'" >-->
-  <!--<ion-img [src]="globalHost+promo.image"></ion-img>-->
-  <!--</ion-col>-->
-  <!--<ion-col col-12 *ngIf="promo.kind=='News'" >-->
-  <!--<p>{{promo.kind}} {{promo.multilang[0].header}} {{promo.multilang[0].description}}</p>-->
-
-  <!--</ion-col>-->
-  <!--<ion-col col-12 *ngIf="promo.kind=='News'">-->
-  <!--Data of event-->
-
-  <!--</ion-col>-->
-  <!--</ion-row>-->
 
 </ion-content>

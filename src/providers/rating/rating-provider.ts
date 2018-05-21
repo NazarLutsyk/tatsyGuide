@@ -13,11 +13,14 @@ export class RatingProvider {
   ) {
   }
 
-  getRatings(target = {}, fetch = {}): Observable<any[]> {
-    target = JSON.stringify(target);
-    fetch = JSON.stringify(fetch);
-    return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/ratings?target=${target}&fetch=${fetch}`);
-  }
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/ratings?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);  }
 
   create(rating: Rating): Observable<Rating> {
     return this.http.post<Rating>(`${this.globalConfig.getGlobalHost()}/api/ratings`, rating);

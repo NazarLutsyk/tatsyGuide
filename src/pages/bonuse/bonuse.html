@@ -15,31 +15,31 @@
 
 <ion-content >
 
-  <span *ngFor="let promo of place.promos">
-    <ion-card *ngIf="promo.kind=='Bonuse'">
+  <span *ngFor="let bonuse of bonuses">
+    <ion-card *ngIf="bonuse.kind=='Bonuse'">
 
-    <img src="{{globalHost+promo.image}}"/>
+    <img src="{{globalHost+bonuse.image}}"/>
     <ion-card-content>
       <ion-card-title>
-        {{promo.multilang[0].header}}
+        {{bonuse.multilang[0].header}}
       </ion-card-title>
       <p>
-        {{promo.multilang[0].description}}
+        {{bonuse.multilang[0].description}}
       </p>
     </ion-card-content>
   </ion-card>
   </span>
 
 
-  <!--<ion-row *ngFor="let promo of place.promos">-->
-    <!--<ion-col col-12 *ngIf="promo.kind=='Bonuse'" >-->
-      <!--<ion-img [src]="globalHost+promo.image"></ion-img>-->
+  <!--<ion-row *ngFor="let bonuse of place.promos">-->
+    <!--<ion-col col-12 *ngIf="bonuse.kind=='Bonuse'" >-->
+      <!--<ion-img [src]="globalHost+bonuse.image"></ion-img>-->
     <!--</ion-col>-->
-    <!--<ion-col col-12 *ngIf="promo.kind=='Bonuse'" >-->
-      <!--<p>{{promo.kind}} {{promo.multilang[0].header}} {{promo.multilang[0].description}}</p>-->
+    <!--<ion-col col-12 *ngIf="bonuse.kind=='Bonuse'" >-->
+      <!--<p>{{bonuse.kind}} {{bonuse.multilang[0].header}} {{bonuse.multilang[0].description}}</p>-->
 
     <!--</ion-col>-->
-    <!--<ion-col col-12 *ngIf="promo.kind=='Bonuse'">-->
+    <!--<ion-col col-12 *ngIf="bonuse.kind=='Bonuse'">-->
       <!--Data of event-->
 
     <!--</ion-col>-->

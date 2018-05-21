@@ -12,7 +12,7 @@ export class News extends Promo {
     public place: Place = null,
     public startDate: string = '',
     public endDate: string = '',
-    public multilang: NewsMultilang = null
+    public multilang: NewsMultilang[] = []
   ) {
     super(id, image, author, place, startDate, endDate);
   }

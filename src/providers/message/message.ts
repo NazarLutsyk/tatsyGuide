@@ -13,11 +13,14 @@ export class MessageProvider {
   ) {
   }
 
-  find(query = {}): Observable<Message[]> {
-    let target = JSON.stringify({
-      query: query
-    });
-    return this.http.get<Message[]>(`${this.globalConfig.getGlobalHost()}/api/messages?target=${target}`);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/messages?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
   }
 
   create(message: Message): Observable<Message>{

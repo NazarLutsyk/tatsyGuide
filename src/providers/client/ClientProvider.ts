@@ -29,85 +29,15 @@ export class ClientProvider {
   }
 
 
-  getClients(target = {}, fetch = {}) {
-    let fetchSendedMessages = JSON.stringify({sendedMessages: {}});
-    let fetchReceivedMessages = JSON.stringify({receivedMessages: {}});
-    this.http.get<Client[]>(this.globalConfig.getGlobalHost() + `/api/clients?fetch=[${fetchSendedMessages},${fetchReceivedMessages}]`).subscribe(clients => {
-      let clientIds = [];
-      for (const client of clients) {
-        clientIds.push(client.id);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/clients?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
       }
-      this.complaintService.getComplaints({}, [{"place": {}}]).subscribe(complaints => {
-        for (const complaint of complaints) {
-          for (const client of clients) {
-            if (!client.complaints) client.complaints = [];
-            if (client.id === complaint.client) {
-              client.complaints.push(complaint);
-            }
-          }
-        }
-      });
-      this.drinkApplicationService.getDrinkApplications({}, [{"place": {}}]).subscribe(drinkApplications => {
-        for (const drinkApplication of drinkApplications) {
-          for (const client of clients) {
-            if (!client.drinkApplications) client.drinkApplications = [];
-            if (client.id === drinkApplication.organizer) {
-              client.drinkApplications.push(drinkApplication);
-            }
-          }
-        }
-      });
-      this.ratingService.getRatings({}, [{"place": {}}]).subscribe(ratings => {
-        for (const rating of ratings) {
-          for (const client of clients) {
-            if (!client.ratings) client.ratings = [];
-            if (client.id === (<any>rating).client) {
-              client.ratings.push(rating);
-            }
-          }
-        }
-      });
-      this.departmentService.getDepartments({}, [{"place": {}}]).subscribe(departments => {
-        for (const department of departments) {
-          for (const client of clients) {
-            if (!client.departments) client.departments = [];
-            if (client.id === department.client) {
-              client.departments.push(department);
-            }
-          }
-        }
-      });
-      this.newsService.getNews({}, [{"place": {}}]).subscribe(news => {
-        for (const singleNews of news) {
-          for (const client of clients) {
-            if (!client.promos) client.promos = [];
-            if (client.id === singleNews.author) {
-              client.promos.push(singleNews);
-            }
-          }
-        }
-      });
-      this.eventService.getEvents({}, [{"place": {}}]).subscribe(events => {
-        for (const event of events) {
-          for (const client of clients) {
-            if (!client.promos) client.promos = [];
-            if (client.id === event.author) {
-              client.promos.push(event);
-            }
-          }
-        }
-      });
-      this.bonuseService.getBonuses({}, [{"place": {}}]).subscribe(bonuses => {
-        for (const bonuse of bonuses) {
-          for (const client of clients) {
-            if (!client.promos) client.promos = [];
-            if (client.id === bonuse.author) {
-              client.promos.push(bonuse);
-            }
-          }
-        }
-      });
-    });
+    }
+    this.http.get<Client[]>(url);
+
   }
   update(id:string, client: any): Observable<Client>{
     return this.http.put<Client>(`${this.globalConfig.getGlobalHost()}/api/clients/${id}`, client);

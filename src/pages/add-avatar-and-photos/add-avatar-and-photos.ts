@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
-import {HttpClient} from "@angular/common/http";
+import {Base64} from '@ionic-native/base64';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
 
@@ -13,26 +13,26 @@ import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
 export class AddAvatarAndPhotosPage {
 
   avatar: string;
-  images: string[];
+  imagesToShow: string[] = [];
+  images: string[] = [];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private camera: Camera,
     private placeService: PlacesProvider,
-    private imagePicker: ImagePicker
+    private imagePicker: ImagePicker,
+    private base64: Base64
   ) {
   }
 
   uploadImage() {
-    console.log(this.avatar);
-    console.log(this.images);
-    // this.placeService.upload(
-    //   this.navParams.data.id,
-    //   {avatar: this.avatar, images: this.images}
-    // ).subscribe((place) => {
-    //   console.log(place);
-    // });
+    this.placeService.upload(
+      this.navParams.data.id,
+      {avatar: this.avatar, images: this.images}
+    ).subscribe((place) => {
+      console.log(place);
+    });
   }
 
   getAvatar() {
@@ -48,15 +48,16 @@ export class AddAvatarAndPhotosPage {
     })
   }
 
-  getImages() {
+  async getImages() {
     const options: ImagePickerOptions = {
       quality: 100,
       maximumImagesCount: 6
     };
-    this.imagePicker.getPictures(options).then((results) => {
-      for (const result of results) {
-        this.images[this.images.length] = 'data:image/jpeg;base64,' + result;
-      }
-    });
+    let results = await this.imagePicker.getPictures(options);
+    for (var i = 0; i < results.length; i++) {
+      let base64File = await this.base64.encodeFile(results[i]);
+      this.images.push(base64File);
+    }
+    this.imagesToShow = results;
   }
 }

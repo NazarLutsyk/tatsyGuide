@@ -17,6 +17,7 @@ import {CreatePlacePage} from "../pages/create-place/create-place";
 import {MyPlacesPage} from "../pages/my-places/my-places";
 import {MyFavoritePlacesPage} from "../pages/my-favorite-places/my-favorite-places";
 import {MyRatingsPage} from "../pages/my-ratings/my-ratings";
+import {PlaceTypeMultilangProvider} from "../providers/place-type-multilang/place-type-multilang";
 
 
 @Component({
@@ -28,7 +29,7 @@ export class MyApp implements OnInit {
 
   @ViewChild('myNav') navCtrl: NavController;
   rootPage: any = HomePage;
-  placeTypes = [];
+  placeTypesM = [];
   searchObject = {range: {lower: 0, upper: 10000}, direction: false, filterFeature: {}};
   principal: Client = null;
 
@@ -37,6 +38,7 @@ export class MyApp implements OnInit {
               splashScreen: SplashScreen,
               private placeTypeService: PlaceTypeProvider,
               private placeService: PlacesProvider,
+              private placeTYpeMultilangService: PlaceTypeMultilangProvider,
               private langService: LangProvider,
               private events: Events,
               private menuController: MenuController,
@@ -62,12 +64,12 @@ export class MyApp implements OnInit {
     });
     zip(
       this.auth.loadPrincipal(),
-      this.placeTypeService
-        .getPlaceTypes({}, [{placeTypeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}}])
-    ).subscribe(([principal, placeTypes]) => {
-      for (const placeType of placeTypes) {
-        this.placeTypes.push(placeType);
-      }
+      this.placeTYpeMultilangService.find({
+        query: {lang: this.globalConfig.getGlobalLang()},
+        populate: [{path: 'placeType'}]
+      })
+    ).subscribe(([principal, placeTypesM]) => {
+      this.placeTypesM = placeTypesM;
     }, (err) => {
       console.log(err);
     })

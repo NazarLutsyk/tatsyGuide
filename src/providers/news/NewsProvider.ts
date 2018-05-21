@@ -10,10 +10,14 @@ export class NewsProvider {
     private globalConfig: GlobalConfigsService) {
   }
 
-  getNews(target = {}, fetch = {}) {
-    target = JSON.stringify(target);
-    fetch = JSON.stringify(fetch);
-    return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/news?target=${target}&fetch=${fetch}`);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/news?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
   }
 
 

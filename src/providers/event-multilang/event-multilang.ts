@@ -1,17 +1,25 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
-/*
-  Generated class for the EventMultilangProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class EventMultilangProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello EventMultilangProvider Provider');
+  constructor(
+    public http: HttpClient,
+    private globalConfig: GlobalConfigsService
+    ) {
   }
+
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/eventMultilangs?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
+  }
+
 
 }

@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {RatingProvider} from "../../providers/rating/rating-provider";
-import {ModalTestimonialPage} from "../modal-testimonial/modal-testimonial";
 import {Rating} from "../../models/rating/Rating";
-import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Client} from "../../models/client/Client";
 import {AuthProvider} from "../../providers/auth/auth";
@@ -36,14 +34,16 @@ export class MyRatingsPage {
   }
 
   loadRatings() {
-    let query = {query: {client: (<any>this.principal)._id}};
-    this.ratingProvider.getRatings(query).subscribe(value => {
-      this.ratings = value
-    });
+    let query =
+      {
+        query: {client: (<any>this.principal)._id},
+        populate: [{path: 'client'}]
+      };
+    this.ratingProvider.find(query).subscribe(value => this.ratings = value);
   }
 
   removeRating(rating) {
     this.ratingProvider.remove(rating._id);
-    this.ratings.splice(this.ratings.indexOf(rating),1);
+    this.ratings.splice(this.ratings.indexOf(rating), 1);
   }
 }

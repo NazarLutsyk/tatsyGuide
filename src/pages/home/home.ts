@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Events, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
@@ -9,10 +9,11 @@ import {Client} from "../../models/client/Client";
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
-import {Observable} from "rxjs/Observable";
 import {ObjectUtils} from "../../utils/ObjectUtils";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
-import {debounceTime, distinctUntilChanged, pluck} from "rxjs/operators";
+import {fromPromise} from "rxjs/observable/fromPromise";
+import {Geolocation} from "@ionic-native/geolocation";
+import {zip} from "rxjs/observable/zip";
 
 @Component({
   selector: 'page-home',
@@ -20,7 +21,7 @@ import {debounceTime, distinctUntilChanged, pluck} from "rxjs/operators";
 })
 export class HomePage implements OnInit {
 
-  places: Place[];
+  places: Place[] = [];
   globalHost: string;
   principal: Client;
 
@@ -30,6 +31,7 @@ export class HomePage implements OnInit {
     public navCtrl: NavController,
     private navParams: NavParams,
     private placesService: PlacesProvider,
+    private geolocation: Geolocation,
     private clientService: ClientProvider,
     private bonuseService: BonuseProvider,
     private events: Events,
@@ -51,12 +53,63 @@ export class HomePage implements OnInit {
       if (!ObjectUtils.isEmpty(eventData.range)) {
         filter.averagePrice = {$gte: eventData.range.lower, $lte: eventData.range.upper};
       }
-      if (eventData.sort === 'rating' || eventData.sort === 'averagePrice') {
+      if (eventData.sort === 'rating' || eventData.sort === 'averagePrice' || eventData.sort === 'name') {
         sort[eventData.sort] = eventData.direction ? 1 : -1
       }
-      let target = {query: filter, sort: sort};
-      this.onLoad(target).subscribe(places => {
-        this.places = places;
+      let res;
+
+      if (sort.name) {
+        res = placeMultilangService.find({
+          query: {lang: this.globalVars.getGlobalLang()},
+          sort: sort,
+          populate: [
+            {
+              path: 'place',
+              match: filter,
+              populate: [
+                {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+                {
+                  path: 'types',
+                  populate: {
+                    match: {lang: this.globalVars.getGlobalLang()},
+                    path: 'multilang'
+                  }
+                }
+              ]
+            },
+          ]
+        }).map((placesM) => {
+          return placesM
+            .filter(pm => pm.place !== null)
+            .map(pm => {
+              return pm.place;
+            });
+        });
+
+      } else {
+        let target = {
+          query: filter,
+          sort: sort,
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {
+                match: {lang: this.globalVars.getGlobalLang()},
+                path: 'multilang'
+              }
+            }]
+        };
+        res = this.placesService.find(target);
+      }
+      zip(
+        fromPromise(this.geolocation.getCurrentPosition()),
+        res
+      ).subscribe(([position, places]) => {
+        this.places = places  ;
+        for (const place of this.places) {
+          place.distance = this.placesService.findDistance(position,place);
+        }
         if (eventData.sort === 'location') {
           this.places = this.places.sort((a, b) => {
             if (eventData.direction > 0)
@@ -66,56 +119,67 @@ export class HomePage implements OnInit {
             }
           });
         }
-        if (eventData.sort === 'name') {
-          let placeIds = this.places.map(elem => (<any>elem)._id);
-          let target = {
-            query: {place: {$in: placeIds}, lang: this.globalVars.getGlobalLang()},
-            sort: {[eventData.sort]: eventData.direction ? 1 : -1},
-          };
-          this.placeMultilangService.getPlaceMultilangs(target, {}).subscribe((multilangs) => {
-            let multilangIds = multilangs.map(elem => elem.place);
-
-            this.places = this.places.sort((a, b) => {
-              return multilangIds.findIndex(id => (<any>a)._id === id) -
-                multilangIds.findIndex(id => (<any>b)._id === id)
-            });
-          });
-        }
       });
-
     });
   }
 
   ngOnInit() {
     this.auth.principal.subscribe(principal => this.principal = principal);
     this.auth.loadPrincipal().subscribe();
-    this.onLoad().subscribe(places => this.places = places);
-
+    this.placesService
+      .find(
+        {
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            },
+          ]
+        }
+      )
+      .subscribe(places => {
+        this.places = places
+      });
   }
 
   toDetails(place) {
-    this.placesService.findOne(place.id).subscribe((foundedPlace) => {
-      this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
-    });
+    this.placesService
+      .find(
+        {
+          query: {_id: place._id},
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            },
+          ]
+        }
+      )
+      .subscribe((foundedPlace) => {
+        this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
+      });
   }
 
   doRefresh(refresher: Refresher) {
-    this.onLoad().subscribe((places) => {
-      this.places = places;
-      refresher.complete();
-    });
-  }
-
-  onLoad(target: Object = {}) {
-    return new Observable<Place[]>((subscriber) => {
-      this.placesService.getAllPlaces(target).subscribe((places) => {
-        subscriber.next(places);
-        subscriber.complete();
-      }, (error) => {
-        console.log(error);
-        subscriber.error(error);
+    this.placesService
+      .find(
+        {
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            },
+          ]
+        }
+      )
+      .subscribe((places) => {
+        this.places = places;
+        refresher.complete();
+        ;
       });
-    });
   }
 
   onSearchPlaces(event) {
@@ -126,13 +190,33 @@ export class HomePage implements OnInit {
 
   searchPlaces(value: string) {
     this.placeMultilangService
-      .getPlaceMultilangs({query: {name: {$regex: value, $options: "i"}}})
-      .subscribe((multilangs) => {
-        let placeIds = multilangs.map(multilang => multilang.place);
-        this.onLoad({query: {_id: placeIds}})
-          .subscribe(places => {
+      .find(
+        {
+          query: {
+            lang: this.globalVars.getGlobalLang(),
+            name: {$regex: value, $options: "i"}
+          },
+          select: {
+            _id: 1,
+            place: 1
+          }
+        },
+      )
+      .subscribe(placeMultilangs => {
+        let pIds = placeMultilangs.map(pm => pm.place);
+        this.placesService.find({
+          query: {_id: pIds},
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            },
+          ]
+        })
+          .subscribe((places) => {
             this.places = places;
-          });
-      })
+          })
+      });
   }
 }

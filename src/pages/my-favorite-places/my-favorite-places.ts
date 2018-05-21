@@ -9,7 +9,6 @@ import {Client} from "../../models/client/Client";
 import {HttpClient} from "@angular/common/http";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
-import {Observable} from "rxjs/Observable";
 
 @IonicPage()
 @Component({
@@ -39,33 +38,43 @@ export class MyFavoritePlacesPage {
   }
 
   ngOnInit() {
-    // this.auth.principal.subscribe(principal => {
-    //   this.onLoad({query: {_id: this.principal.favoritePlaces}}).subscribe(places => this.places = places);
-    // });
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.onLoad({query: {_id: this.principal.favoritePlaces}}).subscribe(places => this.places = places);
+      this.placesService
+        .find({
+          query: {_id: this.principal.favoritePlaces},
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            }
+          ]
+        })
+        .subscribe(places => this.places = places);
     });
   }
 
   toDetails(place) {
-    this.placesService.findOne(place.id).subscribe((foundedPlace) => {
-      this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
-    });
-  }
-
-
-  onLoad(target: Object = {}) {
-    return new Observable<Place[]>((subscriber) => {
-      this.placesService.getAllPlaces(target).subscribe((places) => {
-        subscriber.next(places);
-        subscriber.complete();
-      }, (error) => {
-        console.log(error);
-        subscriber.error(error);
+    this.placesService
+      .find(
+        {
+          query: {_id: place._id},
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            }
+          ]
+        }
+      )
+      .subscribe((foundedPlace) => {
+        this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
       });
-    });
   }
+
+
 
   removeFavoritePlace(place, event) {
     event.stopPropagation();

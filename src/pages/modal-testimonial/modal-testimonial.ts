@@ -25,10 +25,6 @@ export class ModalTestimonialPage {
   ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalTestimonialPage');
-  }
-
   dismiss() {
     this.viewController.dismiss();
 

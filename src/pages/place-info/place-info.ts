@@ -31,10 +31,6 @@ export class PlaceInfoPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PlaceInfoPage');
-  }
-
 
   goToPlace(): void {
     window.location = `geo:${this.place.location.lat},${this.place.location.lng};u=35;`
@@ -42,14 +38,10 @@ export class PlaceInfoPage {
 
 
   goToCreateDrinkerApplication(place) {
-
     this.app.getRootNav().push(DrinkerApplicationPage, {place, disabled: true});
-
-
   }
 
   connectToManager() {
-    console.log("asdasd");
     let alert = this.alertController.create({
       title: 'message', inputs: [
         {

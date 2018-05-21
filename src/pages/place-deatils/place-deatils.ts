@@ -10,7 +10,6 @@ import {BonusePage} from "../bonuse/bonuse";
 import {PlaceInfoPage} from "../place-info/place-info";
 import {TestimonialPage} from "../testimonial/testimonial";
 import {Storage} from "@ionic/storage";
-import {NativePageTransitions, NativeTransitionOptions} from '@ionic-native/native-page-transitions';
 import {AuthProvider} from "../../providers/auth/auth";
 import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
@@ -47,7 +46,6 @@ export class PlaceDeatilsPage {
 
   ngOnInit(){
     this.place = this.navParams.data;
-
     let menus = this.menuController.getMenus();
     for (const menu of menus) {
       menu.swipeEnable(false);

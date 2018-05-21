@@ -3,8 +3,10 @@ import {Complaint} from "../complaint/Complaint";
 import {DrinkApplication} from "../drinkApplication/DrinkApplication";
 import {Rating} from "../rating/Rating";
 import {Department} from "../department/Department";
-import {Promo} from "../promo/Promo";
 import {Message} from "../message/Message";
+import {Event} from "../promo/event/Event";
+import {News} from "../promo/news/News";
+import {Bonuse} from "../promo/bonuse/Bonuse";
 
 export class Client {
   constructor(public id: string = '',
@@ -24,8 +26,11 @@ export class Client {
               public drinkApplications: DrinkApplication[] = [],
               public ratings: Rating[] = [],
               public departments: Department[] = [],
-              public promos: Promo[] = [],
-              public sendedMessages: Message[] = [],
-              public receivedMessages: Message[] = []) {
+              public events: Event[] = [],
+              public news: News[] = [],
+              public bonuses: Bonuse[] = [],
+              // public sendedMessages: Message[] = [],
+              // public receivedMessages: Message[] = []
+  ) {
   }
 }

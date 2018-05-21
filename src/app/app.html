@@ -89,7 +89,7 @@
     <ion-item>
       <ion-label>Тип закладу</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
-        <ion-option value="{{placeType._id}}" *ngFor="let placeType of placeTypes">{{placeType.multilang[0].name}}</ion-option>
+        <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">{{placeTypeM.name}}</ion-option>
       </ion-select>
     </ion-item>
 

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Place} from "../../models/place/Place";
@@ -8,7 +8,6 @@ import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 import {Client} from "../../models/client/Client";
 import {HttpClient} from "@angular/common/http";
 import {ClientProvider} from "../../providers/client/ClientProvider";
-import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {Observable} from "rxjs/Observable";
 import {DepartmentProvider} from "../../providers/department/department-provider";
@@ -46,32 +45,44 @@ export class MyPlacesPage {
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.departmentService
-        .getDepartments({query: {client: (<any>this.principal)._id, roles: 'BOSS_PLACE'}})
+        .find({
+          query: {client: (<any>this.principal)._id, roles: 'BOSS_PLACE'},
+        })
         .subscribe((departments) => {
           let placeIds = departments.map(dep => dep.place);
-          this.onLoad({query: {_id: placeIds}}).subscribe(places => this.places = places);
+          this.placesService.find({
+            query: {_id: placeIds},
+            populate: [
+              {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+              {
+                path: 'types',
+                populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+              }
+            ]
+          }).subscribe(places => this.places = places);
         });
     });
   }
 
   toDetails(place) {
-    this.placesService.findOne(place.id).subscribe((foundedPlace) => {
-      this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
-    });
-  }
-
-
-  onLoad(target: Object = {}) {
-    return new Observable<Place[]>((subscriber) => {
-      this.placesService.getAllPlaces(target).subscribe((places) => {
-        subscriber.next(places);
-        subscriber.complete();
-      }, (error) => {
-        console.log(error);
-        subscriber.error(error);
+    this.placesService
+      .find(
+        {
+          query: {_id: place._id},
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            }
+          ]
+        }
+      )
+      .subscribe((foundedPlace) => {
+        this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
       });
-    });
   }
+
 
   removePlace(place, $event) {
     event.stopPropagation();

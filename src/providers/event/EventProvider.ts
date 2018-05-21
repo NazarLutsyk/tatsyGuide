@@ -13,10 +13,14 @@ export class EventProvider {
   ) {
   }
 
-  getEvents(target = {}, fetch = {}) {
-    target = JSON.stringify(target);
-    fetch = JSON.stringify(fetch);
-    return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/events?target=${target}&fetch=${fetch}`);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/events?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
   }
 
   create(event: Event): Observable<Event>{

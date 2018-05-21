@@ -14,10 +14,14 @@ export class ComplaintProvider {
   ) {
   }
 
-  getComplaints(target = {}, fetch = {}) {
-    target = JSON.stringify(target);
-    fetch = JSON.stringify(fetch);
-    return this.http.get<any[]>(this.globalConfig.getGlobalHost() + `/api/complaints?target=${target}&fetch=${fetch}`);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/complaints?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
   }
 
   create(complaint: Complaint): Observable<Complaint>{

@@ -14,11 +14,14 @@ export class PlaceTypeProvider {
   ) {
   }
 
-  getPlaceTypes(target, fetch): Observable<PlaceType[]> {
-    target = JSON.stringify(target);
-    fetch = JSON.stringify(fetch);
-    return this.http.get<PlaceType[]>(this.globalConfig.getGlobalHost() + `/api/placeTypes?target=${target}&fetch=${fetch}`);
-  }
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/placeTypes?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);  }
 
   create(placeType: PlaceType): Observable<PlaceType> {
     return this.http.post<PlaceType>(`${this.globalConfig.getGlobalHost()}/api/placeTypes`, placeType);

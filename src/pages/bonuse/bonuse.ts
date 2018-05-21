@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Bonuse} from "../../models/promo/bonuse/Bonuse";
+import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 
 @IonicPage()
 @Component({
@@ -10,20 +12,29 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 })
 export class BonusePage {
 
-  place: Place;
+  bonuses: Bonuse[] = [];
   globalHost: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private gc: GlobalConfigsService) {
-
-    this.place = this.navParams.data;
+    private gc: GlobalConfigsService,
+    private bonuseService: BonuseProvider,
+  ) {
     this.globalHost = this.gc.getGlobalHost();
+
+    bonuseService.find({
+      query: {place: this.navParams.data._id},
+      populate: [
+        {
+          path: 'multilang',
+          match: {lang: gc.getGlobalLang()}
+        }
+      ]
+    }).subscribe((bonuses) => {
+      this.bonuses = bonuses;
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BonusePage');
-  }
 
 }

@@ -13,11 +13,14 @@ export class LangProvider {
   ) {
   }
 
-  find(query = {}): Observable<Lang[]> {
-    let target = JSON.stringify({
-      query: query
-    });
-    return this.http.get<Lang[]>(`${this.globalConfig.getGlobalHost()}/api/langs?target=${target}`);
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/langs?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any[]>(url);
   }
 
   create(lang: Lang): Observable<Lang>{

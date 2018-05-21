@@ -7,6 +7,8 @@ import {Complaint} from "../complaint/Complaint";
 import {DrinkApplication} from "../drinkApplication/DrinkApplication";
 import {Rating} from "../rating/Rating";
 import {Department} from "../department/Department";
+import {News} from "../promo/news/News";
+import {Event} from "../promo/event/Event";
 
 
 export class Place {
@@ -49,15 +51,18 @@ export class Place {
       6: {start: "", end: ""},
       7: {start: "", end: ""},
     },
-    public promos: Bonuse[] = [],
+    public news: News[] = [],
+    public events: Event[] = [],
+    public bonuses: Bonuse[] = [],
     public hashTags: HashTag[] = [],
     public tops: TopPlace[] = [],
     public types: PlaceType[] = [],
-    public multilang: PlaceMultilang = null,
+    public multilang: PlaceMultilang[] = [],
     public complaints: Complaint[] = [],
     public drinkApplications: DrinkApplication[] = [],
     public ratings: Rating[] = [],
-    public departments: Department[] = []
+    public departments: Department[] = [],
+
   ) {
   }
 

@@ -55,6 +55,7 @@ import {MyRatingsPageModule} from "../pages/my-ratings/my-ratings.module";
 import {ChooseLocationPageModule} from "../pages/choose-location/choose-location.module";
 import {AddAvatarAndPhotosPageModule} from "../pages/add-avatar-and-photos/add-avatar-and-photos.module";
 import {ImagePicker} from "@ionic-native/image-picker";
+import {Base64} from "@ionic-native/base64";
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import {ImagePicker} from "@ionic-native/image-picker";
     FileTransferObject,
     File,
     Camera,
-    ImagePicker
+    ImagePicker,
+    Base64
   ]
 })
 export class AppModule {

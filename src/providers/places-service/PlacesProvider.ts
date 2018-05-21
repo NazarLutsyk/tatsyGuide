@@ -12,10 +12,7 @@ import {ComplaintProvider} from "../complaint/complaint-provider";
 import {DrinkApplicationProvider} from "../drinkApplication/drinkApplication-provider";
 import {RatingProvider} from "../rating/rating-provider";
 import {DepartmentProvider} from "../department/department-provider";
-import {PlaceType} from "../../models/placeType/PlaceType";
-import {switchMap} from "rxjs/operators";
 import {zip} from "rxjs/observable/zip";
-import _ from 'lodash';
 import {Geolocation} from '@ionic-native/geolocation';
 import {fromPromise} from "rxjs/observable/fromPromise";
 import {Storage} from "@ionic/storage";
@@ -44,342 +41,38 @@ export class PlacesProvider {
     private globalConfig: GlobalConfigsService
   ) {
 
-    this.events.subscribe("favoritePlaces", () => {
-      this.getAllPlaces();
-    })
+    // this.events.subscribe("favoritePlaces", () => {
+    //   this.getAllPlaces();
+    // })
   }
 
-  getAllPlaces(target = {}) {
-    target = JSON.stringify(target);
-    let fetchHahTags = JSON.stringify({hashTag: {}});
-    let fetchTopPlaces = JSON.stringify({topPlace: {}});
-    let fetchTypes = JSON.stringify({placeType: {}});
-    let fetchPlaceMultilang = JSON.stringify({placeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}});
-    // let fetchTypes = JSON.stringify({placeType: {query: {lang: lang}}});
-
-    let placesRequest = this
-      .http
-      .get<Place[]>(this.globalConfig.getGlobalHost() + `/api/places?target=${target}&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
-    return placesRequest.pipe(switchMap((places) => {
-        let placeIds = [];
-        for (const place of places) {
-          placeIds.push(place.id);
-        }
-        let targetToBonuses = {
-          query: {
-            place: placeIds
-          }
-        };
-        let fetchToBonuses = [
-          {
-            bonuseMultilang: {
-              query: {
-                lang: this.globalConfig.getGlobalLang()
-              }
-            },
-          },
-          {
-            client: {}
-          }
-        ];
-        let targetToEvents = {
-          query: {
-            place: placeIds
-          }
-        };
-        let fetchToEvents = [
-          {
-            eventMultilang: {
-              query: {
-                lang: this.globalConfig.getGlobalLang()
-              }
-            },
-
-          },
-          {
-            client: {}
-          }
-        ];
-        let targetToNews = {
-          query: {
-            place: placeIds
-          }
-        };
-        let fetchToNews = [
-          {
-            newsMultilang: {
-              query: {
-                lang: this.globalConfig.getGlobalLang()
-              }
-            },
-
-          },
-          {
-            client: {}
-          }
-        ];
-        let targetToComplaints = {
-          query: {
-            place: placeIds
-          }
-        };
-        let fetchToComplaints = [
-          {
-            client: {}
-          }
-        ];
-        let targetToDrinkApp = {
-          query: {
-            place: placeIds
-          }
-        };
-        let fetchToDrinkApp = [
-          {
-            client: {}
-          }
-        ];
-        let targetToRating = {
-          query: {
-            place: placeIds
-          }
-        };
-        let fetchToRating = [
-          {
-            client: {}
-          }
-        ];
-        let targetToDepartment = {
-          query: {
-            place: placeIds
-          }
-        };
-        let fetchToDepartment = [
-          {
-            client: {}
-          }
-        ];
-        let fetchToPlaceType = [
-          {
-            placeTypeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}
-          }
-        ];
-        let bonuses = this.bonuseProvider.getBonuses(targetToBonuses, fetchToBonuses);
-        let events = this.eventProvider.getEvents(targetToEvents, fetchToEvents);
-        let news = this.newsProvider.getNews(targetToNews, fetchToNews);
-        let placeTypes = this.placeTypeService.getPlaceTypes({}, fetchToPlaceType);
-        let complaints = this.complaintProvider.getComplaints(targetToComplaints, fetchToComplaints);
-        let drinkApplications = this.drinkApplicationProvider.getDrinkApplications(targetToDrinkApp, fetchToDrinkApp);
-        let ratings = this.ratingService.getRatings(targetToRating, fetchToRating);
-        let departments = this.departmentService.getDepartments(targetToDepartment, fetchToDepartment);
-        let geopositionObservable = fromPromise(this.geolocation.getCurrentPosition());
-        return zip(bonuses, events, news, placeTypes, complaints, drinkApplications, ratings, departments, geopositionObservable,
-          (bonuses, events, news, placeTypesWithMultilang, complaints, drinkApplications, ratings, departments, geoPosition) => {
-            for (const bonuse of bonuses) {
-              for (const place of places) {
-                if (bonuse.place === place.id) {
-                  if (!place.promos) place.promos = [];
-                  place.promos.push(bonuse);
-                }
-              }
-            } // bonuses merge loop
-            for (const event of events) {
-              for (const place of places) {
-                if (event.place === place.id) {
-                  if (!place.promos) place.promos = [];
-                  place.promos.push(event);
-                }
-              }
-            }
-            for (const singleNews of news) {
-              for (const place of places) {
-                if (singleNews.place === place.id) {
-                  if (!place.promos) place.promos = [];
-                  place.promos.push(singleNews);
-                }
-              }
-            }
-            for (const place of places) {
-              let newTypes: PlaceType[] = [];
-              for (const oldType of place.types) {
-                for (const newType of placeTypesWithMultilang) {
-                  if (oldType.id === newType._id) {
-                    newTypes.push(newType);
-                  }
-                }
-              }
-              place.types = newTypes;
-            }
-            for (const complaint of complaints) {
-              for (const place of places) {
-                if (!place.complaints) place.complaints = [];
-                if (place.id === complaint.place)
-                  place.complaints.push(complaint)
-              }
-            }
-            for (const drinkApp of drinkApplications) {
-              for (const place of places) {
-                if (!place.drinkApplications) place.drinkApplications = [];
-                if (place.id === drinkApp.place)
-                  place.drinkApplications.push(drinkApp)
-              }
-            }
-            for (const rating of ratings) {
-              for (const place of places) {
-                if (!place.ratings) place.ratings = [];
-                if (place.id === rating.place)
-                  place.ratings.push(rating)
-              }
-            }
-            for (const department of departments) {
-              for (const place of places) {
-                if (!place.departments) place.departments = [];
-                if (place.id === department.place)
-                  place.departments.push(department);
-              }
-            }
-
-            for (const place of places) {
-              place.distance = this.findDistance(geoPosition.coords, place);
-            }
-            return places;
-          })
-      })
-    );
+  findOne(id: any) {
+    let url = this.globalConfig.getGlobalHost() + `/api/places/${id}`;
+    return zip(
+      this.http.get<any>(url),
+      fromPromise(this.geolocation.getCurrentPosition())
+    ).map(([place, position]) => {
+      place.distance = this.findDistance(position, place);
+      return place;
+    });
   }
 
-  findOne(id: string, fetch = {}) {
-    let fetchHahTags = JSON.stringify({hashTag: {}});
-    let fetchTopPlaces = JSON.stringify({topPlace: {}});
-    let fetchTypes = JSON.stringify({placeType: {}});
-    let fetchPlaceMultilang = JSON.stringify({placeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}});
-
-    let placesRequest = this
-      .http
-      .get<Place>(this.globalConfig.getGlobalHost() + `/api/places/${id}?&fetch=[${fetchHahTags},${fetchTopPlaces},${fetchTypes},${fetchPlaceMultilang}]`);
-    return placesRequest.pipe(switchMap((place) => {
-        let placeId = place.id;
-        let targetToBonuses = {
-          query: {
-            place: placeId
-          }
-        };
-        let fetchToBonuses = [
-          {
-            bonuseMultilang: {
-              query: {
-                lang: this.globalConfig.getGlobalLang()
-              }
-            },
-          },
-          {
-            client: {}
-          }
-        ];
-        let targetToEvents = {
-          query: {
-            place: placeId
-          }
-        };
-        let fetchToEvents = [
-          {
-            eventMultilang: {
-              query: {
-                lang: this.globalConfig.getGlobalLang()
-              }
-            },
-
-          },
-          {
-            client: {}
-          }
-        ];
-        let targetToNews = {
-          query: {
-            place: placeId
-          }
-        };
-        let fetchToNews = [
-          {
-            newsMultilang: {
-              query: {
-                lang: this.globalConfig.getGlobalLang()
-              }
-            },
-
-          },
-          {
-            client: {}
-          }
-        ];
-        let targetToComplaints = {
-          query: {
-            place: placeId
-          }
-        };
-        let fetchToComplaints = [
-          {
-            client: {}
-          }
-        ];
-        let targetToDrinkApp = {
-          query: {
-            place: placeId
-          }
-        };
-        let fetchToDrinkApp = [
-          {
-            client: {}
-          }
-        ];
-        let targetToRating = {
-          query: {
-            place: placeId
-          }
-        };
-        let fetchToRating = [
-          {
-            client: {}
-          }
-        ];
-        let targetToDepartment = {
-          query: {
-            place: placeId
-          }
-        };
-        let fetchToDepartment = [
-          {
-            client: {}
-          }
-        ];
-        let fetchToPlaceType = [
-          {
-            placeTypeMultilang: {query: {lang: this.globalConfig.getGlobalLang()}}
-          }
-        ];
-        let bonuses = this.bonuseProvider.getBonuses(targetToBonuses, fetchToBonuses);
-        let events = this.eventProvider.getEvents(targetToEvents, fetchToEvents);
-        let news = this.newsProvider.getNews(targetToNews, fetchToNews);
-        let placeTypes = this.placeTypeService.getPlaceTypes({}, fetchToPlaceType);
-        let complaints = this.complaintProvider.getComplaints(targetToComplaints, fetchToComplaints);
-        let drinkApplications = this.drinkApplicationProvider.getDrinkApplications(targetToDrinkApp, fetchToDrinkApp);
-        let ratings = this.ratingService.getRatings(targetToRating, fetchToRating);
-        let departments = this.departmentService.getDepartments(targetToDepartment, fetchToDepartment);
-        let geopositionObservable = fromPromise(this.geolocation.getCurrentPosition());
-        return zip(bonuses, events, news, placeTypes, complaints, drinkApplications, ratings, departments, geopositionObservable,
-          (bonuses, events, news, placeTypesWithMultilang, complaints, drinkApplications, ratings, departments, geoPosition) => {
-            place.promos = bonuses;
-            place.promos = events;
-            place.promos = news;
-            place.types = placeTypesWithMultilang;
-            place.complaints = complaints;
-            place.drinkApplications = drinkApplications;
-            place.ratings = ratings;
-            place.departments = departments;
-            place.distance = this.findDistance(geoPosition.coords, place);
-            return place;
-          })
-      })
-    );
+  find(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/places?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return zip(
+      this.http.get<any[]>(url),
+      fromPromise(this.geolocation.getCurrentPosition())
+    ).map(([places, position]) => {
+      for (const place of places) {
+        place.distance = this.findDistance(position, place);
+      }
+      return places;
+    });
   }
 
   create(place: Object): Observable<Place> {
@@ -392,9 +85,8 @@ export class PlacesProvider {
 
 
   findDistance(myPosition, place) {
-
-    let lat1 = myPosition.latitude;
-    let lon1 = myPosition.longitude;
+    let lat1 = myPosition.coords.latitude;
+    let lon1 = myPosition.coords.longitude;
     let lat2 = place.location.lat;
     let lon2 = place.location.lng;
     let p = 0.017453292519943295;
@@ -440,9 +132,11 @@ export class PlacesProvider {
     let data = new FormData();
     if (files.avatar)
       data.append('avatar', files.avatar);
-    if (files.images.length > 0)
-      data.append('images', new Blob(files.images));
-
+    if (files.images.length > 0) {
+      for (const image of files.images) {
+        data.append('images', image);
+      }
+    }
     return this.http.put<Place>(url, data);
   }
 
