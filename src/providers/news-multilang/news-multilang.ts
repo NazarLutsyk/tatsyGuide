@@ -22,11 +22,11 @@ export class NewsMultilangProvider {
     }
     return this.http.get<any[]>(url);  }
 
-  create(newsMultilangs: NewsMultilang): Observable<NewsMultilang>{
+  create(newsMultilangs: any): Observable<NewsMultilang>{
     return this.http.post<NewsMultilang>(`${this.globalConfig.getGlobalHost()}/api/newsMultilangs`, newsMultilangs);
   }
 
-  update(id:string, newsMultilangs: NewsMultilang): Observable<NewsMultilang>{
+  update(id:string, newsMultilangs: any): Observable<NewsMultilang>{
     return this.http.put<NewsMultilang>(`${this.globalConfig.getGlobalHost()}/api/newsMultilangs/${id}`, newsMultilangs);
   }
 

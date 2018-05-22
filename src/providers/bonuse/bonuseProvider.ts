@@ -22,7 +22,7 @@ export class BonuseProvider {
     return this.http.get<any[]>(url);
   }
 
-  create(bonuse: Bonuse): Observable<Bonuse> {
+  create(bonuse: any): Observable<Bonuse> {
     return this.http.post<Bonuse>(`${this.globalConfig.getGlobalHost()}/api/bonuses`, bonuse);
   }
 
@@ -30,4 +30,14 @@ export class BonuseProvider {
     return this.http.put<Bonuse>(`${this.globalConfig.getGlobalHost()}/api/bonuses/${id}`, bonuse);
   }
 
+  upload(_id: any, image: string) {
+    let url = `https://localhost:3000/api/bonuses/${_id}`;
+    if (image) {
+      let data = new FormData();
+      data.append('image', image);
+      return this.http.put<Bonuse>(url, data);
+    } else {
+      return new Observable<Bonuse>((subscriber) => subscriber.complete());
+    }
+  }
 }

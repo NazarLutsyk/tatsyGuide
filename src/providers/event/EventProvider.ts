@@ -3,6 +3,8 @@ import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Event} from "../../models/promo/event/Event";
 import {Observable} from "rxjs/Observable";
+import {Place} from "../../models/place/Place";
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Injectable()
 export class EventProvider {
@@ -23,13 +25,23 @@ export class EventProvider {
     return this.http.get<any[]>(url);
   }
 
-  create(event: Event): Observable<Event>{
+  create(event: any): Observable<Event> {
     return this.http.post<Event>(`${this.globalConfig.getGlobalHost()}/api/events`, event);
   }
 
-  update(id:string, event: Event): Observable<Event>{
+  update(id: string, event: Event): Observable<Event> {
     return this.http.put<Event>(`${this.globalConfig.getGlobalHost()}/api/events/${id}`, event);
   }
 
 
+  upload(_id: any, image: string): Observable<Event> {
+    let url = `https://localhost:3000/api/events/${_id}`;
+    if (image) {
+      let data = new FormData();
+      data.append('image', image);
+      return this.http.put<Event>(url, data);
+    } else {
+      return new Observable<Event>((subscriber) => subscriber.complete());
+    }
+  }
 }

@@ -14,11 +14,14 @@
 
 
 <ion-content >
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <span *ngFor="let bonuse of bonuses">
     <ion-card *ngIf="bonuse.kind=='Bonuse'">
 
-    <img src="{{globalHost+bonuse.image}}"/>
+    <img src="{{globalHost+bonuse.image}}" alt=""/>
     <ion-card-content>
       <ion-card-title>
         {{bonuse.multilang[0].header}}
@@ -30,20 +33,9 @@
   </ion-card>
   </span>
 
-
-  <!--<ion-row *ngFor="let bonuse of place.promos">-->
-    <!--<ion-col col-12 *ngIf="bonuse.kind=='Bonuse'" >-->
-      <!--<ion-img [src]="globalHost+bonuse.image"></ion-img>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-12 *ngIf="bonuse.kind=='Bonuse'" >-->
-      <!--<p>{{bonuse.kind}} {{bonuse.multilang[0].header}} {{bonuse.multilang[0].description}}</p>-->
-
-    <!--</ion-col>-->
-    <!--<ion-col col-12 *ngIf="bonuse.kind=='Bonuse'">-->
-      <!--Data of event-->
-
-    <!--</ion-col>-->
-  <!--</ion-row>-->
+  <ion-row margin-top="10px">
+    <button ion-button full color="defaultApp" (click)="goToCreateBonuse()">Create Bonuse</button>
+  </ion-row>
 
 
 </ion-content>

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { BonusePage } from './bonuse';
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {BonusePage} from './bonuse';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
@@ -9,7 +9,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
   ],
   imports: [
     IonicPageModule.forChild(BonusePage),
-    MatExpansionModule
+    MatExpansionModule,
   ],
 })
 export class BonusePageModule {}

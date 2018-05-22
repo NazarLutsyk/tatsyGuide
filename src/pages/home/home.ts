@@ -106,9 +106,9 @@ export class HomePage implements OnInit {
         fromPromise(this.geolocation.getCurrentPosition()),
         res
       ).subscribe(([position, places]) => {
-        this.places = places  ;
+        this.places = places;
         for (const place of this.places) {
-          place.distance = this.placesService.findDistance(position,place);
+          place.distance = this.placesService.findDistance(position, place);
         }
         if (eventData.sort === 'location') {
           this.places = this.places.sort((a, b) => {
@@ -145,9 +145,9 @@ export class HomePage implements OnInit {
 
   toDetails(place) {
     this.placesService
-      .find(
+      .findOne(
+        place._id,
         {
-          query: {_id: place._id},
           populate: [
             {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
             {
@@ -158,7 +158,7 @@ export class HomePage implements OnInit {
         }
       )
       .subscribe((foundedPlace) => {
-        this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
+        this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
       });
   }
 

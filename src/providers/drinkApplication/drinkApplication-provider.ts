@@ -23,7 +23,7 @@ export class DrinkApplicationProvider {
     return this.http.get<any[]>(url);
   }
 
-  create(drinkApplication: DrinkApplication): Observable<DrinkApplication>{
+  create(drinkApplication: Object): Observable<DrinkApplication>{
     return this.http.post<DrinkApplication>(`${this.globalConfig.getGlobalHost()}/api/drinkApplications`, drinkApplication);
   }
 

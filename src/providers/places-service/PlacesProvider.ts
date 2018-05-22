@@ -46,8 +46,13 @@ export class PlacesProvider {
     // })
   }
 
-  findOne(id: any) {
-    let url = this.globalConfig.getGlobalHost() + `/api/places/${id}`;
+  findOne(id: any, request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
     return zip(
       this.http.get<any>(url),
       fromPromise(this.geolocation.getCurrentPosition())

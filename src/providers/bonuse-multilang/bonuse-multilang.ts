@@ -23,7 +23,7 @@ export class BonuseMultilangProvider {
     return this.http.get<any[]>(url);
   }
 
-  create(bonuseMultilang: BonuseMultilang): Observable<BonuseMultilang> {
+  create(bonuseMultilang: any): Observable<BonuseMultilang> {
     return this.http.post<BonuseMultilang>(`${this.globalConfig.getGlobalHost()}/api/bonuseMultilangs`, bonuseMultilang);
   }
 

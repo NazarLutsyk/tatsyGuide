@@ -1,6 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
+import {Event} from "../../models/promo/event/Event";
+import {EventMultilang} from "../../models/multilang/EventMultilang";
 
 @Injectable()
 export class EventMultilangProvider {
@@ -19,6 +22,10 @@ export class EventMultilangProvider {
       }
     }
     return this.http.get<any[]>(url);
+  }
+
+  create(eventM: any): Observable<EventMultilang>{
+    return this.http.post<EventMultilang>(`${this.globalConfig.getGlobalHost()}/api/eventMultilangs`, eventM);
   }
 
 

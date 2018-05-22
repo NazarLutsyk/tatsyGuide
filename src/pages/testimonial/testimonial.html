@@ -6,6 +6,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-list [virtualScroll]="ratings" [approxItemHeight]="'200px'">
 

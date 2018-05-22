@@ -56,6 +56,9 @@ import {ChooseLocationPageModule} from "../pages/choose-location/choose-location
 import {AddAvatarAndPhotosPageModule} from "../pages/add-avatar-and-photos/add-avatar-and-photos.module";
 import {ImagePicker} from "@ionic-native/image-picker";
 import {Base64} from "@ionic-native/base64";
+import {CreateEventPageModule} from "../pages/create-event/create-event.module";
+import {CreateBonusePageModule} from "../pages/create-bonuse/create-bonuse.module";
+import {CreateNewsPageModule} from "../pages/create-news/create-news.module";
 
 @NgModule({
   declarations: [
@@ -85,7 +88,10 @@ import {Base64} from "@ionic-native/base64";
     MyFavoritePlacesPageModule,
     MyRatingsPageModule,
     ChooseLocationPageModule,
-    AddAvatarAndPhotosPageModule
+    AddAvatarAndPhotosPageModule,
+    CreateEventPageModule,
+    CreateBonusePageModule,
+    CreateNewsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],

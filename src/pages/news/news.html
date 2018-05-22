@@ -14,11 +14,13 @@
 
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <span *ngFor="let promo of news">
     <ion-card *ngIf="promo.kind=='News'">
-
-    <img src="{{globalHost+promo.image}}"/>
+    <img src="{{globalHost+promo.image}}" alt=""/>
     <ion-card-content>
       <ion-card-title>
         {{promo.multilang[0].header}}
@@ -30,4 +32,7 @@
   </ion-card>
   </span>
 
+  <ion-row margin-top="10px">
+    <button ion-button full color="defaultApp" (click)="goToCreateNews()">Create News</button>
+  </ion-row>
 </ion-content>
