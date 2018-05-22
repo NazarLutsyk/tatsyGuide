@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Event} from "../../models/promo/event/Event";
@@ -39,7 +39,10 @@ export class EventProvider {
     if (image) {
       let data = new FormData();
       data.append('image', image);
-      return this.http.put<Event>(url, data);
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'multipart/form-data');
+      headers.append('Accept', 'application/json');
+      return this.http.put<Event>(url, data , {headers: headers});
     } else {
       return new Observable<Event>((subscriber) => subscriber.complete());
     }

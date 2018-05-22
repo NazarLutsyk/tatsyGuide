@@ -1,15 +1,19 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
 import {News} from "../../models/promo/news/News";
+import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
+import {fromPromise} from "rxjs/observable/fromPromise";
 
 @Injectable()
 export class NewsProvider {
 
   constructor(
     private http: HttpClient,
-    private globalConfig: GlobalConfigsService) {
+    private globalConfig: GlobalConfigsService,
+    private fileTransfer: FileTransfer
+  ) {
   }
 
   find(request) {
@@ -31,12 +35,22 @@ export class NewsProvider {
   }
 
 
-  upload(_id: any, image: string): Observable<News> {
-    let url = `https://localhost:3000/api/news/${_id}`;
+  upload(_id: any, image: string): Observable<any> {
+    let url = `${this.globalConfig.getGlobalHost()}/api/news/${_id}`;
     if (image) {
-      let data = new FormData();
-      data.append('image', image);
-      return this.http.put<News>(url, data);
+      const transfer: FileTransferObject = this.fileTransfer.create();
+      let options: FileUploadOptions = {
+        fileKey: 'image',
+        fileName: 'image',
+        chunkedMode: false,
+        mimeType: "image",
+        httpMethod: 'put',
+        // headers: {
+        //   'Content-Type': 'multipart/form-data',
+        //   'Accept': 'application/json'
+        // }
+      };
+      return fromPromise(transfer.upload(image,url,options));
     } else {
       return new Observable<News>((subscriber) => subscriber.complete());
     }

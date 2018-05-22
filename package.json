@@ -24,6 +24,7 @@
     "@angular/material": "^5.2.5",
     "@angular/platform-browser": "5.2.9",
     "@angular/platform-browser-dynamic": "5.2.9",
+    "@ionic-native/base64": "latest",
     "@ionic-native/camera": "^4.7.0",
     "@ionic-native/core": "4.5.3",
     "@ionic-native/file": "^4.7.0",
@@ -60,8 +61,7 @@
     "lodash": "^4.17.5",
     "rxjs": "5.5.7",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.20",
-    "@ionic-native/base64": "latest"
+    "zone.js": "0.8.20"
   },
   "devDependencies": {
     "@angular/cli": "^6.0.0",

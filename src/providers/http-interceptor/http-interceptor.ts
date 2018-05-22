@@ -9,10 +9,11 @@ export class HttpInterceptorProvider implements HttpInterceptor{
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let updatedRes = req.clone({
-      withCredentials: true
-    });
-    return next.handle(updatedRes);
+    // let updatedRes = req.clone({
+    //   withCredentials: true
+    // });
+    // return next.handle(updatedRes);
+    return next.handle(req);
   }
 
 

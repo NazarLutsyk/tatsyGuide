@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
@@ -35,7 +35,11 @@ export class BonuseProvider {
     if (image) {
       let data = new FormData();
       data.append('image', image);
-      return this.http.put<Bonuse>(url, data);
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'multipart/form-data');
+      headers.append('Accept', 'application/json');
+
+      return this.http.put<Bonuse>(url, data , {headers:headers});
     } else {
       return new Observable<Bonuse>((subscriber) => subscriber.complete());
     }

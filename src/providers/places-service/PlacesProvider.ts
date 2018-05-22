@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/map';
@@ -47,6 +47,7 @@ export class PlacesProvider {
   }
 
   findOne(id: any, request) {
+    console.log("requets start");
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;
     for (const key in request) {
       if (request[key]) {
@@ -57,7 +58,9 @@ export class PlacesProvider {
       this.http.get<any>(url),
       fromPromise(this.geolocation.getCurrentPosition())
     ).map(([place, position]) => {
+      console.log("answer map 1");
       place.distance = this.findDistance(position, place);
+      console.log("answer map 2");
       return place;
     });
   }
@@ -141,8 +144,12 @@ export class PlacesProvider {
       for (const image of files.images) {
         data.append('images', image);
       }
+
     }
-    return this.http.put<Place>(url, data);
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    return this.http.put<Place>(url, data, {headers: headers});
   }
 
   remove(_id: any) {

@@ -8,9 +8,9 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="logForm()">
+  <form (ngSubmit)="logForm()" enctype="multipart/form-data">
     <button type="button" ion-button full (click)="getAvatar()">Select avatar</button>
-    <img [src]="newsObject.image" alt="">
+    <!--<img [src]="newsObject.image" alt="">-->
     <ion-item>
       <ion-label>Header</ion-label>
       <ion-input [(ngModel)]="newsMObject.header" name="header"></ion-input>
@@ -29,4 +29,7 @@
     </ion-item>
     <button ion-button type="submit" full color="secondary">Add Todo</button>
   </form>
+  <p>a</p>
 </ion-content>
+
+

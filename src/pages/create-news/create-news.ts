@@ -4,6 +4,10 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {NewsMultilangProvider} from "../../providers/news-multilang/news-multilang";
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+
+
 
 /**
  * Generated class for the CreateNewsPage page.
@@ -61,14 +65,17 @@ export class CreateNewsPage {
   getAvatar() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
     this.camera.getPicture(options).then((imageData) => {
-      this.newsObject.image = 'data:image/jpeg;base64,' + imageData;
+      this.newsObject.image = imageData;
     })
   }
 
+  changeListener($event) {
+    console.log($event);
+  }
 }

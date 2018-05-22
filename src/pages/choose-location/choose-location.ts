@@ -48,8 +48,11 @@ export class ChooseLocationPage {
   addMarker(data) {
     this.marker = {position: {lat: data.coords.lat, lng: data.coords.lng}};
     this.event.publish("choosePosition", data.coords);
-    this.navCtrl.pop();
   }
 
 
+  chooseThisLocation() {
+    this.navCtrl.pop();
+
+  }
 }
