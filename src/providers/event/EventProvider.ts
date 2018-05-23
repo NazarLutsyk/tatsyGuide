@@ -32,7 +32,7 @@ export class EventProvider {
     return this.http.post<Event>(`${this.globalConfig.getGlobalHost()}/api/events`, event);
   }
 
-  update(id: string, event: Event): Observable<Event> {
+  update(id: string, event: any): Observable<Event> {
     return this.http.put<Event>(`${this.globalConfig.getGlobalHost()}/api/events/${id}`, event);
   }
 

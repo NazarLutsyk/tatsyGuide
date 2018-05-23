@@ -26,7 +26,7 @@ export class RatingProvider {
     return this.http.post<Rating>(`${this.globalConfig.getGlobalHost()}/api/ratings`, rating);
   }
 
-  update(id: string, rating: Rating): Observable<Rating> {
+  update(id: string, rating: any): Observable<Rating> {
     return this.http.put<Rating>(`${this.globalConfig.getGlobalHost()}/api/ratings/${id}`, rating);
   }
 

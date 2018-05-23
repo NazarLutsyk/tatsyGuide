@@ -5,6 +5,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {CreateBonusePage} from "../create-bonuse/create-bonuse";
+import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
 
 @IonicPage()
 @Component({
@@ -63,5 +64,9 @@ export class BonusePage {
   removePromo(promo: any) {
     this.bonuseService.remove(promo._id).subscribe();
     this.bonuses.splice(this.bonuses.indexOf(promo,1));
+  }
+
+  updatePromo(promo: any) {
+    this.app.getRootNav().push(UpdateBonusePage,{promo: promo});
   }
 }

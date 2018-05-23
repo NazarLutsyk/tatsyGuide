@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {RatingProvider} from "../../providers/rating/rating-provider";
 import {Rating} from "../../models/rating/Rating";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {HttpClient} from "@angular/common/http";
 import {ModalTestimonialPage} from "../modal-testimonial/modal-testimonial";
+import {UpdateRatingPage} from "../update-rating/update-rating";
 
 
 @IonicPage()
@@ -22,7 +22,7 @@ export class TestimonialPage {
     private ratingProvider: RatingProvider,
     private globalConfigProvider: GlobalConfigsService,
     private modal: ModalController,
-    private http: HttpClient
+    private app: App
   ) {
 
   }
@@ -49,12 +49,16 @@ export class TestimonialPage {
     modelComponent.present();
   }
 
-  loadRatings(){
+  loadRatings() {
     let query =
       {
-        query : {place: this.navParams.data._id},
+        query: {place: this.navParams.data._id},
         populate: [{path: 'client'}]
       };
     return this.ratingProvider.find(query);
+  }
+
+  updateRating(rating) {
+    this.app.getRootNav().push(UpdateRatingPage, {rating: rating});
   }
 }

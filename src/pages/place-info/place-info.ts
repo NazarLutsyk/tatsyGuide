@@ -5,6 +5,8 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {HttpClient} from "@angular/common/http";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
+import {UpdatePlacePage} from "../update-place/update-place";
+import {MailProvider} from "../../providers/mail/mail";
 
 declare var window: any;
 
@@ -26,7 +28,7 @@ export class PlaceInfoPage {
     private placeService: PlacesProvider,
     private events: Events,
     private alertController: AlertController,
-    private http: HttpClient
+    private mailService: MailProvider
   ) {
     this.place = this.navParams.data;
     this.globalHost = gc.getGlobalHost();
@@ -61,10 +63,8 @@ export class PlaceInfoPage {
         {
           text: 'send',
           handler: data => {
-            // todo send data to admin`s email !!!!
-            // todo tune drinker`s api to mail
-            this.http.post(`${this.globalHost}/mail/send`, data);
-            console.log(data);
+            // todo for whom to send an email???
+            this.mailService.sendMail(data).subscribe();
           }
         }
       ]
@@ -74,9 +74,13 @@ export class PlaceInfoPage {
   }
 
 
-  removePLace(place: any) {
+  removePlace(place: any) {
     this.placeService.remove(place._id).subscribe(() => {
-        this.navCtrl.pop();
+      this.app.getRootNav().pop();
     });
+  }
+
+  updatePlace(place: Place) {
+    this.app.getRootNav().push(UpdatePlacePage, {place: place});
   }
 }

@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>update-profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="updatePromo(updateForm)" #updateForm="ngForm">
+    <div ngModelGroup="client">
+      <ion-item>
+        <ion-label stacked>Name</ion-label>
+        <ion-input
+          type="text"
+          name="name"
+          [(ngModel)]="client.name"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Surname</ion-label>
+        <ion-input
+          type="text"
+          name="surname"
+          [(ngModel)]="client.surname"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Phone</ion-label>
+        <ion-input
+          type="text"
+          name="phone"
+          [(ngModel)]="client.phone"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input
+          type="text"
+          name="email"
+          [(ngModel)]="client.email"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>City</ion-label>
+        <ion-input
+          type="text"
+          name="city"
+          [(ngModel)]="client.city"
+        ></ion-input>
+      </ion-item>
+    </div>
+    <button ion-button full margin-top>Update</button>
+  </form>
+</ion-content>

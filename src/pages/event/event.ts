@@ -5,6 +5,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {EventProvider} from "../../providers/event/EventProvider";
 import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {CreateEventPage} from "../create-event/create-event";
+import {UpdateEventPage} from "../update-event/update-event";
 
 /**
  * Generated class for the EventPage page.
@@ -70,5 +71,9 @@ export class EventPage {
   removePromo(promo: any) {
     this.eventService.remove(promo._id).subscribe();
     this.events.splice(this.events.indexOf(promo,1));
+  }
+
+  updatePromo(promo: any) {
+    this.app.getRootNav().push(UpdateEventPage,{promo: promo});
   }
 }

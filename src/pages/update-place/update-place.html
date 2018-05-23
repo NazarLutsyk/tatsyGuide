@@ -1,0 +1,96 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>update-place</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="updatePlace(form)">
+    <div ngModelGroup="multilang">
+      <ion-label>Place name</ion-label>
+      <ion-item>
+        <ion-input name="name" [(ngModel)]="placeMultilang.name"></ion-input>
+      </ion-item>
+      <ion-label>description</ion-label>
+      <ion-item>
+        <ion-input name="description" [(ngModel)]="placeMultilang.description"></ion-input>
+      </ion-item>
+      <ion-list ngModelGroup="address">
+        <ion-label>City</ion-label>
+        <ion-item>
+          <ion-input name="city" [(ngModel)]="placeMultilang.address.city"></ion-input>
+        </ion-item>
+        <ion-label>Street</ion-label>
+        <ion-item>
+          <ion-input name="street" [(ngModel)]="placeMultilang.address.street"></ion-input>
+        </ion-item>
+        <ion-label>Number</ion-label>
+        <ion-item>
+          <ion-input name="number" [(ngModel)]="placeMultilang.address.number"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div ngModelGroup="place">
+      <ion-label>Phone</ion-label>
+      <ion-item>
+        <ion-input name="phone" [(ngModel)]="place.phone"></ion-input>
+      </ion-item>
+      <ion-label>email</ion-label>
+      <ion-item>
+        <ion-input name="email" [(ngModel)]="place.email"></ion-input>
+      </ion-item>
+      <div ngModelGroup="location">
+        <button ion-button="" type="button" (click)="goToChooseLocation()">chose location</button>
+        <ion-item>
+          <ion-input name="lat" [(ngModel)]="location.lat" disabled></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input name="lng" [(ngModel)]="location.lng" disabled></ion-input>
+        </ion-item>
+      </div>
+      <ion-list ngModelGroup="features">
+        <ion-list-header>Features</ion-list-header>
+        <ion-item>
+          <ion-label>wifi</ion-label>
+          <ion-checkbox name="wifi" [(ngModel)]="place.features.wifi"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Karaoke</ion-label>
+          <ion-checkbox name="karaoke" [(ngModel)]="place.features.karaoke"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>parking</ion-label>
+          <ion-checkbox name="parking" [(ngModel)]="place.features.parking"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>vip room</ion-label>
+          <ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label>Place Types</ion-label>
+        <ion-select name="types" [(ngModel)]="place.types" okText="Okay" cancelText="Dismiss" multiple="true">
+          <ion-option *ngFor="let placeTypeM of placeTypesM" [value]="placeTypeM.placeType">
+            {{placeTypeM.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item-group ngModelGroup="days">
+        <ion-item-group ngModelGroup="1">
+          <ion-item>
+            <ion-label>From</ion-label>
+            <ion-datetime displayFormat="HH" name="start" [(ngModel)]="place.days['1'].start"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>To</ion-label>
+            <ion-datetime displayFormat="HH" name="end" [(ngModel)]="place.days['1'].end"></ion-datetime>
+          </ion-item>
+        </ion-item-group>
+      </ion-item-group>
+    </div>
+    <button type="submit" ion-button="" margin>Update</button>
+  </form>
+</ion-content>

@@ -28,8 +28,15 @@
       <p>
         {{promo.multilang[0].description}}
       </p>
+      <p>
+        {{promo.startDate | date}}
+      </p>
+      <p>
+        {{promo.endDate | date}}
+      </p>
     </ion-card-content>
       <button ion-button round outline color="danger" (click)="removePromo(promo)">Delete</button>
+      <button ion-button round outline (click)="updatePromo(promo)">Update</button>
   </ion-card>
   </span>
 

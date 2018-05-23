@@ -29,7 +29,7 @@ export class BonuseProvider {
     return this.http.post<Bonuse>(`${this.globalConfig.getGlobalHost()}/api/bonuses`, bonuse);
   }
 
-  update(id: string, bonuse: Bonuse): Observable<Bonuse> {
+  update(id: string, bonuse: any): Observable<Bonuse> {
     return this.http.put<Bonuse>(`${this.globalConfig.getGlobalHost()}/api/bonuses/${id}`, bonuse);
   }
 

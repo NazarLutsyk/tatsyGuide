@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>update-bonuse</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="updatePromo(updateForm)" #updateForm="ngForm">
+    <div ngModelGroup="multilang">
+      <ion-item>
+        <ion-label stacked>Header</ion-label>
+        <ion-input
+          type="text"
+          name="header"
+          [(ngModel)]="bonuseMultilang.header"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Description</ion-label>
+        <ion-input
+          type="text"
+          name="description"
+          [(ngModel)]="bonuseMultilang.description"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Conditions</ion-label>
+        <ion-input
+          type="text"
+          name="conditions"
+          [(ngModel)]="bonuseMultilang.conditions"
+        ></ion-input>
+      </ion-item>
+    </div>
+    <div ngModelGroup="promo">
+      <ion-item>
+        <ion-label stacked>Start date</ion-label>
+        <ion-datetime
+          type="text"
+          name="startDate"
+          [(ngModel)]="bonuse.startDate"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>End date</ion-label>
+        <ion-datetime
+          type="text"
+          name="endDate"
+          [(ngModel)]="bonuse.endDate"
+        ></ion-datetime>
+      </ion-item>
+    </div>
+    <button ion-button full margin-top>Update</button>
+  </form>
+</ion-content>

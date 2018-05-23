@@ -27,7 +27,7 @@ export class BonuseMultilangProvider {
     return this.http.post<BonuseMultilang>(`${this.globalConfig.getGlobalHost()}/api/bonuseMultilangs`, bonuseMultilang);
   }
 
-  update(id: string, bonuseMultilang: BonuseMultilang): Observable<BonuseMultilang> {
+  update(id: string, bonuseMultilang: any): Observable<BonuseMultilang> {
     return this.http.put<BonuseMultilang>(`${this.globalConfig.getGlobalHost()}/api/bonuseMultilangs/${id}`, bonuseMultilang);
   }
 

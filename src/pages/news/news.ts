@@ -6,6 +6,8 @@ import {News} from "../../models/promo/news/News";
 import {CreateEventPage} from "../create-event/create-event";
 import {Place} from "../../models/place/Place";
 import {CreateNewsPage} from "../create-news/create-news";
+import {UpdateEventPage} from "../update-event/update-event";
+import {UpdateNewsPage} from "../update-news/update-news";
 
 @IonicPage()
 @Component({
@@ -63,5 +65,10 @@ export class NewsPage {
   removePromo(promo: any) {
     this.newsService.remove(promo._id).subscribe();
     this.news.splice(this.news.indexOf(promo,1));
+  }
+
+
+  updatePromo(promo: any) {
+    this.app.getRootNav().push(UpdateNewsPage,{promo: promo});
   }
 }

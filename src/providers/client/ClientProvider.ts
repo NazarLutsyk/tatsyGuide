@@ -9,7 +9,6 @@ import {BonuseProvider} from "../bonuse/bonuseProvider";
 import {EventProvider} from "../event/EventProvider";
 import {NewsProvider} from "../news/NewsProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
@@ -39,7 +38,12 @@ export class ClientProvider {
     this.http.get<Client[]>(url);
 
   }
-  update(id:string, client: any): Observable<Client>{
+
+  update(id: string, client: any): Observable<any> {
     return this.http.put<Client>(`${this.globalConfig.getGlobalHost()}/api/clients/${id}`, client);
+  }
+
+  remove(_id: any) {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/clients/${_id}`);
   }
 }

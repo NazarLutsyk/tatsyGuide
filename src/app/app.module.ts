@@ -59,6 +59,14 @@ import {Base64} from "@ionic-native/base64";
 import {CreateEventPageModule} from "../pages/create-event/create-event.module";
 import {CreateBonusePageModule} from "../pages/create-bonuse/create-bonuse.module";
 import {CreateNewsPageModule} from "../pages/create-news/create-news.module";
+import {UpdateEventPageModule} from "../pages/update-event/update-event.module";
+import {UpdateBonusePageModule} from "../pages/update-bonuse/update-bonuse.module";
+import {UpdateNewsPageModule} from "../pages/update-news/update-news.module";
+import {UpdateRatingPageModule} from "../pages/update-rating/update-rating.module";
+import {UpdatePlacePageModule} from "../pages/update-place/update-place.module";
+import {ProfilePageModule} from "../pages/profile/profile.module";
+import {UpdateProfilePageModule} from "../pages/update-profile/update-profile.module";
+import { MailProvider } from '../providers/mail/mail';
 
 @NgModule({
   declarations: [
@@ -91,7 +99,14 @@ import {CreateNewsPageModule} from "../pages/create-news/create-news.module";
     AddAvatarAndPhotosPageModule,
     CreateEventPageModule,
     CreateBonusePageModule,
-    CreateNewsPageModule
+    CreateNewsPageModule,
+    UpdateEventPageModule,
+    UpdateBonusePageModule,
+    UpdateNewsPageModule,
+    UpdateRatingPageModule,
+    UpdatePlacePageModule,
+    ProfilePageModule,
+    UpdateProfilePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -133,7 +148,8 @@ import {CreateNewsPageModule} from "../pages/create-news/create-news.module";
     File,
     Camera,
     ImagePicker,
-    Base64
+    Base64,
+    MailProvider
   ]
 })
 export class AppModule {

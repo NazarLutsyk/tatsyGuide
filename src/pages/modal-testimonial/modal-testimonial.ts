@@ -4,7 +4,6 @@ import {Rating} from "../../models/rating/Rating";
 import {RatingProvider} from "../../providers/rating/rating-provider";
 
 
-
 @IonicPage()
 @Component({
   selector: 'page-modal-testimonial',
@@ -12,11 +11,9 @@ import {RatingProvider} from "../../providers/rating/rating-provider";
 })
 export class ModalTestimonialPage {
 
-
   text: string;
   stars: number = 5;
   sum: number = 0;
-
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,15 +22,9 @@ export class ModalTestimonialPage {
   ) {
   }
 
-  dismiss() {
-    this.viewController.dismiss();
-
-  }
-
   logForm() {
     let rating = new Rating(null, this.stars, this.text, this.sum, null, this.navParams.data._id);
-    this.ratingService.create(rating).subscribe();
-    this.dismiss();
+    this.ratingService.create(rating).subscribe(rating => this.navCtrl.pop());
   }
 
 

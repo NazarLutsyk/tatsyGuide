@@ -4,6 +4,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
 import {Event} from "../../models/promo/event/Event";
 import {EventMultilang} from "../../models/multilang/EventMultilang";
+import {Complaint} from "../../models/complaint/Complaint";
 
 @Injectable()
 export class EventMultilangProvider {
@@ -29,4 +30,7 @@ export class EventMultilangProvider {
   }
 
 
+  update(_id: any, eventMultilang: any): Observable<EventMultilang> {
+    return this.http.put<EventMultilang>(`${this.globalConfig.getGlobalHost()}/api/eventMultilangs/${_id}`, eventMultilang);
+  }
 }

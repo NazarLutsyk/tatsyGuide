@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>update-rating</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="updateRating(updateForm)" #updateForm="ngForm">
+    <div ngModelGroup="rating">
+      <ion-item>
+        <ion-label stacked>Comment</ion-label>
+        <ion-textarea
+          name="comment"
+          [(ngModel)]="rating.comment"
+        ></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Rating</ion-label>
+        <ion-select type="number" [(ngModel)]="rating.value" name="value" interface="action-sheet">
+          <ion-option value=1>1 Stars</ion-option>
+          <ion-option value=2>2 Stars</ion-option>
+          <ion-option value=3>3 Stars</ion-option>
+          <ion-option value=4>4 Stars</ion-option>
+          <ion-option value=5>5 Stars</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Sum</ion-label>
+        <ion-input [(ngModel)]="rating.price" name="price" type="number"></ion-input>
+      </ion-item>
+    </div>
+    <button ion-button full margin-top>Update</button>
+  </form>
+</ion-content>

@@ -18,6 +18,7 @@ import {MyPlacesPage} from "../pages/my-places/my-places";
 import {MyFavoritePlacesPage} from "../pages/my-favorite-places/my-favorite-places";
 import {MyRatingsPage} from "../pages/my-ratings/my-ratings";
 import {PlaceTypeMultilangProvider} from "../providers/place-type-multilang/place-type-multilang";
+import {ProfilePage} from "../pages/profile/profile";
 
 
 @Component({
@@ -116,6 +117,10 @@ export class MyApp implements OnInit {
     this.navCtrl.push(MyRatingsPage);
   }
 
+  goToMyProfilePage(){
+    this.menuController.close();
+    this.navCtrl.push(ProfilePage);
+  }
 }
 
 
