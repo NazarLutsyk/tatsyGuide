@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
-import {Base64} from '@ionic-native/base64';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
 
@@ -22,7 +21,6 @@ export class AddAvatarAndPhotosPage {
     private camera: Camera,
     private placeService: PlacesProvider,
     private imagePicker: ImagePicker,
-    private base64: Base64
   ) {
   }
 
@@ -30,22 +28,18 @@ export class AddAvatarAndPhotosPage {
     this.placeService.upload(
       this.navParams.data.id,
       {avatar: this.avatar, images: this.images}
-    ).subscribe((place) => {
-      console.log(place);
-    });
+    );
   }
 
-  getAvatar() {
+  async getAvatar() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
-    this.camera.getPicture(options).then((imageData) => {
-      this.avatar = 'data:image/jpeg;base64,' + imageData;
-    })
+    this.avatar = await this.camera.getPicture(options);
   }
 
   async getImages() {
@@ -53,11 +47,6 @@ export class AddAvatarAndPhotosPage {
       quality: 100,
       maximumImagesCount: 6
     };
-    let results = await this.imagePicker.getPictures(options);
-    for (var i = 0; i < results.length; i++) {
-      let base64File = await this.base64.encodeFile(results[i]);
-      this.images.push(base64File);
-    }
-    this.imagesToShow = results;
+    this.imagesToShow = await this.imagePicker.getPictures(options);
   }
 }

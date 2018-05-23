@@ -66,4 +66,9 @@ export class EventPage {
       ]
     })
   }
+
+  removePromo(promo: any) {
+    this.eventService.remove(promo._id).subscribe();
+    this.events.splice(this.events.indexOf(promo,1));
+  }
 }

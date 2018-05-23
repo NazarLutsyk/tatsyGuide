@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/map';
@@ -18,6 +18,7 @@ import {fromPromise} from "rxjs/observable/fromPromise";
 import {Storage} from "@ionic/storage";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
+import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 
 declare var window: any;
 declare var position: any;
@@ -38,16 +39,12 @@ export class PlacesProvider {
     private geolocation: Geolocation,
     private events: Events,
     private storage: Storage,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private fileTransfer: FileTransfer
   ) {
-
-    // this.events.subscribe("favoritePlaces", () => {
-    //   this.getAllPlaces();
-    // })
   }
 
   findOne(id: any, request) {
-    console.log("requets start");
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;
     for (const key in request) {
       if (request[key]) {
@@ -58,9 +55,7 @@ export class PlacesProvider {
       this.http.get<any>(url),
       fromPromise(this.geolocation.getCurrentPosition())
     ).map(([place, position]) => {
-      console.log("answer map 1");
       place.distance = this.findDistance(position, place);
-      console.log("answer map 2");
       return place;
     });
   }
@@ -135,25 +130,24 @@ export class PlacesProvider {
     return findDistance();
   }
 
-  upload(id, files: { avatar?: string, images?: string[] }): Observable<Place> {
+  //todo change that shit
+  upload(id, files: { avatar?: string, images?: string[] }) {
     let url = `https://localhost:3000/api/places/${id}`;
-    let data = new FormData();
-    if (files.avatar)
-      data.append('avatar', files.avatar);
-    if (files.images.length > 0) {
-      for (const image of files.images) {
-        data.append('images', image);
-      }
-
+    const transfer: FileTransferObject = this.fileTransfer.create();
+    if (files.avatar) {
+      fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'})).subscribe();
     }
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
-    return this.http.put<Place>(url, data, {headers: headers});
+    if (files.images.length > 0) {
+      let toUpload = [];
+      for (const file of files.images) {
+        toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));
+      }
+      zip(...toUpload).subscribe();
+    }
   }
 
   remove(_id: any) {
-    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/places/${_id}`).subscribe();
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/places/${_id}`);
   }
 
 

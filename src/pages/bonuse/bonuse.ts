@@ -59,4 +59,9 @@ export class BonusePage {
       ]
     })
   }
+
+  removePromo(promo: any) {
+    this.bonuseService.remove(promo._id).subscribe();
+    this.bonuses.splice(this.bonuses.indexOf(promo,1));
+  }
 }

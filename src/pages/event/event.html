@@ -19,9 +19,7 @@
   </ion-refresher>
 
   <div *ngFor="let promo of events">
-    <!--<ion-card *ngIf="promo.kind=='Event'">-->
     <ion-card>
-
       <img src="{{globalHost+promo.image}}" alt=""/>
       <ion-card-content>
         <ion-card-title>
@@ -31,6 +29,7 @@
           {{promo.multilang[0].description}}
         </p>
       </ion-card-content>
+      <button ion-button round outline color="danger" (click)="removePromo(promo)">Delete</button>
     </ion-card>
   </div>
 

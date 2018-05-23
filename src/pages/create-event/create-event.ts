@@ -55,13 +55,13 @@ export class CreateEventPage {
   getAvatar() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
     this.camera.getPicture(options).then((imageData) => {
-      this.eventObject.image = 'data:image/jpeg;base64,' + imageData;
+      this.eventObject.image = imageData;
     })
   }
 

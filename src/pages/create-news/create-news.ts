@@ -75,7 +75,4 @@ export class CreateNewsPage {
     })
   }
 
-  changeListener($event) {
-    console.log($event);
-  }
 }

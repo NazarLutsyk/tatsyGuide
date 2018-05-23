@@ -14,6 +14,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <access launch-external="yes" origin="geo:*" />
     <platform name="android">
+        <preference name="loadUrlTimeoutValue" value="700000" />
         <access origin="*" />
         <allow-navigation href="*" />
         <allow-intent href="*" />

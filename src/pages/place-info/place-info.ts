@@ -4,6 +4,7 @@ import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {HttpClient} from "@angular/common/http";
+import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 
 declare var window: any;
 
@@ -20,8 +21,9 @@ export class PlaceInfoPage {
     private app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
-    platform: Platform,
-    gc: GlobalConfigsService,
+    private platform: Platform,
+    private gc: GlobalConfigsService,
+    private placeService: PlacesProvider,
     private events: Events,
     private alertController: AlertController,
     private http: HttpClient
@@ -72,4 +74,9 @@ export class PlaceInfoPage {
   }
 
 
+  removePLace(place: any) {
+    this.placeService.remove(place._id).subscribe(() => {
+        this.navCtrl.pop();
+    });
+  }
 }

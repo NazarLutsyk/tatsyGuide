@@ -8,7 +8,6 @@ import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AddAvatarAndPhotosPage} from "../add-avatar-and-photos/add-avatar-and-photos";
-import {PlaceTypeProvider} from "../../providers/place-type/place-type";
 
 @IonicPage()
 @Component({
@@ -18,12 +17,11 @@ import {PlaceTypeProvider} from "../../providers/place-type/place-type";
 export class CreatePlacePage {
 
   location: any = {lat: 0, lng: 0};
-  placeTypes: PlaceTypeMultilang[] = [];
+  placeTypesM: PlaceTypeMultilang[] = [];
 
   constructor(
     private event: Events,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
-    private placeTypeService: PlaceTypeProvider,
     private placeMultilangService: PlaceMultilangProvider,
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
@@ -37,14 +35,11 @@ export class CreatePlacePage {
   }
 
   ngOnInit() {
-    this.placeTypeService
-      .find(
-        {
-          populate: [{path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}]
-        }
-      )
-      .subscribe((placeTypes) => {
-        this.placeTypes = placeTypes;
+    this.placeTypeMultilangService.find({
+      query: {lang: this.globalConfig.getGlobalLang()}
+    })
+      .subscribe((placeTypesM) => {
+        this.placeTypesM = placeTypesM;
       })
   }
 

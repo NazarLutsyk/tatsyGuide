@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
@@ -45,16 +45,15 @@ export class NewsProvider {
         chunkedMode: false,
         mimeType: "image",
         httpMethod: 'put',
-        // headers: {
-        //   'Content-Type': 'multipart/form-data',
-        //   'Accept': 'application/json'
-        // }
       };
-      return fromPromise(transfer.upload(image,url,options));
+      return fromPromise(transfer.upload(image, url, options));
     } else {
       return new Observable<News>((subscriber) => subscriber.complete());
     }
   }
 
 
+  remove(_id: any) {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/news/${_id}`);
+  }
 }

@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -30,6 +30,7 @@
         {{bonuse.multilang[0].description}}
       </p>
     </ion-card-content>
+      <button ion-button round outline color="danger" (click)="removePromo(bonuse)">Delete</button>
   </ion-card>
   </span>
 

@@ -59,4 +59,9 @@ export class NewsPage {
       ]
     })
   }
+
+  removePromo(promo: any) {
+    this.newsService.remove(promo._id).subscribe();
+    this.news.splice(this.news.indexOf(promo,1));
+  }
 }
