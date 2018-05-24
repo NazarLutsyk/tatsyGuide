@@ -3,10 +3,8 @@ import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {News} from "../../models/promo/news/News";
-import {CreateEventPage} from "../create-event/create-event";
 import {Place} from "../../models/place/Place";
 import {CreateNewsPage} from "../create-news/create-news";
-import {UpdateEventPage} from "../update-event/update-event";
 import {UpdateNewsPage} from "../update-news/update-news";
 
 @IonicPage()

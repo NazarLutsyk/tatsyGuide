@@ -66,7 +66,9 @@ import {UpdateRatingPageModule} from "../pages/update-rating/update-rating.modul
 import {UpdatePlacePageModule} from "../pages/update-place/update-place.module";
 import {ProfilePageModule} from "../pages/profile/profile.module";
 import {UpdateProfilePageModule} from "../pages/update-profile/update-profile.module";
-import { MailProvider } from '../providers/mail/mail';
+import {MailProvider} from '../providers/mail/mail';
+import {PlaceAppliactionsPageModule} from "../pages/place-appliactions/place-appliactions.module";
+import {UpdateDrinkApplicationPageModule} from "../pages/update-drink-application/update-drink-application.module";
 
 @NgModule({
   declarations: [
@@ -106,7 +108,9 @@ import { MailProvider } from '../providers/mail/mail';
     UpdateRatingPageModule,
     UpdatePlacePageModule,
     ProfilePageModule,
-    UpdateProfilePageModule
+    UpdateProfilePageModule,
+    UpdateDrinkApplicationPageModule,
+    PlaceAppliactionsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],

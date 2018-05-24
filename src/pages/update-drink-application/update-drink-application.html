@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>update-drink-application</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <form (ngSubmit)="updateDrinkApp(form)" #form="ngForm">
+    <ion-item>
+      <ion-label>Alone/Not alone</ion-label>
+      <ion-input [(ngModel)]="drinkApp.friends" name="friends"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Goal</ion-label>
+      <ion-input [(ngModel)]="drinkApp.goal" name="goal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Money</ion-label>
+      <ion-input [(ngModel)]="drinkApp.budged" name="budged"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime [(ngModel)]="drinkApp.date" name="date"></ion-datetime>
+    </ion-item>
+
+    <button ion-button type="submit" block>Update fucking app</button>
+  </form>
+
+</ion-content>

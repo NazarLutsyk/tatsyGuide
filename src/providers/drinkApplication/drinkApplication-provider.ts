@@ -31,4 +31,7 @@ export class DrinkApplicationProvider {
     return this.http.put<DrinkApplication>(`${this.globalConfig.getGlobalHost()}/api/drinkApplications/${id}`, drinkApplication);
   }
 
+  remove(_id: string) {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/drinkApplications/${_id}`);
+  }
 }

@@ -40,11 +40,6 @@ export class PlaceInfoPage {
     window.location = `geo:${this.place.location.lat},${this.place.location.lng};u=35;`
   }
 
-
-  goToCreateDrinkerApplication(place) {
-    this.app.getRootNav().push(DrinkerApplicationPage, {place, disabled: true});
-  }
-
   connectToManager() {
     let alert = this.alertController.create({
       title: 'message', inputs: [

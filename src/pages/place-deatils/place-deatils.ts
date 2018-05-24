@@ -13,6 +13,7 @@ import {Storage} from "@ionic/storage";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
+import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 
 
 @Component({
@@ -31,6 +32,7 @@ export class PlaceDeatilsPage {
   newsPage = NewsPage;
   mapPage = MapPage;
   testimonialsPage = TestimonialPage;
+  drinkerPage = PlaceAppliactionsPage;
   principal: Client;
 
 
@@ -44,7 +46,7 @@ export class PlaceDeatilsPage {
   ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.place = this.navParams.data;
     let menus = this.menuController.getMenus();
     for (const menu of menus) {
