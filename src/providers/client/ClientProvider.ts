@@ -28,15 +28,14 @@ export class ClientProvider {
   }
 
 
-  find(request) {
+  find(request): Observable<Client[]> {
     let url = this.globalConfig.getGlobalHost() + `/api/clients?`;
     for (const key in request) {
       if (request[key]) {
         url += `${key}=${JSON.stringify(request[key])}&`;
       }
     }
-    this.http.get<Client[]>(url);
-
+    return this.http.get<Client[]>(url);
   }
 
   update(id: string, client: any): Observable<any> {

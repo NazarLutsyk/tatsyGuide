@@ -29,7 +29,7 @@ export class GlobalConfigsService {
     //   });
     // }
     // return this.globalLang;
-    return "5b02ba1c5a981e2c38037c9c";
+    return "5b06fc0cdfe3022a5cc013bb";
   }
 
 }

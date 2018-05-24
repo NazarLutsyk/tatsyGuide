@@ -32,7 +32,6 @@ import {SignUpPageModule} from "../pages/sign-up/sign-up.module";
 import {SignInPageModule} from "../pages/sign-in/sign-in.module";
 import {NativePageTransitions} from '@ionic-native/native-page-transitions';
 import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker-application.module";
-import {HashTagProvider} from '../providers/hash-tag/hash-tag';
 import {MessageProvider} from '../providers/message/message';
 import {TopPlaceProvider} from '../providers/top-place/top-place';
 import {BonuseMultilangProvider} from '../providers/bonuse-multilang/bonuse-multilang';
@@ -69,6 +68,7 @@ import {UpdateProfilePageModule} from "../pages/update-profile/update-profile.mo
 import {MailProvider} from '../providers/mail/mail';
 import {PlaceAppliactionsPageModule} from "../pages/place-appliactions/place-appliactions.module";
 import {UpdateDrinkApplicationPageModule} from "../pages/update-drink-application/update-drink-application.module";
+import {ClientsPageModule} from "../pages/clients/clients.module";
 
 @NgModule({
   declarations: [
@@ -110,7 +110,8 @@ import {UpdateDrinkApplicationPageModule} from "../pages/update-drink-applicatio
     ProfilePageModule,
     UpdateProfilePageModule,
     UpdateDrinkApplicationPageModule,
-    PlaceAppliactionsPageModule
+    PlaceAppliactionsPageModule,
+    ClientsPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -138,7 +139,6 @@ import {UpdateDrinkApplicationPageModule} from "../pages/update-drink-applicatio
       multi: true
     },
     LangProvider,
-    HashTagProvider,
     MessageProvider,
     TopPlaceProvider,
     BonuseMultilangProvider,

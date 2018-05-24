@@ -26,7 +26,11 @@ export class ProfilePage {
   }
 
   ngOnInit() {
-    this.auth.loadPrincipal().subscribe(principal => this.principal = principal);
+    if (this.navParams.data) {
+      this.principal = this.navParams.data;
+    } else {
+      this.auth.loadPrincipal().subscribe(principal => this.principal = principal);
+    }
   }
 
   updateClient(client) {

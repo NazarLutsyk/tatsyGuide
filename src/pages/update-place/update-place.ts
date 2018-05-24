@@ -26,6 +26,8 @@ export class UpdatePlacePage {
   placeMultilang: PlaceMultilang;
   placeMultilangId: string;
   placeTypesM: PlaceTypeMultilang[] = [];
+  hashTags: string;
+  // topCategories: string;
 
   constructor(
     public navCtrl: NavController,
@@ -51,6 +53,8 @@ export class UpdatePlacePage {
     this.location = this.place.location;
     this.place.types = this.place.types.map(pt => (<any>pt)._id);
 
+    // this.topCategories = this.place.topCategories.join(',');
+    this.hashTags = this.place.hashTags.join(',');
     this.placeTypeMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()}
     })
@@ -60,9 +64,11 @@ export class UpdatePlacePage {
   }
 
   updatePlace(updateForm: NgForm) {
-    //todo upload update
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
+
+    // this.place.topCategories = this.topCategories.split(',');
+    this.place.hashTags = this.hashTags.split(',');
     this.place.days = {
       1: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
       2: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
@@ -73,6 +79,7 @@ export class UpdatePlacePage {
       7: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end}
     };
     this.place.location = this.location;
+    console.log(this.place);
     zip(
       this.placeMultilangService.update(this.placeMultilangId, this.placeMultilang),
       this.placeService.update(this.placeId, this.place)

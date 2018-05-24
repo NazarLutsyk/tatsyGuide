@@ -19,6 +19,10 @@ import {MyFavoritePlacesPage} from "../pages/my-favorite-places/my-favorite-plac
 import {MyRatingsPage} from "../pages/my-ratings/my-ratings";
 import {PlaceTypeMultilangProvider} from "../providers/place-type-multilang/place-type-multilang";
 import {ProfilePage} from "../pages/profile/profile";
+import {ClientsPage} from "../pages/clients/clients";
+import {NewsPage} from "../pages/news/news";
+import {EventPage} from "../pages/event/event";
+import {BonusePage} from "../pages/bonuse/bonuse";
 
 
 @Component({
@@ -117,9 +121,29 @@ export class MyApp implements OnInit {
     this.navCtrl.push(MyRatingsPage);
   }
 
-  goToMyProfilePage(){
+  goToMyProfilePage() {
     this.menuController.close();
     this.navCtrl.push(ProfilePage);
+  }
+
+  goToClientsPage() {
+    this.menuController.close();
+    this.navCtrl.push(ClientsPage);
+  }
+
+  goToNewsPage() {
+    this.menuController.close();
+    this.navCtrl.push(NewsPage);
+  }
+
+  goToEventsPage() {
+    this.menuController.close();
+    this.navCtrl.push(EventPage);
+  }
+
+  goToBonusesPage() {
+    this.menuController.close();
+    this.navCtrl.push(BonusePage);
   }
 }
 

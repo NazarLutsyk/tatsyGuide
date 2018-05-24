@@ -1,5 +1,4 @@
 import {Bonuse} from "../promo/bonuse/Bonuse";
-import {HashTag} from "../hashTag/HashTag";
 import {TopPlace} from "../tops/TopPlace";
 import {PlaceType} from "../placeType/PlaceType";
 import {PlaceMultilang} from "../multilang/PlaceMultilang";
@@ -54,7 +53,7 @@ export class Place {
     public news: News[] = [],
     public events: Event[] = [],
     public bonuses: Bonuse[] = [],
-    public hashTags: HashTag[] = [],
+    public hashTags: string[] = [],
     public tops: TopPlace[] = [],
     public types: PlaceType[] = [],
     public multilang: PlaceMultilang[] = [],

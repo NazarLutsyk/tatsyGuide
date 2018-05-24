@@ -2,11 +2,10 @@ import {Component} from '@angular/core';
 import {AlertController, App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
-import {HttpClient} from "@angular/common/http";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {UpdatePlacePage} from "../update-place/update-place";
 import {MailProvider} from "../../providers/mail/mail";
+import {DepartmentProvider} from "../../providers/department/department-provider";
 
 declare var window: any;
 
@@ -18,6 +17,7 @@ declare var window: any;
 export class PlaceInfoPage {
   globalHost: string;
   place: Place;
+  bossPlaceEmail: string;
 
   constructor(
     private app: App,
@@ -28,11 +28,20 @@ export class PlaceInfoPage {
     private placeService: PlacesProvider,
     private events: Events,
     private alertController: AlertController,
-    private mailService: MailProvider
+    private mailService: MailProvider,
+    private departmentService: DepartmentProvider
   ) {
     this.place = this.navParams.data;
     this.globalHost = gc.getGlobalHost();
 
+    departmentService.find({
+      query: {place: (<any>this.place)._id},
+      populate: [{path: 'client'}]
+    }).subscribe((department) => {
+      if (department[0]) {
+        this.bossPlaceEmail = department[0].client.email;
+      }
+    })
   }
 
 
@@ -44,13 +53,12 @@ export class PlaceInfoPage {
     let alert = this.alertController.create({
       title: 'message', inputs: [
         {
-          name: 'email',
+          name: 'clientEmail',
           placeholder: 'email'
         },
         {
           name: 'message',
           placeholder: 'message',
-
         },
 
       ],
@@ -58,8 +66,10 @@ export class PlaceInfoPage {
         {
           text: 'send',
           handler: data => {
-            // todo for whom to send an email???
-            this.mailService.sendMail(data).subscribe();
+            if (this.bossPlaceEmail) {
+              data.email = this.bossPlaceEmail;
+              this.mailService.sendMail(data).subscribe();
+            }
           }
         }
       ]
@@ -77,5 +87,9 @@ export class PlaceInfoPage {
 
   updatePlace(place: Place) {
     this.app.getRootNav().push(UpdatePlacePage, {place: place});
+  }
+
+  findPlacesByHashTag(hashTag: string) {
+    // todo nazik find pop to root and find places
   }
 }
