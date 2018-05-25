@@ -10,10 +10,11 @@ export class News extends Promo {
     public image: string = '',
     public author: Client = null,
     public place: Place = null,
+    public topPromo: boolean = true,
     public startDate: string = '',
     public endDate: string = '',
     public multilang: NewsMultilang[] = []
   ) {
-    super(id, image, author, place, startDate, endDate);
+    super(id, image, startDate, endDate, topPromo, author, place);
   }
 }

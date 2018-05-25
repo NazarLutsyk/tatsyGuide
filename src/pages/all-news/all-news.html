@@ -1,13 +1,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>news</ion-title>
+    <ion-title>all-news</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content padding>
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -17,6 +18,7 @@
     <img src="{{globalHost+promo.image}}" alt=""/>
     <ion-card-content>
       <ion-card-title>
+        {{promo.place.multilang[0].name}}<br>
         {{promo.multilang[0].header}}
       </ion-card-title>
       <p>
@@ -33,8 +35,4 @@
       <button ion-button round outline (click)="updatePromo(promo)">Update</button>
   </ion-card>
   </span>
-
-  <ion-row margin-top="10px">
-    <button ion-button full color="defaultApp" (click)="goToCreateNews()">Create News</button>
-  </ion-row>
 </ion-content>

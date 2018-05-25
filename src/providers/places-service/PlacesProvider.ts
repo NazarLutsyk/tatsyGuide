@@ -63,9 +63,7 @@ export class PlacesProvider {
   find(request) {
     let url = this.globalConfig.getGlobalHost() + `/api/places?`;
     for (const key in request) {
-      if (request[key]) {
-        url += `${key}=${JSON.stringify(request[key])}&`;
-      }
+      url += `${key}=${JSON.stringify(request[key])}&`;
     }
     return zip(
       this.http.get<any[]>(url),
@@ -82,7 +80,7 @@ export class PlacesProvider {
     return this.http.post<Place>(`${this.globalConfig.getGlobalHost()}/api/places`, place);
   }
 
-  update(id: string, place: Place): Observable<Place> {
+  update(id: string, place: Object): Observable<Place> {
     return this.http.put<Place>(`${this.globalConfig.getGlobalHost()}/api/places/${id}`, place);
   }
 

@@ -34,13 +34,14 @@
       <ion-datetime [(ngModel)]="drinkerApplicationObject.date" name="date"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>Place {{isActive}}</ion-label>
-      <ion-input type="text" [(ngModel)]="drinkerApplicationObject.place.multilang[0].name" name="title" [disabled]="isActive"></ion-input>
+      <ion-select [disabled]="isActive" name="place" [(ngModel)]="drinkerApplicationObject.place">
+        <ion-option *ngFor="let place of places"
+                    [value]="place._id">
+          {{place.multilang[0].name}}
+        </ion-option>
+      </ion-select>
     </ion-item>
-
     <!--TODO fetch client wich is registred-->
-
-
     <button ion-button type="submit" block>Add Todo</button>
   </form>
 

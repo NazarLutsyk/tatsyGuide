@@ -20,9 +20,12 @@ import {MyRatingsPage} from "../pages/my-ratings/my-ratings";
 import {PlaceTypeMultilangProvider} from "../providers/place-type-multilang/place-type-multilang";
 import {ProfilePage} from "../pages/profile/profile";
 import {ClientsPage} from "../pages/clients/clients";
-import {NewsPage} from "../pages/news/news";
-import {EventPage} from "../pages/event/event";
-import {BonusePage} from "../pages/bonuse/bonuse";
+import {PurgatoryPlacesPage} from "../pages/purgatory-places/purgatory-places";
+import {AllNewsPage} from "../pages/all-news/all-news";
+import {AllEventsPage} from "../pages/all-events/all-events";
+import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
+import {AllDrinkApplicationsPage} from "../pages/all-drink-applications/all-drink-applications";
+import {HashTagsPage} from "../pages/hash-tags/hash-tags";
 
 
 @Component({
@@ -133,17 +136,32 @@ export class MyApp implements OnInit {
 
   goToNewsPage() {
     this.menuController.close();
-    this.navCtrl.push(NewsPage);
+    this.navCtrl.push(AllNewsPage);
   }
 
   goToEventsPage() {
     this.menuController.close();
-    this.navCtrl.push(EventPage);
+    this.navCtrl.push(AllEventsPage);
   }
 
   goToBonusesPage() {
     this.menuController.close();
-    this.navCtrl.push(BonusePage);
+    this.navCtrl.push(AllBonusesPage);
+  }
+
+  goToDrinkApplicationsPage() {
+    this.menuController.close();
+    this.navCtrl.push(AllDrinkApplicationsPage);
+  }
+
+  goToPlacesPurgatoryPage() {
+    this.menuController.close();
+    this.navCtrl.push(PurgatoryPlacesPage);
+  }
+
+  goToHashTagsPage() {
+    this.menuController.close();
+    this.navCtrl.push(HashTagsPage);
   }
 }
 

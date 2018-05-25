@@ -1,20 +1,17 @@
 import {Component} from '@angular/core';
 import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {News} from "../../models/promo/news/News";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NewsProvider} from "../../providers/news/NewsProvider";
-import {News} from "../../models/promo/news/News";
-import {Place} from "../../models/place/Place";
-import {CreateNewsPage} from "../create-news/create-news";
 import {UpdateNewsPage} from "../update-news/update-news";
 
 @IonicPage()
 @Component({
-  selector: 'page-news',
-  templateUrl: 'news.html',
+  selector: 'page-all-news',
+  templateUrl: 'all-news.html',
 })
-export class NewsPage {
+export class AllNewsPage {
 
-  place: Place;
   news: News[];
   globalHost: string;
 
@@ -31,11 +28,6 @@ export class NewsPage {
     });
   }
 
-  ngOnInit() {
-    this.place = this.navParams.data;
-  }
-
-
   doRefresh(refresher: Refresher) {
     this.loadNews()
       .subscribe((news) => {
@@ -44,17 +36,23 @@ export class NewsPage {
       });
   }
 
-  goToCreateNews() {
-    this.app.getRootNav().push(CreateNewsPage, {place: this.place});
-  }
-
   loadNews() {
     return this.newsService.find({
-      query: {place: this.navParams.data._id},
+      query: {topPromo: true},
+      sort: {createdAt: -1},
       populate: [
         {
           path: 'multilang',
           match: {lang: this.gc.getGlobalLang()}
+        },
+        {
+          path: 'place',
+          select: 'multilang',
+          populate: [{
+            path: 'multilang',
+            match: {lang: this.gc.getGlobalLang()},
+            select: 'name'
+          }]
         }
       ]
     })
@@ -62,11 +60,13 @@ export class NewsPage {
 
   removePromo(promo: any) {
     this.newsService.remove(promo._id).subscribe();
-    this.news.splice(this.news.indexOf(promo),1);
+    this.news.splice(this.news.indexOf(promo), 1);
   }
 
 
   updatePromo(promo: any) {
-    this.app.getRootNav().push(UpdateNewsPage,{promo: promo});
+    this.app.getRootNav().push(UpdateNewsPage, {promo: promo});
   }
+
+
 }

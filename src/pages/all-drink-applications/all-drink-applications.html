@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>all-drink-applications</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+  <span *ngFor="let drinkApp of drinkApps">
+    <ion-card>
+    <ion-card-content>
+      <p>
+        {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}
+      </p>
+      <p>
+        {{drinkApp.place.multilang[0].name}}
+      </p>
+      <p>
+        {{drinkApp.friends}}
+      </p>
+      <p>
+        {{drinkApp.budged}}
+      </p>
+      <p>
+        {{drinkApp.goal}}
+      </p>
+      <p>
+        {{drinkApp.date | date}}
+      </p>
+    </ion-card-content>
+      <button ion-button round outline color="danger" (click)="removeDrinkApp(drinkApp)">Delete</button>
+      <button ion-button round outline (click)="updateDrinkApp(drinkApp)">Update</button>
+  </ion-card>
+  </span>
+
+
+  <button ion-button full color="defaultApp" (click)="goToCreateDrinkerApplication()">Create</button>
+
+</ion-content>

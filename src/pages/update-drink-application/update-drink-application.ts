@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
-import {zip} from "rxjs/observable/zip";
 import {NgForm} from "@angular/forms";
 
 @IonicPage()

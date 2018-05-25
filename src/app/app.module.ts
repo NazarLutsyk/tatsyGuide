@@ -69,6 +69,12 @@ import {MailProvider} from '../providers/mail/mail';
 import {PlaceAppliactionsPageModule} from "../pages/place-appliactions/place-appliactions.module";
 import {UpdateDrinkApplicationPageModule} from "../pages/update-drink-application/update-drink-application.module";
 import {ClientsPageModule} from "../pages/clients/clients.module";
+import {PurgatoryPlacesPageModule} from "../pages/purgatory-places/purgatory-places.module";
+import {AllNewsPageModule} from "../pages/all-news/all-news.module";
+import {AllEventsPageModule} from "../pages/all-events/all-events.module";
+import {AllBonusesPageModule} from "../pages/all-bonuses/all-bonuses.module";
+import {AllDrinkApplicationsPageModule} from "../pages/all-drink-applications/all-drink-applications.module";
+import {HashTagsPageModule} from "../pages/hash-tags/hash-tags.module";
 
 @NgModule({
   declarations: [
@@ -112,6 +118,12 @@ import {ClientsPageModule} from "../pages/clients/clients.module";
     UpdateDrinkApplicationPageModule,
     PlaceAppliactionsPageModule,
     ClientsPageModule,
+    PurgatoryPlacesPageModule,
+    AllNewsPageModule,
+    AllEventsPageModule,
+    AllBonusesPageModule,
+    AllDrinkApplicationsPageModule,
+    HashTagsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],

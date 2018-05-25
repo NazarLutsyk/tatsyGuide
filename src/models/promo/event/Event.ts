@@ -13,8 +13,9 @@ export class Event extends Promo {
     public place: Place = null,
     public startDate: string = '',
     public endDate: string = '',
+    public topPromo: boolean = true,
     public multilang: EventMultilang[] = []
   ) {
-    super(id, image, author, place, startDate, endDate);
+    super(id, image, startDate, endDate, topPromo, author, place);
   }
 }

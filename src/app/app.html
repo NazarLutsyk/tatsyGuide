@@ -8,6 +8,18 @@
     <ion-list>
 
       <ion-item>
+        <span (click)="goToHashTagsPage()"> Hash Tags</span>
+      </ion-item>
+
+      <ion-item>
+        <span (click)="goToPlacesPurgatoryPage()"> Purgatory of places</span>
+      </ion-item>
+
+      <ion-item>
+        <span (click)="goToDrinkApplicationsPage()"> Drink Applications</span>
+      </ion-item>
+
+      <ion-item>
         <span (click)="goToNewsPage()"> News</span>
       </ion-item>
 
@@ -110,7 +122,8 @@
     <ion-item>
       <ion-label>Тип закладу</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
-        <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">{{placeTypeM.name}}</ion-option>
+        <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">{{placeTypeM.name}}
+        </ion-option>
       </ion-select>
     </ion-item>
 

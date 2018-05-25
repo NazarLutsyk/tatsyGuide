@@ -1,33 +1,33 @@
 import {Component} from '@angular/core';
 import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
-import {Place} from "../../models/place/Place";
-import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
+import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {Observable} from "rxjs/Observable";
 import {UpdateDrinkApplicationPage} from "../update-drink-application/update-drink-application";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
-  selector: 'page-place-appliactions',
-  templateUrl: 'place-appliactions.html',
+  selector: 'page-all-drink-applications',
+  templateUrl: 'all-drink-applications.html',
 })
-export class PlaceAppliactionsPage {
+export class AllDrinkApplicationsPage {
 
-  place: Place;
   drinkApps: DrinkApplication[];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private app: App,
+    private gc: GlobalConfigsService,
     private drinkAppsService: DrinkApplicationProvider
   ) {
-    this.place = navParams.data;
     this.loadDrinkApps().subscribe((apps) => {
       this.drinkApps = apps;
     });
   }
+
 
   doRefresh(refresher: Refresher) {
     this.loadDrinkApps()
@@ -37,22 +37,32 @@ export class PlaceAppliactionsPage {
       });
   }
 
-  goToCreateDrinkerApplication(place) {
-    this.app.getRootNav().push(DrinkerApplicationPage, {place, disabled: true});
+  goToCreateDrinkerApplication() {
+    this.app.getRootNav().push(DrinkerApplicationPage, {disabled: false});
   }
 
   private loadDrinkApps(): Observable<any> {
     return this.drinkAppsService.find({
-      query: {place: this.navParams.data._id},
-      populate: [{path: 'organizer'}]
-    })
+      sort: {createdAt: -1},
+      populate: [
+        {path: 'organizer'},
+        {
+          path: 'place',
+          select: 'multilang',
+          populate: [{
+            path: 'multilang',
+            match: {lang: this.gc.getGlobalLang()},
+            select: 'name'
+          }]
+        }
+      ]
+    });
   }
 
   removeDrinkApp(drinkApp: any) {
     this.drinkAppsService.remove(drinkApp._id).subscribe();
-    this.drinkApps.splice(this.drinkApps.indexOf(drinkApp),1);
+    this.drinkApps.splice(this.drinkApps.indexOf(drinkApp), 1);
   }
-
 
   updateDrinkApp(drinkApp: any) {
     this.app.getRootNav().push(UpdateDrinkApplicationPage, {drinkApp: drinkApp});

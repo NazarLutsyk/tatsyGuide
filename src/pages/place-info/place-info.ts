@@ -6,6 +6,9 @@ import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {UpdatePlacePage} from "../update-place/update-place";
 import {MailProvider} from "../../providers/mail/mail";
 import {DepartmentProvider} from "../../providers/department/department-provider";
+import {ComplaintProvider} from "../../providers/complaint/complaint-provider";
+import {Complaint} from "../../models/complaint/Complaint";
+import {HashTagsPage} from "../hash-tags/hash-tags";
 
 declare var window: any;
 
@@ -29,7 +32,8 @@ export class PlaceInfoPage {
     private events: Events,
     private alertController: AlertController,
     private mailService: MailProvider,
-    private departmentService: DepartmentProvider
+    private departmentService: DepartmentProvider,
+    private complaintService: ComplaintProvider
   ) {
     this.place = this.navParams.data;
     this.globalHost = gc.getGlobalHost();
@@ -75,7 +79,6 @@ export class PlaceInfoPage {
       ]
     });
     alert.present();
-
   }
 
 
@@ -90,6 +93,33 @@ export class PlaceInfoPage {
   }
 
   findPlacesByHashTag(hashTag: string) {
-    // todo nazik find pop to root and find places
+    this.app.getRootNav().push(HashTagsPage, {hashTag: hashTag});
+  }
+
+  sendComplaint() {
+    let alert = this.alertController.create({
+      title: 'message', inputs: [
+        {
+          name: 'clientEmail',
+          placeholder: 'email'
+        },
+        {
+          name: 'message',
+          placeholder: 'message',
+        },
+
+      ],
+      buttons: [
+        {
+          text: 'send',
+          handler: data => {
+            this.complaintService.create(new Complaint(null, data.message, null, (<any>this.place)._id)).subscribe();
+            data.message += `Place ${this.place.multilang[0].name}`;
+            this.mailService.sendMail(data).subscribe();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

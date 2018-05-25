@@ -1,41 +1,33 @@
 import {Component} from '@angular/core';
 import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
-import {Place} from "../../models/place/Place";
-import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
-import {CreateBonusePage} from "../create-bonuse/create-bonuse";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
 
 @IonicPage()
 @Component({
-  selector: 'page-bonuse',
-  templateUrl: 'bonuse.html',
+  selector: 'page-all-bonuses',
+  templateUrl: 'all-bonuses.html',
 })
-export class BonusePage {
+export class AllBonusesPage {
 
   bonuses: Bonuse[] = [];
   globalHost: string;
-  place: Place;
 
   constructor(
-    private app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
     private gc: GlobalConfigsService,
     private bonuseService: BonuseProvider,
+    private app: App
   ) {
-    this.globalHost = this.gc.getGlobalHost();
+    this.globalHost = gc.getGlobalHost();
 
     this.loadBonuses().subscribe((bonuses) => {
       this.bonuses = bonuses;
     });
   }
-
-  ngOnInit() {
-    this.place = this.navParams.data;
-  }
-
 
   doRefresh(refresher: Refresher) {
     this.loadBonuses()
@@ -45,17 +37,23 @@ export class BonusePage {
       });
   }
 
-  goToCreateBonuse() {
-    this.app.getRootNav().push(CreateBonusePage, {place: this.place});
-  }
-
   loadBonuses() {
     return this.bonuseService.find({
-      query: {place: this.navParams.data._id},
+      query: {topPromo: true},
+      sort: {createdAt: -1},
       populate: [
         {
           path: 'multilang',
           match: {lang: this.gc.getGlobalLang()}
+        },
+        {
+          path: 'place',
+          select: 'multilang',
+          populate: [{
+            path: 'multilang',
+            match: {lang: this.gc.getGlobalLang()},
+            select: 'name'
+          }]
         }
       ]
     })
@@ -63,10 +61,11 @@ export class BonusePage {
 
   removePromo(promo: any) {
     this.bonuseService.remove(promo._id).subscribe();
-    this.bonuses.splice(this.bonuses.indexOf(promo), 1);
+    this.bonuses.splice(this.bonuses.indexOf(promo),1);
   }
 
   updatePromo(promo: any) {
     this.app.getRootNav().push(UpdateBonusePage, {promo: promo});
   }
+
 }
