@@ -130,7 +130,7 @@ export class PlacesProvider {
 
   //todo change that shit
   upload(id, files: { avatar?: string, images?: string[] }) {
-    let url = `https://localhost:3000/api/places/${id}`;
+    let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}`;
     const transfer: FileTransferObject = this.fileTransfer.create();
     if (files.avatar) {
       fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'})).subscribe();
