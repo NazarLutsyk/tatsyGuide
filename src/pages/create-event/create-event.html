@@ -10,25 +10,35 @@
 <ion-content padding>
   <ion-content padding>
 
-    <form (ngSubmit)="logForm()">
+    <form (ngSubmit)="logForm(eventForm)" #eventForm="ngForm">
       <button type="button" ion-button full (click)="getAvatar()">Select avatar</button>
       <!--<img [src]="eventObject.image" alt="">-->
-      <ion-item>
-        <ion-label>Header</ion-label>
-        <ion-input [(ngModel)]="eventMObject.header" name="header"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Description</ion-label>
-        <ion-input [(ngModel)]="eventMObject.description" name="description"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Start date</ion-label>
-        <ion-datetime [(ngModel)]="eventObject.startDate" name="startDate"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>End date</ion-label>
-        <ion-datetime [(ngModel)]="eventObject.endDate" name="endDate"></ion-datetime>
-      </ion-item>
+      <div ngModelGroup="multilang">
+        <ion-item>
+          <ion-label>Header</ion-label>
+          <ion-input ngModel name="header"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-input ngModel name="description"></ion-input>
+        </ion-item>
+      </div>
+      <div ngModelGroup="event">
+        <ion-item>
+          <ion-label>Start date</ion-label>
+          <ion-datetime ngModel name="startDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>End date</ion-label>
+          <ion-datetime ngModel name="endDate"></ion-datetime>
+        </ion-item>
+        <ion-item *ngIf="isAdmin">
+          <ion-select name="topPromo" ngModel>
+            <ion-option value="true">TRUE</ion-option>
+            <ion-option value="false">FALSE</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
       <button ion-button type="submit" full color="secondary">Add Todo</button>
     </form>
-</ion-content>
+  </ion-content>

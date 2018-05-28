@@ -4,6 +4,8 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {BonuseMultilangProvider} from "../../providers/bonuse-multilang/bonuse-multilang";
+import {AuthProvider} from "../../providers/auth/auth";
+import {NgForm} from "@angular/forms";
 
 @IonicPage()
 @Component({
@@ -12,20 +14,8 @@ import {BonuseMultilangProvider} from "../../providers/bonuse-multilang/bonuse-m
 })
 export class CreateBonusePage {
 
-  bonuseObject: {
-    place: string,
-    image: string,
-    startDate: string,
-    endDate: string
-  } = {endDate: '', image: '', place: '', startDate: ''};
-
-  bonuseMObject: {
-    header: string,
-    description: string,
-    conditions: string,
-    promo: string,
-    lang: string
-  } = {description: '', header: '', promo: '', lang: '', conditions: ''};
+  isAdmin = false;
+  imageToUpload;
 
   constructor(
     public navCtrl: NavController,
@@ -33,20 +23,29 @@ export class CreateBonusePage {
     private camera: Camera,
     private bonuseService: BonuseProvider,
     private bonuseMultilangService: BonuseMultilangProvider,
-    private globalConfig: GlobalConfigsService
-    ) {
+    private globalConfig: GlobalConfigsService,
+    private auth: AuthProvider
+  ) {
   }
 
   ngOnInit() {
-    this.bonuseObject.place = this.navParams.data.place._id;
-    this.bonuseMObject.lang = this.globalConfig.getGlobalLang();
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    })
   }
 
-  logForm() {
-    this.bonuseService.create(this.bonuseObject).subscribe(bonuse => {
-      this.bonuseMObject.promo = (<any>bonuse)._id;
-      this.bonuseMultilangService.create(this.bonuseMObject).subscribe((bonuseM) => {
-        this.bonuseService.upload((<any>bonuse)._id, this.bonuseObject.image).subscribe();
+  logForm(bonuseForm: NgForm) {
+    let bonuseFormValues = bonuseForm.form.value;
+    let bonuse = bonuseFormValues.bonuse;
+    let bonuseMultilang = bonuseFormValues.multilang;
+    bonuse.place = this.navParams.data.place._id;
+    bonuseMultilang.lang = this.globalConfig.getGlobalLang();
+    this.bonuseService.create(bonuse).subscribe(bonuse => {
+      bonuseMultilang.promo = (<any>bonuse)._id;
+      this.bonuseMultilangService.create(bonuseMultilang).subscribe((bonuseM) => {
+        this.bonuseService.upload((<any>bonuse)._id, this.imageToUpload).subscribe();
         this.navCtrl.pop();
       });
     })
@@ -61,7 +60,7 @@ export class CreateBonusePage {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
     this.camera.getPicture(options).then((imageData) => {
-      this.bonuseObject.image = imageData;
+      this.imageToUpload = imageData;
     })
   }
 }

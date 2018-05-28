@@ -5,6 +5,7 @@ import {EventMultilang} from "../../models/multilang/EventMultilang";
 import {NgForm} from "@angular/forms";
 import {EventMultilangProvider} from "../../providers/event-multilang/event-multilang";
 import {zip} from "rxjs/observable/zip";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -17,12 +18,14 @@ export class UpdateEventPage {
   eventMultilang: EventMultilang;
   eventMultilangId: string;
   eventId: string;
+  isAdmin = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private eventService: EventProvider,
-    private eventMultilangServive: EventMultilangProvider
+    private eventMultilangServive: EventMultilangProvider,
+    private auth: AuthProvider
   ) {
   }
 
@@ -31,6 +34,12 @@ export class UpdateEventPage {
     this.eventMultilang = this.navParams.data.promo.multilang[0];
     this.eventMultilangId = (<any>this.eventMultilang)._id;
     this.eventId = (<any>this.event)._id;
+
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    })
   }
 
   updatePromo(updateForm: NgForm){

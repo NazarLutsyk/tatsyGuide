@@ -6,6 +6,7 @@ import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {BonuseMultilangProvider} from "../../providers/bonuse-multilang/bonuse-multilang";
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseMultilang} from "../../models/multilang/BonuseMultilang";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -18,12 +19,14 @@ export class UpdateBonusePage {
   bonuseMultilang: BonuseMultilang;
   bonuseMultilangId: string;
   bonuseId: string;
+  isAdmin = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private bonuseService: BonuseProvider,
-    private bonuseMultilangServive: BonuseMultilangProvider
+    private bonuseMultilangServive: BonuseMultilangProvider,
+    private auth: AuthProvider
   ) {
   }
 
@@ -32,6 +35,13 @@ export class UpdateBonusePage {
     this.bonuseMultilang = this.navParams.data.promo.multilang[0];
     this.bonuseMultilangId = (<any>this.bonuseMultilang)._id;
     this.bonuseId = (<any>this.bonuse)._id;
+
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    })
+
   }
 
   updatePromo(updateForm: NgForm) {

@@ -14,6 +14,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
+import {PlaceStatisticPage} from "../place-statistic/place-statistic";
 
 
 @Component({
@@ -33,6 +34,7 @@ export class PlaceDeatilsPage {
   mapPage = MapPage;
   testimonialsPage = TestimonialPage;
   drinkerPage = PlaceAppliactionsPage;
+  placeStatisticPage = PlaceStatisticPage;
   principal: Client;
 
 

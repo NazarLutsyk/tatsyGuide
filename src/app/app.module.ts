@@ -75,6 +75,8 @@ import {AllEventsPageModule} from "../pages/all-events/all-events.module";
 import {AllBonusesPageModule} from "../pages/all-bonuses/all-bonuses.module";
 import {AllDrinkApplicationsPageModule} from "../pages/all-drink-applications/all-drink-applications.module";
 import {HashTagsPageModule} from "../pages/hash-tags/hash-tags.module";
+import {PlaceStatisticPageModule} from "../pages/place-statistic/place-statistic.module";
+import { ReviewProvider } from '../providers/review/review';
 
 @NgModule({
   declarations: [
@@ -123,7 +125,8 @@ import {HashTagsPageModule} from "../pages/hash-tags/hash-tags.module";
     AllEventsPageModule,
     AllBonusesPageModule,
     AllDrinkApplicationsPageModule,
-    HashTagsPageModule
+    HashTagsPageModule,
+    PlaceStatisticPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -165,7 +168,8 @@ import {HashTagsPageModule} from "../pages/hash-tags/hash-tags.module";
     Camera,
     ImagePicker,
     Base64,
-    MailProvider
+    MailProvider,
+    ReviewProvider
   ]
 })
 export class AppModule {

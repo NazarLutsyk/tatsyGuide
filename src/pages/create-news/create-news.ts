@@ -4,9 +4,12 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {NewsMultilangProvider} from "../../providers/news-multilang/news-multilang";
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
-
+import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
+import {File} from '@ionic-native/file';
+import {AuthProvider} from "../../providers/auth/auth";
+import {News} from "../../models/promo/news/News";
+import {NewsMultilang} from "../../models/multilang/NewsMultilang";
+import {NgForm} from "@angular/forms";
 
 
 /**
@@ -23,19 +26,8 @@ import { File } from '@ionic-native/file';
 })
 export class CreateNewsPage {
 
-  newsObject: {
-    place: string,
-    image: string,
-    startDate: string,
-    endDate: string
-  } = {endDate: '', image: '', place: '', startDate: ''};
-
-  newsMObject: {
-    header: string,
-    description: string,
-    promo: string,
-    lang: string
-  } = {description: '', header: '', promo: '', lang: ''};
+  imageToUpload;
+  isAdmin = false;
 
   constructor(
     public navCtrl: NavController,
@@ -43,20 +35,29 @@ export class CreateNewsPage {
     private camera: Camera,
     private newsService: NewsProvider,
     private newsMultilangService: NewsMultilangProvider,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private auth: AuthProvider
   ) {
   }
 
   ngOnInit() {
-    this.newsObject.place = this.navParams.data.place._id;
-    this.newsMObject.lang = this.globalConfig.getGlobalLang();
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    })
   }
 
-  logForm() {
-    this.newsService.create(this.newsObject).subscribe(news => {
-      this.newsMObject.promo = (<any>news)._id;
-      this.newsMultilangService.create(this.newsMObject).subscribe((newsM) => {
-        this.newsService.upload((<any>news)._id, this.newsObject.image).subscribe();
+  logForm(newsForm: NgForm) {
+    let formValues = newsForm.form.value;
+    let news = formValues.news;
+    let newsMultilang = formValues.multilang;
+    news.place = this.navParams.data.place._id;
+    newsMultilang.lang = this.globalConfig.getGlobalLang();
+    this.newsService.create(news).subscribe(news => {
+      newsMultilang.promo = (<any>news)._id;
+      this.newsMultilangService.create(newsMultilang).subscribe((newsM) => {
+        this.newsService.upload((<any>news)._id, this.imageToUpload).subscribe();
         this.navCtrl.pop();
       });
     })
@@ -71,7 +72,7 @@ export class CreateNewsPage {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
     this.camera.getPicture(options).then((imageData) => {
-      this.newsObject.image = imageData;
+      this.imageToUpload = imageData;
     })
   }
 

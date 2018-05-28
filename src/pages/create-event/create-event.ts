@@ -4,6 +4,8 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 import {EventProvider} from "../../providers/event/EventProvider";
 import {EventMultilangProvider} from "../../providers/event-multilang/event-multilang";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {NgForm} from "@angular/forms";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -12,20 +14,8 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 })
 export class CreateEventPage {
 
-  eventObject: {
-    place: string,
-    image: string,
-    startDate: string,
-    endDate: string
-  } = {endDate: '', image: '', place: '', startDate: ''};
-
-  eventMObject: {
-    header: string,
-    description: string,
-    promo: string,
-    lang: string
-  } = {description: '', header: '', promo: '', lang: ''};
-
+  isAdmin = false;
+  imageToUpload;
 
   constructor(
     public navCtrl: NavController,
@@ -33,20 +23,31 @@ export class CreateEventPage {
     private camera: Camera,
     private eventService: EventProvider,
     private eventMultilangService: EventMultilangProvider,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private auth: AuthProvider
   ) {
   }
 
   ngOnInit() {
-    this.eventObject.place = this.navParams.data.place._id;
-    this.eventMObject.lang = this.globalConfig.getGlobalLang();
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    })
   }
 
-  logForm() {
-    this.eventService.create(this.eventObject).subscribe(event => {
-      this.eventMObject.promo = (<any>event)._id;
-      this.eventMultilangService.create(this.eventMObject).subscribe((eventM) => {
-        this.eventService.upload((<any>event)._id, this.eventObject.image).subscribe();
+  logForm(eventForm: NgForm) {
+    let formValues = eventForm.form.value;
+    let event = formValues.event;
+    let eventMultilang = formValues.multilang;
+
+    event.place = this.navParams.data.place._id;
+    eventMultilang.lang = this.globalConfig.getGlobalLang();
+
+    this.eventService.create(event).subscribe(event => {
+      eventMultilang.promo = (<any>event)._id;
+      this.eventMultilangService.create(eventMultilang).subscribe((eventM) => {
+        this.eventService.upload((<any>event)._id, this.imageToUpload).subscribe();
         this.navCtrl.pop();
       });
     })
@@ -61,7 +62,7 @@ export class CreateEventPage {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
     this.camera.getPicture(options).then((imageData) => {
-      this.eventObject.image = imageData;
+      this.imageToUpload = imageData;
     })
   }
 

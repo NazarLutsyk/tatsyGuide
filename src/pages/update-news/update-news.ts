@@ -6,6 +6,7 @@ import {News} from "../../models/promo/news/News";
 import {NewsMultilang} from "../../models/multilang/NewsMultilang";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {NewsMultilangProvider} from "../../providers/news-multilang/news-multilang";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -18,12 +19,14 @@ export class UpdateNewsPage {
   newsMultilang: NewsMultilang;
   newsMultilangId: string;
   newsId: string;
+  isAdmin = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private newsService: NewsProvider,
-    private newsMultilangServive: NewsMultilangProvider
+    private newsMultilangServive: NewsMultilangProvider,
+    private auth: AuthProvider
   ) {
   }
 
@@ -32,6 +35,13 @@ export class UpdateNewsPage {
     this.newsMultilang = this.navParams.data.promo.multilang[0];
     this.newsMultilangId = (<any>this.newsMultilang)._id;
     this.newsId = (<any>this.news)._id;
+
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    })
+
   }
 
   updatePromo(updateForm: NgForm){

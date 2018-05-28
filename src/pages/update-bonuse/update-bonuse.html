@@ -52,6 +52,12 @@
           [(ngModel)]="bonuse.endDate"
         ></ion-datetime>
       </ion-item>
+      <ion-item *ngIf="isAdmin">
+        <ion-select name="topPromo" [(ngModel)]="bonuse.topPromo">
+          <ion-option value="true">TRUE</ion-option>
+          <ion-option value="false">FALSE</ion-option>
+        </ion-select>
+      </ion-item>
     </div>
     <button ion-button full margin-top>Update</button>
   </form>
