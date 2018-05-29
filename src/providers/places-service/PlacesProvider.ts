@@ -135,7 +135,7 @@ export class PlacesProvider {
     if (files.avatar) {
       fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'})).subscribe();
     }
-    if (files.images.length > 0) {
+    if (files.images && files.images.length > 0) {
       let toUpload = [];
       for (const file of files.images) {
         toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));

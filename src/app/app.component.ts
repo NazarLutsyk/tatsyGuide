@@ -26,6 +26,8 @@ import {AllEventsPage} from "../pages/all-events/all-events";
 import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
 import {AllDrinkApplicationsPage} from "../pages/all-drink-applications/all-drink-applications";
 import {HashTagsPage} from "../pages/hash-tags/hash-tags";
+import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-statistic";
+import {TopPlacesPage} from "../pages/top-places/top-places";
 
 
 @Component({
@@ -159,9 +161,14 @@ export class MyApp implements OnInit {
     this.navCtrl.push(PurgatoryPlacesPage);
   }
 
-  goToHashTagsPage() {
+  goToPlacesStatisticPage() {
     this.menuController.close();
-    this.navCtrl.push(HashTagsPage);
+    this.navCtrl.push(AllPlacesStatisticPage);
+  }
+
+  goToTopPlacesPage() {
+    this.menuController.close();
+    this.navCtrl.push(TopPlacesPage);
   }
 }
 

@@ -9,6 +9,7 @@ import {DepartmentProvider} from "../../providers/department/department-provider
 import {ComplaintProvider} from "../../providers/complaint/complaint-provider";
 import {Complaint} from "../../models/complaint/Complaint";
 import {HashTagsPage} from "../hash-tags/hash-tags";
+import {UpdatePlaceDepartmentsPage} from "../update-place-departments/update-place-departments";
 
 declare var window: any;
 
@@ -121,5 +122,9 @@ export class PlaceInfoPage {
       ]
     });
     alert.present();
+  }
+
+  updatePlaceDepartments(place: Place) {
+    this.app.getRootNav().push(UpdatePlaceDepartmentsPage,place);
   }
 }

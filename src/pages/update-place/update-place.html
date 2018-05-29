@@ -33,15 +33,27 @@
       </ion-list>
     </div>
 
-    <!--<ion-label>Top Categories</ion-label>-->
-    <!--<ion-item>-->
-      <!--<ion-input name="topCategories" [(ngModel)]="topCategories"></ion-input>-->
-    <!--</ion-item>-->
-    <ion-label>Hash Tags</ion-label>
-    <ion-item>
-      <ion-input name="hashTags" [(ngModel)]="hashTags"></ion-input>
-    </ion-item>
+    <div *ngIf="isAdmin">
+      <ion-label>Top categories</ion-label>
+      <ion-item>
+        <ion-input name="topCategories" [(ngModel)]="topCategories"></ion-input>
+      </ion-item>
+    </div>
+
     <div ngModelGroup="place">
+      <div *ngIf="isAdmin">
+        <ion-label>Allowed</ion-label>
+        <ion-item>
+          <ion-select name="allowed" [(ngModel)]="place.allowed">
+            <ion-option value="true">TRUE</ion-option>
+            <ion-option value="false">FALSE</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <ion-label>Hash Tags</ion-label>
+      <ion-item>
+        <ion-input name="hashTags" [(ngModel)]="hashTags"></ion-input>
+      </ion-item>
       <ion-label>Phone</ion-label>
       <ion-item>
         <ion-input name="phone" [(ngModel)]="place.phone"></ion-input>
@@ -50,13 +62,18 @@
       <ion-item>
         <ion-input name="email" [(ngModel)]="place.email"></ion-input>
       </ion-item>
+      <ion-label>Average Price</ion-label>
+      <ion-item>
+        <ion-input name="averagePrice" [(ngModel)]="place.averagePrice"></ion-input>
+      </ion-item>
+
       <div ngModelGroup="location">
         <button ion-button="" type="button" (click)="goToChooseLocation()">chose location</button>
         <ion-item>
-          <ion-input name="lat" [(ngModel)]="location.lat" disabled></ion-input>
+          <ion-input name="lat" [(ngModel)]="place.location.lat" disabled></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input name="lng" [(ngModel)]="location.lng" disabled></ion-input>
+          <ion-input name="lng" [(ngModel)]="place.location.lng" disabled></ion-input>
         </ion-item>
       </div>
       <ion-list ngModelGroup="features">

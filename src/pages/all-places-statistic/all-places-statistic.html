@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>all-places-statistic</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #searchForm="ngForm" (ngSubmit)="getStat(searchForm)">
+    <ion-item>
+      <ion-datetime ngModel name="start"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-datetime ngModel name="end"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <button ion-button full>Search</button>
+    </ion-item>
+  </form>
+
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list [virtualScroll]="places" [approxItemHeight]="'132px'">
+
+    <ion-item *virtualItem="let place" (click)="toDetails(place)">
+      <ion-thumbnail item-start>
+        <img [src]="globalHost+place?.avatar">
+      </ion-thumbnail>
+      <h2>{{place?.multilang[0]?.name}}</h2>
+      <p>{{place.statistic.length}}</p>
+      <ion-icon item-end name="ios-arrow-dropright"></ion-icon>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

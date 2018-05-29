@@ -23,13 +23,16 @@ export class DepartmentProvider {
     return this.http.get<any[]>(url);
   }
 
-  create(department: Department): Observable<Department>{
+  create(department: any): Observable<any> {
     return this.http.post<Department>(`${this.globalConfig.getGlobalHost()}/api/departments`, department);
   }
 
-  update(id:string, department: Department): Observable<Department>{
+  update(id: string, department: Object): Observable<Department> {
     return this.http.put<Department>(`${this.globalConfig.getGlobalHost()}/api/departments/${id}`, department);
   }
 
 
+  remove(_id: any) {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/departments/${_id}`);
+  }
 }

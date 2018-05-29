@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>update-place-departments</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
+    <ion-item>
+      <ion-label>Client</ion-label>
+      <ion-input
+        name="client"
+        ngModel
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Role</ion-label>
+      <ion-select ngModel name="role">
+        <ion-option value="BOSS_PLACE">BOSS_PLACE</ion-option>
+        <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
+      </ion-select>
+    </ion-item>
+    <button ion-button full>Add</button>
+  </form>
+  <ion-list>
+    <ion-item *ngFor="let department of departments" (click)="openProfile(department)">
+      <ion-icon name="trash" item-start (click)="removeDepartment(department,$event)"></ion-icon>
+      <ion-label><strong>{{department.client.name}} {{department.client.surname}}</strong></ion-label>
+      <ion-select name="roles" [(ngModel)]="department.roles" multiple (ionChange)="updateDepartment(department)">
+        <ion-option value="BOSS_PLACE">BOSS_PLACE</ion-option>
+        <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
+      </ion-select>
+      <ion-icon name="ios-arrow-dropright" item-end></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

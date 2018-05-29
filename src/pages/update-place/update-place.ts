@@ -10,6 +10,7 @@ import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
 import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ChooseLocationPage} from "../choose-location/choose-location";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -27,7 +28,8 @@ export class UpdatePlacePage {
   placeMultilangId: string;
   placeTypesM: PlaceTypeMultilang[] = [];
   hashTags: string;
-  // topCategories: string;
+  topCategories: string;
+  isAdmin = false;
 
   constructor(
     public navCtrl: NavController,
@@ -36,7 +38,8 @@ export class UpdatePlacePage {
     private placeMultilangService: PlaceMultilangProvider,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     private globalConfig: GlobalConfigsService,
-    private event: Events
+    private event: Events,
+    private auth: AuthProvider
   ) {
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
@@ -45,6 +48,12 @@ export class UpdatePlacePage {
   }
 
   ngOnInit() {
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    });
+
     this.place = this.navParams.data.place;
     this.placeMultilang = this.navParams.data.place.multilang[0];
     this.placeMultilangId = (<any>this.placeMultilang)._id;
@@ -53,7 +62,7 @@ export class UpdatePlacePage {
     this.location = this.place.location;
     this.place.types = this.place.types.map(pt => (<any>pt)._id);
 
-    // this.topCategories = this.place.topCategories.join(',');
+    this.topCategories = this.place.topCategories.join(',');
     this.hashTags = this.place.hashTags.join(',');
     this.placeTypeMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()}
@@ -67,8 +76,10 @@ export class UpdatePlacePage {
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
 
-    // this.place.topCategories = this.topCategories.split(',');
-    this.place.hashTags = this.hashTags.split(',');
+    this.place.topCategories =
+      this.topCategories.length > 0 ? this.topCategories.split(',') : [];
+    this.place.hashTags =
+      this.hashTags.length > 0 ? this.hashTags.split(',') : [];
     this.place.days = {
       1: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
       2: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
@@ -79,7 +90,6 @@ export class UpdatePlacePage {
       7: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end}
     };
     this.place.location = this.location;
-    console.log(this.place);
     zip(
       this.placeMultilangService.update(this.placeMultilangId, this.placeMultilang),
       this.placeService.update(this.placeId, this.place)

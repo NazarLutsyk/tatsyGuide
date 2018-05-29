@@ -7,6 +7,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 import {ChooseLocationPage} from "../choose-location/choose-location";
+import {AuthProvider} from "../../providers/auth/auth";
 import {AddAvatarAndPhotosPage} from "../add-avatar-and-photos/add-avatar-and-photos";
 
 @IonicPage()
@@ -19,15 +20,17 @@ export class CreatePlacePage {
   location: any = {lat: 0, lng: 0};
   placeTypesM: PlaceTypeMultilang[] = [];
 
+  isAdmin = false;
+
   constructor(
     private event: Events,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     private placeMultilangService: PlaceMultilangProvider,
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private auth: AuthProvider
   ) {
-
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
       this.location.lng = data.lng;
@@ -35,6 +38,11 @@ export class CreatePlacePage {
   }
 
   ngOnInit() {
+    this.auth.loadPrincipal().subscribe(principal => {
+      if (principal.roles.indexOf('ADMIN') >= 0) {
+        this.isAdmin = true;
+      }
+    });
     this.placeTypeMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()}
     })
@@ -63,11 +71,13 @@ export class CreatePlacePage {
       lang: this.globalConfig.getGlobalLang(),
       place: ''
     };
-    let place = {
+    let place: any = {
       phone: formPlace.phone,
       email: formPlace.email,
       features: formPlace.features,
       types: formPlace.types,
+      hashTags: formPlace.hashTags.split(','),
+      averagePrice: formPlace.averagePrice,
       days: {
         1: {start: formPlace.days[1].start, end: formPlace.days[1].end},
         2: {start: formPlace.days[1].start, end: formPlace.days[1].end},
@@ -79,6 +89,12 @@ export class CreatePlacePage {
       },
       location: this.location
     };
+
+    if (this.isAdmin) {
+      place.topCategories =
+        formPlace.topCategories ? formPlace.topCategories.split(',') : [];
+      place.allowed = formPlace.allowed;
+    }
     this.placeService.create(place).subscribe((place) => {
       placeMultilang.place = (<any>place)._id;
       this.placeMultilangService.create(placeMultilang).subscribe(multilang => {

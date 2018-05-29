@@ -8,7 +8,7 @@ import {Rating} from "../rating/Rating";
 import {Department} from "../department/Department";
 import {News} from "../promo/news/News";
 import {Event} from "../promo/event/Event";
-
+import {Review} from "../review/Review";
 
 export class Place {
   constructor(
@@ -61,7 +61,7 @@ export class Place {
     public drinkApplications: DrinkApplication[] = [],
     public ratings: Rating[] = [],
     public departments: Department[] = [],
-
+    public statistic: Review[] = [],
   ) {
   }
 

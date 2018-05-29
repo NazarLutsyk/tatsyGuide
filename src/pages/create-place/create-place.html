@@ -47,6 +47,33 @@
       <ion-input name="email" ngModel></ion-input>
     </ion-item>
 
+    <ion-label>hash tags</ion-label>
+    <ion-item>
+      <ion-input name="hashTags" ngModel></ion-input>
+    </ion-item>
+
+    <div *ngIf="isAdmin">
+      <ion-label>Top categories</ion-label>
+      <ion-item>
+        <ion-input name="topCategories" ngModel></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-label>Average Price</ion-label>
+    <ion-item>
+      <ion-input name="averagePrice" ngModel></ion-input>
+    </ion-item>
+
+    <div *ngIf="isAdmin">
+      <ion-label>Allowed</ion-label>
+      <ion-item>
+        <ion-select name="allowed" ngModel>
+          <ion-option value="true">TRUE</ion-option>
+          <ion-option value="false">FALSE</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
     <!--todo build popup here-->
     <button ion-button="" type="button" (click)="goToChooseLocation()">chose location</button>
 

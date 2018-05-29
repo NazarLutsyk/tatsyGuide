@@ -77,6 +77,9 @@ import {AllDrinkApplicationsPageModule} from "../pages/all-drink-applications/al
 import {HashTagsPageModule} from "../pages/hash-tags/hash-tags.module";
 import {PlaceStatisticPageModule} from "../pages/place-statistic/place-statistic.module";
 import { ReviewProvider } from '../providers/review/review';
+import {UpdatePlaceDepartmentsPageModule} from "../pages/update-place-departments/update-place-departments.module";
+import {AllPlacesStatisticPageModule} from "../pages/all-places-statistic/all-places-statistic.module";
+import {TopPlacesPageModule} from "../pages/top-places/top-places.module";
 
 @NgModule({
   declarations: [
@@ -126,7 +129,10 @@ import { ReviewProvider } from '../providers/review/review';
     AllBonusesPageModule,
     AllDrinkApplicationsPageModule,
     HashTagsPageModule,
-    PlaceStatisticPageModule
+    PlaceStatisticPageModule,
+    UpdatePlaceDepartmentsPageModule,
+    AllPlacesStatisticPageModule,
+    TopPlacesPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
