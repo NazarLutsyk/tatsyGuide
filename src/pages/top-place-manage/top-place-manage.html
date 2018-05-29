@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>top-place-manage</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngFor="let topPlace of topPlaces">
+    <ion-item>
+      <ion-label>
+        <strong>{{topPlace.place.multilang[0].name}}</strong>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <p>
+        <strong>Start date:</strong> {{topPlace.startDate | date}}
+      </p>
+      <p>
+        <strong>End date:</strong> {{topPlace.endDate | date}}
+      </p>
+      <p>
+        <strong>Price:</strong> {{topPlace.price}}
+      </p>
+      <p>
+        <strong>Is actual:</strong> {{topPlace.actual}}
+      </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button full (click)="updateTopPlace(topPlace)">Update</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button full color="danger" (click)="removeTopPlace(topPlace)">Remove</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

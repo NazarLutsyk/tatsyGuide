@@ -30,4 +30,8 @@ export class TopPlaceProvider {
   update(id: string, topPlace: TopPlace): Observable<TopPlace> {
     return this.http.put<TopPlace>(`${this.globalConfig.getGlobalHost()}/api/topPlaces/${id}`, topPlace);
   }
+
+  remove(_id: any) {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/topPlaces/${_id}`);
+  }
 }

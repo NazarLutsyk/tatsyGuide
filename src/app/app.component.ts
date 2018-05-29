@@ -25,9 +25,9 @@ import {AllNewsPage} from "../pages/all-news/all-news";
 import {AllEventsPage} from "../pages/all-events/all-events";
 import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
 import {AllDrinkApplicationsPage} from "../pages/all-drink-applications/all-drink-applications";
-import {HashTagsPage} from "../pages/hash-tags/hash-tags";
 import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-statistic";
 import {TopPlacesPage} from "../pages/top-places/top-places";
+import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 
 
 @Component({
@@ -169,6 +169,11 @@ export class MyApp implements OnInit {
   goToTopPlacesPage() {
     this.menuController.close();
     this.navCtrl.push(TopPlacesPage);
+  }
+
+  goToTopPlacesManagePage() {
+    this.menuController.close();
+    this.navCtrl.push(TopPlaceManagePage);
   }
 }
 
