@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TopPlaceUpdatePage} from "../top-place-update/top-place-update";
+import {NgForm} from "@angular/forms";
 
 
 @IonicPage()
@@ -58,5 +59,25 @@ export class TopPlaceManagePage {
     this.topPlaceService.remove(topPlace._id).subscribe(() => {
       this.topPlaces.splice(this.topPlaces.indexOf(topPlace, 1));
     });
+  }
+
+  createTopPlace(topPlaceForm: NgForm) {
+    let topPlace = topPlaceForm.form.value;
+    this.topPlaceService
+      .create(topPlace)
+      .subscribe(newTopPlace => {
+        this.topPlaceService.find({
+          query: {_id: (<any>newTopPlace)._id},
+          populate: [
+            {
+              path: 'place',
+              populate: [
+                {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+              ]
+
+            }
+          ]
+        }).subscribe(topPlaces => this.topPlaces.push(topPlaces[0]))
+      });
   }
 }

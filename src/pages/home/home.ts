@@ -218,5 +218,6 @@ export class HomePage implements OnInit {
             this.places = places;
           })
       });
+
   }
 }

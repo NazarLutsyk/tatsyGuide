@@ -9,6 +9,50 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <form #topPlaceForm="ngForm" (ngSubmit)="createTopPlace(topPlaceForm)">
+    <ion-item>
+      <ion-label>Start date</ion-label>
+      <ion-datetime
+        ngModel
+        name="startDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>End date</ion-label>
+      <ion-datetime
+        ngModel
+        name="endDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Price</ion-label>
+      <ion-input
+        ngModel
+        name="price"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Actual</ion-label>
+      <ion-select
+        ngModel
+        name="actual"
+      >
+        <ion-option value="true">TRUE</ion-option>
+        <ion-option value="false">FALSE</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Place</ion-label>
+      <ion-input
+        ngModel
+        name="place"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button full>Create</button>
+    </ion-item>
+  </form>
+
   <ion-list *ngFor="let topPlace of topPlaces">
     <ion-item>
       <ion-label>

@@ -27,5 +27,9 @@ export class ModalTestimonialPage {
     this.ratingService.create(rating).subscribe(rating => this.navCtrl.pop());
   }
 
+  dismiss(){
+    this.navCtrl.pop();
+  }
+
 
 }

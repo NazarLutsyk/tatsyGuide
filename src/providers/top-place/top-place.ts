@@ -27,7 +27,7 @@ export class TopPlaceProvider {
     return this.http.post<TopPlace>(`${this.globalConfig.getGlobalHost()}/api/topPlaces`, topPlace);
   }
 
-  update(id: string, topPlace: TopPlace): Observable<TopPlace> {
+  update(id: string, topPlace: Object): Observable<TopPlace> {
     return this.http.put<TopPlace>(`${this.globalConfig.getGlobalHost()}/api/topPlaces/${id}`, topPlace);
   }
 

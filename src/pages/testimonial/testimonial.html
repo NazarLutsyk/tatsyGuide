@@ -9,6 +9,9 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <ion-fab>
+    <button ion-fab (click)="leaveTestimonial()">Button</button>
+  </ion-fab>
   <ion-list [virtualScroll]="ratings" [approxItemHeight]="'200px'">
     <ion-item *virtualItem="let rating">
       <ion-icon item-start name="star">
@@ -22,8 +25,8 @@
       </button>
     </ion-item>
   </ion-list>
-  <ion-fab>
-    <button ion-fab (click)="leaveTestimonial()">Button</button>
-  </ion-fab>
+  <ion-infinite-scroll (ionInfinite)="loadNextRatingsPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

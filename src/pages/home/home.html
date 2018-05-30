@@ -21,9 +21,6 @@
   </ion-refresher>
 
   <ion-list [virtualScroll]="places" [approxItemHeight]="'132px'">
-    <!--<ion-list >-->
-    <!--<ion-item *ngFor="let place of places" (click)="toDetails(place)">-->
-
     <ion-item *virtualItem="let place" (click)="toDetails(place)">
       <ion-thumbnail item-start>
         <img [src]="globalHost+place?.avatar">
@@ -36,9 +33,6 @@
       <p>{{place?.multilang[0]?.address.city}} {{place?.multilang[0]?.address.street}}
         {{place?.multilang[0]?.address.number}}</p>
       <p>{{place?.distance | number : '3.1-2'}} км</p>
-
-      <!--TODO add adress of place here with city-->
-
     </ion-item>
   </ion-list>
 

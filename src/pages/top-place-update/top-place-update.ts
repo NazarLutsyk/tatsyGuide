@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the TopPlaceUpdatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {TopPlaceProvider} from "../../providers/top-place/top-place";
+import {NgForm} from "@angular/forms";
 
 @IonicPage()
 @Component({
@@ -15,11 +10,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TopPlaceUpdatePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  topPlace;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private topPlaceService: TopPlaceProvider,
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TopPlaceUpdatePage');
+  ngOnInit() {
+    this.topPlace = this.navParams.data;
   }
+
+  updateTopPlace(topPlaceForm: NgForm) {
+    let update = {
+      startDate: this.topPlace.startDate,
+      endDate: this.topPlace.endDate,
+      price: this.topPlace.price,
+      actual: this.topPlace.actual
+    };
+    this.topPlaceService.update(
+      (<any>this.topPlace)._id,
+      update
+    ).subscribe(newTopPlace => this.navCtrl.pop());
+  }
+
 
 }

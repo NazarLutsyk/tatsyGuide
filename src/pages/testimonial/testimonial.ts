@@ -15,6 +15,10 @@ import {UpdateRatingPage} from "../update-rating/update-rating";
 export class TestimonialPage {
 
   ratings: Rating[];
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
 
   constructor(
     public navCtrl: NavController,
@@ -53,12 +57,32 @@ export class TestimonialPage {
     let query =
       {
         query: {place: this.navParams.data._id},
-        populate: [{path: 'client'}]
+        populate: [{path: 'client'}],
+        skip: this.skip,
+        limit: this.limit
       };
     return this.ratingProvider.find(query);
   }
 
   updateRating(rating) {
     this.app.getRootNav().push(UpdateRatingPage, {rating: rating});
+  }
+
+  loadNextRatingsPage(event) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadRatings()
+        .subscribe((ratings) => {
+          if (ratings.length < this.pageSize) this.allLoaded = true;
+          this.ratings.push(...ratings);
+          event.complete();
+        });
+    }
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
   }
 }
