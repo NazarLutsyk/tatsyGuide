@@ -13,11 +13,14 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <ion-row margin-top="10px">
+    <button ion-button full color="defaultApp" (click)="goToCreateDrinkerApplication(place)">Create</button>
+  </ion-row>
 
   <span *ngFor="let drinkApp of drinkApps">
     <ion-card>
@@ -43,8 +46,8 @@
   </ion-card>
   </span>
 
+  <ion-infinite-scroll (ionInfinite)="loadNextApplicationsPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
-  <button ion-button full color="defaultApp" (click)="goToCreateDrinkerApplication(place)">Create</button>
-  <!--TODO add action to drinker functional to this button only when registred-->
-  <!--todo redirect if not registred to registration page-->
 </ion-content>

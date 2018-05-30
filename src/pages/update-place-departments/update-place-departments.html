@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
     <ion-item>
       <ion-label>Client</ion-label>
@@ -15,7 +15,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Role</ion-label>
-      <ion-select ngModel name="role">
+      <ion-select ngModel multiple name="role">
         <ion-option value="BOSS_PLACE">BOSS_PLACE</ion-option>
         <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
       </ion-select>

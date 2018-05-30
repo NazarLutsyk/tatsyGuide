@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {InfiniteScroll, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
@@ -15,6 +15,11 @@ export class TopPlacesPage {
 
   globalHost;
   topPlaces = [];
+
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
 
   constructor(
     public navCtrl: NavController,
@@ -46,13 +51,18 @@ export class TopPlacesPage {
               path: 'types',
               populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
             },
-          ]
+          ],
+          skip: this.skip,
+          limit: this.limit
         });
       })
     )
   }
 
   doRefresh(refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
+
     this.loadTopPlaces()
       .subscribe(places => {
         this.topPlaces = places;
@@ -80,4 +90,21 @@ export class TopPlacesPage {
   }
 
 
+  loadNextTopPlacesPage(event: InfiniteScroll) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadTopPlaces()
+        .subscribe((topPlaces) => {
+          if (topPlaces.length < this.pageSize) this.allLoaded = true;
+          this.topPlaces.push(...topPlaces);
+          event.complete();
+        })
+    }
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
+  }
 }

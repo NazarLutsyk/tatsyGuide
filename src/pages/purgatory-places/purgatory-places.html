@@ -26,4 +26,7 @@
       <p>{{place?.distance | number : '3.1-2'}} км</p>
     </ion-item>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="loadNextPlacesPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

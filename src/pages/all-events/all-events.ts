@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {EventProvider} from "../../providers/event/EventProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {UpdateEventPage} from "../update-event/update-event";
@@ -13,6 +13,11 @@ export class AllEventsPage {
 
   globalHost: string;
   events: Event[] = [];
+
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
 
   constructor(
     public navCtrl: NavController,
@@ -29,6 +34,9 @@ export class AllEventsPage {
   }
 
   doRefresh(refresher: Refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
+
     this.loadEvents()
       .subscribe((events) => {
         this.events = events;
@@ -54,18 +62,38 @@ export class AllEventsPage {
               select: 'name'
             }]
           }
-        ]
+        ],
+        skip: this.skip,
+        limit: this.limit
       })
     )
   }
 
   removePromo(promo: any) {
     this.eventService.remove(promo._id).subscribe();
-    this.events.splice(this.events.indexOf(promo),1);
+    this.events.splice(this.events.indexOf(promo), 1);
   }
 
   updatePromo(promo: any) {
     this.app.getRootNav().push(UpdateEventPage, {promo: promo});
   }
 
+  loadNextEventsPage(event: InfiniteScroll) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadEvents()
+        .subscribe((events) => {
+          if (events.length < this.pageSize) this.allLoaded = true;
+          this.events.push(...events);
+          event.complete();
+        })
+    }
+
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
+  }
 }

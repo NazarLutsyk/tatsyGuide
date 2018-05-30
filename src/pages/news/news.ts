@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {News} from "../../models/promo/news/News";
@@ -17,6 +17,11 @@ export class NewsPage {
   place: Place;
   news: News[];
   globalHost: string;
+
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
 
   constructor(
     public navCtrl: NavController,
@@ -37,6 +42,9 @@ export class NewsPage {
 
 
   doRefresh(refresher: Refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
+
     this.loadNews()
       .subscribe((news) => {
         this.news = news;
@@ -56,17 +64,37 @@ export class NewsPage {
           path: 'multilang',
           match: {lang: this.gc.getGlobalLang()}
         }
-      ]
+      ],
+      skip: this.skip,
+      limit: this.limit
     })
   }
 
   removePromo(promo: any) {
     this.newsService.remove(promo._id).subscribe();
-    this.news.splice(this.news.indexOf(promo),1);
+    this.news.splice(this.news.indexOf(promo), 1);
   }
 
 
   updatePromo(promo: any) {
-    this.app.getRootNav().push(UpdateNewsPage,{promo: promo});
+    this.app.getRootNav().push(UpdateNewsPage, {promo: promo});
+  }
+
+  loadNextNewsPage(event: InfiniteScroll) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadNews()
+        .subscribe((news) => {
+          if (news.length < this.pageSize) this.allLoaded = true;
+          this.news.push(...news);
+          event.complete();
+        })
+    }
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
   }
 }

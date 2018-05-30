@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
@@ -14,6 +14,11 @@ export class PurgatoryPlacesPage {
 
   globalHost;
   places: Place[];
+
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +35,9 @@ export class PurgatoryPlacesPage {
   }
 
   doRefresh(refresher: Refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
+
     this.loadPlaces()
       .subscribe(places => {
         this.places = places;
@@ -48,7 +56,9 @@ export class PurgatoryPlacesPage {
             path: 'types',
             populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
           },
-        ]
+        ],
+        skip: this.skip,
+        limit: this.limit
       });
   }
 
@@ -83,5 +93,24 @@ export class PurgatoryPlacesPage {
     this.placeService.remove(place._id).subscribe(() => {
       this.places.splice(this.places.indexOf(place), 1);
     });
+  }
+
+  loadNextPlacesPage(event: InfiniteScroll) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadPlaces()
+        .subscribe((places) => {
+          if (places.length < this.pageSize) this.allLoaded = true;
+          this.places.push(...places);
+          event.complete();
+        })
+    }
+
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
   }
 }

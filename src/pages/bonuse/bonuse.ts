@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
@@ -17,6 +17,11 @@ export class BonusePage {
   bonuses: Bonuse[] = [];
   globalHost: string;
   place: Place;
+
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
 
   constructor(
     private app: App,
@@ -38,6 +43,9 @@ export class BonusePage {
 
 
   doRefresh(refresher: Refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
+
     this.loadBonuses()
       .subscribe((bonuses) => {
         this.bonuses = bonuses;
@@ -57,7 +65,9 @@ export class BonusePage {
           path: 'multilang',
           match: {lang: this.gc.getGlobalLang()}
         }
-      ]
+      ],
+      skip: this.skip,
+      limit: this.limit
     })
   }
 
@@ -68,5 +78,23 @@ export class BonusePage {
 
   updatePromo(promo: any) {
     this.app.getRootNav().push(UpdateBonusePage, {promo: promo});
+  }
+
+  loadNextBonusesPage(event: InfiniteScroll) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadBonuses()
+        .subscribe((bonuses) => {
+          if (bonuses.length < this.pageSize) this.allLoaded = true;
+          this.bonuses.push(...bonuses);
+          event.complete();
+        })
+    }
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
   }
 }

@@ -12,6 +12,11 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+
+  <ion-row margin-top="10px">
+    <button ion-button full color="defaultApp" (click)="goToCreateBonuse()">Create Bonuse</button>
+  </ion-row>
+
   <span *ngFor="let bonuse of bonuses">
     <ion-card *ngIf="bonuse.kind=='Bonuse'">
 
@@ -38,9 +43,8 @@
   </ion-card>
   </span>
 
-  <ion-row margin-top="10px">
-    <button ion-button full color="defaultApp" (click)="goToCreateBonuse()">Create Bonuse</button>
-  </ion-row>
-
+  <ion-infinite-scroll (ionInfinite)="loadNextBonusesPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

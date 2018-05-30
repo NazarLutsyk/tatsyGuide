@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicApp, IonicPage, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
+import {App, Events, IonicPage, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {ClientProvider} from "../../providers/client/ClientProvider";
@@ -15,13 +15,6 @@ import {fromPromise} from "rxjs/observable/fromPromise";
 import {Geolocation} from "@ionic-native/geolocation";
 import {zip} from "rxjs/observable/zip";
 
-/**
- * Generated class for the AllPlacesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-all-places',
@@ -29,11 +22,9 @@ import {zip} from "rxjs/observable/zip";
 })
 export class AllPlacesPage {
 
-
   places: Place[] = [];
   globalHost: string;
   principal: Client;
-
 
   constructor(
     private app: App,
@@ -170,11 +161,7 @@ export class AllPlacesPage {
       )
       .subscribe((foundedPlace) => {
 
-
-        // this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
         this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
-
-
       });
   }
 
@@ -194,7 +181,6 @@ export class AllPlacesPage {
       .subscribe((places) => {
         this.places = places;
         refresher.complete();
-        ;
       });
   }
 
@@ -234,7 +220,5 @@ export class AllPlacesPage {
             this.places = places;
           })
       });
-
   }
-  //asd
 }

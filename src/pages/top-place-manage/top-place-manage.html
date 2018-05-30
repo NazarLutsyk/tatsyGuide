@@ -78,10 +78,15 @@
             <button ion-button full (click)="updateTopPlace(topPlace)">Update</button>
           </ion-col>
           <ion-col>
-            <button ion-button full color="danger" (click)="removeTopPlace(topPlace)">Remove</button>
+            <button ion-button full color="danger" (click)="removeTopPlace(topPlaceZ)">Remove</button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadNextTopPlacesAppPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

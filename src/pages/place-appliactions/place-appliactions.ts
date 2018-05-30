@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
@@ -17,6 +17,11 @@ export class PlaceAppliactionsPage {
   place: Place;
   drinkApps: DrinkApplication[];
 
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,6 +35,9 @@ export class PlaceAppliactionsPage {
   }
 
   doRefresh(refresher: Refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
+
     this.loadDrinkApps()
       .subscribe((apps) => {
         this.drinkApps = apps;
@@ -44,7 +52,9 @@ export class PlaceAppliactionsPage {
   private loadDrinkApps(): Observable<any> {
     return this.drinkAppsService.find({
       query: {place: this.navParams.data._id},
-      populate: [{path: 'organizer'}]
+      populate: [{path: 'organizer'}],
+      skip: this.skip,
+      limit: this.limit
     })
   }
 
@@ -56,5 +66,24 @@ export class PlaceAppliactionsPage {
 
   updateDrinkApp(drinkApp: any) {
     this.app.getRootNav().push(UpdateDrinkApplicationPage, {drinkApp: drinkApp});
+  }
+
+  loadNextApplicationsPage(event: InfiniteScroll) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadDrinkApps()
+        .subscribe((drinkApps) => {
+          if (drinkApps.length < this.pageSize) this.allLoaded = true;
+          this.drinkApps.push(...drinkApps);
+          event.complete();
+        })
+    }
+
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
   }
 }

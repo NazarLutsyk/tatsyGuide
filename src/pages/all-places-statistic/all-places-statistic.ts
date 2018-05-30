@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
@@ -13,8 +13,12 @@ import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 export class AllPlacesStatisticPage {
 
   globalHost;
-
   places: any[];
+
+  skip = 0;
+  pageSize = 7;
+  limit = this.pageSize;
+  allLoaded = false;
 
   constructor(
     public navCtrl: NavController,
@@ -46,7 +50,9 @@ export class AllPlacesStatisticPage {
           path: 'statistic',
           match: query
         }
-      ]
+      ],
+      skip: this.skip,
+      limit: this.limit
     })
   }
 
@@ -55,6 +61,9 @@ export class AllPlacesStatisticPage {
   }
 
   doRefresh(refresher: Refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
+
     this.loadStat().subscribe(places => {
       this.places = places;
       refresher.complete();
@@ -80,4 +89,21 @@ export class AllPlacesStatisticPage {
       });
   }
 
+  loadNextStatisticPage(event: InfiniteScroll) {
+    if (this.allLoaded) {
+      event.complete();
+    } else {
+      this.setNextPage();
+      this.loadStat()
+        .subscribe((places) => {
+          if (places.length < this.pageSize) this.allLoaded = true;
+          this.places.push(...places);
+          event.complete();
+        })
+    }
+  }
+
+  setNextPage() {
+    this.skip += this.pageSize;
+  }
 }

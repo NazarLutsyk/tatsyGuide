@@ -35,4 +35,7 @@
       <button ion-button round outline (click)="updatePromo(promo)">Update</button>
     </ion-card>
   </div>
+  <ion-infinite-scroll (ionInfinite)="loadNextEventsPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

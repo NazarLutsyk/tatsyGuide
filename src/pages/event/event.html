@@ -1,9 +1,3 @@
-<!--
-  Generated template for the EventPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -17,6 +11,10 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <ion-row margin-top="10px">
+    <button ion-button full color="defaultApp" (click)="goToCreateEvent()">Create Event</button>
+  </ion-row>
 
   <div *ngFor="let promo of events">
     <ion-card>
@@ -40,8 +38,8 @@
     </ion-card>
   </div>
 
-  <ion-row margin-top="10px">
-    <button ion-button full color="defaultApp" (click)="goToCreateEvent()">Create Event</button>
-  </ion-row>
+  <ion-infinite-scroll (ionInfinite)="loadNextEventsPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

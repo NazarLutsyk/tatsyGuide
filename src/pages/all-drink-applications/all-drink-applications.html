@@ -7,12 +7,13 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <button ion-button full color="defaultApp" (click)="goToCreateDrinkerApplication()">Create</button>
 
   <span *ngFor="let drinkApp of drinkApps">
     <ion-card>
@@ -41,7 +42,7 @@
   </ion-card>
   </span>
 
-
-  <button ion-button full color="defaultApp" (click)="goToCreateDrinkerApplication()">Create</button>
-
+  <ion-infinite-scroll (ionInfinite)="loadNextApplicationsPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

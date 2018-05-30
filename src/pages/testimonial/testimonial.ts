@@ -38,6 +38,8 @@ export class TestimonialPage {
   }
 
   doRefresh(refresher: Refresher) {
+    this.skip = 0;
+    this.allLoaded = false;
     this.loadRatings()
       .subscribe((ratings) => {
         this.ratings = ratings;
