@@ -15,9 +15,16 @@
 
 <ion-content padding>
 
-  <input [(ngModel)]="login" type="" name="" placeholder="">
-  <input [(ngModel)]="password" type="" name="" placeholder="">
-  <button (click)="signInMe()">asdasd</button>
+  <ion-item>
+    <ion-input [(ngModel)]="login"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input [(ngModel)]="password"></ion-input>
+  </ion-item>
+
+  <!--<input [(ngModel)]="login" type="" name="" placeholder="">-->
+  <!--<input [(ngModel)]="password" type="" name="" placeholder="">-->
+  <button ion-button (click)="signInMe()">sign in</button>
   <div *ngIf="message">{{message}}</div>
 
 

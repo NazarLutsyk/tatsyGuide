@@ -15,12 +15,27 @@
 
 <ion-content padding>
 
-  <input type="" [(ngModel)]="name" placeholder="">
-  <input type="" [(ngModel)]="surname" placeholder="">
-  <input type="" [(ngModel)]="email" placeholder="">
-  <input type="" [(ngModel)]="login" placeholder="">
-  <input type="" [(ngModel)]="password" placeholder="">
-  <button (click)="signUpMe()">submit</button>
+  <ion-item>
+    <ion-input  [(ngModel)]="name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input  [(ngModel)]="surname"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input  [(ngModel)]="email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input  [(ngModel)]="login"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input  [(ngModel)]="password"></ion-input>
+  </ion-item>
+
+  <button ion-button (click)="signUpMe()">registrate me</button>
 
   <div *ngIf="message">{{message}}</div>
 </ion-content>

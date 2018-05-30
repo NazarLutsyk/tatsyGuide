@@ -37,7 +37,9 @@ import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 })
 export class MyApp implements OnInit {
 
-  @ViewChild('myNav') navCtrl: NavController;
+  @ViewChild('myNav')
+  navCtrl: NavController;
+
   rootPage: any = HomePage;
   placeTypesM = [];
   searchObject = {range: {lower: 0, upper: 10000}, direction: false, filterFeature: {}};

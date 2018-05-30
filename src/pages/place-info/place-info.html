@@ -14,9 +14,9 @@
 
   </ion-slides>
 
-  <button ion-button round outline color="danger" full (click)="removePlace(place)">Remove that shit</button>
-  <button ion-button round outline full (click)="updatePlace(place)">Update that shit</button>
-  <button ion-button round outline color="dark" full (click)="updatePlaceDepartments(place)">Update pieces of that shit</button>
+  <button ion-button round outline color="danger" full (click)="removePlace(place)">Remove that </button>
+  <button ion-button round outline full (click)="updatePlace(place)">Update that </button>
+  <button ion-button round outline color="dark" full (click)="updatePlaceDepartments(place)">Update pieces of that </button>
 
   <ion-grid>
     <ion-row>
@@ -77,20 +77,20 @@
               Information
             </mat-expansion-panel-header>
             <ul>
-              <li>
-                <ion-icon name="checkmark" *ngIf="place.features.wifi" padding-right="5px"></ion-icon>
+              <li *ngIf="place.features.wifi">
+                <ion-icon name="checkmark"  padding-right="5px"></ion-icon>
                 wifi
               </li>
-              <li>
-                <ion-icon name="checkmark" *ngIf="place.features.parking" padding-right="5px"></ion-icon>
+              <li *ngIf="place.features.parking">
+                <ion-icon name="checkmark"  padding-right="5px"></ion-icon>
                 parking
               </li>
-              <li>
-                <ion-icon name="checkmark" *ngIf="place.features.karaoke" padding-right="5px"></ion-icon>
+              <li *ngIf="place.features.karaoke">
+                <ion-icon name="checkmark"  padding-right="5px"></ion-icon>
                 karaoke
               </li>
-              <li>
-                <ion-icon name="checkmark" *ngIf="place.features.vipRoom" padding-right="5px"></ion-icon>
+              <li *ngIf="place.features.vipRoom">
+                <ion-icon name="checkmark"  padding-right="5px"></ion-icon>
                 vipRoom
               </li>
             </ul>

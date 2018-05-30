@@ -82,6 +82,7 @@ import {AllPlacesStatisticPageModule} from "../pages/all-places-statistic/all-pl
 import {TopPlacesPageModule} from "../pages/top-places/top-places.module";
 import {TopPlaceManagePageModule} from "../pages/top-place-manage/top-place-manage.module";
 import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-update.module";
+import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 
 @NgModule({
   declarations: [
@@ -136,7 +137,9 @@ import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-upda
     AllPlacesStatisticPageModule,
     TopPlacesPageModule,
     TopPlaceManagePageModule,
-    TopPlaceUpdatePageModule
+    TopPlaceUpdatePageModule,
+    AllPlacesPageModule,
+    TopPlacesPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
