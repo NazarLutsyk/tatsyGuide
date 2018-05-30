@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 
 @IonicPage()
 @Component({
@@ -58,6 +59,25 @@ export class AllPlacesStatisticPage {
       this.places = places;
       refresher.complete();
     });
+  }
+
+  toDetails(place) {
+    this.placeService
+      .findOne(
+        place._id,
+        {
+          populate: [
+            {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+            },
+          ]
+        }
+      )
+      .subscribe((foundedPlace) => {
+        this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
+      });
   }
 
 }

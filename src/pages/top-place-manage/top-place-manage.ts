@@ -57,7 +57,7 @@ export class TopPlaceManagePage {
 
   removeTopPlace(topPlace) {
     this.topPlaceService.remove(topPlace._id).subscribe(() => {
-      this.topPlaces.splice(this.topPlaces.indexOf(topPlace, 1));
+      this.loadTopPlaces().subscribe(topPlaces => this.topPlaces = topPlaces);
     });
   }
 
@@ -77,7 +77,9 @@ export class TopPlaceManagePage {
 
             }
           ]
-        }).subscribe(topPlaces => this.topPlaces.push(topPlaces[0]))
+        }).subscribe(topPlaces => {
+          this.loadTopPlaces().subscribe(topPlaces => this.topPlaces = topPlaces);
+        })
       });
   }
 }
