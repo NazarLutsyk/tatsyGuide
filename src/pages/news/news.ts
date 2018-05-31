@@ -7,6 +7,7 @@ import {Place} from "../../models/place/Place";
 import {CreateNewsPage} from "../create-news/create-news";
 import {UpdateNewsPage} from "../update-news/update-news";
 import {AuthProvider} from "../../providers/auth/auth";
+import {DepartmentProvider} from "../../providers/department/department-provider";
 
 @IonicPage()
 @Component({
@@ -16,6 +17,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 export class NewsPage {
 
   principal;
+  departments;
 
   place: Place;
   news: News[];
@@ -32,7 +34,8 @@ export class NewsPage {
     private gc: GlobalConfigsService,
     private newsService: NewsProvider,
     private app: App,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private departmentService: DepartmentProvider
   ) {
   }
 
@@ -42,8 +45,13 @@ export class NewsPage {
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.loadNews().subscribe((news) => {
-        this.news = news;
+      this.departmentService.find({
+        query: {place: (<any>this.place)._id, client: this.principal._id},
+      }).subscribe((departments) => {
+        this.departments = departments;
+        this.loadNews().subscribe((news) => {
+          this.news = news;
+        });
       });
     });
   }

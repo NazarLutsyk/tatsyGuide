@@ -20,7 +20,7 @@
     full
     color="danger"
     (click)="removePlace(place)"
-    *ngIf="principal"
+    *ngIf="principal && (isBoss || principal.roles.indexOf('ADMIN') >= 0)"
   >Remove that </button>
   <button
     ion-button
@@ -28,7 +28,7 @@
     outline
     full
     (click)="updatePlace(place)"
-    *ngIf="principal"
+    *ngIf="principal && (isAdmin || principal.roles.indexOf('ADMIN') >= 0)"
   >Update that </button>
   <button
     ion-button
@@ -37,7 +37,7 @@
     color="dark"
     full
     (click)="updatePlaceDepartments(place)"
-    *ngIf="principal"
+    *ngIf="principal && (isBoss || principal.roles.indexOf('ADMIN') >= 0)"
   >Update pieces of that </button>
 
   <ion-grid>

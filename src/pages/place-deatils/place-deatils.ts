@@ -15,6 +15,7 @@ import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PlaceStatisticPage} from "../place-statistic/place-statistic";
+import {DepartmentProvider} from "../../providers/department/department-provider";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class PlaceDeatilsPage {
   drinkerPage = PlaceAppliactionsPage;
   placeStatisticPage = PlaceStatisticPage;
   principal;
+  departments;
 
 
   constructor(public navCtrl: NavController,
@@ -44,7 +46,8 @@ export class PlaceDeatilsPage {
               private menuController: MenuController,
               private storage: Storage,
               private auth: AuthProvider,
-              private clientService: ClientProvider
+              private clientService: ClientProvider,
+              private departmentService: DepartmentProvider
   ) {
   }
 
@@ -57,6 +60,13 @@ export class PlaceDeatilsPage {
     this.auth.loadPrincipal().subscribe((principal) => {
       if (principal) {
         this.principal = principal;
+
+        this.departmentService.find({
+          query: {place: (<any>this.place)._id, client: this.principal._id},
+        }).subscribe((departments) => {
+          this.departments = departments;
+        });
+
         let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
         if (favouriteIndex >= 0) {
           this.isFavorite = true;

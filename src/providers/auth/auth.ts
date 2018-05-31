@@ -39,9 +39,15 @@ export class AuthProvider {
       });
   }
 
-  loadPrincipal(): Observable<Client> {
+  loadPrincipal(request: any = {}): Observable<Client> {
+    let url = this.globalVars.getGlobalHost() + `/auth/principal?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
     return this.http
-      .get<Client>(`${this.globalVars.getGlobalHost()}/auth/principal`)
+      .get<Client>(url)
       .map((principal) => {
         this.principal.next(principal);
         return principal;

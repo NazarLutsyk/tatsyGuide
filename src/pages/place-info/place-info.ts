@@ -21,6 +21,8 @@ declare var window: any;
 })
 export class PlaceInfoPage {
   principal;
+  isAdmin = false;
+  isBoss = false;
 
   globalHost: string;
   place: Place;
@@ -38,18 +40,33 @@ export class PlaceInfoPage {
     private mailService: MailProvider,
     private departmentService: DepartmentProvider,
     private complaintService: ComplaintProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
   ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.place = this.navParams.data;
     this.globalHost = this.gc.getGlobalHost();
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
+
+      if (this.principal) {
+        this.departmentService.find({
+          query: {place: (<any>this.place)._id, client: this.principal._id},
+        }).subscribe((departments) => {
+          if (departments.length > 0) {
+            this.isAdmin = true;
+            for (const department of departments) {
+              if (department.roles.indexOf('BOSS_PLACE') >= 0)
+                this.isBoss = true;
+            }
+          }
+        });
+      }
+
       this.departmentService.find({
-        query: {place: (<any>this.place)._id},
+        query: {place: (<any>this.place)._id, roles: ['BOSS_PLACE']},
         populate: [{path: 'client'}]
       }).subscribe((department) => {
         if (department[0]) {
@@ -135,6 +152,6 @@ export class PlaceInfoPage {
   }
 
   updatePlaceDepartments(place: Place) {
-    this.app.getRootNav().push(UpdatePlaceDepartmentsPage,place);
+    this.app.getRootNav().push(UpdatePlaceDepartmentsPage, place);
   }
 }

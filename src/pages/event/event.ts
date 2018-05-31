@@ -6,6 +6,7 @@ import {EventProvider} from "../../providers/event/EventProvider";
 import {CreateEventPage} from "../create-event/create-event";
 import {UpdateEventPage} from "../update-event/update-event";
 import {AuthProvider} from "../../providers/auth/auth";
+import {DepartmentProvider} from "../../providers/department/department-provider";
 
 
 @IonicPage()
@@ -15,6 +16,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class EventPage {
   principal;
+  departments;
 
   globalHost: string;
   events: Event[] = [];
@@ -31,7 +33,8 @@ export class EventPage {
     private gc: GlobalConfigsService,
     private eventService: EventProvider,
     private app: App,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private departmentService: DepartmentProvider
   ) {
   }
 
@@ -41,10 +44,15 @@ export class EventPage {
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.loadEvents()
-        .subscribe((events) => {
-          this.events = events;
-        });
+      this.departmentService.find({
+        query: {place: (<any>this.place)._id, client: this.principal._id},
+      }).subscribe((departments) => {
+        this.departments = departments;
+        this.loadEvents()
+          .subscribe((events) => {
+            this.events = events;
+          });
+      });
     });
   }
 

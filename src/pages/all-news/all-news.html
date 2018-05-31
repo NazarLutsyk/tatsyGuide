@@ -31,21 +31,22 @@
         {{promo.endDate | date}}
       </p>
     </ion-card-content>
-      <div *ngIf="principal">
-      <button
-        ion-button
-        round
-        outline
-        color="danger"
-        (click)="removePromo(promo)"
-      >Delete</button>
-      <button
-        ion-button
-        round
-        outline
-        (click)="updatePromo(promo)"
-      >Update</button>
-      </div>
+      <ion-buttons
+        *ngIf="principal && promo.author === principal._id || principal.roles.indexOf('ADMIN') >= 0">
+        <button
+          ion-button
+          round
+          outline
+          color="danger"
+          (click)="removePromo(promo)"
+        >Delete</button>
+        <button
+          ion-button
+          round
+          outline
+          (click)="updatePromo(promo)"
+        >Update</button>
+      </ion-buttons>
   </ion-card>
   </span>
 
