@@ -12,7 +12,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-row margin-top="10px" *ngIf="principal">
+  <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal.roles.indexOf('ADMIN') >= 0)">
     <button ion-button full color="defaultApp" (click)="goToCreateNews()">Create News</button>
   </ion-row>
 
@@ -33,8 +33,10 @@
         {{promo.endDate | date}}
       </p>
     </ion-card-content>
-      <button *ngIf="principal" ion-button round outline color="danger" (click)="removePromo(promo)">Delete</button>
-      <button *ngIf="principal" ion-button round outline (click)="updatePromo(promo)">Update</button>
+      <ion-buttons *ngIf="principal && (departments?.length > 0 || principal.roles.indexOf('ADMIN') >= 0)">
+        <button ion-button round outline color="danger" (click)="removePromo(promo)">Delete</button>
+        <button ion-button round outline (click)="updatePromo(promo)">Update</button>
+      </ion-buttons>
   </ion-card>
   </span>
   <ion-infinite-scroll (ionInfinite)="loadNextNewsPage($event)">

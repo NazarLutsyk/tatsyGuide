@@ -41,8 +41,10 @@
         {{drinkApp.date | date}}
       </p>
     </ion-card-content>
-      <button *ngIf="principal" ion-button round outline color="danger" (click)="removeDrinkApp(drinkApp)">Delete</button>
-      <button *ngIf="principal" ion-button round outline (click)="updateDrinkApp(drinkApp)">Update</button>
+      <ion-buttons *ngIf="principal && (principal._id === drinkApp.organizer._id || principal.roles.indexOf('ADMIN') >= 0)">
+        <button ion-button round outline color="danger" (click)="removeDrinkApp(drinkApp)">Delete</button>
+        <button ion-button round outline (click)="updateDrinkApp(drinkApp)">Update</button>
+      </ion-buttons>
   </ion-card>
   </span>
 

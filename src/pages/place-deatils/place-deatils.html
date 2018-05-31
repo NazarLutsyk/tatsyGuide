@@ -16,12 +16,14 @@
 
 
 <ion-tabs class="tabs-basic" tabsPlacement="bottom">
-  <ion-tab [root]="placeInfoPage" tabTitle="місце" tabIcon="pin" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="placeStatisticPage" *ngIf="principal" tabTitle="statistic" tabIcon="md-analytics" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="drinkerPage" tabTitle="drinker" tabIcon="beer" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="eventsPage" tabTitle="події" tabIcon="bowtie" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="bonusesPage" tabTitle="акції" tabIcon="ribbon" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="newsPage" tabTitle="новини" tabIcon="information" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="mapPage" tabTitle="карта" tabIcon="map" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="testimonialsPage" tabTitle="testimonial" tabIcon="podium" [rootParams]="place" ></ion-tab>
+  <ion-tab [root]="placeInfoPage" tabTitle="місце" tabIcon="pin" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="placeStatisticPage"
+           *ngIf="principal && (departments?.length > 0 || principal.roles.indexOf('ADMIN') >= 0)" tabTitle="statistic"
+           tabIcon="md-analytics" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="drinkerPage" tabTitle="drinker" tabIcon="beer" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="eventsPage" tabTitle="події" tabIcon="bowtie" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="bonusesPage" tabTitle="акції" tabIcon="ribbon" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="newsPage" tabTitle="новини" tabIcon="information" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="mapPage" tabTitle="карта" tabIcon="map" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="testimonialsPage" tabTitle="testimonial" tabIcon="podium" [rootParams]="place"></ion-tab>
 </ion-tabs>

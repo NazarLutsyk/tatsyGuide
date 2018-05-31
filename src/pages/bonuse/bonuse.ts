@@ -7,6 +7,7 @@ import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {CreateBonusePage} from "../create-bonuse/create-bonuse";
 import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
 import {AuthProvider} from "../../providers/auth/auth";
+import {DepartmentProvider} from "../../providers/department/department-provider";
 
 @IonicPage()
 @Component({
@@ -15,7 +16,8 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class BonusePage {
 
-  principal
+  principal;
+  departments;
 
   bonuses: Bonuse[] = [];
   globalHost: string;
@@ -32,7 +34,8 @@ export class BonusePage {
     public navParams: NavParams,
     private gc: GlobalConfigsService,
     private bonuseService: BonuseProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private departmentService: DepartmentProvider
   ) {
   }
 
@@ -42,12 +45,16 @@ export class BonusePage {
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.loadBonuses().subscribe((bonuses) => {
-        this.bonuses = bonuses;
+      this.departmentService.find({
+        query: {place: (<any>this.place)._id, client: this.principal._id},
+      }).subscribe((departments) => {
+        this.departments = departments;
+        this.loadBonuses().subscribe((bonuses) => {
+          this.bonuses = bonuses;
+        });
       });
     });
   }
-
 
   doRefresh(refresher: Refresher) {
     this.skip = 0;

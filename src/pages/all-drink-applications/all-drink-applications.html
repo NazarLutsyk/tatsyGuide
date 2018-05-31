@@ -19,7 +19,8 @@
     color="defaultApp"
     (click)="goToCreateDrinkerApplication()"
     *ngIf="principal"
-  >Create</button>
+  >Create
+  </button>
 
   <span *ngFor="let drinkApp of drinkApps">
     <ion-card (click)="openDrinkApplication(drinkApp)">
@@ -43,21 +44,22 @@
         {{drinkApp.date | date}}
       </p>
     </ion-card-content>
-      <button
-        ion-button
-        round
-        outline
-        color="danger"
-        (click)="removeDrinkApp(drinkApp, $event)"
-        *ngIf="principal"
-      >Delete</button>
-      <button
-        ion-button
-        round
-        outline
-        (click)="updateDrinkApp(drinkApp, $event)"
-        *ngIf="principal"
-      >Update</button>
+      <ion-buttons
+        *ngIf="principal && (drinkApp.organizer._id === principal._id || principal.roles.indexOf('ADMIN') >= 0)">
+        <button
+          ion-button
+          round
+          outline
+          color="danger"
+          (click)="removeDrinkApp(drinkApp, $event)"
+        >Delete</button>
+        <button
+          ion-button
+          round
+          outline
+          (click)="updateDrinkApp(drinkApp, $event)"
+        >Update</button>
+      </ion-buttons>
   </ion-card>
   </span>
 
