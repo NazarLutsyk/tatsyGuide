@@ -6,6 +6,7 @@ import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {CreateBonusePage} from "../create-bonuse/create-bonuse";
 import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -13,6 +14,8 @@ import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
   templateUrl: 'bonuse.html',
 })
 export class BonusePage {
+
+  principal
 
   bonuses: Bonuse[] = [];
   globalHost: string;
@@ -29,16 +32,20 @@ export class BonusePage {
     public navParams: NavParams,
     private gc: GlobalConfigsService,
     private bonuseService: BonuseProvider,
+    private auth: AuthProvider
   ) {
-    this.globalHost = this.gc.getGlobalHost();
-
-    this.loadBonuses().subscribe((bonuses) => {
-      this.bonuses = bonuses;
-    });
   }
 
   ngOnInit() {
+    this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
+
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.loadBonuses().subscribe((bonuses) => {
+        this.bonuses = bonuses;
+      });
+    });
   }
 
 

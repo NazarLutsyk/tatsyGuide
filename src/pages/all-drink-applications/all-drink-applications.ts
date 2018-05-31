@@ -6,6 +6,9 @@ import {DrinkerApplicationPage} from "../drinker-application/drinker-application
 import {Observable} from "rxjs/Observable";
 import {UpdateDrinkApplicationPage} from "../update-drink-application/update-drink-application";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
+import {AuthProvider} from "../../providers/auth/auth";
+import {Client} from "../../models/client/Client";
 
 @IonicPage()
 @Component({
@@ -14,6 +17,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 })
 export class AllDrinkApplicationsPage {
 
+  principal;
   drinkApps: DrinkApplication[];
 
   skip = 0;
@@ -26,13 +30,19 @@ export class AllDrinkApplicationsPage {
     public navParams: NavParams,
     private app: App,
     private gc: GlobalConfigsService,
-    private drinkAppsService: DrinkApplicationProvider
+    private drinkAppsService: DrinkApplicationProvider,
+    private auth: AuthProvider
   ) {
-    this.loadDrinkApps().subscribe((apps) => {
-      this.drinkApps = apps;
-    });
   }
 
+  ngOnInit() {
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.loadDrinkApps().subscribe((apps) => {
+        this.drinkApps = apps;
+      });
+    });
+  }
 
   doRefresh(refresher: Refresher) {
     this.skip = 0;
@@ -69,16 +79,18 @@ export class AllDrinkApplicationsPage {
     });
   }
 
-  removeDrinkApp(drinkApp: any) {
+  removeDrinkApp(drinkApp: any, event) {
+    event.stopPropagation();
     this.drinkAppsService.remove(drinkApp._id).subscribe();
     this.drinkApps.splice(this.drinkApps.indexOf(drinkApp), 1);
   }
 
-  updateDrinkApp(drinkApp: any) {
+  updateDrinkApp(drinkApp: any, event) {
+    event.stopPropagation();
     this.app.getRootNav().push(UpdateDrinkApplicationPage, {drinkApp: drinkApp});
   }
 
-  loadNextApplicationsPage(event: InfiniteScroll){
+  loadNextApplicationsPage(event: InfiniteScroll) {
     if (this.allLoaded) {
       event.complete();
     } else {
@@ -94,5 +106,9 @@ export class AllDrinkApplicationsPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  openDrinkApplication(drinkApp: DrinkApplication) {
+    this.app.getRootNav().push(SingleDrinkApplicationPage, drinkApp);
   }
 }

@@ -31,8 +31,21 @@
         {{promo.endDate | date}}
       </p>
     </ion-card-content>
-      <button ion-button round outline color="danger" (click)="removePromo(promo)">Delete</button>
-      <button ion-button round outline (click)="updatePromo(promo)">Update</button>
+      <div *ngIf="principal">
+      <button
+        ion-button
+        round
+        outline
+        color="danger"
+        (click)="removePromo(promo)"
+      >Delete</button>
+      <button
+        ion-button
+        round
+        outline
+        (click)="updatePromo(promo)"
+      >Update</button>
+      </div>
   </ion-card>
   </span>
 

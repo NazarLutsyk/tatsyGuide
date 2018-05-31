@@ -5,6 +5,7 @@ import {Rating} from "../../models/rating/Rating";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ModalTestimonialPage} from "../modal-testimonial/modal-testimonial";
 import {UpdateRatingPage} from "../update-rating/update-rating";
+import {AuthProvider} from "../../providers/auth/auth";
 
 
 @IonicPage()
@@ -13,6 +14,8 @@ import {UpdateRatingPage} from "../update-rating/update-rating";
   templateUrl: 'testimonial.html',
 })
 export class TestimonialPage {
+
+  principal;
 
   ratings: Rating[];
   skip = 0;
@@ -26,14 +29,17 @@ export class TestimonialPage {
     private ratingProvider: RatingProvider,
     private globalConfigProvider: GlobalConfigsService,
     private modal: ModalController,
-    private app: App
+    private app: App,
+    private auth: AuthProvider
   ) {
-
   }
 
   ngOnInit() {
-    this.loadRatings().subscribe((ratings) => {
-      this.ratings = ratings;
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.loadRatings().subscribe((ratings) => {
+        this.ratings = ratings;
+      });
     });
   }
 

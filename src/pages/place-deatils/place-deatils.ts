@@ -35,7 +35,7 @@ export class PlaceDeatilsPage {
   testimonialsPage = TestimonialPage;
   drinkerPage = PlaceAppliactionsPage;
   placeStatisticPage = PlaceStatisticPage;
-  principal: Client;
+  principal;
 
 
   constructor(public navCtrl: NavController,

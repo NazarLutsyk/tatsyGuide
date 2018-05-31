@@ -18,12 +18,12 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-row margin-top="10px">
+  <ion-row margin-top="10px" *ngIf="principal">
     <button ion-button full color="defaultApp" (click)="goToCreateDrinkerApplication(place)">Create</button>
   </ion-row>
 
   <span *ngFor="let drinkApp of drinkApps">
-    <ion-card>
+    <ion-card (click)="openDrinkApplication(drinkApp)">
     <ion-card-content>
       <p>
         {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}
@@ -41,8 +41,8 @@
         {{drinkApp.date | date}}
       </p>
     </ion-card-content>
-      <button ion-button round outline color="danger" (click)="removeDrinkApp(drinkApp)">Delete</button>
-      <button ion-button round outline (click)="updateDrinkApp(drinkApp)">Update</button>
+      <button *ngIf="principal" ion-button round outline color="danger" (click)="removeDrinkApp(drinkApp)">Delete</button>
+      <button *ngIf="principal" ion-button round outline (click)="updateDrinkApp(drinkApp)">Update</button>
   </ion-card>
   </span>
 

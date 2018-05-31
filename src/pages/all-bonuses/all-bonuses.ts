@@ -4,6 +4,9 @@ import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
+import {AuthProvider} from "../../providers/auth/auth";
+import {Observable} from "rxjs/Observable";
+import {Client} from "../../models/client/Client";
 
 @IonicPage()
 @Component({
@@ -11,6 +14,8 @@ import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
   templateUrl: 'all-bonuses.html',
 })
 export class AllBonusesPage {
+
+  principal;
 
   bonuses: Bonuse[] = [];
   globalHost: string;
@@ -25,13 +30,19 @@ export class AllBonusesPage {
     public navParams: NavParams,
     private gc: GlobalConfigsService,
     private bonuseService: BonuseProvider,
-    private app: App
+    private app: App,
+    private auth: AuthProvider
   ) {
-    this.globalHost = gc.getGlobalHost();
+  }
 
-    this.loadBonuses().subscribe((bonuses) => {
-      this.bonuses = bonuses;
-    });
+  ngOnInit() {
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.globalHost = this.gc.getGlobalHost();
+      this.loadBonuses().subscribe((bonuses) => {
+        this.bonuses = bonuses;
+      });
+    })
   }
 
   doRefresh(refresher: Refresher) {
@@ -71,14 +82,14 @@ export class AllBonusesPage {
 
   removePromo(promo: any) {
     this.bonuseService.remove(promo._id).subscribe();
-    this.bonuses.splice(this.bonuses.indexOf(promo),1);
+    this.bonuses.splice(this.bonuses.indexOf(promo), 1);
   }
 
   updatePromo(promo: any) {
     this.app.getRootNav().push(UpdateBonusePage, {promo: promo});
   }
 
-  loadNextBonusesPage(event: InfiniteScroll){
+  loadNextBonusesPage(event: InfiniteScroll) {
     if (this.allLoaded) {
       event.complete();
     } else {

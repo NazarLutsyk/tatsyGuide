@@ -4,7 +4,7 @@
       <ion-row>
         <ion-col col-10>{{place.multilang[0].name}} <span *ngIf="!place.allowed">not allowed</span></ion-col>
         <ion-col col-2>
-          <span (click)="addToFavorite(place)" >
+          <span (click)="addToFavorite(place)" *ngIf="principal">
             <ion-icon name="heart-outline" *ngIf="!isFavorite"></ion-icon>
             <ion-icon name="heart" *ngIf="isFavorite"></ion-icon>
           </span>
@@ -17,7 +17,7 @@
 
 <ion-tabs class="tabs-basic" tabsPlacement="bottom">
   <ion-tab [root]="placeInfoPage" tabTitle="місце" tabIcon="pin" [rootParams]="place" ></ion-tab>
-  <ion-tab [root]="placeStatisticPage" tabTitle="statistic" tabIcon="md-analytics" [rootParams]="place" ></ion-tab>
+  <ion-tab [root]="placeStatisticPage" *ngIf="principal" tabTitle="statistic" tabIcon="md-analytics" [rootParams]="place" ></ion-tab>
   <ion-tab [root]="drinkerPage" tabTitle="drinker" tabIcon="beer" [rootParams]="place" ></ion-tab>
   <ion-tab [root]="eventsPage" tabTitle="події" tabIcon="bowtie" [rootParams]="place" ></ion-tab>
   <ion-tab [root]="bonusesPage" tabTitle="акції" tabIcon="ribbon" [rootParams]="place" ></ion-tab>

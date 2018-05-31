@@ -11,12 +11,34 @@
     <ion-slide *ngFor="let image of place.images">
       <ion-img src="{{globalHost}}{{image}}"></ion-img>
     </ion-slide>
-
   </ion-slides>
 
-  <button ion-button round outline color="danger" full (click)="removePlace(place)">Remove that </button>
-  <button ion-button round outline full (click)="updatePlace(place)">Update that </button>
-  <button ion-button round outline color="dark" full (click)="updatePlaceDepartments(place)">Update pieces of that </button>
+  <button
+    ion-button
+    round
+    outline
+    full
+    color="danger"
+    (click)="removePlace(place)"
+    *ngIf="principal"
+  >Remove that </button>
+  <button
+    ion-button
+    round
+    outline
+    full
+    (click)="updatePlace(place)"
+    *ngIf="principal"
+  >Update that </button>
+  <button
+    ion-button
+    round
+    outline
+    color="dark"
+    full
+    (click)="updatePlaceDepartments(place)"
+    *ngIf="principal"
+  >Update pieces of that </button>
 
   <ion-grid>
     <ion-row>
@@ -133,7 +155,7 @@
           {{place.email}}
         </ion-col>
       </ion-row>
-      <ion-row margin-top="15px">
+      <ion-row margin-top="15px" *ngIf="principal">
         <ion-col col-2>
           <button ion-button class="iconWrapper" (click)="connectToManager()">
             Connect to manager
@@ -141,8 +163,7 @@
           </button>
         </ion-col>
       </ion-row>
-      <ion-row>
-
+      <ion-row *ngIf="principal">
         <ion-col>
           <button ion-button class="iconWrapper" (click)="sendComplaint()">
             Send complaint to global admin

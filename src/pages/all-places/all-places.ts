@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicPage, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
+import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {ClientProvider} from "../../providers/client/ClientProvider";
@@ -61,7 +61,7 @@ export class AllPlacesPage {
       let res;
 
       if (sort.name) {
-        res = placeMultilangService.find({
+        res = this.placeMultilangService.find({
           query: {lang: this.globalVars.getGlobalLang()},
           sort: sort,
           populate: [
@@ -128,56 +128,14 @@ export class AllPlacesPage {
   ngOnInit() {
     this.auth.principal.subscribe(principal => this.principal = principal);
     this.auth.loadPrincipal().subscribe();
-    this.placesService
-      .find(
-        {
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-            },
-          ]
-        }
-      )
+    this.initialLoadPlaces()
       .subscribe(places => {
         this.places = places
       });
   }
 
-  toDetails(place) {
-    this.placesService
-      .findOne(
-        place._id,
-        {
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-            },
-          ]
-        }
-      )
-      .subscribe((foundedPlace) => {
-
-        this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
-      });
-  }
-
   doRefresh(refresher: Refresher) {
-    this.placesService
-      .find(
-        {
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-            },
-          ]
-        }
-      )
+    this.initialLoadPlaces()
       .subscribe((places) => {
         this.places = places;
         refresher.complete();
@@ -220,5 +178,43 @@ export class AllPlacesPage {
             this.places = places;
           })
       });
+  }
+
+  initialLoadPlaces() {
+    return this.placesService
+      .find(
+        {
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            },
+          ]
+        }
+      );
+  }
+
+  toDetails(place) {
+    this.placesService
+      .findOne(
+        place._id,
+        {
+          populate: [
+            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+            },
+          ]
+        }
+      )
+      .subscribe((foundedPlace) => {
+        this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
+      });
+  }
+
+  loadNextPlacesPage(event: InfiniteScroll) {
+    event.complete();
   }
 }

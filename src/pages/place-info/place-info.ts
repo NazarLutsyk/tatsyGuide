@@ -10,6 +10,7 @@ import {ComplaintProvider} from "../../providers/complaint/complaint-provider";
 import {Complaint} from "../../models/complaint/Complaint";
 import {HashTagsPage} from "../hash-tags/hash-tags";
 import {UpdatePlaceDepartmentsPage} from "../update-place-departments/update-place-departments";
+import {AuthProvider} from "../../providers/auth/auth";
 
 declare var window: any;
 
@@ -19,6 +20,8 @@ declare var window: any;
   templateUrl: 'place-info.html',
 })
 export class PlaceInfoPage {
+  principal;
+
   globalHost: string;
   place: Place;
   bossPlaceEmail: string;
@@ -34,19 +37,26 @@ export class PlaceInfoPage {
     private alertController: AlertController,
     private mailService: MailProvider,
     private departmentService: DepartmentProvider,
-    private complaintService: ComplaintProvider
+    private complaintService: ComplaintProvider,
+    private auth: AuthProvider
   ) {
-    this.place = this.navParams.data;
-    this.globalHost = gc.getGlobalHost();
+  }
 
-    departmentService.find({
-      query: {place: (<any>this.place)._id},
-      populate: [{path: 'client'}]
-    }).subscribe((department) => {
-      if (department[0]) {
-        this.bossPlaceEmail = department[0].client.email;
-      }
-    })
+  ngOnInit(){
+    this.place = this.navParams.data;
+    this.globalHost = this.gc.getGlobalHost();
+
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.departmentService.find({
+        query: {place: (<any>this.place)._id},
+        populate: [{path: 'client'}]
+      }).subscribe((department) => {
+        if (department[0]) {
+          this.bossPlaceEmail = department[0].client.email;
+        }
+      })
+    });
   }
 
 

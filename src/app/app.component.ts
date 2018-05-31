@@ -69,7 +69,6 @@ export class MyApp implements OnInit {
     this.globalConfig.langService = this.langService;
   }
 
-
   ngOnInit() {
     this.auth.principal.subscribe((principal) => {
       this.principal = principal;
@@ -138,11 +137,6 @@ export class MyApp implements OnInit {
     this.navCtrl.push(ClientsPage);
   }
 
-  goToNewsPage() {
-    this.menuController.close();
-    this.navCtrl.push(AllNewsPage);
-  }
-
   goToEventsPage() {
     this.menuController.close();
     this.navCtrl.push(AllEventsPage);
@@ -153,11 +147,6 @@ export class MyApp implements OnInit {
     this.navCtrl.push(AllBonusesPage);
   }
 
-  goToDrinkApplicationsPage() {
-    this.menuController.close();
-    this.navCtrl.push(AllDrinkApplicationsPage);
-  }
-
   goToPlacesPurgatoryPage() {
     this.menuController.close();
     this.navCtrl.push(PurgatoryPlacesPage);
@@ -166,11 +155,6 @@ export class MyApp implements OnInit {
   goToPlacesStatisticPage() {
     this.menuController.close();
     this.navCtrl.push(AllPlacesStatisticPage);
-  }
-
-  goToTopPlacesPage() {
-    this.menuController.close();
-    this.navCtrl.push(TopPlacesPage);
   }
 
   goToTopPlacesManagePage() {

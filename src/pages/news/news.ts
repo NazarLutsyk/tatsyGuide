@@ -6,6 +6,7 @@ import {News} from "../../models/promo/news/News";
 import {Place} from "../../models/place/Place";
 import {CreateNewsPage} from "../create-news/create-news";
 import {UpdateNewsPage} from "../update-news/update-news";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -13,6 +14,8 @@ import {UpdateNewsPage} from "../update-news/update-news";
   templateUrl: 'news.html',
 })
 export class NewsPage {
+
+  principal;
 
   place: Place;
   news: News[];
@@ -28,16 +31,21 @@ export class NewsPage {
     public navParams: NavParams,
     private gc: GlobalConfigsService,
     private newsService: NewsProvider,
-    private app: App
+    private app: App,
+    private auth: AuthProvider
   ) {
-    this.globalHost = this.gc.getGlobalHost();
-    this.loadNews().subscribe((news) => {
-      this.news = news;
-    });
   }
 
   ngOnInit() {
+    this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
+
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.loadNews().subscribe((news) => {
+        this.news = news;
+      });
+    });
   }
 
 

@@ -13,7 +13,7 @@
   </ion-refresher>
 
 
-  <ion-row margin-top="10px">
+  <ion-row margin-top="10px" *ngIf="principal">
     <button ion-button full color="defaultApp" (click)="goToCreateBonuse()">Create Bonuse</button>
   </ion-row>
 
@@ -38,8 +38,8 @@
         {{bonuse.endDate | date}}
       </p>
     </ion-card-content>
-      <button ion-button round outline color="danger" (click)="removePromo(bonuse)">Delete</button>
-      <button ion-button round outline (click)="updatePromo(bonuse)">Update</button>
+      <button *ngIf="principal" ion-button round outline color="danger" (click)="removePromo(bonuse)">Delete</button>
+      <button *ngIf="principal" ion-button round outline (click)="updatePromo(bonuse)">Update</button>
   </ion-card>
   </span>
 

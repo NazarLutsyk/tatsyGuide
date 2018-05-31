@@ -12,7 +12,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-row margin-top="10px">
+  <ion-row margin-top="10px" *ngIf="principal">
     <button ion-button full color="defaultApp" (click)="goToCreateEvent()">Create Event</button>
   </ion-row>
 
@@ -33,8 +33,8 @@
           {{promo.endDate | date}}
         </p>
       </ion-card-content>
-      <button ion-button round outline color="danger" (click)="removePromo(promo)">Delete</button>
-      <button ion-button round outline (click)="updatePromo(promo)">Update</button>
+      <button *ngIf="principal" ion-button round outline color="danger" (click)="removePromo(promo)">Delete</button>
+      <button *ngIf="principal" ion-button round outline (click)="updatePromo(promo)">Update</button>
     </ion-card>
   </div>
 

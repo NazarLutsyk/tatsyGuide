@@ -77,7 +77,6 @@ export class CreatePlacePage {
       features: formPlace.features,
       types: formPlace.types,
       hashTags: formPlace.hashTags.split(','),
-      averagePrice: formPlace.averagePrice,
       days: {
         1: {start: formPlace.days[1].start, end: formPlace.days[1].end},
         2: {start: formPlace.days[1].start, end: formPlace.days[1].end},

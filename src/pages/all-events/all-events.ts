@@ -3,6 +3,7 @@ import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} fro
 import {EventProvider} from "../../providers/event/EventProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {UpdateEventPage} from "../update-event/update-event";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -10,6 +11,8 @@ import {UpdateEventPage} from "../update-event/update-event";
   templateUrl: 'all-events.html',
 })
 export class AllEventsPage {
+
+  principal;
 
   globalHost: string;
   events: Event[] = [];
@@ -24,13 +27,20 @@ export class AllEventsPage {
     public navParams: NavParams,
     private gc: GlobalConfigsService,
     private eventService: EventProvider,
-    private app: App
+    private app: App,
+    private auth: AuthProvider
   ) {
-    this.globalHost = this.gc.getGlobalHost();
-    this.loadEvents()
-      .subscribe((events) => {
-        this.events = events;
-      });
+  }
+
+  ngOnInit(){
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.globalHost = this.gc.getGlobalHost();
+      this.loadEvents()
+        .subscribe((events) => {
+          this.events = events;
+        });
+    });
   }
 
   doRefresh(refresher: Refresher) {

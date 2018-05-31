@@ -32,7 +32,7 @@ import {SignUpPageModule} from "../pages/sign-up/sign-up.module";
 import {SignInPageModule} from "../pages/sign-in/sign-in.module";
 import {NativePageTransitions} from '@ionic-native/native-page-transitions';
 import {DrinkerApplicationPageModule} from "../pages/drinker-application/drinker-application.module";
-import {MessageProvider} from '../providers/message/message';
+import {DrinkApplicationCommentProvider} from '../providers/drinkApplicationComment/drink-application-comment-provider';
 import {TopPlaceProvider} from '../providers/top-place/top-place';
 import {BonuseMultilangProvider} from '../providers/bonuse-multilang/bonuse-multilang';
 import {EventMultilangProvider} from '../providers/event-multilang/event-multilang';
@@ -83,6 +83,7 @@ import {TopPlacesPageModule} from "../pages/top-places/top-places.module";
 import {TopPlaceManagePageModule} from "../pages/top-place-manage/top-place-manage.module";
 import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-update.module";
 import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
+import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
 
 @NgModule({
   declarations: [
@@ -139,7 +140,7 @@ import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
     TopPlaceManagePageModule,
     TopPlaceUpdatePageModule,
     AllPlacesPageModule,
-    TopPlacesPageModule
+    SingleDrinkApplicationPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -167,7 +168,7 @@ import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
       multi: true
     },
     LangProvider,
-    MessageProvider,
+    DrinkApplicationCommentProvider,
     TopPlaceProvider,
     BonuseMultilangProvider,
     EventMultilangProvider,

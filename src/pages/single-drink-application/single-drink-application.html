@@ -1,0 +1,66 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>single-drink-application</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-content>
+      <p>
+        {{drinkApp?.organizer.name}} {{drinkApp?.organizer.surname}}
+      </p>
+      <p>
+        {{drinkApp?.place.multilang[0].name}}
+      </p>
+      <p>
+        {{drinkApp?.friends}}
+      </p>
+      <p>
+        {{drinkApp?.budged}}
+      </p>
+      <p>
+        {{drinkApp?.goal}}
+      </p>
+      <p>
+        {{drinkApp?.date | date}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <form
+    #commentForm="ngForm"
+    (ngSubmit)="sendComment(commentForm)"
+    *ngIf="principal"
+  >
+    <ion-item>
+      <ion-label>Comment</ion-label>
+      <ion-input
+        name="comment"
+        ngModel
+      ></ion-input>
+    </ion-item>
+    <button ion-button>Send</button>
+  </form>
+  <ion-list>
+    <ion-item *ngFor="let comment of drinkApp?.comments">
+      <span>
+        <strong>{{comment.sender.name}} {{comment.sender.surname}}</strong>: {{comment.value}}
+      </span>
+      <p>{{comment.createdAt | date:'medium'}}</p>
+      <button
+        ion-button
+        (click)="removeComment(comment)"
+        *ngIf="principal"
+      >Remove</button>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="loadNextCommentsPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

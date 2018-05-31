@@ -6,6 +6,8 @@ import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
 import {Observable} from "rxjs/Observable";
 import {UpdateDrinkApplicationPage} from "../update-drink-application/update-drink-application";
+import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
+import {AuthProvider} from "../../providers/auth/auth";
 
 @IonicPage()
 @Component({
@@ -13,6 +15,8 @@ import {UpdateDrinkApplicationPage} from "../update-drink-application/update-dri
   templateUrl: 'place-appliactions.html',
 })
 export class PlaceAppliactionsPage {
+
+  principal;
 
   place: Place;
   drinkApps: DrinkApplication[];
@@ -26,11 +30,18 @@ export class PlaceAppliactionsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private app: App,
-    private drinkAppsService: DrinkApplicationProvider
+    private drinkAppsService: DrinkApplicationProvider,
+    private auth: AuthProvider
   ) {
-    this.place = navParams.data;
-    this.loadDrinkApps().subscribe((apps) => {
-      this.drinkApps = apps;
+  }
+
+  ngOnInit() {
+    this.place = this.navParams.data;
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.loadDrinkApps().subscribe((apps) => {
+        this.drinkApps = apps;
+      });
     });
   }
 
@@ -60,7 +71,7 @@ export class PlaceAppliactionsPage {
 
   removeDrinkApp(drinkApp: any) {
     this.drinkAppsService.remove(drinkApp._id).subscribe();
-    this.drinkApps.splice(this.drinkApps.indexOf(drinkApp),1);
+    this.drinkApps.splice(this.drinkApps.indexOf(drinkApp), 1);
   }
 
 
@@ -85,5 +96,9 @@ export class PlaceAppliactionsPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  openDrinkApplication(drinkApp: DrinkApplication) {
+    this.app.getRootNav().push(SingleDrinkApplicationPage, drinkApp);
   }
 }

@@ -5,6 +5,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {EventProvider} from "../../providers/event/EventProvider";
 import {CreateEventPage} from "../create-event/create-event";
 import {UpdateEventPage} from "../update-event/update-event";
+import {AuthProvider} from "../../providers/auth/auth";
 
 
 @IonicPage()
@@ -13,6 +14,7 @@ import {UpdateEventPage} from "../update-event/update-event";
   templateUrl: 'event.html',
 })
 export class EventPage {
+  principal;
 
   globalHost: string;
   events: Event[] = [];
@@ -28,17 +30,22 @@ export class EventPage {
     public navParams: NavParams,
     private gc: GlobalConfigsService,
     private eventService: EventProvider,
-    private app: App
+    private app: App,
+    private auth: AuthProvider
   ) {
-    this.globalHost = this.gc.getGlobalHost();
-    this.loadEvents()
-      .subscribe((events) => {
-        this.events = events;
-      });
   }
 
   ngOnInit() {
+    this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
+
+    this.auth.loadPrincipal().subscribe((principal) => {
+      this.principal = principal;
+      this.loadEvents()
+        .subscribe((events) => {
+          this.events = events;
+        });
+    });
   }
 
   goToCreateEvent() {

@@ -5,13 +5,6 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
 import {HomePage} from "../home/home";
 
-/**
- * Generated class for the SignUpPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-sign-up',
@@ -38,13 +31,14 @@ export class SignUpPage {
   ) {
 
   }
+
   signUpMe() {
     this.auth.registration({
       name: this.name, surname: this.surname, email: this.email,
       login: this.login, password: this.password
     }).subscribe(() => {
       this.app.getRootNav().setRoot(HomePage);
-    },(error) => {
+    }, (error) => {
       console.log(error);
     });
   }

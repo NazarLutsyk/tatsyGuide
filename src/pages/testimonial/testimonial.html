@@ -10,7 +10,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-fab>
-    <button ion-fab (click)="leaveTestimonial()">Button</button>
+    <button *ngIf="principal" ion-fab (click)="leaveTestimonial()">Button</button>
   </ion-fab>
   <ion-list [virtualScroll]="ratings" [approxItemHeight]="'200px'">
     <ion-item *virtualItem="let rating">
@@ -20,7 +20,7 @@
       <h2>{{rating.client.name}}</h2>
       <p>{{rating.comment}}</p>
       <p>check : {{rating.price}}</p>
-      <button ion-button round item-end medium (click)="updateRating(rating)">
+      <button *ngIf="principal" ion-button round item-end medium (click)="updateRating(rating)">
         <ion-icon name="create"></ion-icon>
       </button>
     </ion-item>

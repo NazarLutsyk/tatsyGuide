@@ -36,8 +36,21 @@
         {{bonuse.endDate | date}}
       </p>
     </ion-card-content>
-      <button ion-button round outline color="danger" (click)="removePromo(bonuse)">Delete</button>
-      <button ion-button round outline (click)="updatePromo(bonuse)">Update</button>
+      <button
+        ion-button
+        round
+        outline
+        color="danger"
+        (click)="removePromo(bonuse)"
+        *ngIf="principal"
+      >Delete</button>
+      <button
+        ion-button
+        round
+        outline
+        (click)="updatePromo(bonuse)"
+        *ngIf="principal"
+      >Update</button>
   </ion-card>
   </span>
   <ion-infinite-scroll (ionInfinite)="loadNextBonusesPage($event)">
