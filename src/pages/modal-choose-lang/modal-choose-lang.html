@@ -1,0 +1,31 @@
+<!--
+  Generated template for the ModalChooseLangPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>modal-choose-lang</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-header>choose language to update place</ion-header>
+  </ion-item>
+
+  <ion-select [(ngModel)]="lang">
+    <ion-option value="ua" >Ukrainian</ion-option>
+    <ion-option value="en">English</ion-option>
+  </ion-select>
+
+  <button ion-button (click)="goToUpdate()">
+    update
+  </button>
+
+
+</ion-content>
