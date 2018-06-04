@@ -12,6 +12,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AuthProvider} from "../../providers/auth/auth";
 
+
 @IonicPage()
 @Component({
   selector: 'page-update-place',
@@ -21,10 +22,10 @@ export class UpdatePlacePage {
 
   @ViewChild('form') form: NgForm;
 
-  place: Place;
+  place: Place = new Place();
   location: { lat: number, lng: number };
   placeId: string;
-  placeMultilang: PlaceMultilang;
+  placeMultilang: PlaceMultilang = new PlaceMultilang();
   placeMultilangId: string;
   placeTypesM: PlaceTypeMultilang[] = [];
   hashTags: string;
@@ -44,32 +45,47 @@ export class UpdatePlacePage {
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
       this.location.lng = data.lng;
-    })
+    });
+
   }
 
   ngOnInit() {
+    console.log('oninit');
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
       }
     });
 
-    this.place = this.navParams.data.place;
-    this.placeMultilang = this.navParams.data.place.multilang[0];
-    this.placeMultilangId = (<any>this.placeMultilang)._id;
-    this.placeId = (<any>this.place)._id;
+    let currentPlace = this.placeService.findOne(this.navParams.data.place.id, {
+      populate:
+        [
+          {
+            path: "multilang",
+            match: {lang: `${this.globalConfig.langChooser(this.navParams.data.choosenLang)}`}
+          }
+        ]
+    });
 
-    this.location = this.place.location;
-    this.place.types = this.place.types.map(pt => (<any>pt)._id);
 
-    this.topCategories = this.place.topCategories.join(',');
-    this.hashTags = this.place.hashTags.join(',');
-    this.placeTypeMultilangService.find({
+    let currentPlaceTypeMultilang = this.placeTypeMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()}
-    })
-      .subscribe((placeTypesM) => {
-        this.placeTypesM = placeTypesM;
-      })
+    });
+
+    zip(currentPlace, currentPlaceTypeMultilang).subscribe(values => {
+      let value = values[0];
+      this.place = value;
+      this.placeMultilang = value.multilang[0];
+      this.placeMultilangId = (<any>this.placeMultilang)._id;
+      this.placeId = (<any>this.place)._id;
+
+      this.location = this.place.location;
+      this.topCategories = this.place.topCategories.join(',');
+      this.hashTags = this.place.hashTags.join(',');
+
+      this.placeTypesM = values[1];
+    });
+
   }
 
   updatePlace(updateForm: NgForm) {
@@ -90,6 +106,7 @@ export class UpdatePlacePage {
       7: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end}
     };
     this.place.location = this.location;
+
     zip(
       this.placeMultilangService.update(this.placeMultilangId, this.placeMultilang),
       this.placeService.update(this.placeId, this.place)

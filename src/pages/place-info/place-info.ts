@@ -1,9 +1,17 @@
 import {Component} from '@angular/core';
-import {AlertController, App, Events, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {
+  AlertController,
+  App,
+  Events,
+  IonicPage,
+  ModalController,
+  NavController,
+  NavParams,
+  Platform
+} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
-import {UpdatePlacePage} from "../update-place/update-place";
 import {MailProvider} from "../../providers/mail/mail";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ComplaintProvider} from "../../providers/complaint/complaint-provider";
@@ -11,6 +19,8 @@ import {Complaint} from "../../models/complaint/Complaint";
 import {HashTagsPage} from "../hash-tags/hash-tags";
 import {UpdatePlaceDepartmentsPage} from "../update-place-departments/update-place-departments";
 import {AuthProvider} from "../../providers/auth/auth";
+import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
+import {UpdatePlacePage} from "../update-place/update-place";
 
 declare var window: any;
 
@@ -27,6 +37,7 @@ export class PlaceInfoPage {
   bossPlaceEmail: string;
 
   constructor(
+    public modal: ModalController,
     private app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,7 +53,7 @@ export class PlaceInfoPage {
   ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.place = this.navParams.data;
     this.globalHost = this.gc.getGlobalHost();
 
@@ -100,7 +111,14 @@ export class PlaceInfoPage {
   }
 
   updatePlace(place: Place) {
-    this.app.getRootNav().push(UpdatePlacePage, {place: place});
+    //!!!!!!!!!!! todo change to modal
+    // this.app.getRootNav().push(UpdatePlacePage, {place: place});
+
+    let modalItem = this.modal.create(ModalChooseLangPage, {place: place});
+    modalItem.present();
+
+
+
   }
 
   findPlacesByHashTag(hashTag: string) {
@@ -135,6 +153,6 @@ export class PlaceInfoPage {
   }
 
   updatePlaceDepartments(place: Place) {
-    this.app.getRootNav().push(UpdatePlaceDepartmentsPage,place);
+    this.app.getRootNav().push(UpdatePlaceDepartmentsPage, place);
   }
 }

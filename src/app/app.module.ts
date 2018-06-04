@@ -84,6 +84,7 @@ import {TopPlaceManagePageModule} from "../pages/top-place-manage/top-place-mana
 import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-update.module";
 import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
+import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose-lang.module";
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import {SingleDrinkApplicationPageModule} from "../pages/single-drink-applicatio
     TopPlaceManagePageModule,
     TopPlaceUpdatePageModule,
     AllPlacesPageModule,
-    SingleDrinkApplicationPageModule
+    SingleDrinkApplicationPageModule,
+    ModalChooseLangPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
