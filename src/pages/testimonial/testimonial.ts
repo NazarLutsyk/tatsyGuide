@@ -76,6 +76,11 @@ export class TestimonialPage {
     this.app.getRootNav().push(UpdateRatingPage, {rating: rating});
   }
 
+  removeRating(rating) {
+    this.ratingProvider.remove(rating._id);
+    this.ratings.splice(this.ratings.indexOf(rating), 1);
+  }
+
   loadNextRatingsPage(event) {
     if (this.allLoaded) {
       event.complete();

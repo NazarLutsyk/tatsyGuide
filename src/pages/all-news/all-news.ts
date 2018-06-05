@@ -13,8 +13,8 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class AllNewsPage {
 
-  principal;
-  news: News[];
+  principal = null;
+  news: News[] = [];
   globalHost: string;
 
   skip = 0;
@@ -99,7 +99,6 @@ export class AllNewsPage {
           event.complete();
         })
     }
-
   }
 
   setNextPage() {

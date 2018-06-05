@@ -1,0 +1,39 @@
+<ion-card *ngIf="bonuse.kind=='Bonuse'">
+
+  <img src="{{globalHost+bonuse.image}}" alt=""/>
+  <ion-card-content>
+    <ion-card-title>
+      {{bonuse.place.multilang[0].name}}<br>
+      {{bonuse.multilang[0].header}}
+    </ion-card-title>
+    <p>
+      {{bonuse.multilang[0].description}}
+    </p>
+    <p>
+      {{bonuse.multilang[0].conditions}}
+    </p>
+    <p>
+      {{bonuse.startDate | date}}
+    </p>
+    <p>
+      {{bonuse.endDate | date}}
+    </p>
+  </ion-card-content>
+  <ion-buttons *ngIf="showControlButtons">
+    <button
+      ion-button
+      round
+      outline
+      color="danger"
+      (click)="removePromo(bonuse)"
+    >Delete
+    </button>
+    <button
+      ion-button
+      round
+      outline
+      (click)="updatePromo(bonuse)"
+    >Update
+    </button>
+  </ion-buttons>
+</ion-card>

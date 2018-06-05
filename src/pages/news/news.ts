@@ -45,14 +45,20 @@ export class NewsPage {
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.departmentService.find({
-        query: {place: (<any>this.place)._id, client: this.principal._id},
-      }).subscribe((departments) => {
-        this.departments = departments;
+      if (this.principal) {
+        this.departmentService.find({
+          query: {place: (<any>this.place)._id, client: this.principal._id},
+        }).subscribe((departments) => {
+          this.departments = departments;
+          this.loadNews().subscribe((news) => {
+            this.news = news;
+          });
+        });
+      } else {
         this.loadNews().subscribe((news) => {
           this.news = news;
         });
-      });
+      }
     });
   }
 
@@ -75,10 +81,20 @@ export class NewsPage {
   loadNews() {
     return this.newsService.find({
       query: {place: this.navParams.data._id},
+      sort: {createdAt: -1},
       populate: [
         {
           path: 'multilang',
           match: {lang: this.gc.getGlobalLang()}
+        },
+        {
+          path: 'place',
+          select: 'multilang',
+          populate: [{
+            path: 'multilang',
+            match: {lang: this.gc.getGlobalLang()},
+            select: 'name'
+          }]
         }
       ],
       skip: this.skip,

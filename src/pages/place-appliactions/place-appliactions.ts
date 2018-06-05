@@ -8,6 +8,7 @@ import {Observable} from "rxjs/Observable";
 import {UpdateDrinkApplicationPage} from "../update-drink-application/update-drink-application";
 import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
 import {AuthProvider} from "../../providers/auth/auth";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class PlaceAppliactionsPage {
     public navParams: NavParams,
     private app: App,
     private drinkAppsService: DrinkApplicationProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private globalConfig: GlobalConfigsService
   ) {
   }
 
@@ -63,7 +65,19 @@ export class PlaceAppliactionsPage {
   private loadDrinkApps(): Observable<any> {
     return this.drinkAppsService.find({
       query: {place: this.navParams.data._id},
-      populate: [{path: 'organizer'}],
+      sort: {createdAt: -1},
+      populate: [
+        {path: 'organizer'},
+        {
+          path: 'place',
+          select: 'multilang',
+          populate: [{
+            path: 'multilang',
+            match: {lang: this.globalConfig.getGlobalLang()},
+            select: 'name'
+          }]
+        }
+      ],
       skip: this.skip,
       limit: this.limit
     })

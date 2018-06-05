@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {RatingProvider} from "../../providers/rating/rating-provider";
 import {Rating} from "../../models/rating/Rating";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Client} from "../../models/client/Client";
 import {AuthProvider} from "../../providers/auth/auth";
+import {UpdateRatingPage} from "../update-rating/update-rating";
 
 @IonicPage()
 @Component({
@@ -27,7 +28,8 @@ export class MyRatingsPage {
     private ratingProvider: RatingProvider,
     private globalConfigProvider: GlobalConfigsService,
     private modal: ModalController,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private app: App
   ) {
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
@@ -52,7 +54,13 @@ export class MyRatingsPage {
     let query =
       {
         query: {client: (<any>this.principal)._id},
-        populate: [{path: 'client'}],
+        populate: [
+          {path: 'client'},
+          {
+            path: 'place',
+            populate: [{path: 'multilang', match: {lang: this.globalConfigProvider.getGlobalLang()}}]
+          }
+        ],
         skip: this.skip,
         limit: this.limit
       };
@@ -62,6 +70,10 @@ export class MyRatingsPage {
   removeRating(rating) {
     this.ratingProvider.remove(rating._id);
     this.ratings.splice(this.ratings.indexOf(rating), 1);
+  }
+
+  updateRating(rating) {
+    this.app.getRootNav().push(UpdateRatingPage, {rating: rating});
   }
 
   loadNextRatingsPage(event: InfiniteScroll) {

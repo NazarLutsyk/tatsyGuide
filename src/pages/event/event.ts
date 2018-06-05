@@ -44,15 +44,22 @@ export class EventPage {
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.departmentService.find({
-        query: {place: (<any>this.place)._id, client: this.principal._id},
-      }).subscribe((departments) => {
-        this.departments = departments;
+      if (this.principal) {
+        this.departmentService.find({
+          query: {place: (<any>this.place)._id, client: this.principal._id},
+        }).subscribe((departments) => {
+          this.departments = departments;
+          this.loadEvents()
+            .subscribe((events) => {
+              this.events = events;
+            });
+        });
+      } else {
         this.loadEvents()
           .subscribe((events) => {
             this.events = events;
           });
-      });
+      }
     });
   }
 
@@ -75,10 +82,20 @@ export class EventPage {
   loadEvents() {
     return this.eventService.find({
       query: {place: this.navParams.data._id},
+      sort: {createdAt: -1},
       populate: [
         {
           path: 'multilang',
           match: {lang: this.gc.getGlobalLang()}
+        },
+        {
+          path: 'place',
+          select: 'multilang',
+          populate: [{
+            path: 'multilang',
+            match: {lang: this.gc.getGlobalLang()},
+            select: 'name'
+          }]
         }
       ],
       skip: this.skip,
