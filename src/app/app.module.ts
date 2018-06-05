@@ -85,7 +85,7 @@ import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-upda
 import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
 import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose-lang.module";
-
+import { Facebook } from '@ionic-native/facebook';
 @NgModule({
   declarations: [
     MyApp,
@@ -147,6 +147,7 @@ import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose
   bootstrap: [IonicApp],
   entryComponents: [],
   providers: [
+    Facebook,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
