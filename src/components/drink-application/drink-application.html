@@ -1,0 +1,40 @@
+<ion-card (click)="openDrinkApplication(drinkApp)">
+  <ion-card-content>
+    <p>
+      {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}
+    </p>
+    <p>
+      {{drinkApp.place.multilang[0].name}}
+    </p>
+    <p>
+      {{drinkApp.friends}}
+    </p>
+    <p>
+      {{drinkApp.budged}}
+    </p>
+    <p>
+      {{drinkApp.goal}}
+    </p>
+    <p>
+      {{drinkApp.date | date}}
+    </p>
+  </ion-card-content>
+  <ion-buttons
+    *ngIf="showControlButtons">
+    <button
+      ion-button
+      round
+      outline
+      color="danger"
+      (click)="removeDrinkApp(drinkApp, $event)"
+    >Delete
+    </button>
+    <button
+      ion-button
+      round
+      outline
+      (click)="updateDrinkApp(drinkApp, $event)"
+    >Update
+    </button>
+  </ion-buttons>
+</ion-card>

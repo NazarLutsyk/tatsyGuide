@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { NewsPage } from './news';
 import {MatExpansionModule} from "@angular/material";
+import {ComponentsModule} from "../../components/components.module";
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import {MatExpansionModule} from "@angular/material";
   ],
   imports: [
     IonicPageModule.forChild(NewsPage),
-    MatExpansionModule
+    MatExpansionModule,
+    ComponentsModule
   ],
 })
 export class NewsPageModule {}

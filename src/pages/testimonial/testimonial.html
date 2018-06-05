@@ -14,20 +14,16 @@
       <button ion-fab (click)="leaveTestimonial()">Button</button>
     </ion-fab>
   </div>
-  <ion-list [virtualScroll]="ratings" [approxItemHeight]="'200px'">
-    <ion-item *virtualItem="let rating">
-      <ion-icon item-start name="star">
-        {{rating.value}}
-      </ion-icon>
-      <h2>{{rating.client.name}}</h2>
-      <p>{{rating.comment}}</p>
-      <p>check : {{rating.price}}</p>
-      <button *ngIf="principal && (principal._id === rating.client._id || principal.roles.indexOf('ADMIN') >= 0)" ion-button round item-end medium
-              (click)="updateRating(rating)">
-        <ion-icon name="create"></ion-icon>
-      </button>
-    </ion-item>
-  </ion-list>
+
+  <rating
+    *ngFor="let rating of ratings"
+    [rating]="rating"
+    [showRemoveButton]="principal && (principal._id === rating.client._id || principal.roles.indexOf('ADMIN') >= 0)"
+    [showUpdateButton]="principal && (principal._id === rating.client._id || principal.roles.indexOf('ADMIN') >= 0)"
+    (onRemoveRating)="removeRating($event)"
+    (onUpdateRating)="updateRating($event)"
+  ></rating>
+
   <ion-infinite-scroll (ionInfinite)="loadNextRatingsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

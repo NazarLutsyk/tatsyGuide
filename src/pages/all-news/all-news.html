@@ -13,42 +13,14 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <span *ngFor="let promo of news">
-    <ion-card *ngIf="promo.kind=='News'">
-    <img src="{{globalHost+promo.image}}" alt=""/>
-    <ion-card-content>
-      <ion-card-title>
-        {{promo.place.multilang[0].name}}<br>
-        {{promo.multilang[0].header}}
-      </ion-card-title>
-      <p>
-        {{promo.multilang[0].description}}
-      </p>
-      <p>
-        {{promo.startDate | date}}
-      </p>
-      <p>
-        {{promo.endDate | date}}
-      </p>
-    </ion-card-content>
-      <ion-buttons
-        *ngIf="principal && promo.author === principal._id || principal.roles.indexOf('ADMIN') >= 0">
-        <button
-          ion-button
-          round
-          outline
-          color="danger"
-          (click)="removePromo(promo)"
-        >Delete</button>
-        <button
-          ion-button
-          round
-          outline
-          (click)="updatePromo(promo)"
-        >Update</button>
-      </ion-buttons>
-  </ion-card>
-  </span>
+  <news
+    *ngFor="let singleNews of news"
+    [news]="singleNews"
+    [globalHost]="globalHost"
+    [showControlButtons]="(principal && singleNews.author === principal?._id || principal?.roles.indexOf('ADMIN') >= 0)"
+    (onRemovePromo)="removePromo($event)"
+    (onUpdatePromo)="updatePromo($event)"
+  ></news>
 
   <ion-infinite-scroll (ionInfinite)="loadNextNewsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

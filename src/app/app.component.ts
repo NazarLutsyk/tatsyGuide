@@ -21,12 +21,9 @@ import {PlaceTypeMultilangProvider} from "../providers/place-type-multilang/plac
 import {ProfilePage} from "../pages/profile/profile";
 import {ClientsPage} from "../pages/clients/clients";
 import {PurgatoryPlacesPage} from "../pages/purgatory-places/purgatory-places";
-import {AllNewsPage} from "../pages/all-news/all-news";
 import {AllEventsPage} from "../pages/all-events/all-events";
 import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
-import {AllDrinkApplicationsPage} from "../pages/all-drink-applications/all-drink-applications";
 import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-statistic";
-import {TopPlacesPage} from "../pages/top-places/top-places";
 import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 
 

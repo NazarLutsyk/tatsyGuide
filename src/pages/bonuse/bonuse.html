@@ -13,37 +13,18 @@
   </ion-refresher>
 
 
-  <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal.roles.indexOf('ADMIN') >= 0)">
+  <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
     <button ion-button full color="defaultApp" (click)="goToCreateBonuse()">Create Bonuse</button>
   </ion-row>
 
-  <span *ngFor="let bonuse of bonuses">
-    <ion-card *ngIf="bonuse.kind=='Bonuse'">
-
-    <img src="{{globalHost+bonuse.image}}" alt=""/>
-    <ion-card-content>
-      <ion-card-title>
-        {{bonuse.multilang[0].header}}
-      </ion-card-title>
-      <p>
-        {{bonuse.multilang[0].description}}
-      </p>
-      <p>
-        {{bonuse.multilang[0].conditions}}
-      </p>
-      <p>
-        {{bonuse.startDate | date}}
-      </p>
-      <p>
-        {{bonuse.endDate | date}}
-      </p>
-    </ion-card-content>
-      <ion-buttons *ngIf="principal && (departments?.length > 0 || principal.roles.indexOf('ADMIN') >= 0)">
-        <button ion-button round outline color="danger" (click)="removePromo(bonuse)">Delete</button>
-        <button ion-button round outline (click)="updatePromo(bonuse)">Update</button>
-      </ion-buttons>
-  </ion-card>
-  </span>
+  <bonuse
+    *ngFor="let bonuse of bonuses"
+    [bonuse]="bonuse"
+    [globalHost]="globalHost"
+    [showControlButtons]="(principal && (principal?._id === bonuse.author || principal?.roles.indexOf('ADMIN') >= 0))"
+    (onRemovePromo)="removePromo($event)"
+    (onUpdatePromo)="updatePromo($event)"
+  ></bonuse>
 
   <ion-infinite-scroll (ionInfinite)="loadNextBonusesPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

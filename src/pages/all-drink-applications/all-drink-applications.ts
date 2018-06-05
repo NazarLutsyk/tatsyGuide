@@ -79,14 +79,12 @@ export class AllDrinkApplicationsPage {
     });
   }
 
-  removeDrinkApp(drinkApp: any, event) {
-    event.stopPropagation();
+  removeDrinkApp(drinkApp: any) {
     this.drinkAppsService.remove(drinkApp._id).subscribe();
     this.drinkApps.splice(this.drinkApps.indexOf(drinkApp), 1);
   }
 
-  updateDrinkApp(drinkApp: any, event) {
-    event.stopPropagation();
+  updateDrinkApp(drinkApp: any) {
     this.app.getRootNav().push(UpdateDrinkApplicationPage, {drinkApp: drinkApp});
   }
 

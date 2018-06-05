@@ -22,46 +22,14 @@
   >Create
   </button>
 
-  <span *ngFor="let drinkApp of drinkApps">
-    <ion-card (click)="openDrinkApplication(drinkApp)">
-    <ion-card-content>
-      <p>
-        {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}
-      </p>
-      <p>
-        {{drinkApp.place.multilang[0].name}}
-      </p>
-      <p>
-        {{drinkApp.friends}}
-      </p>
-      <p>
-        {{drinkApp.budged}}
-      </p>
-      <p>
-        {{drinkApp.goal}}
-      </p>
-      <p>
-        {{drinkApp.date | date}}
-      </p>
-    </ion-card-content>
-      <ion-buttons
-        *ngIf="principal && (drinkApp.organizer._id === principal._id || principal.roles.indexOf('ADMIN') >= 0)">
-        <button
-          ion-button
-          round
-          outline
-          color="danger"
-          (click)="removeDrinkApp(drinkApp, $event)"
-        >Delete</button>
-        <button
-          ion-button
-          round
-          outline
-          (click)="updateDrinkApp(drinkApp, $event)"
-        >Update</button>
-      </ion-buttons>
-  </ion-card>
-  </span>
+  <drink-application
+    *ngFor="let drinkApp of drinkApps"
+    [drinkApp]="drinkApp"
+    [showControlButtons]="(principal && (drinkApp.organizer._id === principal._id || principal.roles.indexOf('ADMIN') >= 0))"
+    (onOpenDrinkApplication)="openDrinkApplication($event)"
+    (onRemoveDrinkApplication)="removeDrinkApp($event)"
+    (onUpdateDrinkApplication)="updateDrinkApp($event)"
+  ></drink-application>
 
   <ion-infinite-scroll (ionInfinite)="loadNextApplicationsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
