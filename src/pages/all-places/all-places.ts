@@ -145,6 +145,7 @@ export class AllPlacesPage {
   onSearchPlaces(event) {
     setTimeout(() => {
       this.searchPlaces(event.target.value);
+
     }, 500);
   }
 

@@ -18,7 +18,7 @@ import {fromPromise} from "rxjs/observable/fromPromise";
 import {Storage} from "@ionic/storage";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
-import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
+import {FileTransfer, FileTransferObject} from "@ionic-native/file-transfer";
 
 declare var window: any;
 declare var position: any;
@@ -43,6 +43,19 @@ export class PlacesProvider {
     private fileTransfer: FileTransfer
   ) {
   }
+
+
+  findOneWithMultilang(id, langID): Observable<Place> {
+
+    let lang = this.globalConfig.langChooser(langID);
+
+    let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?populate=[{"path":"multilang","match":{"lang" : ${lang} }]`;
+    return this.http.get<Place>(url);
+  }
+
+
+  // http://localhost:3000/api/places/5b0ffb938fe64a1d983e9363?populate=[{"path":"multilang" , "match": {"lang":"5b0ffb928fe64a1d983e9359"}}]
+
 
   findOne(id: any, request) {
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;

@@ -29,6 +29,7 @@ export class AddAvatarAndPhotosPage {
       this.navParams.data.id,
       {avatar: this.avatar, images: this.images}
     );
+
   }
 
   async getAvatar() {
