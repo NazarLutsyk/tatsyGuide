@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {AllPlacesPage} from "../all-places/all-places";
 import {TopPlacesPage} from "../top-places/top-places";
 import {AllNewsPage} from "../all-news/all-news";

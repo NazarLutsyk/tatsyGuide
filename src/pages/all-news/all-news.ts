@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {News} from "../../models/promo/news/News";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {UpdateNewsPage} from "../update-news/update-news";
 import {AuthProvider} from "../../providers/auth/auth";
+import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 
 @IonicPage()
 @Component({
@@ -28,7 +29,8 @@ export class AllNewsPage {
     private gc: GlobalConfigsService,
     private newsService: NewsProvider,
     private app: App,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    public modal: ModalController,
   ) {
   }
 
@@ -84,7 +86,11 @@ export class AllNewsPage {
 
 
   updatePromo(promo: any) {
-    this.app.getRootNav().push(UpdateNewsPage, {promo: promo});
+    let modalItem = this.modal.create(ModalChooseLangPage, {
+      object: promo,
+      page: UpdateNewsPage
+    });
+    modalItem.present();
   }
 
   loadNextNewsPage(event: InfiniteScroll) {

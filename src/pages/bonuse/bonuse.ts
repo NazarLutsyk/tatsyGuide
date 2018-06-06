@@ -1,13 +1,14 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {CreateBonusePage} from "../create-bonuse/create-bonuse";
-import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
 import {AuthProvider} from "../../providers/auth/auth";
 import {DepartmentProvider} from "../../providers/department/department-provider";
+import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
+import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
 
 @IonicPage()
 @Component({
@@ -35,7 +36,8 @@ export class BonusePage {
     private gc: GlobalConfigsService,
     private bonuseService: BonuseProvider,
     private auth: AuthProvider,
-    private departmentService: DepartmentProvider
+    private departmentService: DepartmentProvider,
+    public modal: ModalController,
   ) {
   }
 
@@ -107,7 +109,11 @@ export class BonusePage {
   }
 
   updatePromo(promo: any) {
-    this.app.getRootNav().push(UpdateBonusePage, {promo: promo});
+    let modalItem = this.modal.create(ModalChooseLangPage, {
+      object: promo,
+      page: UpdateBonusePage
+    });
+    modalItem.present();
   }
 
   loadNextBonusesPage(event: InfiniteScroll) {

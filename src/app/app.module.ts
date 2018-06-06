@@ -85,6 +85,7 @@ import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-upda
 import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
 import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose-lang.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    FormsModule,
     BrowserAnimationsModule,
     HomePageModule,
     PlaceDetailsModule,

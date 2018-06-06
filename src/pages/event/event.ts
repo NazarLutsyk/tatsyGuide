@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {EventProvider} from "../../providers/event/EventProvider";
@@ -7,6 +7,7 @@ import {CreateEventPage} from "../create-event/create-event";
 import {UpdateEventPage} from "../update-event/update-event";
 import {AuthProvider} from "../../providers/auth/auth";
 import {DepartmentProvider} from "../../providers/department/department-provider";
+import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 
 
 @IonicPage()
@@ -34,7 +35,8 @@ export class EventPage {
     private eventService: EventProvider,
     private app: App,
     private auth: AuthProvider,
-    private departmentService: DepartmentProvider
+    private departmentService: DepartmentProvider,
+    public modal: ModalController,
   ) {
   }
 
@@ -109,7 +111,11 @@ export class EventPage {
   }
 
   updatePromo(promo: any) {
-    this.app.getRootNav().push(UpdateEventPage, {promo: promo});
+    let modalItem = this.modal.create(ModalChooseLangPage, {
+      object: promo,
+      page: UpdateEventPage
+    });
+    modalItem.present();
   }
 
   loadNextEventsPage(event: InfiniteScroll) {

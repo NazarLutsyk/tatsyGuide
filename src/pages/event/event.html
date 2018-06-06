@@ -20,7 +20,7 @@
     *ngFor="let promo of events"
     [event]="promo"
     [globalHost]="globalHost"
-    [showControlButtons]="(principal && principal?._id === promo.author || principal?.roles.indexOf('ADMIN') >= 0)"
+    [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
     (onRemovePromo)="removePromo($event)"
     (onUpdatePromo)="updatePromo($event)"
   ></event>

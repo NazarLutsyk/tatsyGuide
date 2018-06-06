@@ -15,8 +15,8 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class UpdateBonusePage {
 
-  bonuse: Bonuse;
-  bonuseMultilang: BonuseMultilang;
+  bonuse: Bonuse = new Bonuse();
+  bonuseMultilang: BonuseMultilang = new BonuseMultilang();
   bonuseMultilangId: string;
   bonuseId: string;
   isAdmin = false;
@@ -31,15 +31,19 @@ export class UpdateBonusePage {
   }
 
   ngOnInit() {
-    this.bonuse = this.navParams.data.promo;
-    this.bonuseMultilang = this.navParams.data.promo.multilang[0];
-    this.bonuseMultilangId = (<any>this.bonuseMultilang)._id;
-    this.bonuseId = (<any>this.bonuse)._id;
-
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
       }
+      this.bonuseService.find({
+        query: {_id: this.navParams.data.object._id},
+        populate: [{path: 'multilang', match: {lang: this.navParams.data.choosenLang}}]
+      }).subscribe(([bonuse]) => {
+        this.bonuse = bonuse;
+        this.bonuseId = bonuse._id;
+        this.bonuseMultilang = bonuse.multilang[0];
+        this.bonuseMultilangId = bonuse.multilang[0]._id;
+      })
     })
 
   }
@@ -48,9 +52,22 @@ export class UpdateBonusePage {
     //todo upload update
     this.bonuseMultilang = updateForm.form.value.multilang;
     this.bonuse = updateForm.form.value.promo;
+
+    let promoUpdateQuery = this.bonuseService.update(this.bonuseId, this.bonuse);
+    let promoMultilangQuery;
+    if (this.bonuseMultilangId) {
+      promoMultilangQuery =
+        this.bonuseMultilangServive.update(this.bonuseMultilangId, this.bonuseMultilang);
+    } else {
+      this.bonuseMultilang.promo = <any>this.bonuseId;
+      this.bonuseMultilang.lang = this.navParams.data.choosenLang;
+      promoMultilangQuery =
+        this.bonuseMultilangServive.create(this.bonuseMultilang);
+    }
+
     zip(
-      this.bonuseMultilangServive.update(this.bonuseMultilangId, this.bonuseMultilang),
-      this.bonuseService.update(this.bonuseId, this.bonuse)
+      promoMultilangQuery,
+      promoUpdateQuery
     ).subscribe(([multilang, bonuse]) => this.navCtrl.pop());
   }
 

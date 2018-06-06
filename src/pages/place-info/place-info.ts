@@ -131,11 +131,11 @@ export class PlaceInfoPage {
     //!!!!!!!!!!! todo change to modal
     // this.app.getRootNav().push(UpdatePlacePage, {place: place});
 
-    let modalItem = this.modal.create(ModalChooseLangPage, {place: place});
+    let modalItem = this.modal.create(ModalChooseLangPage, {
+      object: place,
+      page: UpdatePlacePage
+    });
     modalItem.present();
-
-
-
   }
 
   findPlacesByHashTag(hashTag: string) {

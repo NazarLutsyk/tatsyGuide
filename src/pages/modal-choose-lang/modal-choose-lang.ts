@@ -1,13 +1,6 @@
 import {Component} from '@angular/core';
 import {App, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
-import {UpdatePlacePage} from "../update-place/update-place";
-
-/**
- * Generated class for the ModalChooseLangPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {LangProvider} from "../../providers/lang/lang";
 
 @IonicPage()
 @Component({
@@ -16,26 +9,25 @@ import {UpdatePlacePage} from "../update-place/update-place";
 })
 export class ModalChooseLangPage {
 
+  langs = [];
   lang: string;
 
   constructor(
     public viewController: ViewController,
     public app: App,
-    public navCtrl: NavController, public navParams: NavParams) {
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private langService: LangProvider
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalChooseLangPage');
+  ngOnInit() {
+    this.langService.find({}).subscribe(langs => this.langs = langs);
   }
-
 
   goToUpdate() {
-    console.log(this.lang);
-    let place = this.navParams.data;
-    place.choosenLang = this.lang;
-
+    let data = this.navParams.data;
     this.viewController.dismiss();
-    this.app.getRootNav().push(UpdatePlacePage, place);
-
+    this.app.getRootNav().push(data.page, {object: data.object, choosenLang: this.lang});
   }
 }

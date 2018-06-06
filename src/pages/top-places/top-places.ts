@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {InfiniteScroll, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
@@ -26,7 +26,8 @@ export class TopPlacesPage {
     public navParams: NavParams,
     private topPlaceService: TopPlaceProvider,
     private placeService: PlacesProvider,
-    private globalVars: GlobalConfigsService
+    private globalVars: GlobalConfigsService,
+    private app: App
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
@@ -85,7 +86,7 @@ export class TopPlacesPage {
         }
       )
       .subscribe((foundedPlace) => {
-        this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
+        this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
       });
   }
 

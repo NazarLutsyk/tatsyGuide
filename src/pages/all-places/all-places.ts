@@ -86,6 +86,8 @@ export class AllPlacesPage {
   prepareQueryies(eventData) {
     this.placeMultilangQuery.sort = {};
     this.placeQuery.sort = {};
+    this.placeMultilangQuery.query = {};
+    this.placeQuery.query = {};
 
     if (eventData.sort === 'rating' || eventData.sort === 'averagePrice') {
       this.placeQuery.sort[eventData.sort] = eventData.direction ? 1 : -1

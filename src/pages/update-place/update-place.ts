@@ -50,19 +50,18 @@ export class UpdatePlacePage {
   }
 
   ngOnInit() {
-    console.log('oninit');
+    console.log(this.navParams);
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
       }
     });
-
-    let currentPlace = this.placeService.findOne(this.navParams.data.place.id, {
+    let currentPlace = this.placeService.findOne(this.navParams.data.object.id, {
       populate:
         [
           {
             path: "multilang",
-            match: {lang: `${this.globalConfig.langChooser(this.navParams.data.choosenLang)}`}
+            match: {lang: this.navParams.data.choosenLang}
           }
         ]
     });
@@ -73,9 +72,8 @@ export class UpdatePlacePage {
     });
 
     zip(currentPlace, currentPlaceTypeMultilang).subscribe(values => {
-      let value = values[0];
-      this.place = value;
-      this.placeMultilang = value.multilang[0];
+      this.place = values[0];
+      this.placeMultilang = this.place.multilang[0] ? this.place.multilang[0] : new PlaceMultilang();
       this.placeMultilangId = (<any>this.placeMultilang)._id;
       this.placeId = (<any>this.place)._id;
 
@@ -107,9 +105,20 @@ export class UpdatePlacePage {
     };
     this.place.location = this.location;
 
+    let placeUpdateQuery = this.placeService.update(this.placeId, this.place);
+    let placeMultilangUpdateQuery;
+    if (this.placeMultilangId) {
+      placeMultilangUpdateQuery =
+        this.placeMultilangService.update(this.placeMultilangId, this.placeMultilang);
+    } else {
+      this.placeMultilang.place = <any>this.placeId;
+      this.placeMultilang.lang = this.navParams.data.choosenLang;
+      placeMultilangUpdateQuery =
+        this.placeMultilangService.create(this.placeMultilang);
+    }
     zip(
-      this.placeMultilangService.update(this.placeMultilangId, this.placeMultilang),
-      this.placeService.update(this.placeId, this.place)
+      placeMultilangUpdateQuery,
+      placeUpdateQuery
     ).subscribe(([multilang, place]) => this.navCtrl.pop());
   }
 

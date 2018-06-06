@@ -6,60 +6,45 @@
   </ion-header>
   <ion-content>
     <ion-list>
-
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToTopPlacesManagePage()"> Top Places manage</span>
       </ion-item>
-
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToPlacesStatisticPage()"> Places statistic</span>
       </ion-item>
-
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToPlacesPurgatoryPage()"> Purgatory of places</span>
       </ion-item>
-
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToClientsPage()"> Clients</span>
       </ion-item>
-
       <ion-item>
         <span (click)="goToEventsPage()"> Events</span>
       </ion-item>
-
       <ion-item>
         <span (click)="goToBonusesPage()"> Bonuses</span>
       </ion-item>
-
-
       <ion-item *ngIf="principal">
         <span (click)="goToMyProfilePage()"> My Profile</span>
       </ion-item>
-
       <ion-item *ngIf="principal">
         <span (click)="goToMyPlacesPage()"> My Places</span>
       </ion-item>
-
       <ion-item *ngIf="principal">
         <span (click)="goToMyFavoritePlacesPage()"> Favorite Places</span>
       </ion-item>
-
       <ion-item *ngIf="principal">
         <span (click)="goToMyRatingsPage()"> My Estimates</span>
       </ion-item>
-
       <ion-item *ngIf="principal">
         <span (click)="goToCreatePlacePage()">Create place</span>
       </ion-item>
-
       <ion-item *ngIf="principal" (click)="logout()">
         <span>logout</span>
       </ion-item>
-
       <ion-item *ngIf="!principal">
         <span (click)="goToLoginRegistration()"> login/registration</span>
       </ion-item>
-
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -75,10 +60,12 @@
   </ion-header>
 
   <ion-content>
-
-    <!--<form (ngSubmit)="search($event)" [formGroup]="formValuesObject">-->
+    <form #filterForm="ngForm"></form>
     <ion-list radio-group [(ngModel)]="searchObject.sort">
-
+      <ion-item>
+        <ion-label>Without sort</ion-label>
+        <ion-radio value=""></ion-radio>
+      </ion-item>
       <ion-item>
         <ion-label>Рейтинг</ion-label>
         <ion-radio value="rating"></ion-radio>
@@ -113,7 +100,11 @@
     <ion-item>
       <ion-label>Тип закладу</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
-        <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">{{placeTypeM.name}}
+        <ion-option value="">
+          Select place type
+        </ion-option>
+        <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">
+          {{placeTypeM.name}}
         </ion-option>
       </ion-select>
     </ion-item>
@@ -124,9 +115,10 @@
                     [(ngModel)]="searchObject.filterFeature[feature]"></ion-checkbox>
     </ion-item>
 
-
-    <button ion-button type="submit" block (click)="show(searchObject)">Знайти</button>
-
+    <ion-buttons>
+      <button ion-button type="submit" block (click)="show(searchObject)">Search</button>
+      <button ion-button type="button" color="danger" block (click)="reset(filterForm)">Reset</button>
+    </ion-buttons>
   </ion-content>
 
 </ion-menu>

@@ -17,7 +17,7 @@
     *ngFor="let singleNews of news"
     [news]="singleNews"
     [globalHost]="globalHost"
-    [showControlButtons]="(principal && singleNews.author === principal?._id || principal?.roles.indexOf('ADMIN') >= 0)"
+    [showControlButtons]="(principal && principal?._id === singleNews.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
     (onRemovePromo)="removePromo($event)"
     (onUpdatePromo)="updatePromo($event)"
   ></news>

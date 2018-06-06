@@ -25,6 +25,7 @@ import {AllEventsPage} from "../pages/all-events/all-events";
 import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
 import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-statistic";
 import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -39,7 +40,12 @@ export class MyApp implements OnInit {
 
   rootPage: any = HomePage;
   placeTypesM = [];
-  searchObject = {range: {lower: 0, upper: 10000}, direction: false, filterFeature: {}};
+  searchObject = {
+    range: {lower: 0, upper: 10000},
+    direction: false,
+    filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
+    placeType: ''
+  };
   principal: Client = null;
 
   constructor(platform: Platform,
@@ -85,6 +91,17 @@ export class MyApp implements OnInit {
 
   show(so) {
     this.events.publish('functionCall:find', so);
+  }
+
+  reset(form: NgForm) {
+    this.searchObject = {
+      range: {lower: 0, upper: 10000},
+      direction: false,
+      filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
+      placeType: ''
+    };
+    form.reset();
+    this.show(this.searchObject);
   }
 
   goToLoginRegistration() {

@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {EventProvider} from "../../providers/event/EventProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {UpdateEventPage} from "../update-event/update-event";
 import {AuthProvider} from "../../providers/auth/auth";
+import {UpdatePlacePage} from "../update-place/update-place";
+import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
+import {UpdateEventPage} from "../update-event/update-event";
 
 @IonicPage()
 @Component({
@@ -28,11 +30,12 @@ export class AllEventsPage {
     private gc: GlobalConfigsService,
     private eventService: EventProvider,
     private app: App,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    public modal: ModalController,
   ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.globalHost = this.gc.getGlobalHost();
@@ -85,7 +88,11 @@ export class AllEventsPage {
   }
 
   updatePromo(promo: any) {
-    this.app.getRootNav().push(UpdateEventPage, {promo: promo});
+    let modalItem = this.modal.create(ModalChooseLangPage, {
+      object: promo,
+      page: UpdateEventPage
+    });
+    modalItem.present();
   }
 
   loadNextEventsPage(event: InfiniteScroll) {

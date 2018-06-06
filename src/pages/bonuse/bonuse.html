@@ -21,7 +21,7 @@
     *ngFor="let bonuse of bonuses"
     [bonuse]="bonuse"
     [globalHost]="globalHost"
-    [showControlButtons]="(principal && (principal?._id === bonuse.author || principal?.roles.indexOf('ADMIN') >= 0))"
+    [showControlButtons]="(principal && principal?._id === bonuse.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
     (onRemovePromo)="removePromo($event)"
     (onUpdatePromo)="updatePromo($event)"
   ></bonuse>
