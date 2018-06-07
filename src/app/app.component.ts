@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Events, MenuController, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -53,7 +53,7 @@ export class MyApp implements OnInit {
               private menuController: MenuController,
               private globalConfig: GlobalConfigsService,
               private http: HttpClient,
-              private _ngZone: NgZone,
+              // private _ngZone: NgZone,
               private auth: AuthProvider
   ) {
     platform

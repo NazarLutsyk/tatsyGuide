@@ -11,7 +11,7 @@ import {PlaceInfoPage} from "../place-info/place-info";
 import {TestimonialPage} from "../testimonial/testimonial";
 import {Storage} from "@ionic/storage";
 import {AuthProvider} from "../../providers/auth/auth";
-import {Client} from "../../models/client/Client";
+// import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PlaceStatisticPage} from "../place-statistic/place-statistic";

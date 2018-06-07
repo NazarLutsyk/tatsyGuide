@@ -1,4 +1,3 @@
-import {Component} from '@angular/core';
 import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams, Platform, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";

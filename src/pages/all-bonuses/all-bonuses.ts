@@ -5,8 +5,6 @@ import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
 import {AuthProvider} from "../../providers/auth/auth";
-import {Observable} from "rxjs/Observable";
-import {Client} from "../../models/client/Client";
 
 @IonicPage()
 @Component({

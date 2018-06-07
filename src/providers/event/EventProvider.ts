@@ -3,8 +3,8 @@ import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Event} from "../../models/promo/event/Event";
 import {Observable} from "rxjs/Observable";
-import {Place} from "../../models/place/Place";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
+// import {Place} from "../../models/place/Place";
+// import {el} from "@angular/platform-browser/testing/src/browser_util";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 import {fromPromise} from "rxjs/observable/fromPromise";
 

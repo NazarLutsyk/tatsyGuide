@@ -8,7 +8,7 @@ import {UpdateDrinkApplicationPage} from "../update-drink-application/update-dri
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
 import {AuthProvider} from "../../providers/auth/auth";
-import {Client} from "../../models/client/Client";
+// import {Client} from "../../models/client/Client";
 
 @IonicPage()
 @Component({

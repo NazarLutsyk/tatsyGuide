@@ -4,11 +4,11 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {NewsMultilangProvider} from "../../providers/news-multilang/news-multilang";
-import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
-import {File} from '@ionic-native/file';
+// import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
+// import {File} from '@ionic-native/file';
 import {AuthProvider} from "../../providers/auth/auth";
-import {News} from "../../models/promo/news/News";
-import {NewsMultilang} from "../../models/multilang/NewsMultilang";
+// import {News} from "../../models/promo/news/News";
+// import {NewsMultilang} from "../../models/multilang/NewsMultilang";
 import {NgForm} from "@angular/forms";
 
 

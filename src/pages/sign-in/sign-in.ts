@@ -5,6 +5,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {HomePage} from "../home/home";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Facebook} from "@ionic-native/facebook";
+// import {GooglePlus} from '@ionic-native/google-plus';
 
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ export class SignInPage {
   message: string;
 
   constructor(
+    // private googlePlus: GooglePlus,
     private fb: Facebook,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,9 +44,6 @@ export class SignInPage {
   }
 
 
-
-
-
   signInMe() {
     var obj = {login: this.login, password: this.password};
     this.auth.logIn(obj).subscribe(() => {
@@ -60,11 +59,10 @@ export class SignInPage {
   users: any;
 
 
-
   loginF() {
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then(res => {
-        if(res.status === "connected") {
+        if (res.status === "connected") {
           this.isLoggedIn = true;
           this.getUserDetail(res.authResponse.userID);
         } else {
@@ -76,12 +74,12 @@ export class SignInPage {
 
   logout() {
     this.fb.logout()
-      .then( res => this.isLoggedIn = false)
+      .then(res => this.isLoggedIn = false)
       .catch(e => console.log('Error logout from Facebook', e));
   }
 
   getUserDetail(userid) {
-    this.fb.api("/"+userid+"/?fields=id,email,name,picture,gender",["public_profile"])
+    this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender", ["public_profile"])
       .then(res => {
         console.log(res);
         this.users = res;
@@ -90,6 +88,12 @@ export class SignInPage {
         console.log(e);
       });
   }
+
+  // googleLogin(){
+  //   this.googlePlus.login({})
+  //     .then(res => console.log(res))
+  //     .catch(err => console.error(err));
+  // }
 
 
   /*facebook*/

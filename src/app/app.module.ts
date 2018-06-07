@@ -86,6 +86,11 @@ import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
 import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose-lang.module";
 import { Facebook } from '@ionic-native/facebook';
+// import {AngularFireModule} from "angularfire2";
+// import {AngularFireAuthModule} from "angularfire2/auth";
+// import {GooglePlus} from "@ionic-native/google-plus";
+
+const firebaseConfig = {};
 @NgModule({
   declarations: [
     MyApp,
@@ -142,11 +147,14 @@ import { Facebook } from '@ionic-native/facebook';
     TopPlaceUpdatePageModule,
     AllPlacesPageModule,
     SingleDrinkApplicationPageModule,
-    ModalChooseLangPageModule
+    ModalChooseLangPageModule,
+    // AngularFireModule.initializeApp(firebaseConfig),
+    // AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
   providers: [
+    // GooglePlus,
     Facebook,
     StatusBar,
     SplashScreen,
