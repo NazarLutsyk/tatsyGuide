@@ -85,6 +85,10 @@ import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-upda
 import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
 import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose-lang.module";
+import { Facebook } from '@ionic-native/facebook';
+// import {AngularFireModule} from "angularfire2";
+// import {AngularFireAuthModule} from "angularfire2/auth";
+import {GooglePlus} from "@ionic-native/google-plus";
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
@@ -149,6 +153,8 @@ import {FormsModule} from "@angular/forms";
   bootstrap: [IonicApp],
   entryComponents: [],
   providers: [
+    GooglePlus,
+    Facebook,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

@@ -26,8 +26,7 @@ export class SignUpPage {
     private http: HttpClient,
     private globalVars: GlobalConfigsService,
     private app: App,
-    private auth: AuthProvider,
-    private events: Events
+    private auth: AuthProvider
   ) {
 
   }

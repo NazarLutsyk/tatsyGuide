@@ -28,4 +28,24 @@
   <div *ngIf="message">{{message}}</div>
 
 
+  <hr>
+
+  <button ion-button icon-right (click)="facebookLogout()">
+    Logout
+  </button>
+
+  <!--<ng-template #facebookLogin>-->
+  <button ion-button icon-right (click)="facebookLogin()">
+    Login with
+    <ion-icon name="logo-facebook"></ion-icon>
+  </button>
+  <!--</ng-template>-->
+
+  <hr>
+
+  <!--google login-->
+  <button ion-button (click)="googleLogin()"> google login</button>
+  <button ion-button (click)="googleLogout()"> google logout</button>
+
+
 </ion-content>

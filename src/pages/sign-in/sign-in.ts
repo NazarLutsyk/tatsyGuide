@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {HomePage} from "../home/home";
 import {AuthProvider} from "../../providers/auth/auth";
+import {Facebook} from "@ionic-native/facebook";
+import {GooglePlus} from '@ionic-native/google-plus';
 
 @IonicPage()
 @Component({
@@ -12,11 +14,14 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class SignInPage {
 
+
   login: string = "vasya";
   password: string = "vaysa";
   message: string;
 
   constructor(
+    private googlePlus: GooglePlus,
+    private fb: Facebook,
     public navCtrl: NavController,
     public navParams: NavParams,
     private http: HttpClient,
@@ -25,6 +30,17 @@ export class SignInPage {
     private events: Events,
     private auth: AuthProvider,
   ) {
+
+    fb.getLoginStatus()
+      .then(res => {
+        console.log(res.status);
+        if (res.status === "connect") {
+          this.isFacebookLoggedIn = true;
+        } else {
+          this.isFacebookLoggedIn = false;
+        }
+      })
+      .catch(e => console.log(e));
   }
 
 
@@ -36,5 +52,89 @@ export class SignInPage {
       console.log(error);
     });
   }
+
+
+  /*facebook*/
+  isFacebookLoggedIn: boolean = false;
+  users: any;
+
+
+  facebookLogin() {
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+      .then(res => {
+        if (res.status === "connected") {
+          this.isFacebookLoggedIn = true;
+          this.getUserDetail(res.authResponse.userID);
+        } else {
+          this.isFacebookLoggedIn = false;
+        }
+      })
+      .catch(e => console.log('Error logging into Facebook', e));
+  }
+
+  facebookLogout() {
+    this.fb.logout()
+      .then(res => this.isFacebookLoggedIn = false)
+      .catch(e => console.log('Error facebookLogout from Facebook', e));
+  }
+
+  getUserDetail(userid) {
+    this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender", ["public_profile"])
+      .then(res => {
+        console.log(res);
+        this.users = res;
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  /*facebook*/
+
+
+  /*google*/
+
+  displayName: any;
+  email: any;
+  familyName: any;
+  givenName: any;
+  userId: any;
+  imageUrl: any;
+
+  isGoogleLoggedIn: boolean = false;
+
+  googleLogin() {
+    this.googlePlus.login({})
+      .then(res => {
+        console.log(res);
+        this.displayName = res.displayName;
+        this.email = res.email;
+        this.familyName = res.familyName;
+        this.givenName = res.givenName;
+        this.userId = res.userId;
+        this.imageUrl = res.imageUrl;
+
+        this.isGoogleLoggedIn = true;
+
+      })
+      .catch(err => console.error(err));
+  }
+
+
+  googleLogout() {
+    this.googlePlus.logout().then(res => {
+      console.log(res);
+
+      this.displayName = "";
+      this.email = "";
+      this.familyName = "";
+      this.givenName = "";
+      this.userId = "";
+      this.imageUrl = "";
+
+      this.isGoogleLoggedIn = false;
+    });
+  }
+
 
 }

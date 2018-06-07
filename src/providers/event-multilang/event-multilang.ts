@@ -2,9 +2,9 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
-import {Event} from "../../models/promo/event/Event";
+// import {Event} from "../../models/promo/event/Event";
 import {EventMultilang} from "../../models/multilang/EventMultilang";
-import {Complaint} from "../../models/complaint/Complaint";
+// import {Complaint} from "../../models/complaint/Complaint";
 
 @Injectable()
 export class EventMultilangProvider {
