@@ -58,7 +58,6 @@ export class SignInPage {
   isFacebookLoggedIn: boolean = false;
   users: any;
 
-
   facebookLogin() {
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then(res => {
@@ -74,15 +73,33 @@ export class SignInPage {
 
   facebookLogout() {
     this.fb.logout()
-      .then(res => this.isFacebookLoggedIn = false)
+      .then(res => {
+        this.isFacebookLoggedIn = false;
+        this.auth.logOut().subscribe(() => {
+          this.app.getRootNav().setRoot(HomePage);
+        });
+      })
       .catch(e => console.log('Error facebookLogout from Facebook', e));
   }
 
   getUserDetail(userid) {
     this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender", ["public_profile"])
       .then(res => {
-        console.log(res);
         this.users = res;
+        this.auth.loginBySocial({
+          user: {
+            name: {
+              givenName: res.givenName,
+              familyName: res.familyName
+            },
+            email: res.email,
+            avatar: res.imageUrl
+          },
+          socialName: 'facebook',
+          socialProfileId: res.userId
+        }).subscribe((principal) => {
+          this.app.getRootNav().setRoot(HomePage);
+        });
       })
       .catch(e => {
         console.log(e);
@@ -113,9 +130,21 @@ export class SignInPage {
         this.givenName = res.givenName;
         this.userId = res.userId;
         this.imageUrl = res.imageUrl;
-
         this.isGoogleLoggedIn = true;
-
+        this.auth.loginBySocial({
+          user: {
+            name: {
+              givenName: res.givenName,
+              familyName: res.familyName
+            },
+            email: res.email,
+            avatar: res.imageUrl
+          },
+          socialName: 'google',
+          socialProfileId: res.userId
+        }).subscribe((principal) => {
+          this.app.getRootNav().setRoot(HomePage);
+        });
       })
       .catch(err => console.error(err));
   }
@@ -133,6 +162,9 @@ export class SignInPage {
       this.imageUrl = "";
 
       this.isGoogleLoggedIn = false;
+      this.auth.logOut().subscribe(() => {
+        this.app.getRootNav().setRoot(HomePage);
+      });
     });
   }
 

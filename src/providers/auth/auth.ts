@@ -25,6 +25,16 @@ export class AuthProvider {
       });
   }
 
+  loginBySocial(payload: { user: Object, socialName: 'facebook' | 'google', socialProfileId: string }) {
+    console.log(payload);
+    return this.http
+      .post<Client>(`${this.globalVars.getGlobalHost()}/auth/social`, payload)
+      .map((principal) => {
+        this.principal.next(principal);
+        return principal;
+      });
+  }
+
   logOut(): Observable<any> {
     return this.http.get(`${this.globalVars.getGlobalHost()}/auth/logout`);
   }

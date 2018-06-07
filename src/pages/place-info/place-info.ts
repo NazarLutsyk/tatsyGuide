@@ -20,6 +20,7 @@ import {HashTagsPage} from "../hash-tags/hash-tags";
 import {UpdatePlaceDepartmentsPage} from "../update-place-departments/update-place-departments";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
+import {UpdatePlacePage} from "../update-place/update-place";
 // import {UpdatePlacePage} from "../update-place/update-place";
 
 declare var window: any;
