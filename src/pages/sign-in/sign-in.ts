@@ -5,7 +5,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {HomePage} from "../home/home";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Facebook} from "@ionic-native/facebook";
-// import {GooglePlus} from '@ionic-native/google-plus';
+import {GooglePlus} from '@ionic-native/google-plus';
 
 @IonicPage()
 @Component({
@@ -20,7 +20,7 @@ export class SignInPage {
   message: string;
 
   constructor(
-    // private googlePlus: GooglePlus,
+    private googlePlus: GooglePlus,
     private fb: Facebook,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -88,13 +88,13 @@ export class SignInPage {
         console.log(e);
       });
   }
-
-  // googleLogin(){
-  //   this.googlePlus.login({})
-  //     .then(res => console.log(res))
-  //     .catch(err => console.error(err));
-  // }
-
-
   /*facebook*/
+
+  googleLogin(){
+    this.googlePlus.login({})
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
+  }
+
+
 }

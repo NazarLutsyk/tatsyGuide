@@ -88,9 +88,9 @@ import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose
 import { Facebook } from '@ionic-native/facebook';
 // import {AngularFireModule} from "angularfire2";
 // import {AngularFireAuthModule} from "angularfire2/auth";
-// import {GooglePlus} from "@ionic-native/google-plus";
+import {GooglePlus} from "@ionic-native/google-plus";
 
-const firebaseConfig = {};
+// const firebaseConfig = {};
 @NgModule({
   declarations: [
     MyApp,
@@ -154,7 +154,7 @@ const firebaseConfig = {};
   bootstrap: [IonicApp],
   entryComponents: [],
   providers: [
-    // GooglePlus,
+    GooglePlus,
     Facebook,
     StatusBar,
     SplashScreen,
