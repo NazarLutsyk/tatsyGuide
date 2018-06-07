@@ -35,9 +35,9 @@ export class SignInPage {
       .then(res => {
         console.log(res.status);
         if (res.status === "connect") {
-          this.isLoggedIn = true;
+          this.isFacebookLoggedIn = true;
         } else {
-          this.isLoggedIn = false;
+          this.isFacebookLoggedIn = false;
         }
       })
       .catch(e => console.log(e));
@@ -55,27 +55,27 @@ export class SignInPage {
 
 
   /*facebook*/
-  isLoggedIn: boolean = false;
+  isFacebookLoggedIn: boolean = false;
   users: any;
 
 
-  loginF() {
+  facebookLogin() {
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then(res => {
         if (res.status === "connected") {
-          this.isLoggedIn = true;
+          this.isFacebookLoggedIn = true;
           this.getUserDetail(res.authResponse.userID);
         } else {
-          this.isLoggedIn = false;
+          this.isFacebookLoggedIn = false;
         }
       })
       .catch(e => console.log('Error logging into Facebook', e));
   }
 
-  logout() {
+  facebookLogout() {
     this.fb.logout()
-      .then(res => this.isLoggedIn = false)
-      .catch(e => console.log('Error logout from Facebook', e));
+      .then(res => this.isFacebookLoggedIn = false)
+      .catch(e => console.log('Error facebookLogout from Facebook', e));
   }
 
   getUserDetail(userid) {
@@ -88,12 +88,52 @@ export class SignInPage {
         console.log(e);
       });
   }
+
   /*facebook*/
 
-  googleLogin(){
+
+  /*google*/
+
+  displayName: any;
+  email: any;
+  familyName: any;
+  givenName: any;
+  userId: any;
+  imageUrl: any;
+
+  isGoogleLoggedIn: boolean = false;
+
+  googleLogin() {
     this.googlePlus.login({})
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res);
+        this.displayName = res.displayName;
+        this.email = res.email;
+        this.familyName = res.familyName;
+        this.givenName = res.givenName;
+        this.userId = res.userId;
+        this.imageUrl = res.imageUrl;
+
+        this.isGoogleLoggedIn = true;
+
+      })
       .catch(err => console.error(err));
+  }
+
+
+  googleLogout() {
+    this.googlePlus.logout().then(res => {
+      console.log(res);
+
+      this.displayName = "";
+      this.email = "";
+      this.familyName = "";
+      this.givenName = "";
+      this.userId = "";
+      this.imageUrl = "";
+
+      this.isGoogleLoggedIn = false;
+    });
   }
 
 
