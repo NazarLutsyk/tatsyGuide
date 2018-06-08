@@ -7,6 +7,7 @@ import {Observable} from "rxjs/Observable";
 // import {el} from "@angular/platform-browser/testing/src/browser_util";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 import {fromPromise} from "rxjs/observable/fromPromise";
+import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 
 @Injectable()
 export class EventProvider {
@@ -52,6 +53,7 @@ export class EventProvider {
 //     }
 //   }
 
+
   upload(_id: any, image: string): Observable<any> {
     let url = `${this.globalConfig.getGlobalHost()}/api/events/${_id}`;
     if (image) {
@@ -65,9 +67,26 @@ export class EventProvider {
       };
       return fromPromise(transfer.upload(image, url, options));
     } else {
-      return new Observable<Event>((subscriber) => subscriber.complete());
+      return new Observable<Bonuse>((subscriber) => subscriber.complete());
     }
   }
+
+  // upload(_id: any, image: string): Observable<any> {
+  //   let url = `${this.globalConfig.getGlobalHost()}/api/events/${_id}`;
+  //   if (image) {
+  //     const transfer: FileTransferObject = this.fileTransfer.create();
+  //     let options: FileUploadOptions = {
+  //       fileKey: 'image',
+  //       fileName: 'image',
+  //       chunkedMode: false,
+  //       mimeType: "image",
+  //       httpMethod: 'put',
+  //     };
+  //     return fromPromise(transfer.upload(image, url, options));
+  //   } else {
+  //     return new Observable<Event>((subscriber) => subscriber.complete());
+  //   }
+  // }
   remove(_id: any) {
     return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/events/${_id}`);
   }

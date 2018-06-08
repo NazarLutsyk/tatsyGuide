@@ -25,15 +25,27 @@ export class AuthProvider {
       });
   }
 
-  loginBySocial(payload: { user: Object, socialName: 'facebook' | 'google', socialProfileId: string }) {
-    console.log(payload);
+  loginByGoolge(token) {
+    console.log("auth google" , token);
     return this.http
-      .post<Client>(`${this.globalVars.getGlobalHost()}/auth/social`, payload)
+      .post<Client>(`${this.globalVars.getGlobalHost()}/auth/google-native`, {access_token: token})
       .map((principal) => {
         this.principal.next(principal);
         return principal;
       });
   }
+
+
+  loginByFacebook(token) {
+    console.log(token);
+    return this.http
+      .post<Client>(`${this.globalVars.getGlobalHost()}/auth/facebook-native`, {access_token: token})
+      .map((principal) => {
+        this.principal.next(principal);
+        return principal;
+      });
+  }
+
 
   logOut(): Observable<any> {
     return this.http.get(`${this.globalVars.getGlobalHost()}/auth/logout`);
