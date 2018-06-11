@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Events, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {Events, InfiniteScroll, IonicPage, LoadingController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Place} from "../../models/place/Place";
@@ -38,6 +38,8 @@ export class MyFavoritePlacesPage {
     private bonuseService: BonuseProvider,
     private events: Events,
     private auth: AuthProvider,
+    private loadingCtrl: LoadingController
+
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
@@ -80,7 +82,12 @@ export class MyFavoritePlacesPage {
   }
 
   toDetails(place) {
-    this.placesService
+    let spinner = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+      enableBackdropDismiss: true
+    });
+    spinner.present();
+    let placesSubscriber = this.placesService
       .find(
         {
           query: {_id: place._id},
@@ -96,6 +103,9 @@ export class MyFavoritePlacesPage {
       .subscribe((foundedPlace) => {
         this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
       });
+    spinner.onWillDismiss(() => {
+      placesSubscriber.unsubscribe();
+    });
   }
 
 

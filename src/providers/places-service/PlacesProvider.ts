@@ -143,18 +143,26 @@ export class PlacesProvider {
 
   //todo change that shit
   upload(id, files: { avatar?: string, images?: string[] }) {
-    let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}`;
+    let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}/upload`;
+
     const transfer: FileTransferObject = this.fileTransfer.create();
+
+    // upload avatar
     if (files.avatar) {
       fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'})).subscribe();
     }
-    if (files.images && files.images.length > 0) {
-      let toUpload = [];
+
+    // upload images
+    // if (files.images && files.images.length > 0) {
+    //   let toUpload = [];
+      // console.log(files);
       for (const file of files.images) {
-        toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));
+        // toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));
+        fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})).subscribe();
       }
-      zip(...toUpload).subscribe();
-    }
+      // console.log(toUpload);
+      // zip(...toUpload).subscribe();
+    // }
   }
 
   remove(_id: any) {

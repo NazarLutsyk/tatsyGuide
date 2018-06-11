@@ -1,5 +1,14 @@
 import {Component} from '@angular/core';
-import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {
+  App,
+  Events,
+  InfiniteScroll,
+  IonicPage,
+  LoadingController,
+  NavController,
+  NavParams,
+  Refresher
+} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {ClientProvider} from "../../providers/client/ClientProvider";
@@ -49,6 +58,7 @@ export class AllPlacesPage {
     private events: Events,
     private auth: AuthProvider,
     private placeMultilangService: PlaceMultilangProvider,
+    private loadingCtrl: LoadingController
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
@@ -175,6 +185,7 @@ export class AllPlacesPage {
       ]
     });
     awaitPlaces(res);
+
     function awaitPlaces(res) {
       zip(
         fromPromise(self.geolocation.getCurrentPosition()),
@@ -218,7 +229,13 @@ export class AllPlacesPage {
   }
 
   toDetails(place) {
-    this.placesService
+    let spinner = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+      enableBackdropDismiss: true
+    });
+    spinner.present();
+
+    let placesSubscriber = this.placesService
       .findOne(
         place._id,
         {
@@ -230,10 +247,12 @@ export class AllPlacesPage {
             },
           ]
         }
-      )
-      .subscribe((foundedPlace) => {
+      ).subscribe((foundedPlace) => {
         this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
       });
+    spinner.onWillDismiss(() => {
+      placesSubscriber.unsubscribe();
+    });
   }
 
   loadNextPlacesPage(event: InfiniteScroll) {

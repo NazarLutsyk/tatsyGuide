@@ -29,17 +29,17 @@ export class GlobalConfigsService {
     //   });
     // }
     // return this.globalLang;
-    return "5b0ffb928fe64a1d983e9359";
+    return "5b1e7e02749f5b3aa072ccf4";
   }
 
 
   langChooser(lang) {
     lang = lang.toLowerCase();
     if (lang == 'ua') {
-      return "5b0ffb928fe64a1d983e9359";
+      return "5b1e7e02749f5b3aa072ccf4";
     } else if (lang == 'en') {
 
-      return "5b0ffb938fe64a1d983e935a";
+      return "5b1e7e02749f5b3aa072ccf4";
     }
 
   }

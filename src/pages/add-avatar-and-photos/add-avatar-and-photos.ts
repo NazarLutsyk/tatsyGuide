@@ -25,28 +25,51 @@ export class AddAvatarAndPhotosPage {
   }
 
   uploadImage() {
+
     this.placeService.upload(
       this.navParams.data.id,
-      {avatar: this.avatar, images: this.images}
+      {avatar: this.avatar, images: this.imagesToShow}
     );
 
   }
 
-  async getAvatar() {
+  // async getAvatar() {
+  //   const options: CameraOptions = {
+  //     quality: 100,
+  //     destinationType: this.camera.DestinationType.FILE_URI,
+  //     encodingType: this.camera.EncodingType.JPEG,
+  //     mediaType: this.camera.MediaType.PICTURE,
+  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+  //   };
+  //   this.avatar = await this.camera.getPicture(options);
+  // }
+
+
+  getAvatar() {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
     };
-    this.avatar = await this.camera.getPicture(options);
+    this.camera.getPicture(options).then((imageData) => {
+
+
+      this.avatar = imageData;
+      console.log(imageData);
+    })
   }
 
   async getImages() {
     const options: ImagePickerOptions = {
       quality: 100,
-      maximumImagesCount: 6
+      maximumImagesCount: 6,
+      width : 640
     };
     this.imagesToShow = await this.imagePicker.getPictures(options);
   }
