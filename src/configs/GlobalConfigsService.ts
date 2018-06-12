@@ -5,8 +5,8 @@ import {LangProvider} from "../providers/lang/lang";
 @Injectable()
 export class GlobalConfigsService {
   private globalHost;
-  public globalLang;
-  public globalPosition = {latitude: 0, longitude: 0};
+  private globalLang;
+  public langService: LangProvider;
 
   constructor(
     private platform: Platform,
@@ -24,11 +24,11 @@ export class GlobalConfigsService {
 
   getGlobalLang() {
 
-    // if (this.globalLang.includes('ru') || this.globalLang.includes('RU') || this.globalLang.includes('ua') || this.globalLang.includes('UA')) {
-    //   return "5b1e7e02749f5b3aa072ccf4";
-    // } else if (this.globalLang.includes('en') || this.globalLang.includes('EN')) {
-    //   return "5b1e7e02749f5b3aa072ccf4"
-    // }
+    if (this.globalLang.contains('ru') || this.globalLang.contains('RU') || this.globalLang.contains('ua') || this.globalLang.contains('UA')) {
+      return "5b1e7e02749f5b3aa072ccf4";
+    } else if (this.globalLang.contains('en') || this.globalLang.contains('EN')) {
+      return "5b1e7e02749f5b3aa072ccf4"
+    }
     return "5b1e7e02749f5b3aa072ccf4";
 
 
