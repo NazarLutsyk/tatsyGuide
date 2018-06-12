@@ -6,13 +6,14 @@ import {LangProvider} from "../providers/lang/lang";
 export class GlobalConfigsService {
   private globalHost;
   private globalLang;
+  public globalPosition = {latitude: 0, longitude: 0};
   public langService: LangProvider;
 
   constructor(
     private platform: Platform,
   ) {
     if (platform.is("android")) {
-      this.globalHost = 'http://192.168.1.25:3000';
+      this.globalHost = 'http://192.168.1.11:3000';
     } else {
       this.globalHost = 'http://localhost:3000';
     }
@@ -29,17 +30,16 @@ export class GlobalConfigsService {
     //   });
     // }
     // return this.globalLang;
-    return "5b0ffb928fe64a1d983e9359";
+    return "5b11542ecbfbd41238641da2";
   }
 
 
   langChooser(lang) {
     lang = lang.toLowerCase();
     if (lang == 'ua') {
-      return "5b0ffb928fe64a1d983e9359";
+      return "5b11542ecbfbd41238641da2";
     } else if (lang == 'en') {
-
-      return "5b0ffb938fe64a1d983e935a";
+      return "5b11542fcbfbd41238641da3";
     }
 
   }
