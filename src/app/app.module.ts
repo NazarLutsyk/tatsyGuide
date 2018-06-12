@@ -86,10 +86,11 @@ import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
 import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose-lang.module";
 import { Facebook } from '@ionic-native/facebook';
-// import {AngularFireModule} from "angularfire2";
-// import {AngularFireAuthModule} from "angularfire2/auth";
 import {GooglePlus} from "@ionic-native/google-plus";
 import {FormsModule} from "@angular/forms";
+import { ImageProvider } from '../providers/image/image';
+import {Globalization} from "@ionic-native/globalization";
+
 
 @NgModule({
   declarations: [
@@ -148,7 +149,7 @@ import {FormsModule} from "@angular/forms";
     TopPlaceUpdatePageModule,
     AllPlacesPageModule,
     SingleDrinkApplicationPageModule,
-    ModalChooseLangPageModule
+    ModalChooseLangPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -193,7 +194,10 @@ import {FormsModule} from "@angular/forms";
     ImagePicker,
     Base64,
     MailProvider,
-    ReviewProvider
+    ReviewProvider,
+    ImageProvider,
+    Globalization
+
   ]
 })
 export class AppModule {

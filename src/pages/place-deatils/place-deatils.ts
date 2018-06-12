@@ -2,20 +2,19 @@ import {Component} from '@angular/core';
 import {MenuController, NavController, NavParams, Platform} from 'ionic-angular';
 
 import {GoogleMap} from '@ionic-native/google-maps';
-import {MapPage} from "../map/map";
 import {Place} from "../../models/place/Place";
-import {EventPage} from "../event/event";
-import {NewsPage} from "../news/news";
-import {BonusePage} from "../bonuse/bonuse";
 import {PlaceInfoPage} from "../place-info/place-info";
-import {TestimonialPage} from "../testimonial/testimonial";
-import {Storage} from "@ionic/storage";
 import {AuthProvider} from "../../providers/auth/auth";
 // import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
+import {DepartmentProvider} from "../../providers/department/department-provider";
+import {BonusePage} from "../bonuse/bonuse";
+import {NewsPage} from "../news/news";
+import {EventPage} from "../event/event";
+import {MapPage} from "../map/map";
+import {TestimonialPage} from "../testimonial/testimonial";
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PlaceStatisticPage} from "../place-statistic/place-statistic";
-import {DepartmentProvider} from "../../providers/department/department-provider";
 
 
 @Component({
@@ -44,7 +43,7 @@ export class PlaceDeatilsPage {
               public navParams: NavParams,
               platform: Platform,
               private menuController: MenuController,
-              private storage: Storage,
+              // private storage: Storage,
               private auth: AuthProvider,
               private clientService: ClientProvider,
               private departmentService: DepartmentProvider
@@ -52,12 +51,16 @@ export class PlaceDeatilsPage {
   }
 
   ngOnInit() {
+    console.log("place details page ngOnInit ");
+
     this.place = this.navParams.data;
     let menus = this.menuController.getMenus();
     for (const menu of menus) {
       menu.swipeEnable(false);
     }
     this.auth.loadPrincipal().subscribe((principal) => {
+      console.log("place details page ngOnInit loadPrincipal subscribe start");
+
       if (principal) {
         this.principal = principal;
 
@@ -66,6 +69,7 @@ export class PlaceDeatilsPage {
         }).subscribe((departments) => {
           this.departments = departments;
         });
+        console.log("place details page ngOnInit loadPrincipal subscribe middle");
 
         let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
         if (favouriteIndex >= 0) {
@@ -76,6 +80,7 @@ export class PlaceDeatilsPage {
       } else {
         this.isFavorite = false
       }
+      console.log("place details page ngOnInit loadPrincipal subscribe end");
     });
   }
 

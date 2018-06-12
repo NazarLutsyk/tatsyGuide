@@ -13,5 +13,6 @@ import {ComponentsModule} from "../../components/components.module";
     MatExpansionModule,
     ComponentsModule
   ],
+
 })
 export class BonusePageModule {}

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
@@ -27,7 +27,8 @@ export class TopPlacesPage {
     private topPlaceService: TopPlaceProvider,
     private placeService: PlacesProvider,
     private globalVars: GlobalConfigsService,
-    private app: App
+    private app: App,
+    private loadingCtrl: LoadingController
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
@@ -72,7 +73,12 @@ export class TopPlacesPage {
   }
 
   toDetails(place) {
-    this.placeService
+    let spinner = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+      enableBackdropDismiss: true
+    });
+    spinner.present();
+    let placesSubscriber = this.placeService
       .findOne(
         place._id,
         {
@@ -88,6 +94,9 @@ export class TopPlacesPage {
       .subscribe((foundedPlace) => {
         this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
       });
+    spinner.onWillDismiss(() => {
+      placesSubscriber.unsubscribe();
+    });
   }
 
 

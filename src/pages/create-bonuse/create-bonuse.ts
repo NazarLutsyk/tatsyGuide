@@ -58,9 +58,16 @@ export class CreateBonusePage {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
     };
     this.camera.getPicture(options).then((imageData) => {
+
+
       this.imageToUpload = imageData;
+      console.log(imageData);
     })
   }
 }

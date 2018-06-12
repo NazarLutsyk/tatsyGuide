@@ -44,11 +44,18 @@ export class PlacesProvider {
   ) {
   }
 
+
   findOneWithMultilang(id, langID): Observable<Place> {
+
     let lang = this.globalConfig.langChooser(langID);
+
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?populate=[{"path":"multilang","match":{"lang" : ${lang} }]`;
     return this.http.get<Place>(url);
   }
+
+
+  // http://localhost:3000/api/places/5b0ffb938fe64a1d983e9363?populate=[{"path":"multilang" , "match": {"lang":"5b0ffb928fe64a1d983e9359"}}]
+
 
   findOne(id: any, request) {
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;
@@ -106,41 +113,50 @@ export class PlacesProvider {
   }
 
 
-  async findDistanceToPlace(place: Place): Promise<number> {
-    let position = await this.promisefyMyPosition();
-    let myPosition = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    };
+  // async findDistanceToPlace(place: Place): Promise<number> {
+  //   let position = await this.promisefyMyPosition();
+  //   let myPosition = {
+  //     lat: position.coords.latitude,
+  //     lng: position.coords.longitude,
+  //   };
+  //
+  //   function findDistance() {
+  //
+  //     let lat1 = myPosition.lat;
+  //     let lon1 = myPosition.lng;
+  //     let lat2 = place.location.lat;
+  //     let lon2 = place.location.lng;
+  //     let p = 0.017453292519943295;
+  //     let a = 0.5 - Math.cos((lat2 - lat1) * p) / 2 + Math.cos(lat1 * p) * Math.cos(lat2 * p) * (1 - Math.cos((lon2 - lon1) * p)) / 2;
+  //     return 12742 * Math.asin(Math.sqrt(a));
+  //
+  //   }
+  //
+  //   return findDistance();
+  // }
 
-    function findDistance() {
-
-      let lat1 = myPosition.lat;
-      let lon1 = myPosition.lng;
-      let lat2 = place.location.lat;
-      let lon2 = place.location.lng;
-      let p = 0.017453292519943295;
-      let a = 0.5 - Math.cos((lat2 - lat1) * p) / 2 + Math.cos(lat1 * p) * Math.cos(lat2 * p) * (1 - Math.cos((lon2 - lon1) * p)) / 2;
-      return 12742 * Math.asin(Math.sqrt(a));
-
-    }
-
-    return findDistance();
-  }
-
+  //todo change that shit
   upload(id, files: { avatar?: string, images?: string[] }) {
-    let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}`;
+    let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}/upload`;
+
     const transfer: FileTransferObject = this.fileTransfer.create();
+
+    // upload avatar
     if (files.avatar) {
       fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'})).subscribe();
     }
-    if (files.images && files.images.length > 0) {
-      let toUpload = [];
-      for (const file of files.images) {
-        toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));
-      }
-      zip(...toUpload).subscribe();
+
+    // upload images
+    // if (files.images && files.images.length > 0) {
+    //   let toUpload = [];
+    // console.log(files);
+    for (const file of files.images) {
+      // toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));
+      fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})).subscribe();
     }
+    // console.log(toUpload);
+    // zip(...toUpload).subscribe();
+    // }
   }
 
   remove(_id: any) {

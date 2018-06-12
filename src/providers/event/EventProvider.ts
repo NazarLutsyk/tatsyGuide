@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Event} from "../../models/promo/event/Event";
@@ -37,22 +37,6 @@ export class EventProvider {
     return this.http.put<Event>(`${this.globalConfig.getGlobalHost()}/api/events/${id}`, event);
   }
 
-//todo test that shit
-//   upload(_id: any, image: string): Observable<Event> {
-//     let url = `${this.globalConfig.getGlobalHost()}/api/events/${_id}`;
-//     console.log(image);
-//     if (image) {
-//       let data = new FormData();
-//       data.append('image', image);
-//       const headers = new HttpHeaders();
-//       headers.append('Content-Type', 'multipart/form-data');
-//       headers.append('Accept', 'application/json');
-//       return this.http.put<Event>(url, data, {headers: headers});
-//     } else {
-//       return new Observable<Event>((subscriber) => subscriber.complete());
-//     }
-//   }
-
 
   upload(_id: any, image: string): Observable<any> {
     let url = `${this.globalConfig.getGlobalHost()}/api/events/${_id}`;
@@ -71,22 +55,6 @@ export class EventProvider {
     }
   }
 
-  // upload(_id: any, image: string): Observable<any> {
-  //   let url = `${this.globalConfig.getGlobalHost()}/api/events/${_id}`;
-  //   if (image) {
-  //     const transfer: FileTransferObject = this.fileTransfer.create();
-  //     let options: FileUploadOptions = {
-  //       fileKey: 'image',
-  //       fileName: 'image',
-  //       chunkedMode: false,
-  //       mimeType: "image",
-  //       httpMethod: 'put',
-  //     };
-  //     return fromPromise(transfer.upload(image, url, options));
-  //   } else {
-  //     return new Observable<Event>((subscriber) => subscriber.complete());
-  //   }
-  // }
   remove(_id: any) {
     return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/events/${_id}`);
   }

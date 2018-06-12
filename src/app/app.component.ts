@@ -26,6 +26,7 @@ import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
 import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-statistic";
 import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 import {NgForm} from "@angular/forms";
+import {Globalization} from '@ionic-native/globalization';
 import {Geolocation} from "@ionic-native/geolocation";
 
 
@@ -61,12 +62,23 @@ export class MyApp implements OnInit {
               private globalConfig: GlobalConfigsService,
               private http: HttpClient,
               // private _ngZone: NgZone,
-              private auth: AuthProvider,
               private geolocation: Geolocation,
+              private auth: AuthProvider,
+              private globalization: Globalization
   ) {
+
     platform
       .ready().then(
       () => {
+
+        this.globalization.getPreferredLanguage().then(res => {
+          this.globalConfig.globalLang = res.value;
+          this.rootPage = HomePage;
+
+        });
+
+        statusBar.styleDefault();
+        splashScreen.hide();
         this.geolocation.getCurrentPosition().then((position) => {
           this.globalConfig.globalPosition.latitude = position.coords.latitude;
           this.globalConfig.globalPosition.longitude = position.coords.longitude;
@@ -75,7 +87,7 @@ export class MyApp implements OnInit {
         });
       }
     );
-    this.globalConfig.langService = this.langService;
+
   }
 
   ngOnInit() {
