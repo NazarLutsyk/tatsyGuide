@@ -5,8 +5,8 @@ import {LangProvider} from "../providers/lang/lang";
 @Injectable()
 export class GlobalConfigsService {
   private globalHost;
-  private globalLang;
-  public langService: LangProvider;
+  public globalLang;
+  public globalPosition = {latitude: 0, longitude: 0};
 
   constructor(
     private platform: Platform,
