@@ -228,16 +228,17 @@ export class AllPlacesPage {
     }, 500);
   }
 
-  toDetails(place) {
+  toDetails(id) {
+    console.log("all places toDetails() start , before spiner");
     let spinner = this.loadingCtrl.create({
       dismissOnPageChange: true,
       enableBackdropDismiss: true
     });
     spinner.present();
-
+    console.log("all places toDetails() start , after spiner");
     let placesSubscriber = this.placesService
       .findOne(
-        place._id,
+        id,
         {
           populate: [
             {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
@@ -248,6 +249,7 @@ export class AllPlacesPage {
           ]
         }
       ).subscribe((foundedPlace) => {
+        console.log("all places toDetails() subscribe");
         this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
       });
     spinner.onWillDismiss(() => {

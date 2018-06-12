@@ -26,6 +26,7 @@ import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
 import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-statistic";
 import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 import {NgForm} from "@angular/forms";
+import {Globalization} from '@ionic-native/globalization';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class MyApp implements OnInit {
   @ViewChild('myNav')
   navCtrl: NavController;
 
-  rootPage: any = HomePage;
+  rootPage: any;
   placeTypesM = [];
   searchObject = {
     range: {lower: 0, upper: 10000},
@@ -60,16 +61,25 @@ export class MyApp implements OnInit {
               private globalConfig: GlobalConfigsService,
               private http: HttpClient,
               // private _ngZone: NgZone,
-              private auth: AuthProvider
+              private auth: AuthProvider,
+              private globalization: Globalization
   ) {
+
     platform
       .ready().then(
       () => {
+
+        this.globalization.getPreferredLanguage().then(res => {
+          this.globalConfig.globalLang = res.value;
+          this.rootPage = HomePage;
+
+        });
+
         statusBar.styleDefault();
         splashScreen.hide();
       }
     );
-    this.globalConfig.langService = this.langService;
+
   }
 
   ngOnInit() {

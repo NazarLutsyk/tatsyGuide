@@ -46,7 +46,6 @@ export class PlacesProvider {
 
 
   findOneWithMultilang(id, langID): Observable<Place> {
-
     let lang = this.globalConfig.langChooser(langID);
 
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?populate=[{"path":"multilang","match":{"lang" : ${lang} }]`;
@@ -58,17 +57,21 @@ export class PlacesProvider {
 
 
   findOne(id: any, request) {
+    console.log("pp start findOne");
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;
     for (const key in request) {
       if (request[key]) {
         url += `${key}=${JSON.stringify(request[key])}&`;
       }
     }
+    console.log("pp before return zip findOne");
     return zip(
       this.http.get<any>(url),
-      fromPromise(this.geolocation.getCurrentPosition())
+      // fromPromise(this.geolocation.getCurrentPosition())
     ).map(([place, position]) => {
-      place.distance = this.findDistance(position, place);
+      console.log("pp in zip findOne");
+      // place.distance = this.findDistance(position, place);
+      console.log("pp in zip before return place findOne");
       return place;
     });
   }
@@ -99,6 +102,7 @@ export class PlacesProvider {
 
 
   findDistance(myPosition, place) {
+    console.log("DISTANCE");
     let lat1 = myPosition.coords.latitude;
     let lon1 = myPosition.coords.longitude;
     let lat2 = place.location.lat;
@@ -155,13 +159,13 @@ export class PlacesProvider {
     // upload images
     // if (files.images && files.images.length > 0) {
     //   let toUpload = [];
-      // console.log(files);
-      for (const file of files.images) {
-        // toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));
-        fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})).subscribe();
-      }
-      // console.log(toUpload);
-      // zip(...toUpload).subscribe();
+    // console.log(files);
+    for (const file of files.images) {
+      // toUpload.push(fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})));
+      fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})).subscribe();
+    }
+    // console.log(toUpload);
+    // zip(...toUpload).subscribe();
     // }
   }
 

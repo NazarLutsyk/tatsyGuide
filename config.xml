@@ -119,5 +119,6 @@
     <allow-navigation href="http://192.168.1.25:8100" />
     <allow-navigation href="http://192.168.137.1:8100" />
     <allow-navigation href="http://192.168.1.14:8100" />
+    <plugin name="cordova-plugin-globalization" spec="^1.11.0" />
     <engine name="android" spec="7.0.0" />
 </widget>

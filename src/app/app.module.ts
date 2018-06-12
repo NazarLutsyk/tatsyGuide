@@ -89,6 +89,7 @@ import { Facebook } from '@ionic-native/facebook';
 import {GooglePlus} from "@ionic-native/google-plus";
 import {FormsModule} from "@angular/forms";
 import { ImageProvider } from '../providers/image/image';
+import {Globalization} from "@ionic-native/globalization";
 
 
 @NgModule({
@@ -194,7 +195,8 @@ import { ImageProvider } from '../providers/image/image';
     Base64,
     MailProvider,
     ReviewProvider,
-    ImageProvider
+    ImageProvider,
+    Globalization
 
   ]
 })

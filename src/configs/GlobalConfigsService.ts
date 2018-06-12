@@ -5,8 +5,7 @@ import {LangProvider} from "../providers/lang/lang";
 @Injectable()
 export class GlobalConfigsService {
   private globalHost;
-  private globalLang;
-  public langService: LangProvider;
+  public globalLang;
 
   constructor(
     private platform: Platform,
@@ -23,12 +22,8 @@ export class GlobalConfigsService {
   }
 
   getGlobalLang() {
-    // if (!this.globalLang) {
-    //   this.langService.find({name: "ukr"}).subscribe(([lang]) => {
-    //     this.globalLang = lang;
-    //   });
-    // }
-    // return this.globalLang;
+
+    console.log(this.globalLang);
     return "5b1e7e02749f5b3aa072ccf4";
   }
 

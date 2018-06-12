@@ -25,7 +25,7 @@ import {UpdatePlacePage} from "../update-place/update-place";
 
 declare var window: any;
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-place-info',
   templateUrl: 'place-info.html',
