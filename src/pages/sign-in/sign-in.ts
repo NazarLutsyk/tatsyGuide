@@ -63,7 +63,13 @@ export class SignInPage {
       .then(res => {
         if (res.status === "connected") {
           this.isFacebookLoggedIn = true;
-          this.getUserDetail(res.authResponse.userID);
+          // this.getUserDetail(res.authResponse.userID);
+          this.fb.getAccessToken().then(token => {
+            console.log(token);
+            this.auth.loginByFacebook(token).subscribe(value => console.log(value));
+
+          })
+
         } else {
           this.isFacebookLoggedIn = false;
         }
@@ -86,20 +92,20 @@ export class SignInPage {
     this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender", ["public_profile"])
       .then(res => {
         this.users = res;
-        this.auth.loginBySocial({
-          user: {
-            name: {
-              givenName: res.givenName,
-              familyName: res.familyName
-            },
-            email: res.email,
-            avatar: res.imageUrl
-          },
-          socialName: 'facebook',
-          socialProfileId: res.userId
-        }).subscribe((principal) => {
-          this.app.getRootNav().setRoot(HomePage);
-        });
+        // this.auth.loginByFacebook({
+        //   user: {
+        //     name: {
+        //       givenName: res.givenName,
+        //       familyName: res.familyName
+        //     },
+        //     email: res.email,
+        //     avatar: res.imageUrl
+        //   },
+        //   socialName: 'facebook',
+        //   socialProfileId: res.userId
+        // }).subscribe((principal) => {
+        //   this.app.getRootNav().setRoot(HomePage);
+        // });
       })
       .catch(e => {
         console.log(e);
@@ -131,20 +137,27 @@ export class SignInPage {
         this.userId = res.userId;
         this.imageUrl = res.imageUrl;
         this.isGoogleLoggedIn = true;
-        this.auth.loginBySocial({
-          user: {
-            name: {
-              givenName: res.givenName,
-              familyName: res.familyName
-            },
-            email: res.email,
-            avatar: res.imageUrl
-          },
-          socialName: 'google',
-          socialProfileId: res.userId
-        }).subscribe((principal) => {
-          this.app.getRootNav().setRoot(HomePage);
+        // this.auth.loginBySocial({
+        //   user: {
+        //     name: {
+        //       givenName: res.givenName,
+        //       familyName: res.familyName
+        //     },
+        //     email: res.email,
+        //     avatar: res.imageUrl
+        //   },
+        //   socialName: 'google',
+        //   socialProfileId: res.userId
+        // }).subscribe((principal) => {
+        //   this.app.getRootNav().setRoot(HomePage);
+        // });
+
+        this.auth.loginByGoolge(res.accessToken).subscribe(value => {
+          console.log(value)
+
         });
+
+
       })
       .catch(err => console.error(err));
   }
