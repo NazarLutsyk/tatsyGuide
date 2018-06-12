@@ -1,10 +1,12 @@
 import {Injectable} from "@angular/core";
 import {Platform} from "ionic-angular";
+import {LangProvider} from "../providers/lang/lang";
 
 @Injectable()
 export class GlobalConfigsService {
   private globalHost;
-  public globalLang;
+  private globalLang;
+  public globalPosition = {latitude: 0, longitude: 0};
 
   constructor(
     private platform: Platform,

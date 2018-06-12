@@ -27,6 +27,7 @@ import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-s
 import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 import {NgForm} from "@angular/forms";
 import {Globalization} from '@ionic-native/globalization';
+import {Geolocation} from "@ionic-native/geolocation";
 
 
 @Component({
@@ -39,7 +40,7 @@ export class MyApp implements OnInit {
   @ViewChild('myNav')
   navCtrl: NavController;
 
-  rootPage: any;
+  rootPage: any = HomePage;
   placeTypesM = [];
   searchObject = {
     range: {lower: 0, upper: 10000},
@@ -61,6 +62,7 @@ export class MyApp implements OnInit {
               private globalConfig: GlobalConfigsService,
               private http: HttpClient,
               // private _ngZone: NgZone,
+              private geolocation: Geolocation,
               private auth: AuthProvider,
               private globalization: Globalization
   ) {
@@ -77,6 +79,12 @@ export class MyApp implements OnInit {
 
         statusBar.styleDefault();
         splashScreen.hide();
+        this.geolocation.getCurrentPosition().then((position) => {
+          this.globalConfig.globalPosition.latitude = position.coords.latitude;
+          this.globalConfig.globalPosition.longitude = position.coords.longitude;
+          statusBar.styleDefault();
+          splashScreen.hide();
+        });
       }
     );
 

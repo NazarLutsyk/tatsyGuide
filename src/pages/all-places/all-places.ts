@@ -201,7 +201,7 @@ export class AllPlacesPage {
           self.places = places;
         }
         for (const place of self.places) {
-          place.distance = self.placesService.findDistance(position, place);
+          place.distance = self.placesService.findDistance(self.globalVars.globalPosition, place);
         }
         if (eventData.sort === 'location') {
           self.places = self.places.sort((a, b) => {

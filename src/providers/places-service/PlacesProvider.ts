@@ -46,6 +46,7 @@ export class PlacesProvider {
 
 
   findOneWithMultilang(id, langID): Observable<Place> {
+
     let lang = this.globalConfig.langChooser(langID);
 
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?populate=[{"path":"multilang","match":{"lang" : ${lang} }]`;
@@ -57,21 +58,14 @@ export class PlacesProvider {
 
 
   findOne(id: any, request) {
-    console.log("pp start findOne");
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;
     for (const key in request) {
       if (request[key]) {
         url += `${key}=${JSON.stringify(request[key])}&`;
       }
     }
-    console.log("pp before return zip findOne");
-    return zip(
-      this.http.get<any>(url),
-      // fromPromise(this.geolocation.getCurrentPosition())
-    ).map(([place, position]) => {
-      console.log("pp in zip findOne");
-      // place.distance = this.findDistance(position, place);
-      console.log("pp in zip before return place findOne");
+    return this.http.get<any>(url).map((place) => {
+      place.distance = this.findDistance(this.globalConfig.globalPosition, place);
       return place;
     });
   }
@@ -81,12 +75,9 @@ export class PlacesProvider {
     for (const key in request) {
       url += `${key}=${JSON.stringify(request[key])}&`;
     }
-    return zip(
-      this.http.get<any[]>(url),
-      fromPromise(this.geolocation.getCurrentPosition())
-    ).map(([places, position]) => {
+    return this.http.get<any[]>(url).map((places) => {
       for (const place of places) {
-        place.distance = this.findDistance(position, place);
+        place.distance = this.findDistance(this.globalConfig.globalPosition, place);
       }
       return places;
     });
@@ -102,9 +93,8 @@ export class PlacesProvider {
 
 
   findDistance(myPosition, place) {
-    console.log("DISTANCE");
-    let lat1 = myPosition.coords.latitude;
-    let lon1 = myPosition.coords.longitude;
+    let lat1 = myPosition.latitude;
+    let lon1 = myPosition.longitude;
     let lat2 = place.location.lat;
     let lon2 = place.location.lng;
     let p = 0.017453292519943295;
