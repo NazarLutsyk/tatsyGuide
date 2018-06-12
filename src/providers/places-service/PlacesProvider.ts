@@ -113,27 +113,27 @@ export class PlacesProvider {
   }
 
 
-  async findDistanceToPlace(place: Place): Promise<number> {
-    let position = await this.promisefyMyPosition();
-    let myPosition = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    };
-
-    function findDistance() {
-
-      let lat1 = myPosition.lat;
-      let lon1 = myPosition.lng;
-      let lat2 = place.location.lat;
-      let lon2 = place.location.lng;
-      let p = 0.017453292519943295;
-      let a = 0.5 - Math.cos((lat2 - lat1) * p) / 2 + Math.cos(lat1 * p) * Math.cos(lat2 * p) * (1 - Math.cos((lon2 - lon1) * p)) / 2;
-      return 12742 * Math.asin(Math.sqrt(a));
-
-    }
-
-    return findDistance();
-  }
+  // async findDistanceToPlace(place: Place): Promise<number> {
+  //   let position = await this.promisefyMyPosition();
+  //   let myPosition = {
+  //     lat: position.coords.latitude,
+  //     lng: position.coords.longitude,
+  //   };
+  //
+  //   function findDistance() {
+  //
+  //     let lat1 = myPosition.lat;
+  //     let lon1 = myPosition.lng;
+  //     let lat2 = place.location.lat;
+  //     let lon2 = place.location.lng;
+  //     let p = 0.017453292519943295;
+  //     let a = 0.5 - Math.cos((lat2 - lat1) * p) / 2 + Math.cos(lat1 * p) * Math.cos(lat2 * p) * (1 - Math.cos((lon2 - lon1) * p)) / 2;
+  //     return 12742 * Math.asin(Math.sqrt(a));
+  //
+  //   }
+  //
+  //   return findDistance();
+  // }
 
   //todo change that shit
   upload(id, files: { avatar?: string, images?: string[] }) {
