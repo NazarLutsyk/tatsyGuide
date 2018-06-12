@@ -71,27 +71,6 @@ export class TopPlaceManagePage {
     });
   }
 
-  createTopPlace(topPlaceForm: NgForm) {
-    let topPlace = topPlaceForm.form.value;
-    this.topPlaceService
-      .create(topPlace)
-      .subscribe(newTopPlace => {
-        this.topPlaceService.find({
-          query: {_id: (<any>newTopPlace)._id},
-          populate: [
-            {
-              path: 'place',
-              populate: [
-                {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-              ]
-            }
-          ]
-        }).subscribe(topPlaces => {
-          this.loadTopPlaces().subscribe(topPlaces => this.topPlaces = topPlaces);
-        })
-      });
-  }
-
   loadNextTopPlacesAppPage(event: InfiniteScroll) {
     if (this.allLoaded) {
       event.complete();

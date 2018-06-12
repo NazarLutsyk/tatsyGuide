@@ -12,7 +12,15 @@
       <ion-img src="{{globalHost}}{{image}}"></ion-img>
     </ion-slide>
   </ion-slides>
-
+  <button
+    ion-button
+    round
+    outline
+    full
+    color="secondary"
+    (click)="toTopPlaceCreate(place)"
+    *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0"
+  >Add top place </button>
   <button
     ion-button
     round
