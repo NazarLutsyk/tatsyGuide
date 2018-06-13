@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MyApp} from './app.component';
 import {PlacesProvider} from '../providers/places-service/PlacesProvider';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {BonuseProvider} from '../providers/bonuse/bonuseProvider';
 import {PlaceTypeProvider} from '../providers/place-type/place-type';
 import {EventProvider} from "../providers/event/EventProvider";
@@ -85,120 +85,138 @@ import {TopPlaceUpdatePageModule} from "../pages/top-place-update/top-place-upda
 import {AllPlacesPageModule} from "../pages/all-places/all-places.module";
 import {SingleDrinkApplicationPageModule} from "../pages/single-drink-application/single-drink-application.module";
 import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose-lang.module";
-import { Facebook } from '@ionic-native/facebook';
+import {Facebook} from '@ionic-native/facebook';
 import {GooglePlus} from "@ionic-native/google-plus";
 import {FormsModule} from "@angular/forms";
-import { ImageProvider } from '../providers/image/image';
+import {ImageProvider} from '../providers/image/image';
 import {Globalization} from "@ionic-native/globalization";
+import {Http} from "@angular/http";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
-
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 @NgModule({
   declarations: [
     MyApp,
 
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
-    IonicModule.forRoot(MyApp),
-    FormsModule,
-    BrowserAnimationsModule,
-    HomePageModule,
-    PlaceDetailsModule,
-    MapModule,
-    EventPageModule,
-    BonusePageModule,
-    NewsPageModule,
-    PlaceInfoPageModule,
-    TestimonialPageModule,
-    LoginPageModule,
-    SignUpPageModule,
-    SignInPageModule,
-    DrinkerApplicationPageModule,
-    ModalTestimonialPageModule,
-    CreatePlacePageModule,
-    MyPlacesPageModule,
-    MyFavoritePlacesPageModule,
-    MyRatingsPageModule,
-    ChooseLocationPageModule,
-    AddAvatarAndPhotosPageModule,
-    CreateEventPageModule,
-    CreateBonusePageModule,
-    CreateNewsPageModule,
-    UpdateEventPageModule,
-    UpdateBonusePageModule,
-    UpdateNewsPageModule,
-    UpdateRatingPageModule,
-    UpdatePlacePageModule,
-    ProfilePageModule,
-    UpdateProfilePageModule,
-    UpdateDrinkApplicationPageModule,
-    PlaceAppliactionsPageModule,
-    ClientsPageModule,
-    PurgatoryPlacesPageModule,
-    AllNewsPageModule,
-    AllEventsPageModule,
-    AllBonusesPageModule,
-    AllDrinkApplicationsPageModule,
-    HashTagsPageModule,
-    PlaceStatisticPageModule,
-    UpdatePlaceDepartmentsPageModule,
-    AllPlacesStatisticPageModule,
-    TopPlacesPageModule,
-    TopPlaceManagePageModule,
-    TopPlaceUpdatePageModule,
-    AllPlacesPageModule,
-    SingleDrinkApplicationPageModule,
-    ModalChooseLangPageModule,
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [],
-  providers: [
-    GooglePlus,
-    Facebook,
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PlacesProvider,
-    BonuseProvider,
-    PlaceTypeProvider,
-    EventProvider,
-    NewsProvider,
-    ComplaintProvider,
-    DrinkApplicationProvider,
-    RatingProvider,
-    DepartmentProvider,
-    ClientProvider,
-    GlobalConfigsService,
-    Geolocation,
-    NativePageTransitions,
-    AuthProvider,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorProvider,
-      multi: true
-    },
-    LangProvider,
-    DrinkApplicationCommentProvider,
-    TopPlaceProvider,
-    BonuseMultilangProvider,
-    EventMultilangProvider,
-    NewsMultilangProvider,
-    PlaceMultilangProvider,
-    PlaceTypeMultilangProvider,
-    FileTransfer,
-    // FileUploadOptions, ???
-    FileTransferObject,
-    File,
-    Camera,
-    ImagePicker,
-    Base64,
-    MailProvider,
-    ReviewProvider,
-    ImageProvider,
-    Globalization
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: (createTranslateLoader),
+    //     deps: [HttpClient]
+    //   }
+    // })
+ // ,
+BrowserModule,
+  HttpClientModule,
+  IonicModule.forRoot(MyApp),
+  FormsModule,
+  BrowserAnimationsModule,
+  HomePageModule,
+  PlaceDetailsModule,
+  MapModule,
+  EventPageModule,
+  BonusePageModule,
+  NewsPageModule,
+  PlaceInfoPageModule,
+  TestimonialPageModule,
+  LoginPageModule,
+  SignUpPageModule,
+  SignInPageModule,
+  DrinkerApplicationPageModule,
+  ModalTestimonialPageModule,
+  CreatePlacePageModule,
+  MyPlacesPageModule,
+  MyFavoritePlacesPageModule,
+  MyRatingsPageModule,
+  ChooseLocationPageModule,
+  AddAvatarAndPhotosPageModule,
+  CreateEventPageModule,
+  CreateBonusePageModule,
+  CreateNewsPageModule,
+  UpdateEventPageModule,
+  UpdateBonusePageModule,
+  UpdateNewsPageModule,
+  UpdateRatingPageModule,
+  UpdatePlacePageModule,
+  ProfilePageModule,
+  UpdateProfilePageModule,
+  UpdateDrinkApplicationPageModule,
+  PlaceAppliactionsPageModule,
+  ClientsPageModule,
+  PurgatoryPlacesPageModule,
+  AllNewsPageModule,
+  AllEventsPageModule,
+  AllBonusesPageModule,
+  AllDrinkApplicationsPageModule,
+  HashTagsPageModule,
+  PlaceStatisticPageModule,
+  UpdatePlaceDepartmentsPageModule,
+  AllPlacesStatisticPageModule,
+  TopPlacesPageModule,
+  TopPlaceManagePageModule,
+  TopPlaceUpdatePageModule,
+  AllPlacesPageModule,
+  SingleDrinkApplicationPageModule,
+  ModalChooseLangPageModule,
+],
+bootstrap: [IonicApp],
+  entryComponents
+:
+[],
+  providers
+:
+[
+  GooglePlus,
+  Facebook,
+  StatusBar,
+  SplashScreen,
+  {provide: ErrorHandler, useClass: IonicErrorHandler},
+  PlacesProvider,
+  BonuseProvider,
+  PlaceTypeProvider,
+  EventProvider,
+  NewsProvider,
+  ComplaintProvider,
+  DrinkApplicationProvider,
+  RatingProvider,
+  DepartmentProvider,
+  ClientProvider,
+  GlobalConfigsService,
+  Geolocation,
+  NativePageTransitions,
+  AuthProvider,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpInterceptorProvider,
+    multi: true
+  },
+  LangProvider,
+  DrinkApplicationCommentProvider,
+  TopPlaceProvider,
+  BonuseMultilangProvider,
+  EventMultilangProvider,
+  NewsMultilangProvider,
+  PlaceMultilangProvider,
+  PlaceTypeMultilangProvider,
+  FileTransfer,
+  // FileUploadOptions, ???
+  FileTransferObject,
+  File,
+  Camera,
+  ImagePicker,
+  Base64,
+  MailProvider,
+  ReviewProvider,
+  ImageProvider,
+  Globalization
 
-  ]
+]
 })
+
 export class AppModule {
 }
