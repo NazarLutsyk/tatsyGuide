@@ -31,8 +31,8 @@ export class UpdatePlacePage {
   placeMultilang: PlaceMultilang = new PlaceMultilang();
   placeMultilangId: string;
   placeTypesM: PlaceTypeMultilang[] = [];
-  hashTags: string;
-  topCategories: string;
+  hashTags: string = '';
+  topCategories: string = '';
   isAdmin = false;
   globalHost;
   imagesToShow = [];
@@ -95,8 +95,8 @@ export class UpdatePlacePage {
 
       this.placeTypesM = values[1];
 
-      this.avatarToShow = this.place.avatar ? this.place.avatar : '';
-      this.imagesToShow = this.place.images ? this.place.images : [];
+      this.avatarToShow = this.place.avatar ? this.globalHost + this.place.avatar : '';
+      this.imagesToShow = this.place.images ? this.place.images.map(image => this.globalHost + image) : [];
       this.imagesToUpdate = this.place.images ? this.place.images : [];
     });
 
@@ -105,7 +105,6 @@ export class UpdatePlacePage {
   updatePlace(updateForm: NgForm) {
     let toUpload: any = {};
     let uploadImg = new Observable((subscriber) => subscriber.next(true));
-
     if (this.avatarToUpload) {
       toUpload.avatar = this.avatarToUpload;
     }
@@ -118,6 +117,7 @@ export class UpdatePlacePage {
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
 
+    this.place.images = this.imagesToUpdate;
     this.place.topCategories =
       this.topCategories.length > 0 ? this.topCategories.split(',') : [];
     this.place.hashTags =
@@ -148,7 +148,10 @@ export class UpdatePlacePage {
       placeMultilangUpdateQuery,
       placeUpdateQuery,
       uploadImg
-    ).subscribe(([multilang, place]) => this.navCtrl.pop());
+    ).subscribe(([multilang, place, res]) => {
+      console.log('here');
+      this.navCtrl.pop()
+    });
   }
 
   goToChooseLocation() {

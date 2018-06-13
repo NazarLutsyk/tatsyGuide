@@ -18,6 +18,7 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 })
 export class UpdateNewsPage {
 
+  imageToShow: string;
   globalHost;
   news: News = new News();
   newsMultilang: NewsMultilang = new NewsMultilang();
@@ -33,12 +34,13 @@ export class UpdateNewsPage {
     private newsMultilangServive: NewsMultilangProvider,
     private auth: AuthProvider,
     private globalConfig: GlobalConfigsService,
-    private camera: Camera
+    private camera: Camera,
   ) {
   }
 
   ngOnInit() {
     this.globalHost = this.globalConfig.getGlobalHost();
+
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -51,7 +53,7 @@ export class UpdateNewsPage {
         this.newsId = news._id;
         this.newsMultilang = news.multilang[0];
         this.newsMultilangId = news.multilang[0]._id;
-        this.image = news.image;
+        this.imageToShow = this.globalHost + news.image;
       })
     })
 
@@ -102,6 +104,7 @@ export class UpdateNewsPage {
     };
     this.camera.getPicture(options).then((imageData) => {
       this.image = imageData;
+      this.imageToShow = imageData;
     })
 
   }

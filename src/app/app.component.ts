@@ -71,11 +71,10 @@ export class MyApp implements OnInit {
       .ready().then(
       () => {
 
-        // this.globalization.getPreferredLanguage().then(res => {
-        //   this.globalConfig.globalLang = res.value;
-        //   this.rootPage = HomePage;
-        //
-        // });
+        this.globalization.getPreferredLanguage().then(res => {
+          this.globalConfig.globalLang = res.value;
+          this.rootPage = HomePage;
+        });
 
         statusBar.styleDefault();
         splashScreen.hide();

@@ -117,11 +117,13 @@ export class PlacesProvider {
             subscriber.next(true);
           });
       }
-      for (const file of files.images) {
-        fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'}))
-          .subscribe(() => {
-            subscriber.next(true);
-          });
+      if (files.images) {
+        for (const file of files.images) {
+          fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'}))
+            .subscribe(() => {
+              subscriber.next(true);
+            });
+        }
       }
     });
   }

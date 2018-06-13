@@ -9,15 +9,15 @@
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="updatePlace(form)">
     <ion-item>
-      <ion-img [src]="globalHost + avatarToShow" width="100%" height="200px"></ion-img>
+      <ion-img [src]="avatarToShow" width="100%" height="200px"></ion-img>
       <button ion-button type="button" full (click)="changeAvatar($event)">Change</button>
     </ion-item>
-    <ion-slides>
-      <ion-slide *ngFor="let image of imagesToShow">
-        <ion-img [src]="globalHost + image" width="100%" height="200px"></ion-img>
+    <ion-item style="overflow-x: scroll">
+      <div *ngFor="let image of imagesToShow">
+        <ion-img [src]="image" width="100%" height="200px"></ion-img>
         <button ion-button type="button" color="danger" full (click)="removeImage(image,$event)">Remove</button>
-      </ion-slide>
-    </ion-slides>
+      </div>
+    </ion-item>
     <ion-item>
       <button ion-button type="button" full (click)="addImage($event)">Add</button>
     </ion-item>

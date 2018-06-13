@@ -11,7 +11,7 @@
   <form (ngSubmit)="updatePromo(updateForm)" #updateForm="ngForm">
     <div ngModelGroup="multilang">
       <ion-item>
-        <ion-img [src]="globalHost + image" width="100%" height="200px"></ion-img>
+        <ion-img [src]="imageToShow" width="100%" height="200px"></ion-img>
         <button ion-button type="button" full (click)="setNewImage($event)">Change</button>
       </ion-item>
       <ion-item>

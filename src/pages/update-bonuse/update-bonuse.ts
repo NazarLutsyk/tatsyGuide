@@ -24,6 +24,7 @@ export class UpdateBonusePage {
   bonuseMultilangId: string;
   bonuseId: string;
   image: string;
+  imageToShow: string;
   isAdmin = false;
 
   constructor(
@@ -38,6 +39,8 @@ export class UpdateBonusePage {
   }
 
   ngOnInit() {
+    this.globalHost = this.globalConfig.getGlobalHost();
+
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -50,7 +53,7 @@ export class UpdateBonusePage {
         this.bonuseId = bonuse._id;
         this.bonuseMultilang = bonuse.multilang[0];
         this.bonuseMultilangId = bonuse.multilang[0]._id;
-        this.image = bonuse.image;
+        this.imageToShow = this.globalHost + this.bonuse.image;
       })
     })
 
@@ -100,6 +103,7 @@ export class UpdateBonusePage {
     };
     this.camera.getPicture(options).then((imageData) => {
       this.image = imageData;
+      this.imageToShow = imageData;
     })
   }
 

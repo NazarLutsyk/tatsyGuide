@@ -24,6 +24,7 @@ export class UpdateEventPage {
   eventMultilangId: string;
   eventId: string;
   image: string;
+  imageToShow: string;
   isAdmin = false;
 
   constructor(
@@ -38,6 +39,8 @@ export class UpdateEventPage {
   }
 
   ngOnInit() {
+    this.globalHost = this.globalConfig.getGlobalHost();
+
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -50,7 +53,7 @@ export class UpdateEventPage {
         this.eventId = event._id;
         this.eventMultilang = event.multilang[0];
         this.eventMultilangId = event.multilang[0]._id;
-        this.image = event.image;
+        this.imageToShow = this.globalHost + this.event.image;
       })
     })
   }
@@ -99,6 +102,7 @@ export class UpdateEventPage {
     };
     this.camera.getPicture(options).then((imageData) => {
       this.image = imageData;
+      this.imageToShow = imageData;
     })
 
   }
