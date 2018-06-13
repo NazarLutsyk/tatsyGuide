@@ -7,6 +7,9 @@ import {EventMultilangProvider} from "../../providers/event-multilang/event-mult
 import {zip} from "rxjs/observable/zip";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Event} from "../../models/promo/event/Event";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @IonicPage()
 @Component({
@@ -15,10 +18,13 @@ import {Event} from "../../models/promo/event/Event";
 })
 export class UpdateEventPage {
 
+  globalHost;
   event: Event = new Event();
   eventMultilang: EventMultilang = new EventMultilang();
   eventMultilangId: string;
   eventId: string;
+  image: string;
+  imageToShow: string;
   isAdmin = false;
 
   constructor(
@@ -26,11 +32,15 @@ export class UpdateEventPage {
     public navParams: NavParams,
     private eventService: EventProvider,
     private eventMultilangServive: EventMultilangProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private globalConfig: GlobalConfigsService,
+    private camera: Camera
   ) {
   }
 
   ngOnInit() {
+    this.globalHost = this.globalConfig.getGlobalHost();
+
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -43,12 +53,18 @@ export class UpdateEventPage {
         this.eventId = event._id;
         this.eventMultilang = event.multilang[0];
         this.eventMultilangId = event.multilang[0]._id;
+        this.imageToShow = this.globalHost + this.event.image;
       })
     })
   }
 
   updatePromo(updateForm: NgForm) {
-    //todo upload update
+    let uploadImg = new Observable((subscriber) => subscriber.next(true));
+
+    if (this.event.image !== this.image) {
+      uploadImg = this.eventService.upload(this.eventId, this.image);
+    }
+
     this.eventMultilang = updateForm.form.value.multilang;
     this.event = updateForm.form.value.promo;
 
@@ -66,8 +82,29 @@ export class UpdateEventPage {
 
     zip(
       promoMultilangQuery,
-      promoUpdateQuery
+      promoUpdateQuery,
+      uploadImg
     ).subscribe(([multilang, event]) => this.navCtrl.pop());
+  }
+
+  setNewImage(input) {
+    input.preventDefault();
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.image = imageData;
+      this.imageToShow = imageData;
+    })
+
   }
 
 }

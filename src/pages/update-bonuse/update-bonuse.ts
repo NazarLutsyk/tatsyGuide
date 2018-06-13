@@ -7,6 +7,9 @@ import {BonuseMultilangProvider} from "../../providers/bonuse-multilang/bonuse-m
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseMultilang} from "../../models/multilang/BonuseMultilang";
 import {AuthProvider} from "../../providers/auth/auth";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @IonicPage()
 @Component({
@@ -15,10 +18,13 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class UpdateBonusePage {
 
+  globalHost;
   bonuse: Bonuse = new Bonuse();
   bonuseMultilang: BonuseMultilang = new BonuseMultilang();
   bonuseMultilangId: string;
   bonuseId: string;
+  image: string;
+  imageToShow: string;
   isAdmin = false;
 
   constructor(
@@ -26,11 +32,15 @@ export class UpdateBonusePage {
     public navParams: NavParams,
     private bonuseService: BonuseProvider,
     private bonuseMultilangServive: BonuseMultilangProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private globalConfig: GlobalConfigsService,
+    private camera: Camera
   ) {
   }
 
   ngOnInit() {
+    this.globalHost = this.globalConfig.getGlobalHost();
+
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -43,13 +53,19 @@ export class UpdateBonusePage {
         this.bonuseId = bonuse._id;
         this.bonuseMultilang = bonuse.multilang[0];
         this.bonuseMultilangId = bonuse.multilang[0]._id;
+        this.imageToShow = this.globalHost + this.bonuse.image;
       })
     })
 
   }
 
   updatePromo(updateForm: NgForm) {
-    //todo upload update
+    let uploadImg = new Observable((subscriber)=>subscriber.next(true));
+
+    if (this.bonuse.image !== this.image) {
+      uploadImg = this.bonuseService.upload(this.bonuseId, this.image);
+    }
+
     this.bonuseMultilang = updateForm.form.value.multilang;
     this.bonuse = updateForm.form.value.promo;
 
@@ -67,8 +83,28 @@ export class UpdateBonusePage {
 
     zip(
       promoMultilangQuery,
-      promoUpdateQuery
+      promoUpdateQuery,
+      uploadImg
     ).subscribe(([multilang, bonuse]) => this.navCtrl.pop());
+  }
+
+  setNewImage(input) {
+    input.preventDefault();
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.image = imageData;
+      this.imageToShow = imageData;
+    })
   }
 
 }

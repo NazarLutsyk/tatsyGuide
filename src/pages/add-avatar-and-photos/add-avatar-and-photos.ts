@@ -61,7 +61,6 @@ export class AddAvatarAndPhotosPage {
 
 
       this.avatar = imageData;
-      console.log(imageData);
     })
   }
 

@@ -11,6 +11,10 @@
   <form (ngSubmit)="updatePromo(updateForm)" #updateForm="ngForm">
     <div ngModelGroup="multilang">
       <ion-item>
+        <ion-img [src]="imageToShow" width="100%" height="200px"></ion-img>
+        <button ion-button type="button" full (click)="setNewImage($event)">Change</button>
+      </ion-item>
+      <ion-item>
         <ion-label stacked>Header</ion-label>
         <ion-input
           type="text"

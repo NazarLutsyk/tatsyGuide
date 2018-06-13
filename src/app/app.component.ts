@@ -74,7 +74,6 @@ export class MyApp implements OnInit {
         this.globalization.getPreferredLanguage().then(res => {
           this.globalConfig.globalLang = res.value;
           this.rootPage = HomePage;
-
         });
 
         statusBar.styleDefault();
