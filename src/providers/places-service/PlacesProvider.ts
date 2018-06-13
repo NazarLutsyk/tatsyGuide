@@ -12,7 +12,6 @@ import {ComplaintProvider} from "../complaint/complaint-provider";
 import {DrinkApplicationProvider} from "../drinkApplication/drinkApplication-provider";
 import {RatingProvider} from "../rating/rating-provider";
 import {DepartmentProvider} from "../department/department-provider";
-import {zip} from "rxjs/observable/zip";
 import {Geolocation} from '@ionic-native/geolocation';
 import {fromPromise} from "rxjs/observable/fromPromise";
 import {Storage} from "@ionic/storage";
@@ -109,17 +108,22 @@ export class PlacesProvider {
   }
 
   upload(id, files: { avatar?: string, images?: string[] }) {
-    let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}/upload`;
-
-    const transfer: FileTransferObject = this.fileTransfer.create();
-
-    if (files.avatar) {
-      fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'})).subscribe();
-    }
-
-    for (const file of files.images) {
-      fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'})).subscribe();
-    }
+    return new Observable((subscriber) => {
+      let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}/upload`;
+      const transfer: FileTransferObject = this.fileTransfer.create();
+      if (files.avatar) {
+        fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'}))
+          .subscribe(() => {
+            subscriber.next(true);
+          });
+      }
+      for (const file of files.images) {
+        fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'}))
+          .subscribe(() => {
+            subscriber.next(true);
+          });
+      }
+    });
   }
 
   remove(_id: any) {

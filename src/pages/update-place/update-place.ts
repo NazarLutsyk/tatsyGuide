@@ -11,6 +11,7 @@ import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/p
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AuthProvider} from "../../providers/auth/auth";
+import {Observable} from "rxjs/Observable";
 
 
 @IonicPage()
@@ -31,6 +32,11 @@ export class UpdatePlacePage {
   hashTags: string;
   topCategories: string;
   isAdmin = false;
+  globalHost;
+  avatar;
+  avatarToUpload = null;
+  images = [];
+  imagesToUplaod = null;
 
   constructor(
     public navCtrl: NavController,
@@ -50,7 +56,8 @@ export class UpdatePlacePage {
   }
 
   ngOnInit() {
-    console.log(this.navParams);
+    this.globalHost = this.globalConfig.getGlobalHost();
+
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -82,11 +89,26 @@ export class UpdatePlacePage {
       this.hashTags = this.place.hashTags.join(',');
 
       this.placeTypesM = values[1];
+
+      this.avatar = this.place.avatar ? this.place.avatar : '';
+      this.images = this.place.images ? this.place.images : [];
     });
 
   }
 
   updatePlace(updateForm: NgForm) {
+    let toUpload: any = {};
+    let uploadImg = new Observable((subscriber) => subscriber.next(true));
+
+    if (this.avatarToUpload) {
+      toUpload.avatar = this.avatarToUpload;
+    }
+    if (this.imagesToUplaod.length > 0) {
+      toUpload.images = this.imagesToUplaod;
+    }
+    if (Object.keys(toUpload).length > 0) {
+      uploadImg = this.placeService.upload(this.placeId,toUpload)
+    }
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
 
@@ -118,7 +140,8 @@ export class UpdatePlacePage {
     }
     zip(
       placeMultilangUpdateQuery,
-      placeUpdateQuery
+      placeUpdateQuery,
+      uploadImg
     ).subscribe(([multilang, place]) => this.navCtrl.pop());
   }
 
@@ -126,4 +149,20 @@ export class UpdatePlacePage {
     this.navCtrl.push(ChooseLocationPage)
   }
 
+  changeAvatar($event) {
+    //todo change avatar
+    $event.preventDefault();
+    console.log('change avatar');
+  }
+
+  removeImage(image: any) {
+    //todo remove image
+    console.log("remove image: " + image);
+  }
+
+  addImage($event) {
+    //todo change avatar
+    $event.preventDefault();
+    console.log('add image');
+  }
 }

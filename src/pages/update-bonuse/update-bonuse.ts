@@ -7,6 +7,8 @@ import {BonuseMultilangProvider} from "../../providers/bonuse-multilang/bonuse-m
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
 import {BonuseMultilang} from "../../models/multilang/BonuseMultilang";
 import {AuthProvider} from "../../providers/auth/auth";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
 
 @IonicPage()
 @Component({
@@ -15,10 +17,12 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class UpdateBonusePage {
 
+  globalHost;
   bonuse: Bonuse = new Bonuse();
   bonuseMultilang: BonuseMultilang = new BonuseMultilang();
   bonuseMultilangId: string;
   bonuseId: string;
+  image: string;
   isAdmin = false;
 
   constructor(
@@ -26,7 +30,8 @@ export class UpdateBonusePage {
     public navParams: NavParams,
     private bonuseService: BonuseProvider,
     private bonuseMultilangServive: BonuseMultilangProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private globalConfig: GlobalConfigsService
   ) {
   }
 
@@ -43,13 +48,19 @@ export class UpdateBonusePage {
         this.bonuseId = bonuse._id;
         this.bonuseMultilang = bonuse.multilang[0];
         this.bonuseMultilangId = bonuse.multilang[0]._id;
+        this.image = bonuse.image;
       })
     })
 
   }
 
   updatePromo(updateForm: NgForm) {
-    //todo upload update
+    let uploadImg = new Observable((subscriber)=>subscriber.next(true));
+
+    if (this.bonuse.image !== this.image) {
+      uploadImg = this.bonuseService.upload(this.bonuseId, this.image);
+    }
+
     this.bonuseMultilang = updateForm.form.value.multilang;
     this.bonuse = updateForm.form.value.promo;
 
@@ -67,8 +78,16 @@ export class UpdateBonusePage {
 
     zip(
       promoMultilangQuery,
-      promoUpdateQuery
+      promoUpdateQuery,
+      uploadImg
     ).subscribe(([multilang, bonuse]) => this.navCtrl.pop());
+  }
+
+  setNewImage(input) {
+    //todo set new image
+    let toUpload = "";
+    input.preventDefault();
+
   }
 
 }

@@ -7,6 +7,8 @@ import {EventMultilangProvider} from "../../providers/event-multilang/event-mult
 import {zip} from "rxjs/observable/zip";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Event} from "../../models/promo/event/Event";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
 
 @IonicPage()
 @Component({
@@ -15,10 +17,12 @@ import {Event} from "../../models/promo/event/Event";
 })
 export class UpdateEventPage {
 
+  globalHost;
   event: Event = new Event();
   eventMultilang: EventMultilang = new EventMultilang();
   eventMultilangId: string;
   eventId: string;
+  image: string;
   isAdmin = false;
 
   constructor(
@@ -26,7 +30,8 @@ export class UpdateEventPage {
     public navParams: NavParams,
     private eventService: EventProvider,
     private eventMultilangServive: EventMultilangProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private globalConfig: GlobalConfigsService
   ) {
   }
 
@@ -43,12 +48,18 @@ export class UpdateEventPage {
         this.eventId = event._id;
         this.eventMultilang = event.multilang[0];
         this.eventMultilangId = event.multilang[0]._id;
+        this.image = event.image;
       })
     })
   }
 
   updatePromo(updateForm: NgForm) {
-    //todo upload update
+    let uploadImg = new Observable((subscriber)=>subscriber.next(true));
+
+    if (this.event.image !== this.image) {
+      uploadImg = this.eventService.upload(this.eventId, this.image);
+    }
+
     this.eventMultilang = updateForm.form.value.multilang;
     this.event = updateForm.form.value.promo;
 
@@ -66,8 +77,15 @@ export class UpdateEventPage {
 
     zip(
       promoMultilangQuery,
-      promoUpdateQuery
+      promoUpdateQuery,
+      uploadImg
     ).subscribe(([multilang, event]) => this.navCtrl.pop());
+  }
+
+  setNewImage(input) {
+    //todo set new image
+    input.preventDefault();
+    let toUpload = "";
   }
 
 }
