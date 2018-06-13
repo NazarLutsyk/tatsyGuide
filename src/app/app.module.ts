@@ -91,127 +91,19 @@ import {FormsModule} from "@angular/forms";
 import {ImageProvider} from '../providers/image/image';
 import {Globalization} from "@ionic-native/globalization";
 import {CreateTopPlacePageModule} from "../pages/create-top-place/create-top-place.module";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
 @NgModule({
   declarations: [
     MyApp,
 
   ],
   imports: [
-    // TranslateModule.forRoot({
-    //   loader: {
-    //     provide: TranslateLoader,
-    //     useFactory: (createTranslateLoader),
-    //     deps: [HttpClient]
-    //   }
-    // })
- // ,
-BrowserModule,
-  HttpClientModule,
-  IonicModule.forRoot(MyApp),
-  FormsModule,
-  BrowserAnimationsModule,
-  HomePageModule,
-  PlaceDetailsModule,
-  MapModule,
-  EventPageModule,
-  BonusePageModule,
-  NewsPageModule,
-  PlaceInfoPageModule,
-  TestimonialPageModule,
-  LoginPageModule,
-  SignUpPageModule,
-  SignInPageModule,
-  DrinkerApplicationPageModule,
-  ModalTestimonialPageModule,
-  CreatePlacePageModule,
-  MyPlacesPageModule,
-  MyFavoritePlacesPageModule,
-  MyRatingsPageModule,
-  ChooseLocationPageModule,
-  AddAvatarAndPhotosPageModule,
-  CreateEventPageModule,
-  CreateBonusePageModule,
-  CreateNewsPageModule,
-  UpdateEventPageModule,
-  UpdateBonusePageModule,
-  UpdateNewsPageModule,
-  UpdateRatingPageModule,
-  UpdatePlacePageModule,
-  ProfilePageModule,
-  UpdateProfilePageModule,
-  UpdateDrinkApplicationPageModule,
-  PlaceAppliactionsPageModule,
-  ClientsPageModule,
-  PurgatoryPlacesPageModule,
-  AllNewsPageModule,
-  AllEventsPageModule,
-  AllBonusesPageModule,
-  AllDrinkApplicationsPageModule,
-  HashTagsPageModule,
-  PlaceStatisticPageModule,
-  UpdatePlaceDepartmentsPageModule,
-  AllPlacesStatisticPageModule,
-  TopPlacesPageModule,
-  TopPlaceManagePageModule,
-  TopPlaceUpdatePageModule,
-  AllPlacesPageModule,
-  SingleDrinkApplicationPageModule,
-  ModalChooseLangPageModule,
-],
-bootstrap: [IonicApp],
-  entryComponents
-:
-[],
-  providers
-:
-[
-  GooglePlus,
-  Facebook,
-  StatusBar,
-  SplashScreen,
-  {provide: ErrorHandler, useClass: IonicErrorHandler},
-  PlacesProvider,
-  BonuseProvider,
-  PlaceTypeProvider,
-  EventProvider,
-  NewsProvider,
-  ComplaintProvider,
-  DrinkApplicationProvider,
-  RatingProvider,
-  DepartmentProvider,
-  ClientProvider,
-  GlobalConfigsService,
-  Geolocation,
-  NativePageTransitions,
-  AuthProvider,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpInterceptorProvider,
-    multi: true
-  },
-  LangProvider,
-  DrinkApplicationCommentProvider,
-  TopPlaceProvider,
-  BonuseMultilangProvider,
-  EventMultilangProvider,
-  NewsMultilangProvider,
-  PlaceMultilangProvider,
-  PlaceTypeMultilangProvider,
-  FileTransfer,
-  // FileUploadOptions, ???
-  FileTransferObject,
-  File,
-  Camera,
-  ImagePicker,
-  Base64,
-  MailProvider,
-  ReviewProvider,
-  ImageProvider,
-  Globalization
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
@@ -264,7 +156,14 @@ bootstrap: [IonicApp],
     AllPlacesPageModule,
     SingleDrinkApplicationPageModule,
     ModalChooseLangPageModule,
-    CreateTopPlacePageModule
+    CreateTopPlacePageModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -312,7 +211,7 @@ bootstrap: [IonicApp],
     ReviewProvider,
     Globalization
 
-]
+  ]
 })
 
 export class AppModule {
