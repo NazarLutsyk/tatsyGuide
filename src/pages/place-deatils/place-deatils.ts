@@ -51,7 +51,6 @@ export class PlaceDeatilsPage {
   }
 
   ngOnInit() {
-    console.log("place details page ngOnInit ");
 
     this.place = this.navParams.data;
     let menus = this.menuController.getMenus();
@@ -59,7 +58,6 @@ export class PlaceDeatilsPage {
       menu.swipeEnable(false);
     }
     this.auth.loadPrincipal().subscribe((principal) => {
-      console.log("place details page ngOnInit loadPrincipal subscribe start");
 
       if (principal) {
         this.principal = principal;
@@ -69,7 +67,6 @@ export class PlaceDeatilsPage {
         }).subscribe((departments) => {
           this.departments = departments;
         });
-        console.log("place details page ngOnInit loadPrincipal subscribe middle");
 
         let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
         if (favouriteIndex >= 0) {
@@ -80,7 +77,6 @@ export class PlaceDeatilsPage {
       } else {
         this.isFavorite = false
       }
-      console.log("place details page ngOnInit loadPrincipal subscribe end");
     });
   }
 

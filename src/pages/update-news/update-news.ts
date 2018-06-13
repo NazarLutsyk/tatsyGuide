@@ -7,6 +7,9 @@ import {NewsMultilang} from "../../models/multilang/NewsMultilang";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {NewsMultilangProvider} from "../../providers/news-multilang/news-multilang";
 import {AuthProvider} from "../../providers/auth/auth";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @IonicPage()
 @Component({
@@ -15,10 +18,12 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class UpdateNewsPage {
 
+  globalHost;
   news: News = new News();
   newsMultilang: NewsMultilang = new NewsMultilang();
   newsMultilangId: string;
   newsId: string;
+  image: string;
   isAdmin = false;
 
   constructor(
@@ -26,11 +31,14 @@ export class UpdateNewsPage {
     public navParams: NavParams,
     private newsService: NewsProvider,
     private newsMultilangServive: NewsMultilangProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private globalConfig: GlobalConfigsService,
+    private camera: Camera
   ) {
   }
 
   ngOnInit() {
+    this.globalHost = this.globalConfig.getGlobalHost();
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -43,13 +51,19 @@ export class UpdateNewsPage {
         this.newsId = news._id;
         this.newsMultilang = news.multilang[0];
         this.newsMultilangId = news.multilang[0]._id;
+        this.image = news.image;
       })
     })
 
   }
 
   updatePromo(updateForm: NgForm) {
-    //todo upload update
+    let uploadImg = new Observable((subscriber) => subscriber.next(true));
+
+    if (this.news.image !== this.image) {
+      uploadImg = this.newsService.upload(this.newsId, this.image);
+    }
+
     this.newsMultilang = updateForm.form.value.multilang;
     this.news = updateForm.form.value.promo;
 
@@ -67,8 +81,28 @@ export class UpdateNewsPage {
 
     zip(
       promoMultilangQuery,
-      promoUpdateQuery
+      promoUpdateQuery,
+      uploadImg
     ).subscribe(([multilang, news]) => this.navCtrl.pop());
   }
 
+  setNewImage(input) {
+    input.preventDefault();
+
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.image = imageData;
+    })
+
+  }
 }

@@ -11,6 +11,9 @@ import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/p
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AuthProvider} from "../../providers/auth/auth";
+import {Observable} from "rxjs/Observable";
+import {Camera, CameraOptions} from "@ionic-native/camera";
+import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
 
 
 @IonicPage()
@@ -31,6 +34,12 @@ export class UpdatePlacePage {
   hashTags: string;
   topCategories: string;
   isAdmin = false;
+  globalHost;
+  imagesToShow = [];
+  imagesToUpload = [];
+  imagesToUpdate = [];
+  avatarToShow = '';
+  avatarToUpload = '';
 
   constructor(
     public navCtrl: NavController,
@@ -40,7 +49,9 @@ export class UpdatePlacePage {
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     private globalConfig: GlobalConfigsService,
     private event: Events,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private camera: Camera,
+    private imagePicker: ImagePicker
   ) {
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
@@ -50,7 +61,8 @@ export class UpdatePlacePage {
   }
 
   ngOnInit() {
-    console.log(this.navParams);
+    this.globalHost = this.globalConfig.getGlobalHost();
+
     this.auth.loadPrincipal().subscribe(principal => {
       if (principal.roles.indexOf('ADMIN') >= 0) {
         this.isAdmin = true;
@@ -82,11 +94,27 @@ export class UpdatePlacePage {
       this.hashTags = this.place.hashTags.join(',');
 
       this.placeTypesM = values[1];
+
+      this.avatarToShow = this.place.avatar ? this.place.avatar : '';
+      this.imagesToShow = this.place.images ? this.place.images : [];
+      this.imagesToUpdate = this.place.images ? this.place.images : [];
     });
 
   }
 
   updatePlace(updateForm: NgForm) {
+    let toUpload: any = {};
+    let uploadImg = new Observable((subscriber) => subscriber.next(true));
+
+    if (this.avatarToUpload) {
+      toUpload.avatar = this.avatarToUpload;
+    }
+    if (this.imagesToUpload.length > 0) {
+      toUpload.images = this.imagesToUpload;
+    }
+    if (Object.keys(toUpload).length > 0) {
+      uploadImg = this.placeService.upload(this.placeId, toUpload)
+    }
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
 
@@ -118,7 +146,8 @@ export class UpdatePlacePage {
     }
     zip(
       placeMultilangUpdateQuery,
-      placeUpdateQuery
+      placeUpdateQuery,
+      uploadImg
     ).subscribe(([multilang, place]) => this.navCtrl.pop());
   }
 
@@ -126,4 +155,40 @@ export class UpdatePlacePage {
     this.navCtrl.push(ChooseLocationPage)
   }
 
+  changeAvatar($event) {
+    $event.preventDefault();
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.avatarToShow = imageData;
+      this.avatarToUpload = imageData;
+    })
+
+  }
+
+  removeImage(image: any, $event) {
+    $event.preventDefault();
+    this.imagesToShow.splice(this.imagesToShow.indexOf(image), 1);
+    this.imagesToUpdate.splice(this.imagesToUpdate.indexOf(image), 1);
+  }
+
+  async addImage($event) {
+    const options: ImagePickerOptions = {
+      quality: 100,
+      maximumImagesCount: 6,
+      width: 640
+    };
+    let pictures = await this.imagePicker.getPictures(options);
+    this.imagesToUpload.push(...pictures);
+    this.imagesToShow.push(...pictures);
+  }
 }

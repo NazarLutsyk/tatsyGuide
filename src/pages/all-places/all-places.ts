@@ -229,13 +229,11 @@ export class AllPlacesPage {
   }
 
   toDetails(id) {
-    console.log("all places toDetails() start , before spiner");
     let spinner = this.loadingCtrl.create({
       dismissOnPageChange: true,
       enableBackdropDismiss: true
     });
     spinner.present();
-    console.log("all places toDetails() start , after spiner");
     let placesSubscriber = this.placesService
       .findOne(
         id,
@@ -249,7 +247,6 @@ export class AllPlacesPage {
           ]
         }
       ).subscribe((foundedPlace) => {
-        console.log("all places toDetails() subscribe");
         this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
       });
     spinner.onWillDismiss(() => {

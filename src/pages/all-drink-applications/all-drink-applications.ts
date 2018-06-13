@@ -55,9 +55,9 @@ export class AllDrinkApplicationsPage {
       });
   }
 
-  goToCreateDrinkerApplication() {
-    this.app.getRootNav().push(DrinkerApplicationPage, {disabled: false});
-  }
+  // goToCreateDrinkerApplication() {
+  //   this.app.getRootNav().push(DrinkerApplicationPage, {disabled: false});
+  // }
 
   private loadDrinkApps(): Observable<any> {
     return this.drinkAppsService.find({

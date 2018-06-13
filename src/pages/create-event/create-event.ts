@@ -66,8 +66,6 @@ export class CreateEventPage {
       correctOrientation: true
     };
     this.camera.getPicture(options).then((imageData) => {
-
-
       this.imageToUpload = imageData;
       console.log(imageData);
     })

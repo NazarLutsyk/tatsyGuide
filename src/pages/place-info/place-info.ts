@@ -1,14 +1,5 @@
 import {Component} from '@angular/core';
-import {
-  AlertController,
-  App,
-  Events,
-  IonicPage,
-  ModalController,
-  NavController,
-  NavParams,
-  Platform
-} from 'ionic-angular';
+import {AlertController, App, Events, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
@@ -21,6 +12,7 @@ import {UpdatePlaceDepartmentsPage} from "../update-place-departments/update-pla
 import {AuthProvider} from "../../providers/auth/auth";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdatePlacePage} from "../update-place/update-place";
+import {CreateTopPlacePage} from "../create-top-place/create-top-place";
 // import {UpdatePlacePage} from "../update-place/update-place";
 
 declare var window: any;
@@ -172,5 +164,9 @@ export class PlaceInfoPage {
 
   updatePlaceDepartments(place: Place) {
     this.app.getRootNav().push(UpdatePlaceDepartmentsPage, place);
+  }
+
+  toTopPlaceCreate(place: Place) {
+    this.app.getRootNav().push(CreateTopPlacePage, place);
   }
 }

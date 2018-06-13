@@ -88,8 +88,8 @@ import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose
 import { Facebook } from '@ionic-native/facebook';
 import {GooglePlus} from "@ionic-native/google-plus";
 import {FormsModule} from "@angular/forms";
-import { ImageProvider } from '../providers/image/image';
 import {Globalization} from "@ionic-native/globalization";
+import {CreateTopPlacePageModule} from "../pages/create-top-place/create-top-place.module";
 
 
 @NgModule({
@@ -150,6 +150,7 @@ import {Globalization} from "@ionic-native/globalization";
     AllPlacesPageModule,
     SingleDrinkApplicationPageModule,
     ModalChooseLangPageModule,
+    CreateTopPlacePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
@@ -195,7 +196,6 @@ import {Globalization} from "@ionic-native/globalization";
     Base64,
     MailProvider,
     ReviewProvider,
-    ImageProvider,
     Globalization
 
   ]

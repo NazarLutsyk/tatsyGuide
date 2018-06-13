@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {App, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {LangProvider} from "../../providers/lang/lang";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
@@ -17,12 +18,16 @@ export class ModalChooseLangPage {
     public app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
-    private langService: LangProvider
+    private langService: LangProvider,
+    private globalConfig: GlobalConfigsService
   ) {
   }
 
   ngOnInit() {
-    this.langService.find({}).subscribe(langs => this.langs = langs);
+    this.langService.find({}).subscribe(langs => {
+      this.langs = langs;
+      this.lang = this.globalConfig.getGlobalLang();
+    });
   }
 
   goToUpdate() {
