@@ -9,6 +9,7 @@ import {BonuseMultilang} from "../../models/multilang/BonuseMultilang";
 import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class UpdateBonusePage {
     private bonuseService: BonuseProvider,
     private bonuseMultilangServive: BonuseMultilangProvider,
     private auth: AuthProvider,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private camera: Camera
   ) {
   }
 
@@ -84,10 +86,21 @@ export class UpdateBonusePage {
   }
 
   setNewImage(input) {
-    //todo set new image
-    let toUpload = "";
     input.preventDefault();
-
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.image = imageData;
+    })
   }
 
 }

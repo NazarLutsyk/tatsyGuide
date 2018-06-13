@@ -9,6 +9,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {Event} from "../../models/promo/event/Event";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class UpdateEventPage {
     private eventService: EventProvider,
     private eventMultilangServive: EventMultilangProvider,
     private auth: AuthProvider,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private camera: Camera
   ) {
   }
 
@@ -54,7 +56,7 @@ export class UpdateEventPage {
   }
 
   updatePromo(updateForm: NgForm) {
-    let uploadImg = new Observable((subscriber)=>subscriber.next(true));
+    let uploadImg = new Observable((subscriber) => subscriber.next(true));
 
     if (this.event.image !== this.image) {
       uploadImg = this.eventService.upload(this.eventId, this.image);
@@ -83,9 +85,22 @@ export class UpdateEventPage {
   }
 
   setNewImage(input) {
-    //todo set new image
     input.preventDefault();
-    let toUpload = "";
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.image = imageData;
+    })
+
   }
 
 }

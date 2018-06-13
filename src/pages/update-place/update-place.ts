@@ -12,6 +12,8 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Observable} from "rxjs/Observable";
+import {Camera, CameraOptions} from "@ionic-native/camera";
+import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
 
 
 @IonicPage()
@@ -33,10 +35,11 @@ export class UpdatePlacePage {
   topCategories: string;
   isAdmin = false;
   globalHost;
-  avatar;
-  avatarToUpload = null;
-  images = [];
-  imagesToUplaod = null;
+  imagesToShow = [];
+  imagesToUpload = [];
+  imagesToUpdate = [];
+  avatarToShow = '';
+  avatarToUpload = '';
 
   constructor(
     public navCtrl: NavController,
@@ -46,7 +49,9 @@ export class UpdatePlacePage {
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     private globalConfig: GlobalConfigsService,
     private event: Events,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private camera: Camera,
+    private imagePicker: ImagePicker
   ) {
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
@@ -90,8 +95,9 @@ export class UpdatePlacePage {
 
       this.placeTypesM = values[1];
 
-      this.avatar = this.place.avatar ? this.place.avatar : '';
-      this.images = this.place.images ? this.place.images : [];
+      this.avatarToShow = this.place.avatar ? this.place.avatar : '';
+      this.imagesToShow = this.place.images ? this.place.images : [];
+      this.imagesToUpdate = this.place.images ? this.place.images : [];
     });
 
   }
@@ -103,11 +109,11 @@ export class UpdatePlacePage {
     if (this.avatarToUpload) {
       toUpload.avatar = this.avatarToUpload;
     }
-    if (this.imagesToUplaod.length > 0) {
-      toUpload.images = this.imagesToUplaod;
+    if (this.imagesToUpload.length > 0) {
+      toUpload.images = this.imagesToUpload;
     }
     if (Object.keys(toUpload).length > 0) {
-      uploadImg = this.placeService.upload(this.placeId,toUpload)
+      uploadImg = this.placeService.upload(this.placeId, toUpload)
     }
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
@@ -150,19 +156,39 @@ export class UpdatePlacePage {
   }
 
   changeAvatar($event) {
-    //todo change avatar
     $event.preventDefault();
-    console.log('change avatar');
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true,
+      targetWidth: 1280,
+      targetHeight: 960,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      this.avatarToShow = imageData;
+      this.avatarToUpload = imageData;
+    })
+
   }
 
-  removeImage(image: any) {
-    //todo remove image
-    console.log("remove image: " + image);
+  removeImage(image: any, $event) {
+    $event.preventDefault();
+    this.imagesToShow.splice(this.imagesToShow.indexOf(image), 1);
+    this.imagesToUpdate.splice(this.imagesToUpdate.indexOf(image), 1);
   }
 
-  addImage($event) {
-    //todo change avatar
-    $event.preventDefault();
-    console.log('add image');
+  async addImage($event) {
+    const options: ImagePickerOptions = {
+      quality: 100,
+      maximumImagesCount: 6,
+      width: 640
+    };
+    let pictures = await this.imagePicker.getPictures(options);
+    this.imagesToUpload.push(...pictures);
+    this.imagesToShow.push(...pictures);
   }
 }
