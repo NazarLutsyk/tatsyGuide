@@ -1,1 +1,30 @@
-{"xxx" : "helloxxx"}
+{
+  "placeInfo": {
+    "xxx": "helloxxx",
+    "complaint": "complaint",
+    "contactToManager": "Contact to manager",
+    "reviews": "Reviews",
+    "rating": "Rating",
+    "category": "Category",
+    "info": "Information",
+    "descr": "Description",
+    "tags": "Tags",
+    "avgPrice": "Average bill",
+    "place": "place",
+    "drinker": "drinker",
+    "events": "events",
+    "akcii": "bonuses",
+    "news": "news",
+    "map": "map",
+    "testimonials": "testimonials",
+    "parking": "parking",
+    "karaoke": "karaoke",
+    "vipRoom": "vip room",
+    "manage": "Manage place",
+    "updatePlace": "Update place",
+    "addToTop": "Move place to top",
+    "manageAdmins": "Manage admins",
+    "deletePlace": "Delete place",
+    "cancel": "Cancel"
+  }
+}

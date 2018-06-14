@@ -61,7 +61,6 @@ export class MyApp implements OnInit {
               private menuController: MenuController,
               private globalConfig: GlobalConfigsService,
               private http: HttpClient,
-              // private _ngZone: NgZone,
               private geolocation: Geolocation,
               private auth: AuthProvider,
               private globalization: Globalization
@@ -71,13 +70,17 @@ export class MyApp implements OnInit {
       .ready().then(
       () => {
 
-        this.globalization.getPreferredLanguage().then(res => {
-          this.globalConfig.globalLang = res.value;
-          this.rootPage = HomePage;
-        });
 
-        statusBar.styleDefault();
-        splashScreen.hide();
+        if (platform.is("android") || platform.is("ios")) {
+          this.globalization.getPreferredLanguage().then(res => {
+            this.globalConfig.globalLang = res.value;
+            this.rootPage = HomePage;
+          });
+
+        }
+
+        // statusBar.styleDefault();
+        // splashScreen.hide();
         this.geolocation.getCurrentPosition().then((position) => {
           this.globalConfig.globalPosition.latitude = position.coords.latitude;
           this.globalConfig.globalPosition.longitude = position.coords.longitude;

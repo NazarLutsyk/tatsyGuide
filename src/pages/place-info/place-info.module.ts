@@ -1,7 +1,11 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { PlaceInfoPage } from './place-info';
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {PlaceInfoPage} from './place-info';
 import {MatExpansionModule} from "@angular/material/expansion";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient} from "@angular/common/http";
+import {createTranslateLoader} from "../../app/app.module";
+import {CallNumber} from "@ionic-native/call-number";
 
 @NgModule({
   declarations: [
@@ -10,6 +14,18 @@ import {MatExpansionModule} from "@angular/material/expansion";
   imports: [
     IonicPageModule.forChild(PlaceInfoPage),
     MatExpansionModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+
   ],
+  providers :[
+    CallNumber
+  ]
 })
-export class PlaceInfoPageModule {}
+export class PlaceInfoPageModule {
+}

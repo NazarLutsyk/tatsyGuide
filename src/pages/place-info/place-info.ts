@@ -1,5 +1,15 @@
 import {Component} from '@angular/core';
-import {AlertController, App, Events, ModalController, NavController, NavParams, Platform} from 'ionic-angular';
+import {
+  ActionSheetController,
+  AlertController,
+  App,
+  Events,
+  IonicPage,
+  ModalController,
+  NavController,
+  NavParams,
+  Platform
+} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
@@ -13,11 +23,13 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdatePlacePage} from "../update-place/update-place";
 import {CreateTopPlacePage} from "../create-top-place/create-top-place";
+import {TranslateService} from "@ngx-translate/core";
 // import {UpdatePlacePage} from "../update-place/update-place";
+import {CallNumber} from '@ionic-native/call-number';
 
 declare var window: any;
 
-// @IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-place-info',
   templateUrl: 'place-info.html',
@@ -45,7 +57,14 @@ export class PlaceInfoPage {
     private departmentService: DepartmentProvider,
     private complaintService: ComplaintProvider,
     private auth: AuthProvider,
+    public translate: TranslateService,
+    private callNumber: CallNumber,
+    public actionSheetCtrl: ActionSheetController
   ) {
+
+    translate.setDefaultLang('en');
+    translate.use('ua');
+
   }
 
   ngOnInit() {
@@ -87,7 +106,8 @@ export class PlaceInfoPage {
 
   connectToManager() {
     let alert = this.alertController.create({
-      title: 'message', inputs: [
+      title: 'message',
+      inputs: [
         {
           name: 'clientEmail',
           placeholder: 'email'
@@ -168,5 +188,121 @@ export class PlaceInfoPage {
 
   toTopPlaceCreate(place: Place) {
     this.app.getRootNav().push(CreateTopPlacePage, place);
+  }
+
+  callToPlace() {
+    let alertForCall = this.alertController.create({
+      title: this.place.phone,
+      buttons: [
+        {
+          text: 'ok',
+          handler: () => {
+            this.callNumber.callNumber(this.place.phone, true)
+              .then(value => console.log('call number', value))
+              .catch(reason => console.log(reason))
+          }
+        },
+        {
+          text: "cancel"
+        }
+      ]
+    });
+    alertForCall.present();
+  }
+
+  presentActionSheet() {
+    //   "manageAdmins": "manage admins",
+    //   "deletePlace": "delete place"
+
+
+    this.translate.get([
+      'placeInfo.manage',
+      'placeInfo.updatePlace',
+      'placeInfo.addToTop',
+      'placeInfo.manageAdmins',
+      'placeInfo.deletePlace',
+      'placeInfo.cancel',
+      'placeInfo.confirm',
+      'placeInfo.deleteMessage',
+      'placeInfo.deleteTitle',
+
+    ])
+      .subscribe(value => {
+        console.log(value);
+
+        const actionSheet = this.actionSheetCtrl.create({
+            title: value['placeInfo.manage'],
+            enableBackdropDismiss: true,
+
+            buttons:
+              [
+                {
+                  text: value['placeInfo.updatePlace'],
+                  icon: !this.platform.is('ios') ? 'md-create' : null,
+                  cssClass: "xxx",
+
+                  handler: () => {
+                    console.log(value['placeInfo.updatePlace']);
+                    this.updatePlace(this.place);
+                  }
+                },
+                {
+                  text: value['placeInfo.addToTop'],
+                  cssClass: "xxx",
+                  icon: !this.platform.is('ios') ? 'arrow-round-up' : null,
+                  handler: () => {
+                    this.toTopPlaceCreate(this.place);
+                  }
+                },
+                {
+                  text: value['placeInfo.manageAdmins'],
+                  cssClass: "xxx",
+                  icon: !this.platform.is('ios') ? 'people' : null,
+
+                  handler: () => {
+                    this.updatePlaceDepartments(this.place);
+                  }
+                },
+                {
+                  text: value['placeInfo.deletePlace'],
+                  cssClass: "deleteButton xxx",
+                  role: 'destructive',
+                  icon: !this.platform.is('ios') ? 'trash' : null,
+                  handler: () => {
+                    let alert = this.alertController.create({
+                      title: value['placeInfo.deleteTitle'],
+                      message: value['placeInfo.deleteMessage'],
+                      buttons: [
+                        {
+                          text: value['placeInfo.cancel'],
+                          role: 'cancel',
+                          handler: () => {
+                            console.log('Cancel clicked');
+                          }
+                        },
+                        {
+                          text: value['placeInfo.confirm'],
+                          handler: () => {
+                            this.removePlace(this.place);
+                          }
+                        }
+                      ]
+                    });
+                    alert.present();
+
+                  }
+                },
+                {
+                  text: value['placeInfo.cancel'],
+                  icon: !this.platform.is('ios') ? 'close' : null,
+                  role: 'cancel',
+
+                }
+
+              ]
+          })
+        ;
+        actionSheet.present();
+      });
   }
 }

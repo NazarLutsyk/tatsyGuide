@@ -31,12 +31,20 @@ page-place-info {
     width: fit-content;
     background: map_get($colors, defaultApp);
     text-align: center;
-    ion-icon{
+    ion-icon {
       color: #fff;
     }
     color: #fff;
   }
 
+}
 
+.xxx {
+  box-sizing: border-box;
+  border-bottom: 1px solid silver;
 
+}
+
+.deleteButton{
+  color: #dd434c !important;
 }
