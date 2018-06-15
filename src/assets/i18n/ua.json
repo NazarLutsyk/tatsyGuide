@@ -1,8 +1,8 @@
 {
   "placeInfo": {
-    "xxx": "привіт",
-    "complaint": "скарга",
-    "contactToManager": "написати керуючему закладом",
+    "xxx": "!!!!!!!!!!DELETE THIS IN i18n ",
+    "complaint": "Скарга",
+    "contactToManager": "Зв'язатись з менеджером",
     "reviews": "Перегляди",
     "rating": "Рейтинг",
     "category": "Категорія закладу",
@@ -17,6 +17,7 @@
     "news": "новини",
     "map": "карта",
     "testimonials": "відгуки",
+    "stat": "статистика",
     "parking": "паркінг",
     "karaoke": "караоке",
     "vipRoom": "vip кімната",

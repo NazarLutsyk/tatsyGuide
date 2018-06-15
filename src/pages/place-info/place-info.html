@@ -91,28 +91,11 @@
             </mat-expansion-panel-header>
             <ul>
               <li *ngFor="let topCategory of place.topCategories">
-                <p>
-                  <strong>
-                    {{topCategory}}
-                  </strong>
-                </p>
+                {{topCategory}}
               </li>
             </ul>
           </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              {{'placeInfo.tags' | translate}}
-            </mat-expansion-panel-header>
-            <ul>
-              <li *ngFor="let hashTag of place.hashTags">
-                <p>
-                  <strong (click)="findPlacesByHashTag(hashTag)">
-                    {{hashTag}}
-                  </strong>
-                </p>
-              </li>
-            </ul>
-          </mat-expansion-panel>
+
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               {{'placeInfo.descr' | translate}}
@@ -139,6 +122,20 @@
               <li *ngIf="place.features.vipRoom">
                 <ion-icon name="checkmark" padding-right="5px"></ion-icon>
                 {{'placeInfo.vipRoom'|translate}}
+              </li>
+            </ul>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              {{'placeInfo.tags' | translate}}
+            </mat-expansion-panel-header>
+            <ul>
+              <li *ngFor="let hashTag of place.hashTags">
+                <p>
+                  <strong (click)="findPlacesByHashTag(hashTag)">
+                    {{hashTag}}
+                  </strong>
+                </p>
               </li>
             </ul>
           </mat-expansion-panel>
@@ -181,21 +178,51 @@
         </ion-col>
       </ion-row>
       <ion-row margin-top="15px">
-        <ion-col col-2>
-          <button ion-button icon-start class="iconWrapper" (click)="connectToManager()">
-            <ion-icon name="mail"></ion-icon>
-            {{'placeInfo.contactToManager'|translate}}
-          </button>
+        <ion-col col-8 class="text-align-middle">
+
+          {{'placeInfo.contactToManager'|translate}}
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <button ion-button icon-start class="iconWrapper" (click)="sendComplaint()">
-            <ion-icon name="mail" icon-end=""></ion-icon>
-            {{'placeInfo.complaint' | translate}}
+
+        <ion-col col-3 offset-1>
+          <button ion-button icon-only class="iconWrapper button-height-30px" (click)="connectToManager()">
+            <ion-icon name="ios-mail-outline"></ion-icon>
           </button>
 
         </ion-col>
+
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col col-8 class="text-align-middle">
+          {{'placeInfo.complaint' | translate}}
+
+        </ion-col>
+        <ion-col col-3 offset-1>
+
+          <button ion-button icon-only class="iconWrapper button-height-30px send-complaint" (click)="sendComplaint()">
+            <ion-icon name="ios-mail-outline" icon-end=""></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+
+          <button
+            ion-button
+            icon-start
+            full
+            strong
+            class="defaultBackground iconWhite"
+            (click)="toDrinkerPage()"
+          >
+              <ion-icon name="ios-beer-outline"></ion-icon>
+              {{'placeInfo.drinker' |translate}}
+          </button>
+        </ion-col>
+
       </ion-row>
     </div>
   </ion-grid>

@@ -13,22 +13,38 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 @import "../pages/map/map";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
+$font-family-base: 'Roboto';
+$font-family-ios-base: 'Roboto'';
+$font-family-md-base: ' Roboto ';
+$font-family-wp-base: ' Roboto '';
 .silverUnderline {
   border-bottom: 1.2px solid #e8e8e8;
 }
 
-.paddingTop15{
+.paddingTop15 {
   padding-top: 15px;
 }
-.paddingBottom15{
+
+.paddingBottom15 {
   padding-bottom: 15px;
 }
 
-.colorSilver{
+.colorSilver {
   color: #bababa;
 }
 
-.list-ios > .item-block:first-child{
+.list-ios > .item-block:first-child {
   border-top: none;
 }
+
+.defaultBackground {
+  background: map-get($colors, defaultApp);
+}
+
+.fontBold{
+  font-weight: bold !important;
+}
+
+

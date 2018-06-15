@@ -15,6 +15,7 @@ import {MapPage} from "../map/map";
 import {TestimonialPage} from "../testimonial/testimonial";
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PlaceStatisticPage} from "../place-statistic/place-statistic";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -46,8 +47,11 @@ export class PlaceDeatilsPage {
               // private storage: Storage,
               private auth: AuthProvider,
               private clientService: ClientProvider,
-              private departmentService: DepartmentProvider
+              private departmentService: DepartmentProvider,
+              public translate: TranslateService,
   ) {
+    translate.setDefaultLang('en');
+    translate.use('ua');
   }
 
   ngOnInit() {

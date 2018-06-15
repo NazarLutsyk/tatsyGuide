@@ -26,6 +26,7 @@ import {CreateTopPlacePage} from "../create-top-place/create-top-place";
 import {TranslateService} from "@ngx-translate/core";
 // import {UpdatePlacePage} from "../update-place/update-place";
 import {CallNumber} from '@ionic-native/call-number';
+import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 
 declare var window: any;
 
@@ -304,5 +305,9 @@ export class PlaceInfoPage {
         ;
         actionSheet.present();
       });
+  }
+
+  toDrinkerPage() {
+    this.app.getRootNav().push(PlaceAppliactionsPage,this.place)
   }
 }

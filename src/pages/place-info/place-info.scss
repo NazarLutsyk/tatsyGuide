@@ -17,6 +17,15 @@ page-place-info {
       }
     }
 
+
+    .mat-expansion-panel-header{
+      font-weight: bold;
+    }
+
+    .mat-expansion-indicator.ng-trigger.ng-trigger-indicatorRotate.ng-star-inserted{
+      color: map-get($colors, defaultApp);
+    }
+
   }
 
   .otherInformation {
@@ -24,18 +33,49 @@ page-place-info {
       zoom: 1.5;
       color: map-get($colors, defaultApp);
     }
+
+    .text-align-middle{
+
+      display: flex!important;
+      align-content: center!important;
+      align-items: center!important;
+    }
+
+    .iconWhite {
+      ion-icon {
+        color: #fff !important;
+        zoom: 1;
+
+      }
+    }
   }
 
   .iconWrapper {
-    border-radius: 2px;
     width: fit-content;
-    background: map_get($colors, defaultApp);
+    border-radius: 2px;
+    //background: map_get($colors, defaultApp);
+    //background: #efcf06;
+    background: #efb406f0;
     text-align: center;
     ion-icon {
       color: #fff;
     }
     color: #fff;
   }
+
+  .button-height-30px{
+    height: 30px;
+
+  }
+  .send-complaint {
+    background: #dd434c;
+    color: #000;
+
+    ion-icon {
+      color: #fff;
+    }
+  }
+
 
 }
 
@@ -48,3 +88,4 @@ page-place-info {
 .deleteButton{
   color: #dd434c !important;
 }
+
