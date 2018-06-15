@@ -15,11 +15,13 @@ export class NewsComponent {
   constructor() {
   }
 
-  removePromo(news, event) {
+  removePromo(news, $event) {
+    $event.stopPropagation();
     this.onRemovePromo.emit(this.news);
   }
 
-  updatePromo(news, event) {
+  updatePromo(news, $event) {
+    $event.stopPropagation();
     this.onUpdatePromo.emit(this.news);
   }
 }

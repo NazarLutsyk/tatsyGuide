@@ -51,8 +51,10 @@ export class UpdateNewsPage {
       }).subscribe(([news]) => {
         this.news = news;
         this.newsId = news._id;
-        this.newsMultilang = news.multilang[0];
-        this.newsMultilangId = news.multilang[0]._id;
+        if (news.multilang[0]) {
+          this.newsMultilang = news.multilang[0];
+          this.newsMultilangId = news.multilang[0]._id;
+        }
         this.imageToShow = this.globalHost + news.image;
       })
     })

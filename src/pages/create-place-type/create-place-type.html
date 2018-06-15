@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>create-place-type</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form #placeTypeForm="ngForm">
+    <ion-label>Name:</ion-label>
+    <ion-input
+      type="text"
+      name="name"
+      ngModel
+    ></ion-input>
+    <button ion-button full (click)="createPlaceType(placeTypeForm)">Create</button>
+  </form>
+
+</ion-content>

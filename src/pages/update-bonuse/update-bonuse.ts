@@ -51,8 +51,10 @@ export class UpdateBonusePage {
       }).subscribe(([bonuse]) => {
         this.bonuse = bonuse;
         this.bonuseId = bonuse._id;
-        this.bonuseMultilang = bonuse.multilang[0];
-        this.bonuseMultilangId = bonuse.multilang[0]._id;
+        if (bonuse.multilang[0]) {
+          this.bonuseMultilang = bonuse.multilang[0];
+          this.bonuseMultilangId = bonuse.multilang[0]._id;
+        }
         this.imageToShow = this.globalHost + this.bonuse.image;
       })
     })

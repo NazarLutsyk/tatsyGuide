@@ -6,6 +6,7 @@ import {NewsProvider} from "../../providers/news/NewsProvider";
 import {UpdateNewsPage} from "../update-news/update-news";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
+import {SingleNewsPage} from "../single-news/single-news";
 
 @IonicPage()
 @Component({
@@ -111,4 +112,7 @@ export class AllNewsPage {
     this.skip += this.pageSize;
   }
 
+  goToSingleNews(singleNews) {
+    this.app.getRootNav().push(SingleNewsPage, singleNews);
+  }
 }

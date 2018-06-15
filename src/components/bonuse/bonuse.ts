@@ -16,11 +16,13 @@ export class BonuseComponent {
   constructor() {
   }
 
-  removePromo(bonuse, event) {
+  removePromo(bonuse, $event) {
+    $event.stopPropagation();
     this.onRemovePromo.emit(this.bonuse);
   }
 
-  updatePromo(bonuse, event) {
+  updatePromo(bonuse, $event) {
+    $event.stopPropagation();
     this.onUpdatePromo.emit(this.bonuse);
   }
 }

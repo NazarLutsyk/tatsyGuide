@@ -16,10 +16,12 @@ export class EventComponent {
   }
 
   removePromo(event, $event) {
+    $event.stopPropagation();
     this.onRemovePromo.emit(this.event);
   }
 
   updatePromo(event, $event) {
+    $event.stopPropagation();
     this.onUpdatePromo.emit(this.event);
   }
 }

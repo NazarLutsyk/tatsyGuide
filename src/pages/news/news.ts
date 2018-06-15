@@ -9,6 +9,7 @@ import {UpdateNewsPage} from "../update-news/update-news";
 import {AuthProvider} from "../../providers/auth/auth";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
+import {SingleNewsPage} from "../single-news/single-news";
 
 @IonicPage()
 @Component({
@@ -134,5 +135,9 @@ export class NewsPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  goToSingleNews(singleNews) {
+    this.app.getRootNav().push(SingleNewsPage, singleNews);
   }
 }

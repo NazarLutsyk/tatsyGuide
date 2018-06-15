@@ -8,6 +8,7 @@ import {UpdateEventPage} from "../update-event/update-event";
 import {AuthProvider} from "../../providers/auth/auth";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
+import {SingleEventPage} from "../single-event/single-event";
 
 
 @IonicPage()
@@ -134,5 +135,10 @@ export class EventPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+
+  goToSingleEvent(event) {
+    this.app.getRootNav().push(SingleEventPage, event);
   }
 }

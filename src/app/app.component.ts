@@ -28,6 +28,7 @@ import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 import {NgForm} from "@angular/forms";
 import {Globalization} from '@ionic-native/globalization';
 import {Geolocation} from "@ionic-native/geolocation";
+import {PlaceTypesPage} from "../pages/place-types/place-types";
 
 
 @Component({
@@ -194,6 +195,11 @@ export class MyApp implements OnInit {
   goToTopPlacesManagePage() {
     this.menuController.close();
     this.navCtrl.push(TopPlaceManagePage);
+  }
+
+  goToPlaceTypesPage(){
+    this.menuController.close();
+    this.navCtrl.push(PlaceTypesPage);
   }
 }
 

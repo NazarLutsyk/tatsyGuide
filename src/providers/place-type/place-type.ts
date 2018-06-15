@@ -23,11 +23,15 @@ export class PlaceTypeProvider {
     }
     return this.http.get<any[]>(url);  }
 
-  create(placeType: PlaceType): Observable<PlaceType> {
+  create(placeType: Object = {}): Observable<PlaceType> {
     return this.http.post<PlaceType>(`${this.globalConfig.getGlobalHost()}/api/placeTypes`, placeType);
   }
 
   update(id: string, placeType: PlaceType): Observable<PlaceType> {
     return this.http.put<PlaceType>(`${this.globalConfig.getGlobalHost()}/api/placeTypes/${id}`, placeType);
+  }
+
+  remove(_id:string): Observable<any> {
+    return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/placeTypes/${_id}`);
   }
 }

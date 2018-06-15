@@ -16,11 +16,11 @@ export class RatingComponent {
   constructor() {
   }
 
-  removeRating(rating, event) {
+  removeRating(rating) {
     this.onRemoveRating.emit(this.rating);
   }
 
-  updateRating(rating, event) {
+  updateRating(rating) {
     this.onUpdateRating.emit(this.rating);
   }
 

@@ -123,7 +123,6 @@ export class AllPlacesPage {
 
   findPlacesByFilter(eventData, completeAfter?: any) {
     this.prepareQueryies(eventData);
-    let self = this;
     let res = this.placesService.find({
       aggregate: [
         {$match: this.placeQuery.query},
@@ -184,39 +183,33 @@ export class AllPlacesPage {
         {$limit: this.limit},
       ]
     });
-    awaitPlaces(res);
 
-    function awaitPlaces(res) {
-      zip(
-        fromPromise(self.geolocation.getCurrentPosition()),
-        res
-      ).subscribe(([position, places]) => {
-        if (self.scrollEvent) {
-          self.scrollEvent = false;
-          if (places.length < self.pageSize) self.allLoaded = true;
-          self.places.push(...places);
-        } else {
-          self.skip = 0;
-          self.allLoaded = false;
-          self.places = places;
-        }
-        for (const place of self.places) {
-          place.distance = self.placesService.findDistance(self.globalVars.globalPosition, place);
-        }
-        if (eventData.sort === 'location') {
-          self.places = self.places.sort((a, b) => {
-            if (eventData.direction > 0)
-              return a.distance - b.distance;
-            else {
-              return b.distance - a.distance;
-            }
-          });
-        }
-        if (completeAfter) {
-          completeAfter.complete();
-        }
-      });
-    }
+    res.subscribe((places) => {
+      if (this.scrollEvent) {
+        this.scrollEvent = false;
+        if (places.length < this.pageSize) this.allLoaded = true;
+        this.places.push(...places);
+      } else {
+        this.skip = 0;
+        this.allLoaded = false;
+        this.places = places;
+      }
+      for (const place of this.places) {
+        place.distance = this.placesService.findDistance(this.globalVars.globalPosition, place);
+      }
+      if (eventData.sort === 'location') {
+        this.places = this.places.sort((a, b) => {
+          if (eventData.direction > 0)
+            return a.distance - b.distance;
+          else {
+            return b.distance - a.distance;
+          }
+        });
+      }
+      if (completeAfter) {
+        completeAfter.complete();
+      }
+    });
   }
 
   onSearchPlaces(event) {

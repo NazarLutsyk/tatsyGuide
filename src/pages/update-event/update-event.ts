@@ -51,8 +51,10 @@ export class UpdateEventPage {
       }).subscribe(([event]) => {
         this.event = event;
         this.eventId = event._id;
-        this.eventMultilang = event.multilang[0];
-        this.eventMultilangId = event.multilang[0]._id;
+        if (event.multilang[0]) {
+          this.eventMultilang = event.multilang[0];
+          this.eventMultilangId = event.multilang[0]._id;
+        }
         this.imageToShow = this.globalHost + this.event.image;
       })
     })

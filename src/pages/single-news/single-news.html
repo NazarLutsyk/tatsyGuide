@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>single-news</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <img src="{{globalHost+singleNews.image}}" alt=""/>
+    </ion-item>
+    <ion-item>
+      <strong>Place:</strong>
+      <p>{{singleNews.place.multilang[0].name}}</p>
+    </ion-item>
+    <ion-item>
+      <strong>Header:</strong>
+      <p>{{singleNews.multilang[0].header}}</p>
+    </ion-item>
+    <ion-item>
+      <strong>Description:</strong>
+      <p>
+        {{singleNews.multilang[0].description}}
+      </p>
+    </ion-item>
+    <ion-item>
+      <strong>Start date:</strong>
+      <p>
+        {{singleNews.startDate | date}}
+      </p>
+    </ion-item>
+    <ion-item>
+      <strong>End date:</strong>
+      <p>
+        {{singleNews.endDate | date}}
+      </p>
+    </ion-item>
+  </ion-list>
+</ion-content>

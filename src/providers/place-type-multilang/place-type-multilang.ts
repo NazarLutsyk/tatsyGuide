@@ -23,7 +23,7 @@ export class PlaceTypeMultilangProvider {
     return this.http.get<any[]>(url);
   }
 
-  create(placeTypeMultilangs: PlaceTypeMultilang): Observable<PlaceTypeMultilang> {
+  create(placeTypeMultilangs: Object): Observable<PlaceTypeMultilang> {
     return this.http.post<PlaceTypeMultilang>(`${this.globalConfig.getGlobalHost()}/api/placeTypeMultilangs`, placeTypeMultilangs);
   }
 

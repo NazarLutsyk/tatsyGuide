@@ -21,14 +21,14 @@
       round
       outline
       color="danger"
-      (click)="removePromo(event)"
+      (click)="removePromo(event,$event)"
     >Delete
     </button>
     <button
       ion-button
       round
       outline
-      (click)="updatePromo(event)"
+      (click)="updatePromo(event,$event)"
     >Update
     </button>
   </ion-buttons>

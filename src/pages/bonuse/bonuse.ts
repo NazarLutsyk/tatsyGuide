@@ -9,6 +9,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
+import {SingleBonusePage} from "../single-bonuse/single-bonuse";
 
 @IonicPage()
 @Component({
@@ -132,5 +133,9 @@ export class BonusePage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  goToSingleBonuse(bonuse) {
+    this.app.getRootNav().push(SingleBonusePage, bonuse);
   }
 }

@@ -7,6 +7,9 @@
   <ion-content>
     <ion-list>
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
+        <span (click)="goToPlaceTypesPage()"> Place Types</span>
+      </ion-item>
+      <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToTopPlacesManagePage()"> Top Places manage</span>
       </ion-item>
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">

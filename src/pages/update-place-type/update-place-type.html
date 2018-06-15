@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>update-place-type</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form #ptForm = 'ngForm'>
+    <ion-label>Name: </ion-label>
+    <ion-input
+      type="text"
+      name="name"
+      [(ngModel)]="objectToShow.name"
+    ></ion-input>
+    <button ion-button full (click)="updatePlaceType(ptForm)">Update</button>
+  </form>
+</ion-content>

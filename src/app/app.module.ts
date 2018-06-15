@@ -88,11 +88,16 @@ import {ModalChooseLangPageModule} from "../pages/modal-choose-lang/modal-choose
 import {Facebook} from '@ionic-native/facebook';
 import {GooglePlus} from "@ionic-native/google-plus";
 import {FormsModule} from "@angular/forms";
-import {ImageProvider} from '../providers/image/image';
 import {Globalization} from "@ionic-native/globalization";
 import {CreateTopPlacePageModule} from "../pages/create-top-place/create-top-place.module";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {PlaceTypesPageModule} from "../pages/place-types/place-types.module";
+import {UpdatePlaceTypePageModule} from "../pages/update-place-type/update-place-type.module";
+import {CreatePlaceTypePageModule} from "../pages/create-place-type/create-place-type.module";
+import {SingleNewsPageModule} from "../pages/single-news/single-news.module";
+import {SingleBonusePageModule} from "../pages/single-bonuse/single-bonuse.module";
+import {SingleEventPageModule} from "../pages/single-event/single-event.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -157,6 +162,12 @@ export function createTranslateLoader(http: HttpClient) {
     SingleDrinkApplicationPageModule,
     ModalChooseLangPageModule,
     CreateTopPlacePageModule,
+    PlaceTypesPageModule,
+    UpdatePlaceTypePageModule,
+    CreatePlaceTypePageModule,
+    SingleNewsPageModule,
+    SingleBonusePageModule,
+    SingleEventPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

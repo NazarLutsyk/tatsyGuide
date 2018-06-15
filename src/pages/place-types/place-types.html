@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>place-types</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <button ion-button full color="defaultApp" (click)="goToCreatePlaceType()">Create Event</button>
+  <ion-list>
+    <ion-item *ngFor="let placeTypeM of placeTypesM">
+      <p>{{placeTypeM.name}}</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button full (click)="goToUpdatePlaceType(placeTypeM)">Update</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button full color="danger" (click)="goToRemovePlaceType(placeTypeM)">Remove</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

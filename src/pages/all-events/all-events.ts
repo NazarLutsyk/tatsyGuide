@@ -3,9 +3,9 @@ import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParam
 import {EventProvider} from "../../providers/event/EventProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
-import {UpdatePlacePage} from "../update-place/update-place";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdateEventPage} from "../update-event/update-event";
+import {SingleEventPage} from "../single-event/single-event";
 
 @IonicPage()
 @Component({
@@ -112,5 +112,9 @@ export class AllEventsPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  goToSingleEvent(event) {
+    this.app.getRootNav().push(SingleEventPage, event);
   }
 }
