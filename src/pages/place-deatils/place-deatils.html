@@ -19,18 +19,18 @@
 
 
 <ion-tabs class="tabs-basic" tabsPlacement="bottom">
-  <ion-tab [root]="placeInfoPage" tabTitle="{{'placeInfo.place' | translate }}" tabIcon="pin"
+  <ion-tab [root]="placeInfoPage" tabTitle="{{'placeInfo.place' | translate }}" tabIcon="ios-list-outline"
            [rootParams]="place"></ion-tab>
 
-  <ion-tab [root]="eventsPage" tabTitle="{{'placeInfo.events' | translate }}" tabIcon="bowtie"
+  <ion-tab [root]="eventsPage" tabTitle="{{'placeInfo.events' | translate }}" tabIcon="ios-calendar-outline"
            [rootParams]="place"></ion-tab>
-  <ion-tab [root]="bonusesPage" tabTitle="{{'placeInfo.akcii' | translate }}" tabIcon="ribbon"
+  <ion-tab [root]="bonusesPage" tabTitle="{{'placeInfo.akcii' | translate }}" tabIcon="ios-ribbon-outline"
            [rootParams]="place"></ion-tab>
   <ion-tab [root]="newsPage" tabTitle="{{'placeInfo.news' | translate }}" tabIcon="information"
            [rootParams]="place"></ion-tab>
-  <ion-tab [root]="mapPage" tabTitle="{{'placeInfo.map' | translate }}" tabIcon="map" [rootParams]="place"></ion-tab>
+  <ion-tab [root]="mapPage" tabTitle="{{'placeInfo.map' | translate }}" tabIcon="ios-pin-outline" [rootParams]="place"></ion-tab>
 
-  <ion-tab [root]="testimonialsPage" tabTitle="{{'placeInfo.testimonials' | translate }}" tabIcon="podium"
+  <ion-tab [root]="testimonialsPage" tabTitle="{{'placeInfo.testimonials' | translate }}" tabIcon="ios-star-half-outline"
            [rootParams]="place"></ion-tab>
   <!--<ion-tab [root]="drinkerPage" tabTitle="drinker" tabIcon="beer" [rootParams]="place"></ion-tab>-->
   <ion-tab [root]="placeStatisticPage"

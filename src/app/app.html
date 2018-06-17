@@ -1,13 +1,13 @@
 <ion-menu [content]="content" side="left" id="leftSideMenu" type="overlay">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Side menu</ion-title>
+      <ion-title>{{'sideMenu.titleLeft'|translate}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <ion-list>
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToPlaceTypesPage()"> Place Types</span>
+        <span (click)="goToPlaceTypesPage()"> Manage Place Types</span>
       </ion-item>
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToTopPlacesManagePage()"> Top Places manage</span>
@@ -58,7 +58,9 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title>SDR {{searchObject.sort}} {{searchObject.range.lower}}{{searchObject.range.upper}}</ion-title>
+      <ion-title>{{'sideMenu.titleRight'|translate}} {{searchObject.sort}}
+        {{searchObject.range.lower}}{{searchObject.range.upper}}
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 

@@ -23,7 +23,8 @@
       <ion-icon item-end name="ios-arrow-dropright"></ion-icon>
 
       <p><span *ngFor="let placeType of place?.types">{{placeType?.name}} </span></p>
-      <p>{{place?.multilang[0]?.address.city}} {{place?.multilang[0]?.address.street}}
+      <p>{{place?.multilang[0]?.address.city}}</p>
+      <p> {{place?.multilang[0]?.address.street}}
         {{place?.multilang[0]?.address.number}}</p>
       <p>{{place?.distance | number : '3.1-2'}} км</p>
     </ion-item>

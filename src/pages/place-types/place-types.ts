@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {PlaceTypeProvider} from "../../providers/place-type/place-type";
 import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdatePlaceTypePage} from "../update-place-type/update-place-type";
 import {CreatePlaceTypePage} from "../create-place-type/create-place-type";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -23,7 +24,12 @@ export class PlaceTypesPage {
     private placeTypeService: PlaceTypeProvider,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     public modal: ModalController,
+    public alertCtrl: AlertController,
+    public translate: TranslateService
   ) {
+
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {
@@ -52,14 +58,40 @@ export class PlaceTypesPage {
   goToUpdatePlaceType(placeTypeM: any) {
     let modalItem = this.modal.create(ModalChooseLangPage, {
       object: placeTypeM,
-      page: UpdatePlaceTypePage
+      page: UpdatePlaceTypePage // куда отправляемся после выбора языка
     });
     modalItem.present();
   }
 
-  goToRemovePlaceType(placeTypeM: any) {
-    this.placeTypeService.remove(placeTypeM.placeType).subscribe(() => {
-      this.placeTypesM.splice(this.placeTypesM.indexOf(placeTypeM, 1));
+  removePlaceType(placeTypeM: any) {
+
+    this.translate.get([
+      "placeInfo.confirm",
+      "placeInfo.cancel",
+      "placeInfo.confirm",
+      "placeInfo.delete",
+    ]).subscribe(translations => {
+
+      let alertDelete = this.alertCtrl.create({
+        enableBackdropDismiss: true,
+        title: translations['placeInfo.delete'] + "?",
+        buttons: [
+          {
+            text: translations['placeInfo.confirm'],
+            handler: () => {
+              this.placeTypeService.remove(placeTypeM.placeType).subscribe(() => {
+                this.placeTypesM.splice(this.placeTypesM.indexOf(placeTypeM, 1));
+              });
+
+            }
+          },
+          {
+            text: translations['placeInfo.cancel']
+          }
+        ]
+      });
+      alertDelete.present()
+
     });
   }
 }

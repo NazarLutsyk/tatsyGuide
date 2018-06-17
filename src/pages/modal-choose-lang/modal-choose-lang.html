@@ -1,24 +1,32 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>modal-choose-lang</ion-title>
+
+    <ion-title (click)="pop()">
+      <ion-icon name="arrow-round-back"></ion-icon>
+      modal-choose-lang
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-item>
-    <ion-header>choose language to update place</ion-header>
-  </ion-item>
+  <ion-row>
+    <ion-col class="fontBold" text-center>{{'modalChooseLang.message' | translate}}</ion-col>
+  </ion-row>
 
-  <ion-select [(ngModel)]="lang">
-    <ion-option *ngFor="let singleLang of langs" [value]="singleLang._id">{{singleLang.name}}</ion-option>
-  </ion-select>
+  <!--<ion-select [(ngModel)]="lang">-->
+  <!--<ion-option *ngFor="let singleLang of langs" [value]="singleLang._id">{{singleLang.name}}</ion-option>-->
+  <!--</ion-select>-->
 
-  <button ion-button (click)="goToUpdate()">
-    update
-  </button>
+  <div *ngFor="let singleLang of langs">
+    <button ion-button full class="defaultBackground" (click)="goToUpdate(singleLang)">{{singleLang.name}}</button>
+  </div>
+
+  <!--<button ion-button class="buttonUpdate" (click)="goToUpdate()">-->
+  <!--update-->
+  <!--</button>-->
 
 
 </ion-content>

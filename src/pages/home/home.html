@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      logo {{'xxx' | translate}} <span *ngIf="principal">{{principal.name}}</span>
+     <!--<span *ngIf="principal">{{principal.name}}</span>-->
     </ion-title>
     <button ion-button menuToggle="rightSideMenu" right>
       <ion-icon name="options"></ion-icon>
@@ -13,10 +13,10 @@
 </ion-header>
 
 <ion-tabs>
-  <ion-tab [root]="placesTab" tabTitle="Home" tabIcon="home"></ion-tab>
-  <ion-tab [root]="topPlacesTab" tabTitle="top" tabIcon="information-circle"></ion-tab>
-  <ion-tab [root]="newsTab" tabTitle="news" tabIcon="contacts"></ion-tab>
-  <ion-tab [root]="drinkerTab" tabTitle="drinker" tabIcon="beer"></ion-tab>
+  <ion-tab [root]="placesTab" tabTitle="Home" tabIcon="ios-home-outline"></ion-tab>
+  <ion-tab [root]="topPlacesTab" tabTitle="top" tabIcon="ios-information-circle-outline"></ion-tab>
+  <ion-tab [root]="newsTab" tabTitle="news" tabIcon="ios-list-box-outline"></ion-tab>
+  <ion-tab [root]="drinkerTab" tabTitle="drinker" tabIcon="ios-beer-outline"></ion-tab>
 </ion-tabs>
 
 

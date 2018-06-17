@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Rating} from "../../models/rating/Rating";
 import {RatingProvider} from "../../providers/rating/rating-provider";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @IonicPage()
@@ -18,8 +19,11 @@ export class ModalTestimonialPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewController: ViewController,
-              private ratingService: RatingProvider
+              private ratingService: RatingProvider,
+              private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   logForm() {
@@ -27,7 +31,7 @@ export class ModalTestimonialPage {
     this.ratingService.create(rating).subscribe(rating => this.navCtrl.pop());
   }
 
-  dismiss(){
+  dismiss() {
     this.navCtrl.pop();
   }
 

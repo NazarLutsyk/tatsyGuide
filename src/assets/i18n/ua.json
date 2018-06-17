@@ -28,8 +28,15 @@
     "deletePlace": "Видалити місце",
     "cancel": "Відміна",
     "confirm": "Підтвердити",
-    "deleteTitle" : "Підтвердть видалення",
-    "deleteMessage" : "Бажаєте видалити заклад?"
-
+    "deleteTitle": "Підтвердть видалення",
+    "deleteMessage": "Бажаєте видалити заклад?",
+    "delete": "Видалити"
+  },
+  "modalChooseLang": {
+    "message": "Оберіть мову"
+  },
+  "sideMenu": {
+    "titleLeft": "Меню",
+    "titleRight": "Оберіть фільтр"
   }
 }

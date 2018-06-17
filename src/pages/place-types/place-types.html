@@ -9,17 +9,28 @@
   <ion-refresher (ionRefresh)="refresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <button ion-button full color="defaultApp" (click)="goToCreatePlaceType()">Create Event</button>
-  <ion-list>
-    <ion-item *ngFor="let placeTypeM of placeTypesM">
-      <p>{{placeTypeM.name}}</p>
+  <button ion-button full color="defaultApp" (click)="goToCreatePlaceType()">Create place type</button>
+  <ion-list [virtualScroll]="placeTypesM" [approxItemHeight]="'132px'">
+    <ion-item *virtualItem="let placeTypeM">
+
+
       <ion-grid>
-        <ion-row>
-          <ion-col>
-            <button ion-button full (click)="goToUpdatePlaceType(placeTypeM)">Update</button>
+
+        <ion-row align-items-center>
+          <ion-col class="fontBold" col-6>
+            {{placeTypeM.name}}
           </ion-col>
-          <ion-col>
-            <button ion-button full color="danger" (click)="goToRemovePlaceType(placeTypeM)">Remove</button>
+          <ion-col text-center>
+            <button ion-button icon-only class="buttonUpdate" (click)="goToUpdatePlaceType(placeTypeM)">
+              <ion-icon name="md-create"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col text-center>
+            <button ion-button icon-only
+                    class="buttonDelete"
+                    (click)="removePlaceType(placeTypeM)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -29,6 +29,7 @@ import {NgForm} from "@angular/forms";
 import {Globalization} from '@ionic-native/globalization';
 import {Geolocation} from "@ionic-native/geolocation";
 import {PlaceTypesPage} from "../pages/place-types/place-types";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -64,8 +65,11 @@ export class MyApp implements OnInit {
               private http: HttpClient,
               private geolocation: Geolocation,
               private auth: AuthProvider,
-              private globalization: Globalization
+              private globalization: Globalization,
+              private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
 
     platform
       .ready().then(

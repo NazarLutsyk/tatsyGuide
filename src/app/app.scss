@@ -19,6 +19,20 @@ $font-family-base: 'Roboto';
 $font-family-ios-base: 'Roboto'';
 $font-family-md-base: ' Roboto ';
 $font-family-wp-base: ' Roboto '';
+
+.toolbar-background {
+  background: map_get($colors, defaultApp) !important;
+
+}
+
+.toolbar-title{
+  color: #fff ;
+
+}
+
+.back-button-icon{
+  color: #fff;
+}
 .silverUnderline {
   border-bottom: 1.2px solid #e8e8e8;
 }
@@ -45,6 +59,26 @@ $font-family-wp-base: ' Roboto '';
 
 .fontBold{
   font-weight: bold !important;
+}
+
+.buttonUpdate{
+  background: #8ae29e;
+}
+.buttonDelete {
+  background: #dd434c;
+
+}
+
+.buttonCreate{
+  background: #000;
+}
+
+.colorDanger{
+  color: #dd434c !important;
+}
+
+ion-col{
+  white-space: normal;
 }
 
 
