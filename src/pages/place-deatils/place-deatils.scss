@@ -17,9 +17,9 @@ page-place-deatils {
   }
 
   .tabs .tab-button[aria-selected=true] .tab-button-icon, .tabs .tab-button[aria-selected=true] {
-    color: map-get($colors, defaultApp);
-    background: white;
-  }
+     color: map-get($colors, defaultApp);
+     background: white;
+   }
 
   .tab-button {
     background: white;

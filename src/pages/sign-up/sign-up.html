@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>signUp</ion-title>
+    <ion-title></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,26 +16,26 @@
 <ion-content padding>
 
   <ion-item>
-    <ion-input  [(ngModel)]="name"></ion-input>
+    <ion-input [(ngModel)]="name" placeholder="{{'placeholder.name' | translate}}"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-input  [(ngModel)]="surname"></ion-input>
+    <ion-input [(ngModel)]="surname" placeholder="{{'placeholder.surname' | translate}}"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-input  [(ngModel)]="email"></ion-input>
+    <ion-input [(ngModel)]="email" placeholder="{{'placeholder.email' | translate}}"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-input  [(ngModel)]="login"></ion-input>
+    <ion-input [(ngModel)]="login" placeholder="{{'placeholder.login' | translate}}"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-input  [(ngModel)]="password"></ion-input>
+    <ion-input [(ngModel)]="password" placeholder="{{'placeholder.password' | translate}}" type="password"></ion-input>
   </ion-item>
 
-  <button ion-button (click)="signUpMe()">registrate me</button>
+  <button ion-button [full]="true" class="backgroundGold" (click)="signUpMe()">{{'signUp.signUp' |translate}}</button>
 
   <div *ngIf="message">{{message}}</div>
 </ion-content>

@@ -1,3 +1,6 @@
 page-login {
-
+  .tabs .tab-button[aria-selected=true] .tab-button-icon, .tabs .tab-button[aria-selected=true] {
+    color: map-get($colors, defaultApp);
+    background: white;
+  }
 }

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>signIn</ion-title>
+    <ion-title></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,36 +16,34 @@
 <ion-content padding>
 
   <ion-item>
-    <ion-input [(ngModel)]="login"></ion-input>
+    <ion-input [(ngModel)]="login" placeholder="{{'placeholder.email' | translate}}"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input [(ngModel)]="password"></ion-input>
+    <ion-input [(ngModel)]="password" placeholder="{{'placeholder.password'| translate}}"></ion-input>
   </ion-item>
 
-  <!--<input [(ngModel)]="login" type="" name="" placeholder="">-->
-  <!--<input [(ngModel)]="password" type="" name="" placeholder="">-->
-  <button ion-button (click)="signInMe()">sign in</button>
-  <div *ngIf="message">{{message}}</div>
+  <button ion-button class="defaultBackground" (click)="signInMe()">{{'signIn.enter' | translate}}</button>
+  <div *ngIf="errorDuringSignIn">{{'signIn.message' | translate}}</div>
 
 
   <hr>
+  <!--todo move all logouts to one make with if-->
+  <!--<button ion-button icon-right (click)="facebookLogout()">Logout</button>-->
 
-  <button ion-button icon-right (click)="facebookLogout()">
-    Logout
+  <button ion-button icon-start text-center full (click)="facebookLogin()">
+    <ion-icon name="logo-facebook" ></ion-icon>
+    {{'signIn.enterWithFB'| translate}}
   </button>
-
-  <!--<ng-template #facebookLogin>-->
-  <button ion-button icon-right (click)="facebookLogin()">
-    Login with
-    <ion-icon name="logo-facebook"></ion-icon>
-  </button>
-  <!--</ng-template>-->
 
   <hr>
 
   <!--google login-->
-  <button ion-button (click)="googleLogin()"> google login</button>
-  <button ion-button (click)="googleLogout()"> google logout</button>
+  <button ion-button full icon-start class="googleButton"  (click)="googleLogin()">
+    <ion-icon name="logo-google" ></ion-icon>
+    {{'signIn.enterWithG'| translate}}
+  </button>
+  <!--todo move all logouts to one mske with if-->
+  <!--<button ion-button  text-center (click)="googleLogout()"> google logout</button>-->
 
 
 </ion-content>

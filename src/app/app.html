@@ -58,43 +58,43 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title>{{'sideMenu.titleRight'|translate}} {{searchObject.sort}}
-        {{searchObject.range.lower}}{{searchObject.range.upper}}
+      <ion-title>{{'sideMenu.titleRight'|translate}}
       </ion-title>
     </ion-toolbar>
   </ion-header>
-
+<!--todo change styles-->
   <ion-content>
     <form #filterForm="ngForm"></form>
     <ion-list radio-group [(ngModel)]="searchObject.sort">
       <ion-item>
-        <ion-label>Without sort</ion-label>
+        <ion-label>{{'filters.noSort' | translate}}</ion-label>
         <ion-radio value=""></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>Рейтинг</ion-label>
+        <ion-label>{{'filters.rating' | translate}}</ion-label>
         <ion-radio value="rating"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>Середній чек</ion-label>
+        <ion-label>{{'filters.avg' | translate}}</ion-label>
         <ion-radio value="averagePrice"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>Алфавіт</ion-label>
+        <ion-label>{{'filters.abc' | translate}}</ion-label>
         <ion-radio value="name"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>Віддаленість</ion-label>
+        <ion-label>{{'filters.location' | translate}}</ion-label>
         <ion-radio value="location"></ion-radio>
       </ion-item>
     </ion-list>
     <ion-item>
-      <ion-label *ngIf="searchObject.direction != true">спадання</ion-label>
-      <ion-label *ngIf="searchObject.direction != false">зростання</ion-label>
+      <ion-label *ngIf="searchObject.direction != true">{{'filters.asc' | translate}}</ion-label>
+      <ion-label *ngIf="searchObject.direction != false">{{'filters.desc' | translate}}</ion-label>
       <ion-checkbox color="danger" checked="false" [(ngModel)]="searchObject.direction"></ion-checkbox>
     </ion-item>
 
     <ion-item>
+      <ion-label>{{'filters.range' | translate}}</ion-label>
       <ion-range dualKnobs="true" [(ngModel)]="searchObject.range" min="0" max="600" step="1">
         <span range-left>{{searchObject.range.lower}}</span>
         <span range-right>{{searchObject.range.upper}}</span>
@@ -103,17 +103,17 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Тип закладу</ion-label>
+      <ion-label>{{'filters.type' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
         <ion-option value="">
-          Select place type
+          {{'filters.choose' | translate}}
         </ion-option>
         <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">
           {{placeTypeM.name}}
         </ion-option>
       </ion-select>
     </ion-item>
-
+<!--todo translate features-->
     <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
       <ion-label>{{feature}}</ion-label>
       <ion-checkbox color="dark"
@@ -121,7 +121,7 @@
     </ion-item>
 
     <ion-buttons>
-      <button ion-button type="submit" block (click)="show(searchObject)">Search</button>
+      <button ion-button class="defaultBackground" type="submit" block (click)="show(searchObject)">Search</button>
       <button ion-button type="button" color="danger" block (click)="reset(filterForm)">Reset</button>
     </ion-buttons>
   </ion-content>

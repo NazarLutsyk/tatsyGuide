@@ -6,6 +6,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {ModalTestimonialPage} from "../modal-testimonial/modal-testimonial";
 import {UpdateRatingPage} from "../update-rating/update-rating";
 import {AuthProvider} from "../../providers/auth/auth";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @IonicPage()
@@ -30,8 +31,12 @@ export class TestimonialPage {
     private globalConfigProvider: GlobalConfigsService,
     private modal: ModalController,
     private app: App,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    public translate: TranslateService
   ) {
+
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

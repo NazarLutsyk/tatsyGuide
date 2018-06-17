@@ -222,6 +222,16 @@ export function createTranslateLoader(http: HttpClient) {
     ReviewProvider,
     Globalization
 
+  ],
+  exports: [
+
+    // TranslateModule.forChild({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: createTranslateLoader,
+    //     deps: [HttpClient]
+    //   }
+    // }).ngModule
   ]
 })
 

@@ -1,9 +1,4 @@
-<!--
-  Generated template for the LoginPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -14,6 +9,6 @@
 
 
 <ion-tabs class="tabs-basic" tabsPlacement="bottom">
-  <ion-tab [root]="signUp" tabTitle="register" tabIcon="beer"></ion-tab>
-  <ion-tab [root]="signIn" tabTitle="login" tabIcon="bowtie"></ion-tab>
+  <ion-tab [root]="signUp" tabTitle="{{'login.signUp' |translate}}"></ion-tab>
+  <ion-tab [root]="signIn" tabTitle="{{'login.signIn' |translate}} "></ion-tab>
 </ion-tabs>

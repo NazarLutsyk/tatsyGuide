@@ -109,8 +109,8 @@
           <ion-icon name="ios-cash-outline"></ion-icon>
         </ion-col>
         <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
-          <span>Average price</span>
-          {{place.averagePrice}}
+          <span>{{'placeInfo.avgPrice' | translate}}</span>
+          {{place.averagePrice}} {{'placeInfo.currency'|translate}}.
         </ion-col>
       </ion-row>
       <ion-row>

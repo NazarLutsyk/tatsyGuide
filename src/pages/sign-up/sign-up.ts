@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
 import {HomePage} from "../home/home";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -26,8 +27,11 @@ export class SignUpPage {
     private http: HttpClient,
     private globalVars: GlobalConfigsService,
     private app: App,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
 
   }
 

@@ -30,7 +30,8 @@
     "confirm": "Підтвердити",
     "deleteTitle": "Підтвердть видалення",
     "deleteMessage": "Бажаєте видалити заклад?",
-    "delete": "Видалити"
+    "delete": "Видалити",
+    "currency": "грн"
   },
   "modalChooseLang": {
     "message": "Оберіть мову"
@@ -38,5 +39,41 @@
   "sideMenu": {
     "titleLeft": "Меню",
     "titleRight": "Оберіть фільтр"
+  },
+  "testimonials": {
+    "add": "додати відгук"
+  },
+  "signUp": {
+    "signUp": "Зареєструватись"
+  },
+  "login": {
+    "signIn": "Вхід",
+    "signUp": "Реєстрація"
+  },
+  "signIn": {
+    "enter": "Увійти",
+    "message": "Не вірний логін або пароль!",
+    "enterWithFB": "Увійти через Facebook",
+    "enterWithG": "Увійти через Google"
+  },
+  "placeholder": {
+    "name": "ім'я",
+    "surname": "прізвище",
+    "email": "пошта",
+    "login": "псевдонім",
+    "password": "пароль"
+  },
+  "filters": {
+    "noSort": "Не сортувати",
+    "rating": "За рейтингом",
+    "avg": "За середнім чеком",
+    "abc" : "За назвами",
+    "location" : "За розташуванням",
+    "asc" : "Зростання",
+    "desc" : "Спадання",
+    "type" : "Тип закладу",
+    "choose" : "Всі типи закладів",
+    "range" : "Середній чек (від...до)",
+    "wifi" : "вай-фай"
   }
 }

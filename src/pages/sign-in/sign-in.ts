@@ -6,6 +6,7 @@ import {HomePage} from "../home/home";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Facebook} from "@ionic-native/facebook";
 import {GooglePlus} from '@ionic-native/google-plus';
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class SignInPage {
 
   login: string = "vasya";
   password: string = "vaysa";
-  message: string;
+  errorDuringSignIn: boolean;
 
   constructor(
     private googlePlus: GooglePlus,
@@ -29,7 +30,10 @@ export class SignInPage {
     private app: App,
     private events: Events,
     private auth: AuthProvider,
+    private translate : TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
 
     fb.getLoginStatus()
       .then(res => {
@@ -50,6 +54,8 @@ export class SignInPage {
       this.app.getRootNav().setRoot(HomePage);
     }, (error) => {
       console.log(error);
+      this.errorDuringSignIn = true;
+
     });
   }
 
