@@ -142,8 +142,6 @@ export class PlaceInfoPage {
   }
 
   updatePlace(place: Place) {
-    //!!!!!!!!!!! todo change to modal
-    // this.app.getRootNav().push(UpdatePlacePage, {place: place});
 
     let modalItem = this.modal.create(ModalChooseLangPage, {
       object: place,

@@ -11,7 +11,7 @@
     <p>{{rating?.comment}}</p>
     <p></p>
     <p *ngIf="rating.place.multilang">place: {{rating.place.multilang[0].name}}</p>
-    <!--todo hide this buttons-->
+    <!--todo hide this buttons это кто писал?-->
     <ion-icon *ngIf="showRemoveButton" item-start name="trash" (click)="removeRating(rating)"></ion-icon>
     <button *ngIf="showUpdateButton" ion-button round item-end medium (click)="updateRating(rating)">
       <ion-icon name="create"></ion-icon>

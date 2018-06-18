@@ -62,10 +62,10 @@
       "myProfile": "Мій профіль",
       "myPlaces": "Мої заклади",
       "favPlaces": "Улюбленні заклади",
-      "favPlaces": "Улюбленні заклади",
       "myTestimonials": "Мої відгуки",
       "createPlace": "Додати заклад",
-      "logout": "Вихід"
+      "logout": "Вихід",
+      "login": "Увійти"
     }
   },
   "testimonials": {
