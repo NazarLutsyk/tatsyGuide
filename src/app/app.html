@@ -13,9 +13,9 @@
         <span (click)="goToTopPlacesManagePage()"> {{'sideMenu.leftMenu.manageTopPlace' | translate}}</span>
       </ion-item>
       <!--todo nazik удали этиу логику-->
-      <!--<ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">-->
-        <!--<span (click)="goToPlacesStatisticPage()"> Places statistic</span>-->
-      <!--</ion-item>-->
+      <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
+        <span (click)="goToPlacesStatisticPage()"> Places statistic</span>
+      </ion-item>
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToPlacesPurgatoryPage()">{{'sideMenu.leftMenu.purgatory' | translate}}</span>
       </ion-item>
@@ -43,6 +43,9 @@
       <ion-item *ngIf="principal">
         <span (click)="goToCreatePlacePage()">{{'sideMenu.leftMenu.createPlace' | translate}}</span>
       </ion-item>
+
+
+      <!--todo бля, братан, а в одну кнопку эту логику впихнуть не? переделай нормально, очень много ненужного рендеринга получается для клиента-->
       <ion-item *ngIf="principal && principal.login" (click)="logout()">
         <span>{{'sideMenu.leftMenu.logout' | translate}}</span>
       </ion-item>
@@ -119,7 +122,7 @@
         </ion-option>
       </ion-select>
     </ion-item>
-<!--todo translate features-->
+<!--todo serj translate features-->
     <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
       <ion-label>{{feature}}</ion-label>
       <ion-checkbox color="dark"
