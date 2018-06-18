@@ -21,29 +21,18 @@
   <ion-item>
     <ion-input [(ngModel)]="password" placeholder="{{'placeholder.password'| translate}}"></ion-input>
   </ion-item>
-
-  <button ion-button class="defaultBackground" (click)="signInMe()">{{'signIn.enter' | translate}}</button>
+  <button ion-button full class="defaultBackground" (click)="signInMe()">{{'signIn.enter' | translate}}</button>
   <div *ngIf="errorDuringSignIn">{{'signIn.message' | translate}}</div>
-
-
   <hr>
-  <!--todo move all logouts to one make with if-->
-  <!--<button ion-button icon-right (click)="facebookLogout()">Logout</button>-->
-
   <button ion-button icon-start text-center full (click)="facebookLogin()">
-    <ion-icon name="logo-facebook" ></ion-icon>
+    <ion-icon name="logo-facebook"></ion-icon>
     {{'signIn.enterWithFB'| translate}}
   </button>
-
   <hr>
-
   <!--google login-->
-  <button ion-button full icon-start class="googleButton"  (click)="googleLogin()">
-    <ion-icon name="logo-google" ></ion-icon>
+  <button ion-button full icon-start class="googleButton" (click)="googleLogin()">
+    <ion-icon name="logo-google"></ion-icon>
     {{'signIn.enterWithG'| translate}}
   </button>
-  <!--todo move all logouts to one mske with if-->
-  <!--<button ion-button  text-center (click)="googleLogout()"> google logout</button>-->
-
 
 </ion-content>

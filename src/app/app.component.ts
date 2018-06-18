@@ -30,6 +30,8 @@ import {Globalization} from '@ionic-native/globalization';
 import {Geolocation} from "@ionic-native/geolocation";
 import {PlaceTypesPage} from "../pages/place-types/place-types";
 import {TranslateService} from "@ngx-translate/core";
+import {Facebook} from "@ionic-native/facebook";
+import {GooglePlus} from "@ionic-native/google-plus";
 
 
 @Component({
@@ -66,7 +68,9 @@ export class MyApp implements OnInit {
               private geolocation: Geolocation,
               private auth: AuthProvider,
               private globalization: Globalization,
-              private translate: TranslateService
+              private translate: TranslateService,
+              private fb: Facebook,
+              private google: GooglePlus
   ) {
     this.translate.setDefaultLang("en");
     this.translate.use("ua");
@@ -143,7 +147,32 @@ export class MyApp implements OnInit {
     }, (error) => {
       console.log(error);
     });
+  }
 
+  logoutFb() {
+    this.fb.logout()
+      .then(res => {
+        this.auth.logOut().subscribe((data) => {
+          this.principal = null;
+          this.menuController.close();
+          this.navCtrl.goToRoot({});
+        }, (error) => {
+          console.log(error);
+        });
+      })
+      .catch(e => console.log('Error facebookLogout from Facebook', e))
+  }
+
+  logoutGoogle() {
+    this.google.logout().then(res => {
+      this.auth.logOut().subscribe((data) => {
+        this.principal = null;
+        this.menuController.close();
+        this.navCtrl.goToRoot({});
+      }, (error) => {
+        console.log(error);
+      });
+    }).catch(e => console.log('Error GoogleLogout from Google', e));
   }
 
   goToCreatePlacePage() {
@@ -201,7 +230,7 @@ export class MyApp implements OnInit {
     this.navCtrl.push(TopPlaceManagePage);
   }
 
-  goToPlaceTypesPage(){
+  goToPlaceTypesPage() {
     this.menuController.close();
     this.navCtrl.push(PlaceTypesPage);
   }

@@ -83,17 +83,6 @@ export class SignInPage {
       .catch(e => console.log('Error logging into Facebook', e));
   }
 
-  facebookLogout() {
-    this.fb.logout()
-      .then(res => {
-        this.isFacebookLoggedIn = false;
-        this.auth.logOut().subscribe(() => {
-          this.app.getRootNav().setRoot(HomePage);
-        });
-      })
-      .catch(e => console.log('Error facebookLogout from Facebook', e));
-  }
-
   getUserDetail(userid) {
     this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender", ["public_profile"])
       .then(res => {
@@ -167,25 +156,5 @@ export class SignInPage {
       })
       .catch(err => console.error(err));
   }
-
-
-  googleLogout() {
-    this.googlePlus.logout().then(res => {
-      console.log(res);
-
-      this.displayName = "";
-      this.email = "";
-      this.familyName = "";
-      this.givenName = "";
-      this.userId = "";
-      this.imageUrl = "";
-
-      this.isGoogleLoggedIn = false;
-      this.auth.logOut().subscribe(() => {
-        this.app.getRootNav().setRoot(HomePage);
-      });
-    });
-  }
-
 
 }

@@ -43,8 +43,14 @@
       <ion-item *ngIf="principal">
         <span (click)="goToCreatePlacePage()">Create place</span>
       </ion-item>
-      <ion-item *ngIf="principal" (click)="logout()">
-        <span>logout</span>
+      <ion-item *ngIf="principal && principal.login" (click)="logout()">
+        <span>logout1</span>
+      </ion-item>
+      <ion-item *ngIf="principal && principal.facebookId" (click)="logoutFb()">
+        <span>logout facebook</span>
+      </ion-item>
+      <ion-item *ngIf="principal && principal.googleId" (click)="logoutGoogle()">
+        <span>logout google</span>
       </ion-item>
       <ion-item *ngIf="!principal">
         <span (click)="goToLoginRegistration()"> login/registration</span>
