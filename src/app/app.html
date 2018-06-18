@@ -13,9 +13,9 @@
         <span (click)="goToTopPlacesManagePage()"> {{'sideMenu.leftMenu.manageTopPlace' | translate}}</span>
       </ion-item>
       <!--todo nazik удали этиу логику-->
-      <!--<ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">-->
-        <!--<span (click)="goToPlacesStatisticPage()"> Places statistic</span>-->
-      <!--</ion-item>-->
+      <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
+        <span (click)="goToPlacesStatisticPage()"> Places statistic</span>
+      </ion-item>
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToPlacesPurgatoryPage()">{{'sideMenu.leftMenu.purgatory' | translate}}</span>
       </ion-item>
