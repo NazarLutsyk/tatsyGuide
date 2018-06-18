@@ -43,9 +43,6 @@
       <ion-item *ngIf="principal">
         <span (click)="goToCreatePlacePage()">{{'sideMenu.leftMenu.createPlace' | translate}}</span>
       </ion-item>
-
-
-      <!--todo бля, братан, а в одну кнопку эту логику впихнуть не? переделай нормально, очень много ненужного рендеринга получается для клиента-->
       <ion-item *ngIf="principal && principal.login" (click)="logout()">
         <span>{{'sideMenu.leftMenu.logout' | translate}}</span>
       </ion-item>
@@ -122,7 +119,7 @@
         </ion-option>
       </ion-select>
     </ion-item>
-<!--todo serj translate features-->
+<!--todo translate features-->
     <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
       <ion-label>{{feature}}</ion-label>
       <ion-checkbox color="dark"

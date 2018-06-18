@@ -1,16 +1,25 @@
 <ion-card>
   <ion-card-content>
 
-    <h2 text-center="">
+    <ion-item>
       <ion-icon item-start name="star">
         {{rating?.value}}
       </ion-icon>
-      {{rating?.client.name}},
-      check : {{rating?.price}}
-    </h2>
-    <p>{{rating?.comment}}</p>
-    <p></p>
-    <p *ngIf="rating.place.multilang">place: {{rating.place.multilang[0].name}}</p>
+    </ion-item>
+    <ion-item>
+      <p>
+        Client: {{rating?.client.name}} {{rating?.client.surname}}
+      </p>
+      <p>
+        Check : {{rating?.price}}
+      </p>
+      <p>
+        Comment: {{rating?.comment}}
+      </p>
+      <p *ngIf="rating.place.multilang">
+        Place: {{rating.place.multilang[0].name}}
+      </p>
+    </ion-item>
     <!--todo hide this buttons это кто писал?-->
     <ion-icon *ngIf="showRemoveButton" item-start name="trash" (click)="removeRating(rating)"></ion-icon>
     <button *ngIf="showUpdateButton" ion-button round item-end medium (click)="updateRating(rating)">
