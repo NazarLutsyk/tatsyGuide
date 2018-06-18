@@ -9,7 +9,7 @@
   <ion-refresher (ionRefresh)="refresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <button ion-button full color="defaultApp" (click)="goToCreatePlaceType()">Create place type</button>
+  <button ion-button full class="defaultBackground2" (click)="goToCreatePlaceType()">Create place type</button>
   <ion-list [virtualScroll]="placeTypesM" [approxItemHeight]="'132px'">
     <ion-item *virtualItem="let placeTypeM">
 

@@ -12,9 +12,10 @@
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToTopPlacesManagePage()"> Top Places manage</span>
       </ion-item>
-      <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToPlacesStatisticPage()"> Places statistic</span>
-      </ion-item>
+      <!--todo nazik удали этиу логику-->
+      <!--<ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">-->
+        <!--<span (click)="goToPlacesStatisticPage()"> Places statistic</span>-->
+      <!--</ion-item>-->
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToPlacesPurgatoryPage()"> Purgatory of places</span>
       </ion-item>
@@ -67,34 +68,34 @@
     <form #filterForm="ngForm"></form>
     <ion-list radio-group [(ngModel)]="searchObject.sort">
       <ion-item>
-        <ion-label>{{'filters.noSort' | translate}}</ion-label>
+        <ion-label>{{'sideMenu.filters.noSort' | translate}}</ion-label>
         <ion-radio value=""></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>{{'filters.rating' | translate}}</ion-label>
+        <ion-label>{{'sideMenu.filters.rating' | translate}}</ion-label>
         <ion-radio value="rating"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>{{'filters.avg' | translate}}</ion-label>
+        <ion-label>{{'sideMenu.filters.avg' | translate}}</ion-label>
         <ion-radio value="averagePrice"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>{{'filters.abc' | translate}}</ion-label>
+        <ion-label>{{'sideMenu.filters.abc' | translate}}</ion-label>
         <ion-radio value="name"></ion-radio>
       </ion-item>
       <ion-item>
-        <ion-label>{{'filters.location' | translate}}</ion-label>
+        <ion-label>{{'sideMenu.filters.location' | translate}}</ion-label>
         <ion-radio value="location"></ion-radio>
       </ion-item>
     </ion-list>
     <ion-item>
-      <ion-label *ngIf="searchObject.direction != true">{{'filters.asc' | translate}}</ion-label>
-      <ion-label *ngIf="searchObject.direction != false">{{'filters.desc' | translate}}</ion-label>
+      <ion-label *ngIf="searchObject.direction != true">{{'sideMenu.filters.asc' | translate}}</ion-label>
+      <ion-label *ngIf="searchObject.direction != false">{{'sideMenu.filters.desc' | translate}}</ion-label>
       <ion-checkbox color="danger" checked="false" [(ngModel)]="searchObject.direction"></ion-checkbox>
     </ion-item>
 
     <ion-item>
-      <ion-label>{{'filters.range' | translate}}</ion-label>
+      <ion-label>{{'sideMenu.filters.range' | translate}}</ion-label>
       <ion-range dualKnobs="true" [(ngModel)]="searchObject.range" min="0" max="600" step="1">
         <span range-left>{{searchObject.range.lower}}</span>
         <span range-right>{{searchObject.range.upper}}</span>
@@ -103,10 +104,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>{{'filters.type' | translate}}</ion-label>
+      <ion-label>{{'sideMenu.filters.type' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
         <ion-option value="">
-          {{'filters.choose' | translate}}
+          {{'sideMenu.filters.choose' | translate}}
         </ion-option>
         <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">
           {{placeTypeM.name}}

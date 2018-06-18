@@ -25,14 +25,15 @@ $font-family-wp-base: ' Roboto '';
 
 }
 
-.toolbar-title{
-  color: #fff ;
+.toolbar-title {
+  color: #fff;
 
 }
 
-.back-button-icon{
+.back-button-icon {
   color: #fff;
 }
+
 .silverUnderline {
   border-bottom: 1.2px solid #e8e8e8;
 }
@@ -53,32 +54,89 @@ $font-family-wp-base: ' Roboto '';
   border-top: none;
 }
 
-.defaultBackground {
+.defaultBackground, .defaultBackground.activated {
   background: map-get($colors, defaultApp);
 }
 
-.fontBold{
+.fontBold {
   font-weight: bold !important;
 }
 
-.buttonUpdate{
+.buttonUpdate, .buttonUpdate.activated {
   background: #8ae29e;
 }
-.buttonDelete {
+
+.buttonDelete, .buttonDelete.activated {
   background: #dd434c;
-
 }
 
-.buttonCreate{
-  background: #000;
+.defaultBackground2, .defaultBackground2.activated {
+  background: #caab85 !important;
 }
 
-.colorDanger{
+.colorDanger {
   color: #dd434c !important;
 }
 
-ion-col{
+ion-col {
   white-space: normal;
 }
+
+.tabbar {
+
+  ion-icon {
+    color: map_get($colors, defaultApp) !important;
+  }
+  [aria-selected=true] {
+    color: map_get($colors, defaultApp2) !important;
+
+  }
+  [ng-reflect-is-active=true] {
+    color: map_get($colors, defaultApp2) !important;
+
+  }
+}
+
+.item-radio-checked {
+  ion-label {
+    color: map_get($colors, defaultApp) !important;;
+  }
+
+}
+
+.item-radio {
+
+  //color: #000;
+
+  .radio-icon {
+    border-color: map_get($colors, defaultApp) !important;
+    //background-color: map_get($colors, defaultApp) !important;
+
+  }
+
+  .radio-inner {
+    background: map_get($colors, defaultApp) !important;
+  }
+
+}
+
+.item-checkbox-checked {
+  color: map_get($colors, defaultApp);
+}
+
+.checkbox-checked {
+  border-color: map_get($colors, defaultApp) !important;
+  background-color: map_get($colors, defaultApp) !important;
+
+}
+
+
+.range-bar-active, .range-knob{
+  background: map_get($colors, defaultApp)!important;
+}
+
+
+
+
 
 

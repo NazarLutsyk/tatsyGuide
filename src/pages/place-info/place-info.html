@@ -17,7 +17,7 @@
     <ion-row *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0" text-center="">
 
       <ion-col>
-        <button ion-button class="buttonUpdate"
+        <button ion-button class="defaultBackground2"
                 (click)="presentActionSheet()">
           {{'placeInfo.manage'|translate}}
         </button>
@@ -169,7 +169,7 @@
         <ion-col>
 
 
-          <button ion-button icon-start full strong class="defaultBackground iconWhite" (click)="toDrinkerPage()">
+          <button ion-button icon-start full strong class="defaultBackground2 iconWhite" (click)="toDrinkerPage()">
             <ion-icon name="ios-beer-outline"></ion-icon>
             {{'placeInfo.drinker' |translate}}
           </button>
