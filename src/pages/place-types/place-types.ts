@@ -66,7 +66,6 @@ export class PlaceTypesPage {
   removePlaceType(placeTypeM: any) {
 
     this.translate.get([
-      "placeInfo.confirm",
       "placeInfo.cancel",
       "placeInfo.confirm",
       "placeInfo.delete",

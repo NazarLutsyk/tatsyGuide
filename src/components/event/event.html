@@ -18,18 +18,17 @@
   <ion-buttons *ngIf="showControlButtons">
     <button
       ion-button
-      round
-      outline
-      color="danger"
-      (click)="removePromo(event,$event)"
-    >Delete
+      class="defaultBackground2"
+      (click)="updatePromo(event,$event)">
+      Update
     </button>
+
     <button
       ion-button
-      round
-      outline
-      (click)="updatePromo(event,$event)"
-    >Update
+      class="buttonDelete"
+      (click)="removePromo(event,$event)">
+      Delete
     </button>
+
   </ion-buttons>
 </ion-card>
