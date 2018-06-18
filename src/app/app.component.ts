@@ -140,17 +140,13 @@ export class MyApp implements OnInit {
 
 
   logout() {
-    this.auth.logOut().subscribe((data) => {
-      this.principal = null;
-      this.menuController.close();
-      this.navCtrl.goToRoot({});
-    }, (error) => {
-      console.log(error);
-    });
-  }
-
-  logoutFb() {
-    this.fb.logout()
+    let logoutPromise = new Promise(((resolve, reject) => resolve(true)));
+    if (this.principal.facebookId) {
+      logoutPromise = this.fb.logout();
+    } else if (this.principal.googleId) {
+      logoutPromise = this.google.logout();
+    }
+    logoutPromise
       .then(res => {
         this.auth.logOut().subscribe((data) => {
           this.principal = null;
@@ -160,19 +156,7 @@ export class MyApp implements OnInit {
           console.log(error);
         });
       })
-      .catch(e => console.log('Error facebookLogout from Facebook', e))
-  }
-
-  logoutGoogle() {
-    this.google.logout().then(res => {
-      this.auth.logOut().subscribe((data) => {
-        this.principal = null;
-        this.menuController.close();
-        this.navCtrl.goToRoot({});
-      }, (error) => {
-        console.log(error);
-      });
-    }).catch(e => console.log('Error GoogleLogout from Google', e));
+      .catch(e => console.log('Logout error', e))
   }
 
   goToCreatePlacePage() {
