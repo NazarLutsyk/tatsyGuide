@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
-import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {Observable} from "rxjs/Observable";
+import {TopPlace} from "../../models/tops/TopPlace";
+import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {TopPlaceUpdatePage} from "../top-place-update/top-place-update";
-import {NgForm} from "@angular/forms";
 
 
 @IonicPage()
@@ -45,18 +46,54 @@ export class TopPlaceManagePage {
   }
 
   loadTopPlaces() {
-    return this.topPlaceService.find({
-      populate: [
-        {
-          path: 'place',
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-          ]
+    return new Observable<TopPlace[]>((subscriber) => {
+      this.topPlaceService.find({
+        populate: [
+          {
+            path: 'place',
+            populate: [
+              {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+            ]
 
+          }
+        ],
+        skip: this.skip,
+        limit: this.limit
+      }).subscribe((topPlaces) => {
+
+
+        let okTopPlaces = [];
+        let otherTopPlacesIds = [];
+        for (const topPlace of topPlaces) {
+          if (!topPlace.place.multilang || topPlace.place.multilang.length === 0) {
+            otherTopPlacesIds.push(topPlace._id);
+          } else {
+            okTopPlaces.push(topPlace);
+          }
         }
-      ],
-      skip: this.skip,
-      limit: this.limit
+        if (otherTopPlacesIds.length > 0) {
+          this.topPlaceService.find({
+            query: {_id: {$in: otherTopPlacesIds}},
+            populate: [
+              {
+                path: 'place',
+                populate: [
+                  {path: 'multilang', options: {limit: 1}},
+                ]
+              }
+            ],
+            skip: this.skip,
+            limit: this.limit
+          }).subscribe((topPlaces) => {
+            okTopPlaces.push(...topPlaces);
+            subscriber.next(okTopPlaces);
+          });
+        } else {
+          subscriber.next(okTopPlaces);
+        }
+
+
+      })
     });
   }
 

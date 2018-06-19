@@ -12,18 +12,18 @@
     <ion-item>
       <img src="{{globalHost+event.image}}" alt=""/>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="event.pm">
       <strong>Place:</strong>
-      <p>{{event.place.multilang[0].name}}</p>
+      <p>{{event.pm.name}}</p>
     </ion-item>
     <ion-item>
       <strong>Header:</strong>
-      <p>{{event.multilang[0].header}}</p>
+      <p>{{event.multilang.header}}</p>
     </ion-item>
     <ion-item>
       <strong>Description:</strong>
       <p>
-        {{event.multilang[0].description}}
+        {{event.multilang.description}}
       </p>
     </ion-item>
     <ion-item>

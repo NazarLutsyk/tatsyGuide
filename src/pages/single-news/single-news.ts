@@ -22,7 +22,8 @@ export class SingleNewsPage {
   }
 
   ngOnInit() {
-    this.singleNews = this.navParams.data;
+    this.singleNews = this.navParams.data.news;
+    this.singleNews.pm = this.navParams.data.pm;
   }
 
 }

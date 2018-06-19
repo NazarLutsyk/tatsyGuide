@@ -10,6 +10,7 @@ import {HttpClient} from "@angular/common/http";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {Observable} from "rxjs/Observable";
+import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 
 @IonicPage()
 @Component({
@@ -19,7 +20,7 @@ import {Observable} from "rxjs/Observable";
 export class MyFavoritePlacesPage {
 
 
-  places: Place[];
+  places: Place[] = [];
   globalHost: string;
   principal: Client;
 
@@ -36,16 +37,18 @@ export class MyFavoritePlacesPage {
     private placesService: PlacesProvider,
     private clientService: ClientProvider,
     private bonuseService: BonuseProvider,
+    private placeMultilangService: PlaceMultilangProvider,
     private events: Events,
     private auth: AuthProvider,
     private loadingCtrl: LoadingController
-
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
 
   ngOnInit() {
-    this.loadOwnFavoritePlaces().subscribe(places => this.places = places);
+    this.loadOwnFavoritePlaces().subscribe(places => {
+      this.places = places;
+    });
   }
 
   doRefresh(refresher: Refresher) {
@@ -75,7 +78,41 @@ export class MyFavoritePlacesPage {
             skip: this.skip,
             limit: this.limit
           })
-          .subscribe(places => subscriber.next(places));
+          .subscribe(places => {
+            let okPlaces = [];
+            let otherPlacesIds = [];
+            for (const place of places) {
+              if (!place.multilang || place.multilang.length === 0) {
+                otherPlacesIds.push(place._id);
+              } else {
+                okPlaces.push(place);
+              }
+            }
+            if (otherPlacesIds.length > 0) {
+              this.placesService.find({
+                query: {_id: {$in: otherPlacesIds}},
+                populate: [
+                  {path: 'multilang'},
+                  {
+                    path: 'types',
+                    populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+                  }
+                ],
+                $project: {
+                  multilang: {$arrayElemAt: ["$multilang", 0]},
+                  types: 1,
+                  rating: 1,
+                },
+                skip: this.skip,
+                limit: this.limit
+              }).subscribe((places) => {
+                okPlaces.push(...places);
+                subscriber.next(okPlaces);
+              });
+            } else {
+              subscriber.next(okPlaces);
+            }
+          });
       });
 
     })
@@ -101,7 +138,18 @@ export class MyFavoritePlacesPage {
         }
       )
       .subscribe((foundedPlace) => {
-        this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
+        let place = foundedPlace[0];
+        if (!place.multilang || place.multilang.length === 0) {
+          this.placeMultilangService.find({
+            query: {place: place._id},
+            limit: 1
+          }).subscribe((pm) => {
+            place.multilang = pm;
+            this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
+          })
+        } else {
+          this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
+        }
       });
     spinner.onWillDismiss(() => {
       placesSubscriber.unsubscribe();

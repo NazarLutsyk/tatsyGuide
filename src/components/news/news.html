@@ -2,11 +2,10 @@
   <img src="{{globalHost+news.image}}" alt=""/>
   <ion-card-content>
     <ion-card-title>
-      {{news.place.multilang[0].name}}<br>
-      {{news.multilang[0].header}}
+      {{news.multilang.header}}
     </ion-card-title>
     <p>
-      {{news.multilang[0].description}}
+      {{news.multilang.description}}
     </p>
     <p>
       {{news.startDate | date}}
@@ -14,12 +13,12 @@
     <p>
       {{news.endDate | date}}
     </p>
+    <p *ngIf="pm">
+      {{pm.name}}
+    </p>
   </ion-card-content>
   <ion-buttons
     *ngIf="showControlButtons">
-
-
-
     <button
       ion-button
       class="defaultBackground2"
@@ -34,7 +33,5 @@
       Delete
     </button>
   </ion-buttons>
-
-
 
 </ion-card>

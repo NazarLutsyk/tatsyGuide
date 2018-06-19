@@ -3,8 +3,8 @@
     <p>
       {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}
     </p>
-    <p>
-      {{drinkApp.place.multilang[0].name}}
+    <p *ngIf="pm">
+      {{pm.name}}
     </p>
     <p>
       {{drinkApp.friends}}

@@ -8,6 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class NewsComponent {
   @Input() news;
+  @Input() pm;
   @Input() showControlButtons;
   @Input() globalHost;
 

@@ -4,6 +4,8 @@ import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
+import {Observable} from "rxjs/Observable";
+import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 
 @IonicPage()
 @Component({
@@ -13,7 +15,7 @@ import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 export class PurgatoryPlacesPage {
 
   globalHost;
-  places: Place[];
+  places: Place[] = [];
 
   skip = 0;
   pageSize = 7;
@@ -24,7 +26,8 @@ export class PurgatoryPlacesPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private globalConfig: GlobalConfigsService,
-    private placeService: PlacesProvider
+    private placesService: PlacesProvider,
+    private placeMultilangService: PlaceMultilangProvider
   ) {
   }
 
@@ -46,24 +49,59 @@ export class PurgatoryPlacesPage {
   }
 
   loadPlaces() {
-    return this.placeService
-      .find({
+    return new Observable<Place[]>((subscriber) => {
+      this.placesService.find({
         query: {allowed: false},
-        sort: {createdAt: -1},
         populate: [
           {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}},
           {
             path: 'types',
             populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
-          },
+          }
         ],
         skip: this.skip,
         limit: this.limit
-      });
+      })
+        .subscribe(places => {
+          let okPlaces = [];
+          let otherPlacesIds = [];
+          for (const place of places) {
+            if (!place.multilang || place.multilang.length === 0) {
+              otherPlacesIds.push(place._id);
+            } else {
+              okPlaces.push(place);
+            }
+          }
+          if (otherPlacesIds.length > 0) {
+            this.placesService.find({
+              query: {_id: {$in: otherPlacesIds}},
+              populate: [
+                {path: 'multilang'},
+                {
+                  path: 'types',
+                  populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+                }
+              ],
+              $project: {
+                multilang: {$arrayElemAt: ["$multilang", 0]},
+                types: 1,
+                rating: 1,
+              },
+              skip: this.skip,
+              limit: this.limit
+            }).subscribe((places) => {
+              okPlaces.push(...places);
+              subscriber.next(okPlaces);
+            });
+          } else {
+            subscriber.next(okPlaces);
+          }
+        });
+    });
   }
 
   toDetails(place) {
-    this.placeService
+    this.placesService
       .findOne(
         place._id,
         {
@@ -77,20 +115,31 @@ export class PurgatoryPlacesPage {
         }
       )
       .subscribe((foundedPlace) => {
-        this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
+        let place = foundedPlace;
+        if (!place.multilang || place.multilang.length === 0) {
+          this.placeMultilangService.find({
+            query: {place: place._id},
+            limit: 1
+          }).subscribe((pm) => {
+            place.multilang = pm;
+            this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
+          })
+        } else {
+          this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
+        }
       });
   }
 
   allowPlace(place, $event) {
     $event.stopPropagation();
-    this.placeService.update(place._id, {allowed: true}).subscribe(
-      place => this.places.splice(this.places.indexOf(place), 1)
+    this.placesService.update(place._id, {allowed: true}).subscribe(
+      updatedPlace => this.places.splice(this.places.indexOf(place), 1)
     );
   }
 
   disallowPlace(place, $event) {
     $event.stopPropagation();
-    this.placeService.remove(place._id).subscribe(() => {
+    this.placesService.remove(place._id).subscribe(() => {
       this.places.splice(this.places.indexOf(place), 1);
     });
   }

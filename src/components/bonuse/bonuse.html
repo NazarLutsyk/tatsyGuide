@@ -3,20 +3,22 @@
   <img src="{{globalHost+bonuse.image}}" alt=""/>
   <ion-card-content>
     <ion-card-title>
-      {{bonuse.place.multilang[0].name}}<br>
-      {{bonuse.multilang[0].header}}
+      {{bonuse.multilang.header}}
     </ion-card-title>
     <p>
-      {{bonuse.multilang[0].description}}
+      {{bonuse.multilang.description}}
     </p>
     <p>
-      {{bonuse.multilang[0].conditions}}
+      {{bonuse.multilang.conditions}}
     </p>
     <p>
       {{bonuse.startDate | date}}
     </p>
     <p>
       {{bonuse.endDate | date}}
+    </p>
+    <p *ngIf="pm">
+      {{pm.name}}
     </p>
   </ion-card-content>
   <ion-buttons *ngIf="showControlButtons">

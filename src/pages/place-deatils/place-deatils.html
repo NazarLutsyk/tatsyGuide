@@ -7,7 +7,7 @@
           <span *ngIf="!place?.allowed">not allowed</span>
         </ion-col>
         <ion-col col-2>
-          <span (click)="addToFavorite(place)" *ngIf="principal">
+          <span (click)="addToFavorite(place)" *ngIf="principal && place.allowed">
             <ion-icon name="heart-outline" *ngIf="!isFavorite"></ion-icon>
             <ion-icon name="heart" *ngIf="isFavorite"></ion-icon>
           </span>
@@ -19,22 +19,45 @@
 
 
 <ion-tabs class="tabs-basic" tabsPlacement="bottom">
-  <ion-tab [root]="placeInfoPage" tabTitle="{{'placeInfo.place' | translate }}" tabIcon="ios-list-outline"
+  <ion-tab [root]="placeInfoPage"
+           tabTitle="{{'placeInfo.place' | translate }}"
+           tabIcon="ios-list-outline"
            [rootParams]="place"></ion-tab>
 
-  <ion-tab [root]="eventsPage" tabTitle="{{'placeInfo.events' | translate }}" tabIcon="ios-calendar-outline"
+  <ion-tab [root]="eventsPage"
+           tabTitle="{{'placeInfo.events' | translate }}"
+           tabIcon="ios-calendar-outline"
+           [rootParams]="place"
+           *ngIf="place.allowed"
+  ></ion-tab>
+  <ion-tab [root]="bonusesPage"
+           tabTitle="{{'placeInfo.akcii' | translate }}"
+           tabIcon="ios-ribbon-outline"
+           [rootParams]="place"
+           *ngIf="place.allowed"
+  ></ion-tab>
+  <ion-tab [root]="newsPage"
+           tabTitle="{{'placeInfo.news' | translate }}"
+           tabIcon="information"
+           [rootParams]="place"
+           *ngIf="place.allowed"
+  ></ion-tab>
+  <ion-tab [root]="mapPage"
+           tabTitle="{{'placeInfo.map' | translate }}"
+           tabIcon="ios-pin-outline"
            [rootParams]="place"></ion-tab>
-  <ion-tab [root]="bonusesPage" tabTitle="{{'placeInfo.akcii' | translate }}" tabIcon="ios-ribbon-outline"
-           [rootParams]="place"></ion-tab>
-  <ion-tab [root]="newsPage" tabTitle="{{'placeInfo.news' | translate }}" tabIcon="information"
-           [rootParams]="place"></ion-tab>
-  <ion-tab [root]="mapPage" tabTitle="{{'placeInfo.map' | translate }}" tabIcon="ios-pin-outline" [rootParams]="place"></ion-tab>
 
-  <ion-tab [root]="testimonialsPage" tabTitle="{{'placeInfo.testimonials' | translate }}" tabIcon="ios-star-half-outline"
-           [rootParams]="place"></ion-tab>
+  <ion-tab [root]="testimonialsPage"
+           tabTitle="{{'placeInfo.testimonials' | translate }}"
+           tabIcon="ios-star-half-outline"
+           [rootParams]="place"
+           *ngIf="place.allowed"
+  ></ion-tab>
   <!--<ion-tab [root]="drinkerPage" tabTitle="drinker" tabIcon="beer" [rootParams]="place"></ion-tab>-->
   <ion-tab [root]="placeStatisticPage"
-           *ngIf="principal && (departments?.length > 0 || principal.roles.indexOf('ADMIN') >= 0)"
+           *ngIf="principal && (departments?.length > 0 || principal.roles.indexOf('ADMIN') >= 0) && place.allowed"
            tabTitle="{{'placeInfo.stat' | translate }}"
-           tabIcon="md-analytics" [rootParams]="place"></ion-tab>
+           tabIcon="md-analytics"
+           [rootParams]="place"
+  ></ion-tab>
 </ion-tabs>

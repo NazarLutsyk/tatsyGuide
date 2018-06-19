@@ -68,15 +68,6 @@ export class PlaceAppliactionsPage {
       sort: {createdAt: -1},
       populate: [
         {path: 'organizer'},
-        {
-          path: 'place',
-          select: 'multilang',
-          populate: [{
-            path: 'multilang',
-            match: {lang: this.globalConfig.getGlobalLang()},
-            select: 'name'
-          }]
-        }
       ],
       skip: this.skip,
       limit: this.limit
@@ -113,6 +104,6 @@ export class PlaceAppliactionsPage {
   }
 
   openDrinkApplication(drinkApp: DrinkApplication) {
-    this.app.getRootNav().push(SingleDrinkApplicationPage, drinkApp);
+    this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: false});
   }
 }

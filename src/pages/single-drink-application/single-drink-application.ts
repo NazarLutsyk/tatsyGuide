@@ -6,6 +6,7 @@ import {DrinkApplicationCommentProvider} from "../../providers/drinkApplicationC
 import {NgForm} from "@angular/forms";
 import {DrinkApplicationComment} from "../../models/drinkApplicationComment/DrinkApplicationComment";
 import {AuthProvider} from "../../providers/auth/auth";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
@@ -14,6 +15,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 })
 export class SingleDrinkApplicationPage {
 
+  showPlaceInfo = true;
   principal;
 
   drinkApp: DrinkApplication;
@@ -28,11 +30,13 @@ export class SingleDrinkApplicationPage {
     public navParams: NavParams,
     private drinkApplicationService: DrinkApplicationProvider,
     private drinkAppCommentService: DrinkApplicationCommentProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private globalConfig: GlobalConfigsService
   ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
+    this.showPlaceInfo = this.navParams.data.showPlaceInfo;
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.loadApplication()
@@ -69,7 +73,7 @@ export class SingleDrinkApplicationPage {
           {path: 'organizer'},
           {
             path: 'place',
-            populate: [{path: 'multilang'}]
+            populate: [{path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}]
           }
         ]
       });

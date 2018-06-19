@@ -11,6 +11,7 @@ import {ClientProvider} from "../../providers/client/ClientProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {Observable} from "rxjs/Observable";
+import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 
 
 @IonicPage()
@@ -21,7 +22,7 @@ import {Observable} from "rxjs/Observable";
 export class MyPlacesPage {
 
 
-  places: Place[];
+  places: Place[] = [];
   globalHost: string;
   principal: Client;
 
@@ -38,17 +39,19 @@ export class MyPlacesPage {
     private placesService: PlacesProvider,
     private clientService: ClientProvider,
     private bonuseService: BonuseProvider,
+    private placeMultilangService: PlaceMultilangProvider,
     private events: Events,
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
     private loadingCtrl: LoadingController
-
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
 
   ngOnInit() {
-    this.loadOwnPlaces().subscribe(places => this.places = places);
+    this.loadOwnPlaces().subscribe(places => {
+      this.places = places;
+    });
   }
 
   doRefresh(refresher: Refresher) {
@@ -82,9 +85,43 @@ export class MyPlacesPage {
               ],
               skip: this.skip,
               limit: this.limit
-            }).subscribe(places => {
-              subscriber.next(places);
-            });
+            })
+              .subscribe(places => {
+                let okPlaces = [];
+                let otherPlacesIds = [];
+                for (const place of places) {
+                  if (!place.multilang || place.multilang.length === 0) {
+                    otherPlacesIds.push(place._id);
+                  } else {
+                    okPlaces.push(place);
+                  }
+                }
+                if (otherPlacesIds.length > 0) {
+                  this.placesService.find({
+                    query: {_id: {$in: otherPlacesIds}},
+                    populate: [
+                      {path: 'multilang'},
+                      {
+                        path: 'types',
+                        populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+                      }
+                    ],
+                    $project: {
+                      multilang: {$arrayElemAt: ["$multilang", 0]},
+                      types: 1,
+                      rating: 1,
+                    },
+                    skip: this.skip,
+                    limit: this.limit
+                  }).subscribe((places) => {
+                    okPlaces.push(...places);
+                    subscriber.next(okPlaces);
+                  });
+                } else {
+                  subscriber.next(okPlaces);
+                }
+              });
+
           });
       });
     })
@@ -110,7 +147,18 @@ export class MyPlacesPage {
         }
       )
       .subscribe((foundedPlace) => {
-        this.navCtrl.push(PlaceDeatilsPage, foundedPlace[0]);
+        let place = foundedPlace[0];
+        if (!place.multilang || place.multilang.length === 0) {
+          this.placeMultilangService.find({
+            query: {place: place._id},
+            limit: 1
+          }).subscribe((pm) => {
+            place.multilang = pm;
+            this.navCtrl.push(PlaceDeatilsPage, place);
+          })
+        } else {
+          this.navCtrl.push(PlaceDeatilsPage, place);
+        }
       });
     spinner.onWillDismiss(() => {
       placesSubscriber.unsubscribe();

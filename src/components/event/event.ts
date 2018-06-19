@@ -8,6 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class EventComponent {
   @Input() event;
+  @Input() pm;
   @Input() showControlButtons;
   @Input() globalHost;
 

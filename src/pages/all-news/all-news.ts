@@ -58,25 +58,43 @@ export class AllNewsPage {
 
   loadNews() {
     return this.newsService.find({
-      query: {topPromo: true},
-      sort: {createdAt: -1},
-      populate: [
+      aggregate: [
+        {$match: {topPromo: true}},
         {
-          path: 'multilang',
-          match: {lang: this.gc.getGlobalLang()}
+          $lookup: {
+            from: 'multilangs',
+            localField: '_id',
+            foreignField: 'promo',
+            as: 'multilang',
+          }
         },
+        {$unwind: "$multilang"},
         {
-          path: 'place',
-          select: 'multilang',
-          populate: [{
-            path: 'multilang',
-            match: {lang: this.gc.getGlobalLang()},
-            select: 'name'
-          }]
-        }
-      ],
-      skip: this.skip,
-      limit: this.limit
+          $lookup: {
+            from: 'multilangs',
+            localField: 'place',
+            foreignField: 'place',
+            as: 'place',
+          }
+        },
+        {$unwind: "$place"},
+        {$match: {'place.lang': this.gc.getGlobalLang(), 'multilang.lang': this.gc.getGlobalLang()}},
+        {
+          $project: {
+            _id: 1,
+            createdAt: 1,
+            place: 1,
+            multilang: 1,
+            startDate: 1,
+            endDate: 1,
+            image: 1,
+            kind: 1,
+          }
+        },
+        {$sort: {createdAt: -1}},
+        {$skip: this.skip},
+        {$limit: this.limit},
+      ]
     })
   }
 
@@ -113,6 +131,6 @@ export class AllNewsPage {
   }
 
   goToSingleNews(singleNews) {
-    this.app.getRootNav().push(SingleNewsPage, singleNews);
+    this.app.getRootNav().push(SingleNewsPage, {news: singleNews, pm: singleNews.place});
   }
 }

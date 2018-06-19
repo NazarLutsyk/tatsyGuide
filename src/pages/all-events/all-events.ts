@@ -58,28 +58,45 @@ export class AllEventsPage {
   }
 
   loadEvents() {
-    return this.eventService.find(({
-        query: {topPromo: true},
-        sort: {createdAt: -1},
-        populate: [
-          {
-            path: 'multilang',
-            match: {lang: this.gc.getGlobalLang()}
-          },
-          {
-            path: 'place',
-            select: 'multilang',
-            populate: [{
-              path: 'multilang',
-              match: {lang: this.gc.getGlobalLang()},
-              select: 'name'
-            }]
+    return this.eventService.find({
+      aggregate: [
+        {$match: {topPromo: true}},
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: '_id',
+            foreignField: 'promo',
+            as: 'multilang',
           }
-        ],
-        skip: this.skip,
-        limit: this.limit
-      })
-    )
+        },
+        {$unwind: "$multilang"},
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: 'place',
+            foreignField: 'place',
+            as: 'place',
+          }
+        },
+        {$unwind: "$place"},
+        {$match: {'place.lang': this.gc.getGlobalLang(), 'multilang.lang': this.gc.getGlobalLang()}},
+        {
+          $project: {
+            _id: 1,
+            createdAt: 1,
+            place: 1,
+            multilang: 1,
+            startDate: 1,
+            endDate: 1,
+            image: 1,
+            kind: 1,
+          }
+        },
+        {$sort: {createdAt: -1}},
+        {$skip: this.skip},
+        {$limit: this.limit},
+      ]
+    })
   }
 
   removePromo(promo: any) {
@@ -115,6 +132,6 @@ export class AllEventsPage {
   }
 
   goToSingleEvent(event) {
-    this.app.getRootNav().push(SingleEventPage, event);
+    this.app.getRootNav().push(SingleEventPage, {event, pm: event.place});
   }
 }
