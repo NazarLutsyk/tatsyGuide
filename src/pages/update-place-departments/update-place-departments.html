@@ -8,9 +8,12 @@
   <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
     <ion-item>
       <ion-label>{{'updatePlaceDepartments.client'|translate}}</ion-label>
+    <ion-item (click)="selectClient()">
+      <ion-label>Client</ion-label>
       <ion-input
         name="client"
-        ngModel
+        disabled
+        [(ngModel)]="newAdmin.name + ' ' +newAdmin.surname"
       ></ion-input>
     </ion-item>
     <ion-item>

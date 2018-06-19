@@ -7,13 +7,16 @@
 <ion-content padding>
 
   <form #placeTypeForm="ngForm">
-    <ion-label>Name:</ion-label>
-    <ion-input
-      type="text"
-      name="name"
-      ngModel
-    ></ion-input>
-    <button ion-button full (click)="createPlaceType(placeTypeForm)">Create</button>
+    <div *ngFor="let lang of langs">
+      <ion-label>{{lang.name}} Name:</ion-label>
+      <ion-input
+        required
+        type="text"
+        [name]="lang._id"
+        ngModel
+      ></ion-input>
+    </div>
+    <button ion-button full (click)="createPlaceType(placeTypeForm)" [disabled]="">Create</button>
   </form>
 
 </ion-content>

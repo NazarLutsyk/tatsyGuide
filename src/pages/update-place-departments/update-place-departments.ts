@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ProfilePage} from "../profile/profile";
 import {NgForm} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
+import {ClientsPage} from "../clients/clients";
 
 @IonicPage()
 @Component({
@@ -13,19 +14,22 @@ import {TranslateService} from "@ngx-translate/core";
 export class UpdatePlaceDepartmentsPage {
 
   departments: any[] = [];
+  newAdmin = {_id: '', name: '', surname: ''};
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private departmentService: DepartmentProvider,
     private app: App,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private events: Events
   ) {
     this.translate.setDefaultLang("en");
     this.translate.setDefaultLang("ua");
   }
 
   ngOnInit() {
+    this.events.subscribe('select:administrator', client => this.newAdmin = client);
     this.loadDepartments();
   }
 
@@ -36,7 +40,7 @@ export class UpdatePlaceDepartmentsPage {
 
   addAdminToPlace(newAdminForm: NgForm) {
     let department: any = {
-      client: newAdminForm.form.value.client,
+      client: this.newAdmin._id,
       place: this.navParams.data._id,
       roles: [newAdminForm.form.value.role],
     };
@@ -69,5 +73,9 @@ export class UpdatePlaceDepartmentsPage {
       department._id,
       {roles: department.roles}
     ).subscribe();
+  }
+
+  selectClient() {
+    this.app.getRootNav().push(ClientsPage, {getId: true});
   }
 }

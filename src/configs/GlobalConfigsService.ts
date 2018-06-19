@@ -4,7 +4,7 @@ import {Platform} from "ionic-angular";
 @Injectable()
 export class GlobalConfigsService {
   private globalHost;
-  public globalLang;
+  public globalLang = '5b11542ecbfbd41238641da2';
   public globalPosition = {latitude: 0, longitude: 0};
 
   constructor(
@@ -24,26 +24,22 @@ export class GlobalConfigsService {
   }
 
   getGlobalLang() {
-    console.log(this.globalLang);
-
     // if (this.globalLang.includes('ru') || this.globalLang.includes('RU') || this.globalLang.includes('ua') || this.globalLang.includes('UA')) {
     //   return "5b1e7e02749f5b3aa072ccf4";
     // } else if (this.globalLang.includes('en') || this.globalLang.includes('EN')) {
     //   return "5b1e7e02749f5b3aa072ccf4"
     // }
-    return "5b1e7e02749f5b3aa072ccf4";
-
-
+    return "5b11542ecbfbd41238641da2";
   }
 
 
   langChooser(lang) {
     lang = lang.toLowerCase();
     if (lang == 'ua') {
-      return "5b1e7e02749f5b3aa072ccf4";
+      return "5b11542ecbfbd41238641da2";
     } else if (lang == 'en') {
 
-      return "5b1e7e02749f5b3aa072ccf4";
+      return "5b11542fcbfbd41238641da3";
     }
 
   }

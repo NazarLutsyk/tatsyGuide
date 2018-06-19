@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {InfiniteScroll, IonicPage, MenuController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {Events, InfiniteScroll, IonicPage, MenuController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {ProfilePage} from "../profile/profile";
@@ -11,6 +11,7 @@ import {ProfilePage} from "../profile/profile";
 })
 export class ClientsPage {
 
+  getId = false;
   clients: Client[];
 
   skip = 0;
@@ -22,11 +23,13 @@ export class ClientsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private clientService: ClientProvider,
-    private menuController: MenuController
+    private menuController: MenuController,
+    private events: Events
   ) {
   }
 
   ngOnInit() {
+    this.getId = typeof this.navParams.data.getId === 'boolean' ? this.navParams.data.getId : false;
     this.loadClients()
       .subscribe(clients => this.clients = clients)
   }
@@ -52,8 +55,13 @@ export class ClientsPage {
   }
 
   toProfile(client: Client) {
-    this.menuController.close();
-    this.navCtrl.push(ProfilePage, client);
+    if (this.getId) {
+      this.events.publish('select:administrator', client);
+      this.navCtrl.pop();
+    } else {
+      this.menuController.close();
+      this.navCtrl.push(ProfilePage, client);
+    }
   }
 
   loadNextClientsPage(event: InfiniteScroll) {
@@ -72,5 +80,25 @@ export class ClientsPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  onSearchClients(event) {
+    this.skip = 0;
+    this.allLoaded = false;
+    setTimeout(() => {
+      let searchStr = event.target.value;
+      this.clientService.find({
+        query: {
+          $or: [
+            {name: {$regex: searchStr, $options: "i"}},
+            {surname: {$regex: searchStr, $options: "i"}}
+          ]
+        },
+        skip: this.skip,
+        limit: this.limit
+      }).subscribe(clients => {
+        this.clients = clients;
+      });
+    }, 500);
   }
 }
