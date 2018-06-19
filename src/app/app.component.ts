@@ -88,6 +88,7 @@ export class MyApp implements OnInit {
 
         // statusBar.styleDefault();
         // splashScreen.hide();
+        this.langService.find({}).subscribe(langs => this.globalConfig.langs = langs);
         this.geolocation.getCurrentPosition().then((position) => {
           this.globalConfig.globalPosition.latitude = position.coords.latitude;
           this.globalConfig.globalPosition.longitude = position.coords.longitude;
