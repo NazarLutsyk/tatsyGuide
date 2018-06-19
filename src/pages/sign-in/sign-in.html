@@ -21,7 +21,7 @@
   <ion-item>
     <ion-input [(ngModel)]="password" placeholder="{{'placeholder.password'| translate}}"></ion-input>
   </ion-item>
-  <button ion-button full class="defaultBackground" (click)="signInMe()">{{'signIn.enter' | translate}}</button>
+  <button margin-top="20px" ion-button full [outline]="true" class="defaultBackground2 fontBold" (click)="signInMe()">{{'signIn.enter' | translate}}</button>
   <div *ngIf="errorDuringSignIn">{{'signIn.message' | translate}}</div>
   <hr>
   <button ion-button icon-start text-center full (click)="facebookLogin()">
@@ -30,7 +30,7 @@
   </button>
   <hr>
   <!--google login-->
-  <button ion-button full icon-start class="googleButton" (click)="googleLogin()">
+  <button ion-button full  icon-start class="googleButton" (click)="googleLogin()">
     <ion-icon name="logo-google"></ion-icon>
     {{'signIn.enterWithG'| translate}}
   </button>

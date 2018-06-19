@@ -35,7 +35,7 @@
     <ion-input [(ngModel)]="password" placeholder="{{'placeholder.password' | translate}}" type="password"></ion-input>
   </ion-item>
 
-  <button ion-button [full]="true" class="backgroundGold" (click)="signUpMe()">{{'signUp.signUp' |translate}}</button>
+  <button margin-top="20px" ion-button [full]="true" outline class="defaultBackground2 fontBold" (click)="signUpMe()">{{'signUp.signUp' |translate}}</button>
 
   <div *ngIf="message">{{message}}</div>
 </ion-content>

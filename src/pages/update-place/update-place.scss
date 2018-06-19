@@ -1,3 +1,43 @@
 page-update-place {
+  ion-item.item.item-block.item-input {
+
+    border-bottom-color: map_get($colors, defaultApp) !important;
+    -webkit-box-shadow: inset 0 -1px 0 0 transparent !important;
+    box-shadow: inset 0 -1px 0 0 transparent !important;
+
+    .item-inner {
+      border-bottom-color: map_get($colors, defaultApp) !important;
+      -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
+      box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
+    }
+  }
+
+  div[ngModelGroup=multilang] {
+
+    .list-md .item-input:last-child {
+      border-bottom: none;
+    }
+
+    .item-block .item-inner {
+      padding-right: 8px;
+      border-bottom: 1px solid transparent !important;
+    }
+  }
+
+  div[ngModelGroup=location] {
+    .item-block .item-inner {
+      padding-right: 8px;
+      border-bottom: none;
+    }
+  }
+  div[ngModelGroup=place] {
+
+  }
+
+  ion-input[name=number] {
+    border-bottom-color: map_get($colors, defaultApp) !important;
+    -webkit-box-shadow: inset 0 -1px 0 0 transparent !important;
+    box-shadow: inset 0 -1px 0 0 transparent !important;
+  }
 
 }

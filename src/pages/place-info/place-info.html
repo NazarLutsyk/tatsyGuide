@@ -17,7 +17,7 @@
     <ion-row *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0" text-center="">
 
       <ion-col>
-        <button ion-button class="defaultBackground2"
+        <button ion-button class="defaultBackground2" outline full
                 (click)="presentActionSheet()">
           {{'placeInfo.manage'|translate}}
         </button>

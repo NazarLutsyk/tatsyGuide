@@ -230,82 +230,83 @@ export class PlaceInfoPage {
         console.log(value);
 
         const actionSheet = this.actionSheetCtrl.create({
-            title: value['placeInfo.manage'],
-            enableBackdropDismiss: true,
+          title: value['placeInfo.manage'],
+          enableBackdropDismiss: true,
+          cssClass : 'actionSheetStyle',
+          buttons
+      :
+        [
+          {
+            text: value['placeInfo.updatePlace'],
+            icon: !this.platform.is('ios') ? 'md-create' : null,
+            cssClass: "xxx",
 
-            buttons:
-              [
-                {
-                  text: value['placeInfo.updatePlace'],
-                  icon: !this.platform.is('ios') ? 'md-create' : null,
-                  cssClass: "xxx",
+            handler: () => {
+              console.log(value['placeInfo.updatePlace']);
+              this.updatePlace(this.place);
+            }
+          },
+          {
+            text: value['placeInfo.addToTop'],
+            cssClass: "xxx",
+            icon: !this.platform.is('ios') ? 'arrow-round-up' : null,
+            handler: () => {
+              this.toTopPlaceCreate(this.place);
+            }
+          },
+          {
+            text: value['placeInfo.manageAdmins'],
+            cssClass: "xxx",
+            icon: !this.platform.is('ios') ? 'people' : null,
 
-                  handler: () => {
-                    console.log(value['placeInfo.updatePlace']);
-                    this.updatePlace(this.place);
+            handler: () => {
+              this.updatePlaceDepartments(this.place);
+            }
+          },
+          {
+            text: value['placeInfo.deletePlace'],
+            cssClass: "deleteButton xxx",
+            role: 'destructive',
+            icon: !this.platform.is('ios') ? 'trash' : null,
+            handler: () => {
+              let alert = this.alertController.create({
+                title: value['placeInfo.deleteTitle'],
+                message: value['placeInfo.deleteMessage'],
+                buttons: [
+                  {
+                    text: value['placeInfo.cancel'],
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('Cancel clicked');
+                    }
+                  },
+                  {
+                    text: value['placeInfo.confirm'],
+                    handler: () => {
+                      this.removePlace(this.place);
+                    }
                   }
-                },
-                {
-                  text: value['placeInfo.addToTop'],
-                  cssClass: "xxx",
-                  icon: !this.platform.is('ios') ? 'arrow-round-up' : null,
-                  handler: () => {
-                    this.toTopPlaceCreate(this.place);
-                  }
-                },
-                {
-                  text: value['placeInfo.manageAdmins'],
-                  cssClass: "xxx",
-                  icon: !this.platform.is('ios') ? 'people' : null,
+                ]
+              });
+              alert.present();
 
-                  handler: () => {
-                    this.updatePlaceDepartments(this.place);
-                  }
-                },
-                {
-                  text: value['placeInfo.deletePlace'],
-                  cssClass: "deleteButton xxx",
-                  role: 'destructive',
-                  icon: !this.platform.is('ios') ? 'trash' : null,
-                  handler: () => {
-                    let alert = this.alertController.create({
-                      title: value['placeInfo.deleteTitle'],
-                      message: value['placeInfo.deleteMessage'],
-                      buttons: [
-                        {
-                          text: value['placeInfo.cancel'],
-                          role: 'cancel',
-                          handler: () => {
-                            console.log('Cancel clicked');
-                          }
-                        },
-                        {
-                          text: value['placeInfo.confirm'],
-                          handler: () => {
-                            this.removePlace(this.place);
-                          }
-                        }
-                      ]
-                    });
-                    alert.present();
+            }
+          },
+          {
+            text: value['placeInfo.cancel'],
+            icon: !this.platform.is('ios') ? 'close' : null,
+            role: 'cancel',
 
-                  }
-                },
-                {
-                  text: value['placeInfo.cancel'],
-                  icon: !this.platform.is('ios') ? 'close' : null,
-                  role: 'cancel',
+          }
 
-                }
-
-              ]
-          })
+        ]
+      })
         ;
         actionSheet.present();
       });
   }
 
   toDrinkerPage() {
-    this.app.getRootNav().push(PlaceAppliactionsPage,this.place)
+    this.app.getRootNav().push(PlaceAppliactionsPage, this.place)
   }
 }

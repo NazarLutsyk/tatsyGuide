@@ -7,4 +7,12 @@ page-sign-up {
     background: #efb406f0;
 
   }
+
+
+  .item-inner{
+    border-bottom-color: map_get($colors, defaultApp2) !important;
+    -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2) !important;
+    box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2)!important;
+  }
+
 }

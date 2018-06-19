@@ -63,15 +63,35 @@ $font-family-wp-base: ' Roboto '';
 }
 
 .buttonUpdate, .buttonUpdate.activated {
-  background: #8ae29e;
+  background: transparent;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #8ae29e;
+  color: #8ae29e;
 }
 
 .buttonDelete, .buttonDelete.activated {
-  background: #dd434c;
+  background: transparent;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #dd434c;
+  color: #dd434c;
+}
+
+.buttonDeleteOutline, .buttonDeleteOutline.activated {
+  background: transparent;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #dd434c;
+  color: #dd434c;
 }
 
 .defaultBackground2, .defaultBackground2.activated {
-  background: #caab85 !important;
+  //background: #caab85;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #caab85;
+  color: #caab85;
 }
 
 .colorDanger {
@@ -130,12 +150,63 @@ ion-col {
 
 }
 
-
-.range-bar-active, .range-knob{
-  background: map_get($colors, defaultApp)!important;
+.range-bar-active, .range-knob {
+  background: map_get($colors, defaultApp) !important;
 }
 
+ion-alert {
+  .alert-checkbox-group button.alert-tappable .alert-checkbox-icon {
+    background: map_get($colors, defaultApp2);
+    border-color: map_get($colors, defaultApp2);
+  }
 
+  .alert-button-group {
+    .alert-button {
+      color: map_get($colors, defaultApp2);
+    }
+  }
+
+  .alert-radio-group {
+    [aria-checked=true] .alert-radio-icon , .alert-radio-icon {
+      border-color: map_get($colors, defaultApp2);
+    }
+    .alert-radio-inner {
+      background-color: map_get($colors, defaultApp2);
+    }
+
+    [aria-checked=true] .alert-radio-label{
+      color: #000;
+    }
+
+    //[aria-checked=true] .alert-radio-icon {
+    //  border-color: map_get($colors, defaultApp2);
+    //
+    //}
+
+  }
+}
+
+//ion-item.input-has-focus{
+//    border-bottom-color: map_get($colors, defaultApp2) !important;
+//    -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2) !important;
+//    box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2)!important;
+//
+//  }
+
+//.item-inner{
+//  border-bottom-color: map_get($colors, defaultApp2) !important;
+//  -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2) !important;
+//  box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2)!important;
+//}
+
+//.actionSheetStyle{
+//  color: map_get($colors, defaultApp2)!important;
+//}
+
+.xxx {
+  color: map_get($colors, defaultApp2) !important;
+
+}
 
 
 
