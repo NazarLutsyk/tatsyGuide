@@ -42,7 +42,7 @@ export class UpdatePlaceDepartmentsPage {
     let department: any = {
       client: this.newAdmin._id,
       place: this.navParams.data._id,
-      roles: [newAdminForm.form.value.role],
+      roles: newAdminForm.form.value.role,
     };
     this.departmentService
       .create(department)
