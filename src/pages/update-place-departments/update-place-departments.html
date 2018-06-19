@@ -6,11 +6,12 @@
 
 <ion-content>
   <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
-    <ion-item>
+    <ion-item (click)="selectClient()">
       <ion-label>Client</ion-label>
       <ion-input
         name="client"
-        ngModel
+        disabled
+        [(ngModel)]="newAdmin.name + ' ' +newAdmin.surname"
       ></ion-input>
     </ion-item>
     <ion-item>
@@ -23,6 +24,7 @@
     <button ion-button full>Add</button>
   </form>
   <ion-list>
+    <!--todo fix select that occupies all item-->
     <ion-item *ngFor="let department of departments" (click)="openProfile(department)">
       <ion-icon name="trash" item-start (click)="removeDepartment(department,$event)"></ion-icon>
       <ion-label><strong>{{department.client.name}} {{department.client.surname}}</strong></ion-label>

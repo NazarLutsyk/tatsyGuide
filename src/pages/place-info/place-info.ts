@@ -227,7 +227,6 @@ export class PlaceInfoPage {
 
     ])
       .subscribe(value => {
-        console.log(value);
 
         const actionSheet = this.actionSheetCtrl.create({
             title: value['placeInfo.manage'],
@@ -241,7 +240,6 @@ export class PlaceInfoPage {
                   cssClass: "xxx",
 
                   handler: () => {
-                    console.log(value['placeInfo.updatePlace']);
                     this.updatePlace(this.place);
                   }
                 },
