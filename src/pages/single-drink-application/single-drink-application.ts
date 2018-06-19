@@ -7,6 +7,7 @@ import {NgForm} from "@angular/forms";
 import {DrinkApplicationComment} from "../../models/drinkApplicationComment/DrinkApplicationComment";
 import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -31,8 +32,11 @@ export class SingleDrinkApplicationPage {
     private drinkApplicationService: DrinkApplicationProvider,
     private drinkAppCommentService: DrinkApplicationCommentProvider,
     private auth: AuthProvider,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

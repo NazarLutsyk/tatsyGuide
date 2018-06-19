@@ -54,7 +54,6 @@
     },
     "leftMenu": {
       "stat": "Статистика",
-
       "managePlaceType": "Типи закладів",
       "manageTopPlace": "Топ заклади",
       "purgatory": "Узгодження нових закладів",
@@ -96,47 +95,61 @@
   "placeType": {
     "title": "Типи закладів"
   },
-  "updatePlace":{
-    "changeAvatar":"Змінити аватар",
-    "removeImage" : "Видалити зображення",
-    "addImage" : "Додати зображення",
-    "placeName" : "Назва закладу",
-    "description" : "Опис закладу",
-    "city" : "Місто",
-    "street" : "Вулиця",
-    "number" : "Номер будинку",
-    "topcategories" : "Категорії",
-    "allowed" : "Дозволено до показу",
-    "yes" : "Так",
-    "no" : "Ні",
-    "tags" : "Теги (розділити комою)",
-    "phone" : "Телефон",
-    "email" : "Електронна пошта",
-    "location":"Обрати місце розташування",
-    "features":"Додатково",
-    "wifi":"wi-fi",
-    "karaoke":"Караоке",
-    "parking":"Парковка",
-    "vipRoom":"VIP кімната",
-    "placeTypes":"Тип закладу",
-    "workTime":"Години роботи",
-    "from":"від",
-    "to":"до",
-    "save":"Зберегти зміни"
-
+  "updatePlace": {
+    "changeAvatar": "Змінити аватар",
+    "removeImage": "Видалити зображення",
+    "addImage": "Додати зображення",
+    "placeName": "Назва закладу",
+    "description": "Опис закладу",
+    "city": "Місто",
+    "street": "Вулиця",
+    "number": "Номер будинку",
+    "topcategories": "Категорії",
+    "allowed": "Дозволено до показу",
+    "yes": "Так",
+    "no": "Ні",
+    "tags": "Теги (розділити комою)",
+    "phone": "Телефон",
+    "email": "Електронна пошта",
+    "location": "Обрати місце розташування",
+    "features": "Додатково",
+    "wifi": "wi-fi",
+    "karaoke": "Караоке",
+    "parking": "Парковка",
+    "vipRoom": "VIP кімната",
+    "placeTypes": "Тип закладу",
+    "workTime": "Години роботи",
+    "from": "від",
+    "to": "до",
+    "save": "Зберегти зміни"
   },
-  "createTopPlace":{
-    "startDate":"Дата початку",
-    "endDate":"Дата закінчення",
-    "sum":"Сума",
-    "actual":"Актуальність",
-    "yes":"Так",
-    "no":"Ні",
-    "save":"Зберегти"
+  "createTopPlace": {
+    "startDate": "Дата початку",
+    "endDate": "Дата закінчення",
+    "sum": "Сума",
+    "actual": "Актуальність",
+    "yes": "Так",
+    "no": "Ні",
+    "save": "Зберегти"
   },
-  "updatePlaceDepartments":{
-    "client":"Користувач",
-    "role":"Роль"
+  "updatePlaceDepartments": {
+    "client": "Користувач",
+    "role": "Роль"
+  },
+  "alert": {
+    "message": "Текст повідомлення",
+    "email": "Ваша пошта"
+  },
+  "drinker": {
+    "create": "Створити зявку",
+    "who": "Хто",
+    "when": "Коли",
+    "budget": "Бюджет",
+    "currency" : "грн.",
+    "friends" : "Опис",
+    "goal" : "Мета",
+    "comment" : "Коментар",
+    "send" : "Залишити",
+    "remove" : "Видалити"
   }
-
 }

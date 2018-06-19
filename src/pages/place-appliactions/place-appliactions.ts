@@ -9,6 +9,7 @@ import {UpdateDrinkApplicationPage} from "../update-drink-application/update-dri
 import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
 import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -33,8 +34,12 @@ export class PlaceAppliactionsPage {
     private app: App,
     private drinkAppsService: DrinkApplicationProvider,
     private auth: AuthProvider,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private translate: TranslateService
   ) {
+
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

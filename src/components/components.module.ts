@@ -6,6 +6,9 @@ import {NewsComponent} from './news/news';
 import { BonuseComponent } from './bonuse/bonuse';
 import { EventComponent } from './event/event';
 import { RatingComponent } from './rating/rating';
+import {HttpClient} from "@angular/common/http";
+import {createTranslateLoader} from "../app/app.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -15,7 +18,13 @@ import { RatingComponent } from './rating/rating';
     EventComponent,
     RatingComponent,
   ],
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule ,  TranslateModule.forChild({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: createTranslateLoader,
+          deps: [HttpClient]
+        }
+      }),],
   exports: [
     DrinkApplicationComponent,
     NewsComponent,

@@ -54,16 +54,16 @@ $font-family-wp-base: ' Roboto '';
   border-top: none;
 }
 
-.defaultBackground, .defaultBackground.activated {
+.defaultBackground, button.defaultBackground.activated {
   background: map-get($colors, defaultApp);
 
 }
 
 
 
-.defaultButton, .defaultButton.activated {
+button.defaultButton, button.defaultButton.activated {
 
-  border-width: 1px;
+  //border-width: 1px;
   border-style: solid;
   border-color: map-get($colors, defaultApp);
   color: map-get($colors, defaultApp);
@@ -72,15 +72,15 @@ $font-family-wp-base: ' Roboto '';
   font-weight: bold !important;
 }
 
-.buttonUpdate, .buttonUpdate.activated {
+button.buttonUpdate, button.buttonUpdate.activated {
   background: transparent;
-  border-width: 1px;
+  //border-width: 1px;
   border-style: solid;
   border-color: #caab85;
   color: #caab85;
 }
 
-.buttonDelete, .buttonDelete.activated {
+button.buttonDelete, button.buttonDelete.activated {
   background: transparent;
   border-width: 1px;
   border-style: solid;
@@ -88,7 +88,7 @@ $font-family-wp-base: ' Roboto '';
   color: #dd434c;
 }
 
-.buttonDeleteOutline, .buttonDeleteOutline.activated {
+button.buttonDeleteOutline, button.buttonDeleteOutline.activated {
   background: transparent;
   border-width: 1px;
   border-style: solid;
@@ -96,9 +96,9 @@ $font-family-wp-base: ' Roboto '';
   color: #dd434c;
 }
 
-.defaultBackground2, .defaultBackground2.activated {
+button.defaultBackground2, button.defaultBackground2.activated {
   //background: #caab85;
-  border-width: 1px;
+  //border-width: 1px;
   border-style: solid;
   border-color: #caab85;
   color: #caab85;
@@ -218,6 +218,54 @@ ion-alert {
 
 }
 
+.item-ios.item-radio .radio-inner {
+  background: transparent !important;
+}
+
+.radio-ios .radio-checked .radio-inner{
+  border-color: #f6900a ;
+}
 
 
+.item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner {
+  box-shadow: none;
 
+}
+
+.alert-md .alert-input:focus{
+  border-bottom: 2px solid map_get($colors,defaultApp2);
+}
+
+.card-ios, .card-md{
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+// ion-item:not(.item-input-has-focus) .item-inner{
+// border-bottom-color: transparent !important;
+// -webkit-box-shadow: none;
+// box-shadow: inset 0 -1px 0 0 #caab85 !important
+//}
+
+ion-item.item-input-has-focus .item-inner {
+  border-bottom-color: map_get($colors, defaultApp) !important;
+  -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
+  box-shadow: inset 0 -1px 0 0 #dedede !important;
+}
+ion-item:not(.item-input-has-focus) .item-inner {
+  border-bottom-color: map_get($colors, defaultApp2) !important;
+  -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2) !important;
+  box-shadow: inset 0 -1px 0 0 #dedede !important;
+}
+
+
+ion-item:not(.item-input-has-focus) .item-inner {
+  border-bottom-color: #caab85 !important;
+   -webkit-box-shadow: inset 0 -1px 0 0 trasparent !important;
+   box-shadow: inset 0 -1px 0 0 transparent !important;
+}
+ion-item.item-input-has-focus .item-inner {
+  border-bottom-color: #caab85 !important;
+   -webkit-box-shadow: inset 0 -1px 0 0 trasparent !important;
+   box-shadow: inset 0 -1px 0 0 transparent !important;
+}

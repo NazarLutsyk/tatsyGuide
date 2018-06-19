@@ -10,30 +10,51 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <button ion-button outline full class="defaultBackground2" (click)="goToCreatePlaceType()">Create place type</button>
+
   <ion-list [virtualScroll]="placeTypesM" [approxItemHeight]="'132px'">
-    <ion-item *virtualItem="let placeTypeM">
+    <ion-item-sliding *virtualItem="let placeTypeM">
+      <ion-item text-center="" >
 
+        <h2>  {{placeTypeM.name}}</h2>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button icon-only class="buttonUpdate" (click)="goToUpdatePlaceType(placeTypeM)">
+          <ion-icon name="md-create"></ion-icon>
+        </button>
+        <button ion-button icon-only
+                class="buttonDelete"
+                (click)="removePlaceType(placeTypeM)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
 
-      <ion-grid>
-
-        <ion-row align-items-center>
-          <ion-col class="fontBold" col-6>
-            {{placeTypeM.name}}
-          </ion-col>
-          <ion-col text-center>
-            <button ion-button icon-only class="buttonUpdate" (click)="goToUpdatePlaceType(placeTypeM)">
-              <ion-icon name="md-create"></ion-icon>
-            </button>
-          </ion-col>
-          <ion-col text-center>
-            <button ion-button icon-only
-                    class="buttonDelete"
-                    (click)="removePlaceType(placeTypeM)">
-              <ion-icon name="trash"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+    </ion-item-sliding>
   </ion-list>
+
+  <!--<ion-list [virtualScroll]="placeTypesM" [approxItemHeight]="'132px'">-->
+    <!--<ion-item *virtualItem="let placeTypeM">-->
+
+
+      <!--<ion-grid>-->
+
+        <!--<ion-row align-items-center>-->
+          <!--<ion-col class="fontBold" col-6>-->
+            <!--{{placeTypeM.name}}-->
+          <!--</ion-col>-->
+          <!--<ion-col text-center>-->
+            <!--<button ion-button icon-only class="buttonUpdate" (click)="goToUpdatePlaceType(placeTypeM)">-->
+              <!--<ion-icon name="md-create"></ion-icon>-->
+            <!--</button>-->
+          <!--</ion-col>-->
+          <!--<ion-col text-center>-->
+            <!--<button ion-button icon-only-->
+                    <!--class="buttonDelete"-->
+                    <!--(click)="removePlaceType(placeTypeM)">-->
+              <!--<ion-icon name="trash"></ion-icon>-->
+            <!--</button>-->
+          <!--</ion-col>-->
+        <!--</ion-row>-->
+      <!--</ion-grid>-->
+    <!--</ion-item>-->
+  <!--</ion-list>-->
 </ion-content>

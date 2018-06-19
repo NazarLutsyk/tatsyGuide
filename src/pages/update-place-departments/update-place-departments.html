@@ -6,6 +6,8 @@
 
 <ion-content>
   <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
+    <ion-list>
+      <ion-list-header text-center=""><h1>create new client</h1></ion-list-header>
     <ion-item (click)="selectClient()">
       <ion-label>{{'updatePlaceDepartments.client'|translate}}</ion-label>
       <ion-input name="client" disabled [(ngModel)]="newAdmin.name + ' ' +newAdmin.surname"></ion-input>
@@ -16,28 +18,55 @@
         <ion-option value="BOSS_PLACE">BOSS_PLACE</ion-option>
         <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
       </ion-select>
-    </ion-item>
+    </ion-item></ion-list>
     <button margin-top="20px" ion-button full [outline]="true" class="defaultButton">Add</button>
   </form>
 
+  <!--<ion-list>-->
+  <!--<div *ngFor="let department of departments">-->
+  <!--<ion-item>-->
+  <!--<ion-label><strong>{{department.client.name}} {{department.client.surname}}</strong></ion-label>-->
+  <!--<ion-select name="roles" [(ngModel)]="department.roles" multiple (ionChange)="updateDepartment(department)">-->
+  <!--<ion-option value="BOSS_PLACE">BOSS</ion-option>-->
+  <!--<ion-option value="ADMIN_PLACE">ADMIN</ion-option>-->
+
+  <!--</ion-select>-->
+
+
+  <!--</ion-item>-->
+  <!--<button ion-button [full]="true" [outline]="true" class="defaultBackground2" (click)="openProfile(department)">-->
+  <!--details-->
+  <!--</button>-->
+  <!--<button ion-button [full]="true" [outline]="true" class="buttonDelete"-->
+  <!--(click)="removeDepartment(department,$event)">delete-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</ion-list>-->
+
   <ion-list>
-    <div *ngFor="let department of departments">
+    <ion-list-header text-center=""><h1>clients</h1></ion-list-header>
+    <ion-item-sliding *ngFor="let department of departments">
+
       <ion-item>
-        <ion-label><strong>{{department.client.name}} {{department.client.surname}}</strong></ion-label>
+        <ion-label>{{department.client.name}} {{department.client.surname}}</ion-label>
         <ion-select name="roles" [(ngModel)]="department.roles" multiple (ionChange)="updateDepartment(department)">
           <ion-option value="BOSS_PLACE">BOSS</ion-option>
           <ion-option value="ADMIN_PLACE">ADMIN</ion-option>
 
         </ion-select>
-
-
       </ion-item>
-      <button ion-button [full]="true" [outline]="true" class="defaultBackground2" (click)="openProfile(department)">
-        details
-      </button>
-      <button ion-button [full]="true" [outline]="true" class="buttonDelete"
-              (click)="removeDepartment(department,$event)">delete
-      </button>
-    </div>
+
+      <ion-item-options side="right">
+        <button ion-button [outline]="true" class="deleteButton" (click)="removeDepartment(department,$event)">
+          <ion-icon name="trash"></ion-icon>
+          delete
+        </button>
+        <button ion-button [outline]="true" class="defaultButton" (click)="openProfile(department)">
+          <ion-icon name="arrow-dropright"></ion-icon>
+          more
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

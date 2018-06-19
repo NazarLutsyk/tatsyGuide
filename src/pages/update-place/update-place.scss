@@ -1,14 +1,14 @@
 page-update-place {
   ion-item.item.item-block.item-input {
 
-    border-bottom-color: map_get($colors, defaultApp) !important;
+    //border-bottom-color: map_get($colors, defaultApp) !important;
     -webkit-box-shadow: inset 0 -1px 0 0 transparent !important;
     box-shadow: inset 0 -1px 0 0 transparent !important;
 
     .item-inner {
       border-bottom-color: map_get($colors, defaultApp) !important;
-      -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
-      box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
+      //-webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
+      //box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
     }
   }
 
@@ -39,5 +39,18 @@ page-update-place {
     -webkit-box-shadow: inset 0 -1px 0 0 transparent !important;
     box-shadow: inset 0 -1px 0 0 transparent !important;
   }
+
+  .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+    border-bottom: none;
+  }
+
+  .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+
+
 
 }

@@ -7,60 +7,68 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-card>
-    <ion-card-content>
-      <p>
-        {{drinkApp?.organizer.name}} {{drinkApp?.organizer.surname}}
-      </p>
-      <p *ngIf="drinkApp?.place.multilang && drinkApp?.place.multilang.length > 0 && showPlaceInfo">
-        {{drinkApp?.place.multilang[0].name}}
-      </p>
-      <p>
-        {{drinkApp?.friends}}
-      </p>
-      <p>
-        {{drinkApp?.budged}}
-      </p>
-      <p>
-        {{drinkApp?.goal}}
-      </p>
-      <p>
-        {{drinkApp?.date | date}}
-      </p>
-    </ion-card-content>
-  </ion-card>
-  <form
-    #commentForm="ngForm"
-    (ngSubmit)="sendComment(commentForm)"
-    *ngIf="principal"
-  >
     <ion-item>
-      <ion-label>Comment</ion-label>
-      <ion-input
-        name="comment"
-        ngModel
-      ></ion-input>
+      <h2>{{'drinker.who' | translate}} :</h2>
+
+      <p> {{drinkApp?.organizer.name}} {{drinkApp?.organizer.surname}}</p>
     </ion-item>
-    <button ion-button>Send</button>
-  </form>
-  <ion-list>
+    <ion-list>
+      <ion-item *ngIf="drinkApp?.place.multilang && drinkApp?.place.multilang.length > 0 && showPlaceInfo">
+        <p> {{drinkApp?.place.multilang[0].name}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>{{'drinker.friends' | translate}} :</h2>
+        <p>{{drinkApp?.friends}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>{{'drinker.budget' | translate}} :</h2>
+        <p>{{drinkApp?.budged}} {{'drinker.currency' | translate}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>{{'drinker.goal' | translate}} :</h2>
+        <p> {{drinkApp?.goal}}</p>
+      </ion-item>
+      <ion-item>
+        <h2>{{'drinker.when' | translate}} :</h2>
+        <p> {{drinkApp?.date | date:'dd/MM/yyyy'}}</p>
+      </ion-item>
+    </ion-list>
+    <form
+      #commentForm="ngForm"
+      (ngSubmit)="sendComment(commentForm)"
+      *ngIf="principal">
+      <ion-item>
+
+        <ion-textarea
+          name="comment"
+          ngModel
+          placeholder="{{'drinker.comment' | translate}}">
+
+        </ion-textarea>
+        <hr>
+      </ion-item>
+      <button ion-button [outline]="true" class="buttonUpdate">{{'drinker.send' | translate}}</button>
+    </form>
+  </ion-card>
+  <ion-card>
     <ion-item *ngFor="let comment of drinkApp?.comments">
       <span>
         <strong>{{comment.sender.name}} {{comment.sender.surname}}</strong>: {{comment.value}}
       </span>
-      <p>{{comment.createdAt | date:'medium'}}</p>
+      <p>{{comment.createdAt | date:'dd/MM/yyyy'}}</p>
       <button
-        ion-button
+        ion-button [outline]="true" class="buttonDelete"
         (click)="removeComment(comment)"
         *ngIf="principal"
-      >Remove
+      >{{'drinker.remove' | translate}}
       </button>
     </ion-item>
-  </ion-list>
+  </ion-card>
   <ion-infinite-scroll (ionInfinite)="loadNextCommentsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

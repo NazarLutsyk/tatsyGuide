@@ -19,7 +19,9 @@
   </ion-refresher>
 
   <ion-row margin-top="10px" *ngIf="principal">
-    <button ion-button full color="defaultApp" (click)="goToCreateDrinkerApplication(place)">Create</button>
+    <button ion-button full [outline]="true" class="defaultBackground2" (click)="goToCreateDrinkerApplication(place)">
+      {{'drinker.create'|translate}}
+    </button>
   </ion-row>
 
 
