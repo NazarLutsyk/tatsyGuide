@@ -56,8 +56,18 @@ $font-family-wp-base: ' Roboto '';
 
 .defaultBackground, .defaultBackground.activated {
   background: map-get($colors, defaultApp);
+
 }
 
+
+
+.defaultButton, .defaultButton.activated {
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: map-get($colors, defaultApp);
+  color: map-get($colors, defaultApp);
+}
 .fontBold {
   font-weight: bold !important;
 }

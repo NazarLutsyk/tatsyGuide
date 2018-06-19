@@ -14,7 +14,7 @@
 
 
   <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
-    <button ion-button full color="defaultApp" (click)="goToCreateBonuse()">Create Bonuse</button>
+    <button ion-button full [outline]="true" class="defaultBackground2" (click)="goToCreateBonuse()">Create Bonuse</button>
   </ion-row>
 
   <bonuse

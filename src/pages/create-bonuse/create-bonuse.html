@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <form (ngSubmit)="logForm(bonuseForm)" #bonuseForm="ngForm">
-    <button type="button" ion-button full (click)="getAvatar()">Select avatar</button>
+    <button type="button" ion-button full [outline]="true" class="defaultButton" (click)="getAvatar()">Select avatar</button>
     <!--<img [src]="bonuseObject.image" alt="">-->
     <div ngModelGroup="multilang">
       <ion-item>
@@ -41,6 +41,6 @@
         </ion-select>
       </ion-item>
     </div>
-    <button ion-button type="submit" full color="secondary">Add Todo</button>
+    <button ion-button type="submit" full [outline]="true" class="defaultBackground2" padding="20px">Add Todo</button>
   </form>
 </ion-content>

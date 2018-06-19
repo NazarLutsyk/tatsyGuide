@@ -11,7 +11,9 @@
   <ion-content padding>
 
     <form (ngSubmit)="logForm(eventForm)" #eventForm="ngForm">
-      <button type="button" ion-button full (click)="getAvatar()">Select avatar</button>
+      <button type="button" ion-button full [outline]="true"
+              class="defaultButton" (click)="getAvatar()">
+        Select avatar</button>
       <!--<img [src]="eventObject.image" alt="">-->
       <div ngModelGroup="multilang">
         <ion-item>
@@ -33,12 +35,15 @@
           <ion-datetime ngModel name="endDate"></ion-datetime>
         </ion-item>
         <ion-item *ngIf="isAdmin">
+          <ion-label>Top</ion-label>
           <ion-select name="topPromo" ngModel>
             <ion-option value="true">TRUE</ion-option>
             <ion-option value="false">FALSE</ion-option>
           </ion-select>
         </ion-item>
       </div>
-      <button ion-button type="submit" full color="secondary">Add Todo</button>
+      <button margin-top="20px" ion-button  [outline]="true"
+              class="buttonUpdate"
+              type="submit" full color="secondary">Add Todo</button>
     </form>
   </ion-content>
