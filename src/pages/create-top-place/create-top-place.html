@@ -9,39 +9,37 @@
 <ion-content padding>
   <form #topPlaceForm="ngForm" (ngSubmit)="createTopPlace(topPlaceForm)">
     <ion-item>
-      <ion-label>Start date</ion-label>
+      <ion-label>{{'createTopPlace.startDate' | translate}}</ion-label>
       <ion-datetime
         ngModel
         name="startDate"
       ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>End date</ion-label>
+      <ion-label>{{'createTopPlace.endDate' | translate}}</ion-label>
       <ion-datetime
         ngModel
         name="endDate"
       ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>Price</ion-label>
+      <ion-label>{{'createTopPlace.sum' | translate}}</ion-label>
       <ion-input
         ngModel
         name="price"
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Actual</ion-label>
+      <ion-label>{{'createTopPlace.actual' | translate}}</ion-label>
       <ion-select
         ngModel
         name="actual"
       >
-        <ion-option value="true">TRUE</ion-option>
-        <ion-option value="false">FALSE</ion-option>
+        <ion-option value="true">{{'createTopPlace.yes' | translate}}</ion-option>
+        <ion-option value="false">{{'createTopPlace.no' | translate}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <button ion-button full>Create</button>
-    </ion-item>
+      <button margin-top="20px" ion-button full [outline]="true" class="buttonUpdate">{{'createTopPlace.save' | translate}}</button>
   </form>
 
 </ion-content>

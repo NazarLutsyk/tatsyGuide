@@ -3,6 +3,7 @@ import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ProfilePage} from "../profile/profile";
 import {NgForm} from "@angular/forms";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -17,8 +18,11 @@ export class UpdatePlaceDepartmentsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private departmentService: DepartmentProvider,
-    private app: App
+    private app: App,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.setDefaultLang("ua");
   }
 
   ngOnInit() {

@@ -9,37 +9,48 @@
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="updatePlace(form)">
     <!--<ion-item>-->
-      <img [src]="avatarToShow" width="100%" height="200px">
-      <button ion-button type="button" outline class="defaultBackground2" full (click)="changeAvatar($event)">Change</button>
+    <img [src]="avatarToShow" width="100%" height="200px">
+    <button
+      ion-button type="button"
+      outline class="defaultBackground2" full
+      (click)="changeAvatar($event)">{{'updatePlace.changeAvatar' | translate}}
+    </button>
     <!--</ion-item>-->
     <!--<ion-item style="overflow-x: scroll">-->
-      <div style="overflow-x: scroll" *ngFor="let image of imagesToShow">
-        <img [src]="image" width="100%" height="200px">
-        <button ion-button outline type="button" class="buttonDeleteOutline" full (click)="removeImage(image,$event)">Remove</button>
-      </div>
+    <div style="overflow-x: scroll" *ngFor="let image of imagesToShow">
+      <img [src]="image" width="100%" height="200px">
+      <button
+        ion-button outline
+        type="button" class="buttonDeleteOutline" full
+        (click)="removeImage(image,$event)">{{'updatePlace.removeImage' | translate}}
+      </button>
+    </div>
     <!--</ion-item>-->
     <!--<ion-item>-->
-      <button ion-button type="button" outline class="defaultBackground2" full (click)="addImage($event)">Add image</button>
+    <button
+      ion-button type="button" outline class="defaultBackground2" full
+      (click)="addImage($event)">{{'updatePlace.addImage' | translate}}
+    </button>
     <!--</ion-item>-->
     <div ngModelGroup="multilang">
-      <ion-label>Place name</ion-label>
+      <ion-label>{{'updatePlace.placeName' | translate}}</ion-label>
       <ion-item>
         <ion-input name="name" [(ngModel)]="placeMultilang.name"></ion-input>
       </ion-item>
-      <ion-label>description</ion-label>
+      <ion-label>{{'updatePlace.description' | translate}}</ion-label>
       <ion-item>
         <ion-input name="description" [(ngModel)]="placeMultilang.description"></ion-input>
       </ion-item>
       <ion-list ngModelGroup="address">
-        <ion-label>City</ion-label>
+        <ion-label>{{'updatePlace.city' | translate}}</ion-label>
         <ion-item>
           <ion-input name="city" [(ngModel)]="placeMultilang.address.city"></ion-input>
         </ion-item>
-        <ion-label>Street</ion-label>
+        <ion-label>{{'updatePlace.street' | translate}}</ion-label>
         <ion-item>
           <ion-input name="street" [(ngModel)]="placeMultilang.address.street"></ion-input>
         </ion-item>
-        <ion-label>Number</ion-label>
+        <ion-label>{{'updatePlace.number' | translate}}</ion-label>
         <ion-item>
           <ion-input name="number" [(ngModel)]="placeMultilang.address.number"></ion-input>
         </ion-item>
@@ -47,7 +58,7 @@
     </div>
 
     <div *ngIf="isAdmin">
-      <ion-label>Top categories</ion-label>
+      <ion-label>{{'updatePlace.topcategories' | translate}}</ion-label>
       <ion-item>
         <ion-input name="topCategories" [(ngModel)]="topCategories"></ion-input>
       </ion-item>
@@ -55,27 +66,30 @@
 
     <div ngModelGroup="place">
       <div *ngIf="isAdmin">
-        <ion-label>Allowed</ion-label>
-          <ion-select name="allowed" [(ngModel)]="place.allowed">
-            <ion-option value="true">TRUE</ion-option>
-            <ion-option value="false">FALSE</ion-option>
-          </ion-select>
+        <ion-label>{{'updatePlace.allowed' | translate}}</ion-label>
+        <ion-select name="allowed" [(ngModel)]="place.allowed">
+          <ion-option value="true">{{'updatePlace.yes' | translate}}</ion-option>
+          <ion-option value="false">{{'updatePlace.no' | translate}}</ion-option>
+        </ion-select>
       </div>
-      <ion-label>Hash Tags</ion-label>
+      <ion-label>{{'updatePlace.tags' | translate}}</ion-label>
       <ion-item>
         <ion-input name="hashTags" [(ngModel)]="hashTags"></ion-input>
       </ion-item>
-      <ion-label>Phone</ion-label>
+      <ion-label>{{'updatePlace.phone' | translate}}</ion-label>
       <ion-item>
         <ion-input name="phone" [(ngModel)]="place.phone"></ion-input>
       </ion-item>
-      <ion-label>email</ion-label>
+      <ion-label>{{'updatePlace.email' | translate}}</ion-label>
       <ion-item>
         <ion-input name="email" [(ngModel)]="place.email"></ion-input>
       </ion-item>
 
       <div ngModelGroup="location">
-        <button margin-top="20px" ion-button outline full class="defaultBackground2" type="button" (click)="goToChooseLocation()">chose location</button>
+        <button margin-top="20px" ion-button outline full class="defaultBackground2" type="button"
+                (click)="goToChooseLocation()">
+          {{'updatePlace.location' | translate}}
+        </button>
         <ion-item>
           <ion-input name="lat" [(ngModel)]="place.location.lat" disabled></ion-input>
         </ion-item>
@@ -84,27 +98,27 @@
         </ion-item>
       </div>
       <ion-list ngModelGroup="features">
-        <ion-list-header>Features</ion-list-header>
+        <ion-list-header>{{'updatePlace.features' | translate}}</ion-list-header>
         <ion-item>
-          <ion-label>wifi</ion-label>
+          <ion-label>{{'updatePlace.wifi' | translate}}</ion-label>
           <ion-checkbox name="wifi" [(ngModel)]="place.features.wifi"></ion-checkbox>
         </ion-item>
         <ion-item>
-          <ion-label>Karaoke</ion-label>
+          <ion-label>{{'updatePlace.karaoke' | translate}}</ion-label>
           <ion-checkbox name="karaoke" [(ngModel)]="place.features.karaoke"></ion-checkbox>
         </ion-item>
         <ion-item>
-          <ion-label>parking</ion-label>
+          <ion-label>{{'updatePlace.parking' | translate}}</ion-label>
           <ion-checkbox name="parking" [(ngModel)]="place.features.parking"></ion-checkbox>
         </ion-item>
         <ion-item>
-          <ion-label>vip room</ion-label>
+          <ion-label>{{'updatePlace.vipRoom' | translate}}</ion-label>
           <ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>
         </ion-item>
       </ion-list>
       <ion-item>
-        <ion-label>Place Types</ion-label>
-        <ion-select name="types" [(ngModel)]="place.types" okText="Okay" cancelText="Dismiss" multiple="true" >
+        <ion-label>{{'updatePlace.placeTypes' | translate}}</ion-label>
+        <ion-select name="types" [(ngModel)]="place.types" okText="Okay" cancelText="Dismiss" multiple="true">
           <ng-container *ngFor="let placeTypeM of placeTypesM">
             <ion-option [value]="placeTypeM.placeType.toString()" *ngIf="placeTypeM.placeType">
               {{placeTypeM.name}}
@@ -115,17 +129,19 @@
       </ion-item>
       <ion-item-group ngModelGroup="days">
         <ion-item-group ngModelGroup="1">
+
           <ion-item>
-            <ion-label>From</ion-label>
+            <ion-label>{{'updatePlace.from' | translate}}</ion-label>
             <ion-datetime displayFormat="HH" name="start" [(ngModel)]="place.days['1'].start"></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label>To</ion-label>
+            <ion-label>{{'updatePlace.to' | translate}}</ion-label>
             <ion-datetime displayFormat="HH" name="end" [(ngModel)]="place.days['1'].end"></ion-datetime>
           </ion-item>
         </ion-item-group>
       </ion-item-group>
     </div>
-    <button type="submit"full outline class="defaultBackground2" ion-button="" >Update</button>
+    <button type="submit" full outline class="defaultBackground2" ion-button="">{{'updatePlace.save' | translate}}
+    </button>
   </form>
 </ion-content>

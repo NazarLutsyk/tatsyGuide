@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -16,11 +17,12 @@ export class CreateTopPlacePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private topPlaceService: TopPlaceProvider
+    private topPlaceService: TopPlaceProvider,
+    private translate: TranslateService
   ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.placeName = this.navParams.data.multilang[0].name;
     this.placeId = this.navParams.data._id;
   }

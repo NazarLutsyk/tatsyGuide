@@ -14,6 +14,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {Observable} from "rxjs/Observable";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @IonicPage()
@@ -51,8 +52,11 @@ export class UpdatePlacePage {
     private event: Events,
     private auth: AuthProvider,
     private camera: Camera,
-    private imagePicker: ImagePicker
+    private imagePicker: ImagePicker,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
       this.location.lng = data.lng;

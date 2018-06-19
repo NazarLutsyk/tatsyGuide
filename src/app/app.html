@@ -14,7 +14,7 @@
       </ion-item>
       <!--todo nazik удали этиу логику-->
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToPlacesStatisticPage()"> Places statistic</span>
+        <span (click)="goToPlacesStatisticPage()"> {{'sideMenu.leftMenu.stat' | translate}}</span>
       </ion-item>
       <ion-item *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToPlacesPurgatoryPage()">{{'sideMenu.leftMenu.purgatory' | translate}}</span>

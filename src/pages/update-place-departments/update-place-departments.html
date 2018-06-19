@@ -7,20 +7,20 @@
 <ion-content>
   <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
     <ion-item>
-      <ion-label>Client</ion-label>
+      <ion-label>{{'updatePlaceDepartments.client'|translate}}</ion-label>
       <ion-input
         name="client"
         ngModel
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Role</ion-label>
+      <ion-label>{{'updatePlaceDepartments.role'|translate}}</ion-label>
       <ion-select ngModel multiple name="role">
         <ion-option value="BOSS_PLACE">BOSS_PLACE</ion-option>
         <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
       </ion-select>
     </ion-item>
-    <button ion-button full>Add</button>
+    <button margin-top="20px" ion-button full [outline]="true" class="buttonUpdate">Add</button>
   </form>
   <ion-list>
     <ion-item *ngFor="let department of departments" (click)="openProfile(department)">
