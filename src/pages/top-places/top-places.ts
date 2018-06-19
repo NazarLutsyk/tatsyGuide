@@ -3,8 +3,9 @@ import {App, InfiniteScroll, IonicPage, LoadingController, NavController, NavPar
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
-import {switchMap} from "rxjs/operators";
 import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
+import {Observable} from "rxjs/Observable";
+import {Place} from "../../models/place/Place";
 
 @IonicPage()
 @Component({
@@ -14,7 +15,7 @@ import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 export class TopPlacesPage {
 
   globalHost;
-  topPlaces = [];
+  topPlaces: Place[] = [];
 
   skip = 0;
   pageSize = 7;
@@ -39,26 +40,69 @@ export class TopPlacesPage {
   }
 
   loadTopPlaces() {
-    return this.topPlaceService.find({
-      query: {actual: true},
-      select: 'place'
-    }).pipe(
-      switchMap(topPlaces => {
+    return new Observable<Place[]>((subscriber) => {
+      this.topPlaceService.find({
+        query: {actual: true},
+        select: 'place'
+      }).subscribe(topPlaces => {
         let placesIds = topPlaces.map(topPlace => topPlace.place);
-        return this.placeService.find({
-          query: {_id: placesIds},
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
+        this.placeService.find({
+          aggregate: [
+            {$match: {_id: {$in : placesIds}}},
             {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+              $lookup: {
+                from: 'multilangs',
+                localField: '_id',
+                foreignField: 'place',
+                as: 'multilang',
+              }
             },
-          ],
-          skip: this.skip,
-          limit: this.limit
-        });
-      })
-    )
+            {$unwind: "$multilang"},
+            {
+              $lookup: {
+                from: 'multilangs',
+                localField: 'types',
+                foreignField: 'placeType',
+                as: 'types',
+              }
+            },
+            {$unwind: "$types"},
+            {
+              $match: {
+                'types.lang': this.globalVars.getGlobalLang(),
+                'multilang.lang': this.globalVars.getGlobalLang()
+              }
+            },
+            {
+              $group: {
+                _id: '$_id',
+                types: {$push: '$types'},
+                multilang: {$addToSet: '$multilang'},
+                phone: {$first: '$phone'},
+                email: {$first: '$email'},
+                averagePrice: {$first: '$averagePrice'},
+                reviews: {$first: '$reviews'},
+                rating: {$first: '$rating'},
+                allowed: {$first: '$allowed'},
+                avatar: {$first: '$avatar'},
+                location: {$first: '$location'},
+                features: {$first: '$features'},
+                topCategories: {$first: '$topCategories'},
+                images: {$first: '$images'},
+                days: {$first: '$days'},
+                hashTags: {$first: '$hashTags'},
+                createdAt: {$first: '$createdAt'},
+              }
+            },
+            {$sort: {createdAt: -1}},
+            {$skip: this.skip},
+            {$limit: this.limit},
+          ]
+        }).subscribe((places) => {
+          subscriber.next(places);
+        })
+      });
+    });
   }
 
   doRefresh(refresher) {

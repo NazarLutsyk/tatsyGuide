@@ -15,7 +15,6 @@
 
   <ion-grid>
     <ion-row *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0" text-center="">
-
       <ion-col>
         <button ion-button class="defaultBackground2" outline full
                 (click)="presentActionSheet()">
@@ -157,24 +156,30 @@
       </ion-row>
 
 
-      <ion-row (click)="sendComplaint()" align-items-end="">
+      <ion-row
+        *ngIf="place.allowed"
+        (click)="sendComplaint()"
+        align-items-end="">
         <ion-col col-8 class="text-align-middle fontBold" icon-start class="colorDanger">
           <ion-icon name="ios-flag-outline" icon-end class="colorDanger"></ion-icon>
           {{'placeInfo.complaint' | translate}}
-
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-
-
-          <button ion-button icon-start full strong class="defaultBackground iconWhite" (click)="toDrinkerPage()">
+          <button
+            *ngIf="place.allowed"
+            ion-button
+            icon-start
+            full
+            strong
+            class="defaultBackground iconWhite"
+            (click)="toDrinkerPage()">
             <ion-icon name="ios-beer-outline"></ion-icon>
             {{'placeInfo.drinker' |translate}}
           </button>
         </ion-col>
-
       </ion-row>
     </div>
   </ion-grid>

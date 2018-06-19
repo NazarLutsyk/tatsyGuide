@@ -21,8 +21,6 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 import {Geolocation} from "@ionic-native/geolocation";
 import {ObjectUtils} from "../../utils/ObjectUtils";
-import {zip} from "rxjs/observable/zip";
-import {fromPromise} from "rxjs/observable/fromPromise";
 
 @IonicPage()
 @Component({
@@ -125,7 +123,7 @@ export class AllPlacesPage {
     this.prepareQueryies(eventData);
     let res = this.placesService.find({
       aggregate: [
-        {$match: this.placeQuery.query},
+        {$match: {allowed: true, ...this.placeQuery.query}},
         {
           $lookup: {
             from: 'multilangs',

@@ -6,6 +6,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class DrinkApplicationComponent {
 
   @Input() drinkApp;
+  @Input() pm;
   @Input() showControlButtons;
 
   @Output() onOpenDrinkApplication = new EventEmitter();

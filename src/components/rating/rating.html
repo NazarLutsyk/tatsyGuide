@@ -16,7 +16,7 @@
       <p>
         Comment: {{rating?.comment}}
       </p>
-      <p *ngIf="rating.place.multilang">
+      <p *ngIf="rating.place.multilang && rating.place.multilang.length > 0">
         Place: {{rating.place.multilang[0].name}}
       </p>
     </ion-item>

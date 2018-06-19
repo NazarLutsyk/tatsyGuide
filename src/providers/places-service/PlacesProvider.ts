@@ -72,7 +72,9 @@ export class PlacesProvider {
     }
     return this.http.get<any[]>(url).map((places) => {
       for (const place of places) {
-        place.distance = this.findDistance(this.globalConfig.globalPosition, place);
+        if (place.location) {
+          place.distance = this.findDistance(this.globalConfig.globalPosition, place);
+        }
       }
       return places;
     });
@@ -88,13 +90,17 @@ export class PlacesProvider {
 
 
   findDistance(myPosition, place) {
-    let lat1 = myPosition.latitude;
-    let lon1 = myPosition.longitude;
-    let lat2 = place.location.lat;
-    let lon2 = place.location.lng;
-    let p = 0.017453292519943295;
-    let a = 0.5 - Math.cos((lat2 - lat1) * p) / 2 + Math.cos(lat1 * p) * Math.cos(lat2 * p) * (1 - Math.cos((lon2 - lon1) * p)) / 2;
-    return 12742 * Math.asin(Math.sqrt(a));
+    if (place.location) {
+      let lat1 = myPosition.latitude;
+      let lon1 = myPosition.longitude;
+      let lat2 = place.location.lat;
+      let lon2 = place.location.lng;
+      let p = 0.017453292519943295;
+      let a = 0.5 - Math.cos((lat2 - lat1) * p) / 2 + Math.cos(lat1 * p) * Math.cos(lat2 * p) * (1 - Math.cos((lon2 - lon1) * p)) / 2;
+      return 12742 * Math.asin(Math.sqrt(a));
+    } else {
+      return 0;
+    }
 
   }
 

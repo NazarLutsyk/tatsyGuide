@@ -12,17 +12,16 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div [virtualScroll]="events">
-    <event
-      *virtualItem="let promo"
-      [event]="promo"
-      [globalHost]="globalHost"
-      [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
-      (onRemovePromo)="removePromo($event)"
-      (onUpdatePromo)="updatePromo($event)"
-      (click)="goToSingleEvent(promo)">
-    </event>
-  </div>
+  <event
+    *ngFor="let promo of events"
+    [event]="promo"
+    [pm]="promo.place"
+    [globalHost]="globalHost"
+    [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+    (onRemovePromo)="removePromo($event)"
+    (onUpdatePromo)="updatePromo($event)"
+    (click)="goToSingleEvent(promo)">
+  </event>
 
   <ion-infinite-scroll (ionInfinite)="loadNextEventsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

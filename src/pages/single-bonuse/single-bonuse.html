@@ -9,24 +9,24 @@
     <ion-item>
       <img src="{{globalHost+bonuse.image}}" alt=""/>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="bonuse.pm">
       <strong>Place:</strong>
-      <p>{{bonuse.place.multilang[0].name}}</p>
+      <p>{{bonuse.pm.name}}</p>
     </ion-item>
     <ion-item>
       <strong>Header:</strong>
-      <p>{{bonuse.multilang[0].header}}</p>
+      <p>{{bonuse.multilang.header}}</p>
     </ion-item>
     <ion-item>
       <strong>Description:</strong>
       <p>
-        {{bonuse.multilang[0].description}}
+        {{bonuse.multilang.description}}
       </p>
     </ion-item>
     <ion-item>
       <strong>Conditions:</strong>
       <p>
-        {{bonuse.multilang[0].conditions}}
+        {{bonuse.multilang.conditions}}
       </p>
     </ion-item>
     <ion-item>

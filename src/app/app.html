@@ -43,13 +43,7 @@
       <ion-item *ngIf="principal">
         <span (click)="goToCreatePlacePage()">{{'sideMenu.leftMenu.createPlace' | translate}}</span>
       </ion-item>
-      <ion-item *ngIf="principal && principal.login" (click)="logout()">
-        <span>{{'sideMenu.leftMenu.logout' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal && principal.facebookId" (click)="logoutFb()">
-        <span>{{'sideMenu.leftMenu.logout' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal && principal.googleId" (click)="logoutGoogle()">
+      <ion-item *ngIf="principal" (click)="logout()">
         <span>{{'sideMenu.leftMenu.logout' | translate}}</span>
       </ion-item>
       <ion-item *ngIf="!principal">
@@ -119,7 +113,7 @@
         </ion-option>
       </ion-select>
     </ion-item>
-<!--todo translate features-->
+<!--todo serj translate features-->
     <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
       <ion-label>{{feature}}</ion-label>
       <ion-checkbox color="dark"

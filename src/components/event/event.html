@@ -2,17 +2,19 @@
   <img src="{{globalHost+event.image}}" alt=""/>
   <ion-card-content>
     <ion-card-title>
-      {{event.place.multilang[0].name}}<br>
-      {{event.multilang[0].header}}
+      {{event.multilang.header}}
     </ion-card-title>
     <p>
-      {{event.multilang[0].description}}
+      {{event.multilang.description}}
     </p>
     <p>
       {{event.startDate | date}}
     </p>
     <p>
       {{event.endDate | date}}
+    </p>
+    <p *ngIf="pm">
+      {{pm.name}}
     </p>
   </ion-card-content>
   <ion-buttons *ngIf="showControlButtons">

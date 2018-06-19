@@ -9,6 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class BonuseComponent {
 
   @Input() bonuse;
+  @Input() pm;
   @Input() showControlButtons;
   @Input() globalHost;
 

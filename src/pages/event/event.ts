@@ -84,25 +84,33 @@ export class EventPage {
 
   loadEvents() {
     return this.eventService.find({
-      query: {place: this.navParams.data._id},
-      sort: {createdAt: -1},
-      populate: [
+      aggregate: [
+        {$match: {place: this.navParams.data._id}},
         {
-          path: 'multilang',
-          match: {lang: this.gc.getGlobalLang()}
+          $lookup: {
+            from: 'multilangs',
+            localField: '_id',
+            foreignField: 'promo',
+            as: 'multilang',
+          }
         },
+        {$unwind: "$multilang"},
+        {$match: {'multilang.lang': this.gc.getGlobalLang()}},
         {
-          path: 'place',
-          select: 'multilang',
-          populate: [{
-            path: 'multilang',
-            match: {lang: this.gc.getGlobalLang()},
-            select: 'name'
-          }]
-        }
-      ],
-      skip: this.skip,
-      limit: this.limit
+          $project: {
+            _id: 1,
+            createdAt: 1,
+            multilang: 1,
+            startDate: 1,
+            endDate: 1,
+            image: 1,
+            kind: 1,
+          }
+        },
+        {$sort: {createdAt: -1}},
+        {$skip: this.skip},
+        {$limit: this.limit},
+      ]
     })
   }
 
@@ -139,6 +147,6 @@ export class EventPage {
 
 
   goToSingleEvent(event) {
-    this.app.getRootNav().push(SingleEventPage, event);
+    this.app.getRootNav().push(SingleEventPage, {event, pm: null});
   }
 }

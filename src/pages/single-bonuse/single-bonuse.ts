@@ -21,7 +21,8 @@ export class SingleBonusePage {
   }
 
   ngOnInit() {
-    this.bonuse = this.navParams.data;
+    this.bonuse = this.navParams.data.bonuse;
+    this.bonuse.pm = this.navParams.data.pm;
   }
 
 }

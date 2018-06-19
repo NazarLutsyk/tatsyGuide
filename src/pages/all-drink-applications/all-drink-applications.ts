@@ -2,13 +2,12 @@ import {Component} from '@angular/core';
 import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
-import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {Observable} from "rxjs/Observable";
 import {UpdateDrinkApplicationPage} from "../update-drink-application/update-drink-application";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
 import {AuthProvider} from "../../providers/auth/auth";
-// import {Client} from "../../models/client/Client";
+
 
 @IonicPage()
 @Component({
@@ -61,22 +60,31 @@ export class AllDrinkApplicationsPage {
 
   private loadDrinkApps(): Observable<any> {
     return this.drinkAppsService.find({
-      sort: {createdAt: -1},
-      populate: [
-        {path: 'organizer'},
+      aggregate: [
         {
-          path: 'place',
-          select: 'multilang',
-          populate: [{
-            path: 'multilang',
-            match: {lang: this.gc.getGlobalLang()},
-            select: 'name'
-          }]
-        }
-      ],
-      skip: this.skip,
-      limit: this.limit
-    });
+          $lookup: {
+            from: 'clients',
+            localField: 'organizer',
+            foreignField: '_id',
+            as: 'organizer',
+          }
+        },
+        {$unwind: "$organizer"},
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: 'place',
+            foreignField: 'place',
+            as: 'place',
+          }
+        },
+        {$unwind: "$place"},
+        {$match: {'place.lang': this.gc.getGlobalLang()}},
+        {$sort: {createdAt: -1}},
+        {$skip: this.skip},
+        {$limit: this.limit},
+      ]
+    })
   }
 
   removeDrinkApp(drinkApp: any) {
@@ -107,6 +115,6 @@ export class AllDrinkApplicationsPage {
   }
 
   openDrinkApplication(drinkApp: DrinkApplication) {
-    this.app.getRootNav().push(SingleDrinkApplicationPage, drinkApp);
+    this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: true});
   }
 }

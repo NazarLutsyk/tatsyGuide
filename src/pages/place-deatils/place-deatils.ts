@@ -89,7 +89,7 @@ export class PlaceDeatilsPage {
     if (favouriteIndex >= 0) {
       this.principal.favoritePlaces.splice(favouriteIndex, 1);
     } else {
-      this.principal.favoritePlaces.push(this.place);
+      this.principal.favoritePlaces.push((<any>this.place)._id);
     }
     this.clientService
       .update((<any>this.principal)._id, {favoritePlaces: this.principal.favoritePlaces})

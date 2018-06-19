@@ -16,7 +16,7 @@
       <p>
         {{drinkApp?.organizer.name}} {{drinkApp?.organizer.surname}}
       </p>
-      <p>
+      <p *ngIf="drinkApp?.place.multilang && drinkApp?.place.multilang.length > 0 && showPlaceInfo">
         {{drinkApp?.place.multilang[0].name}}
       </p>
       <p>
@@ -57,7 +57,8 @@
         ion-button
         (click)="removeComment(comment)"
         *ngIf="principal"
-      >Remove</button>
+      >Remove
+      </button>
     </ion-item>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="loadNextCommentsPage($event)">

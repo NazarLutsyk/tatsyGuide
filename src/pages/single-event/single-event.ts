@@ -21,7 +21,8 @@ export class SingleEventPage {
   }
 
   ngOnInit() {
-    this.event = this.navParams.data;
+    this.event = this.navParams.data.event;
+    this.event.pm = this.navParams.data.pm;
   }
 
 }

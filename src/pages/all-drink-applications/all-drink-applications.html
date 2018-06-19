@@ -25,6 +25,7 @@
   <drink-application
     *ngFor="let drinkApp of drinkApps"
     [drinkApp]="drinkApp"
+    [pm]="drinkApp.place"
     [showControlButtons]="(principal && (drinkApp.organizer._id === principal._id || principal.roles.indexOf('ADMIN') >= 0))"
     (onOpenDrinkApplication)="openDrinkApplication($event)"
     (onRemoveDrinkApplication)="removeDrinkApp($event)"

@@ -6,6 +6,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Client} from "../../models/client/Client";
 import {AuthProvider} from "../../providers/auth/auth";
 import {UpdateRatingPage} from "../update-rating/update-rating";
+import {Observable} from "rxjs/Observable";
 
 @IonicPage()
 @Component({
@@ -15,7 +16,7 @@ import {UpdateRatingPage} from "../update-rating/update-rating";
 export class MyRatingsPage {
 
   principal: Client;
-  ratings: Rating[];
+  ratings: Rating[] = [];
 
   skip = 0;
   pageSize = 7;
@@ -51,8 +52,8 @@ export class MyRatingsPage {
   }
 
   loadRatings() {
-    let query =
-      {
+    return new Observable<Rating[]>((subscriber) => {
+      this.ratingProvider.find({
         query: {client: (<any>this.principal)._id},
         populate: [
           {path: 'client'},
@@ -63,8 +64,37 @@ export class MyRatingsPage {
         ],
         skip: this.skip,
         limit: this.limit
-      };
-    return this.ratingProvider.find(query);
+      }).subscribe((ratings) => {
+        let okRatings = [];
+        let otherRatingIds = [];
+        for (const rating of ratings) {
+          if (!rating.place.multilang || rating.place.multilang.length === 0) {
+            otherRatingIds.push(rating._id);
+          } else {
+            okRatings.push(rating);
+          }
+        }
+        if (otherRatingIds.length > 0) {
+          this.ratingProvider.find({
+            query: {_id: {$in: otherRatingIds}},
+            populate: [
+              {path: 'client'},
+              {
+                path: 'place',
+                populate: [{path: 'multilang', options: {limit: 1}}]
+              }
+            ],
+            skip: this.skip,
+            limit: this.limit
+          }).subscribe((ratings) => {
+            okRatings.push(...ratings);
+            subscriber.next(okRatings);
+          });
+        } else {
+          subscriber.next(okRatings);
+        }
+      })
+    });
   }
 
   removeRating(rating) {

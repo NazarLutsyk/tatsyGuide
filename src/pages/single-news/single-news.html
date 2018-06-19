@@ -12,18 +12,18 @@
     <ion-item>
       <img src="{{globalHost+singleNews.image}}" alt=""/>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="singleNews.pm">
       <strong>Place:</strong>
-      <p>{{singleNews.place.multilang[0].name}}</p>
+      <p>{{singleNews.pm.name}}</p>
     </ion-item>
     <ion-item>
       <strong>Header:</strong>
-      <p>{{singleNews.multilang[0].header}}</p>
+      <p>{{singleNews.multilang.header}}</p>
     </ion-item>
     <ion-item>
       <strong>Description:</strong>
       <p>
-        {{singleNews.multilang[0].description}}
+        {{singleNews.multilang.description}}
       </p>
     </ion-item>
     <ion-item>

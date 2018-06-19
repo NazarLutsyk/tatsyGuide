@@ -80,13 +80,11 @@ export class MyApp implements OnInit {
       () => {
 
 
-        if (platform.is("android") || platform.is("ios")) {
-          this.globalization.getPreferredLanguage().then(res => {
-            this.globalConfig.globalLang = res.value;
-            this.rootPage = HomePage;
-          });
-
-        }
+        // if (platform.is("android") || platform.is("ios")) {
+        //   this.globalization.getPreferredLanguage().then(res => {
+        //     this.rootPage = HomePage;
+        //   });
+        // }
 
         // statusBar.styleDefault();
         // splashScreen.hide();
