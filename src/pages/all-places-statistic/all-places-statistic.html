@@ -4,16 +4,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
   <form #searchForm="ngForm" (ngSubmit)="getStat(searchForm)">
     <ion-item>
-      <ion-datetime ngModel name="start"></ion-datetime>
+
+      <ion-datetime ngModel name="start" placeholder="start"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-datetime ngModel name="end"></ion-datetime>
+      <ion-datetime ngModel name="end" placeholder="end"></ion-datetime>
     </ion-item>
     <ion-item>
-      <button ion-button full>Search</button>
+      <button ion-button full class="defaultBackground">Search</button>
     </ion-item>
   </form>
 

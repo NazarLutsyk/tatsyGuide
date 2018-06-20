@@ -58,8 +58,10 @@ $font-family-wp-base: ' Roboto '';
   background: map-get($colors, defaultApp);
 
 }
+.defaultBackgroundBrown, button.defaultBackgroundBrown.activated {
+  background: map-get($colors, defaultApp2);
 
-
+}
 
 button.defaultButton, button.defaultButton.activated {
 
@@ -68,13 +70,14 @@ button.defaultButton, button.defaultButton.activated {
   border-color: map-get($colors, defaultApp);
   color: map-get($colors, defaultApp);
 }
+
 .fontBold {
   font-weight: bold !important;
 }
 
 button.buttonUpdate, button.buttonUpdate.activated {
   background: transparent;
-  //border-width: 1px;
+  border-width: 1px;
   border-style: solid;
   border-color: #caab85;
   color: #caab85;
@@ -177,14 +180,14 @@ ion-alert {
   }
 
   .alert-radio-group {
-    [aria-checked=true] .alert-radio-icon , .alert-radio-icon {
+    [aria-checked=true] .alert-radio-icon, .alert-radio-icon {
       border-color: map_get($colors, defaultApp2);
     }
     .alert-radio-inner {
       background-color: map_get($colors, defaultApp2);
     }
 
-    [aria-checked=true] .alert-radio-label{
+    [aria-checked=true] .alert-radio-label {
       color: #000;
     }
 
@@ -222,23 +225,25 @@ ion-alert {
   background: transparent !important;
 }
 
-.radio-ios .radio-checked .radio-inner{
-  border-color: #f6900a ;
+.radio-ios .radio-checked .radio-inner {
+  border-color: #f6900a;
 }
-
 
 .item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner {
   box-shadow: none;
 
 }
 
-.alert-md .alert-input:focus{
-  border-bottom: 2px solid map_get($colors,defaultApp2);
+.alert-md .alert-input:focus {
+  border-bottom: 2px solid map_get($colors, defaultApp2);
 }
 
-.card-ios, .card-md{
-  -webkit-box-shadow: none;
-  box-shadow: none;
+.card-ios, .card-md {
+  //-webkit-box-shadow: none;
+  //box-shadow: none;
+
+  webkit-box-shadow: 0 2px 2px 0 rgba(246, 144, 10, 0.14), 0 3px 1px -2px rgba(188, 143, 95, 0.2), 0 1px 5px 0 rgba(188, 143, 95, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(246, 144, 10, 0.14), 0 3px 1px -2px rgba(188, 143, 95, 0.2), 0 1px 5px 0 rgba(202, 171, 133, 0.12);
 }
 
 // ion-item:not(.item-input-has-focus) .item-inner{
@@ -252,20 +257,29 @@ ion-item.item-input-has-focus .item-inner {
   -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp) !important;
   box-shadow: inset 0 -1px 0 0 #dedede !important;
 }
+
 ion-item:not(.item-input-has-focus) .item-inner {
   border-bottom-color: map_get($colors, defaultApp2) !important;
   -webkit-box-shadow: inset 0 -1px 0 0 map_get($colors, defaultApp2) !important;
   box-shadow: inset 0 -1px 0 0 #dedede !important;
 }
 
-
 ion-item:not(.item-input-has-focus) .item-inner {
   border-bottom-color: #caab85 !important;
-   -webkit-box-shadow: inset 0 -1px 0 0 trasparent !important;
-   box-shadow: inset 0 -1px 0 0 transparent !important;
+  -webkit-box-shadow: inset 0 -1px 0 0 trasparent !important;
+  box-shadow: inset 0 -1px 0 0 transparent !important;
 }
+
 ion-item.item-input-has-focus .item-inner {
   border-bottom-color: #caab85 !important;
-   -webkit-box-shadow: inset 0 -1px 0 0 trasparent !important;
-   box-shadow: inset 0 -1px 0 0 transparent !important;
+  -webkit-box-shadow: inset 0 -1px 0 0 trasparent !important;
+  box-shadow: inset 0 -1px 0 0 transparent !important;
+}
+
+.button-md:hover:not(.disable-hover).defaultBackground, .button-ios:hover:not(.disable-hover).defaultBackground{
+  background: map_get($colors,defaultApp);
+}
+
+.icon-delete{
+  color: #dd434c;
 }

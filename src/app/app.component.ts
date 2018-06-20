@@ -50,8 +50,7 @@ export class MyApp implements OnInit {
     range: {lower: 0, upper: 10000},
     direction: false,
     filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
-    placeType: '',
-    city: ''
+    placeType: ''
   };
   principal: Client = null;
 
@@ -75,29 +74,27 @@ export class MyApp implements OnInit {
   ) {
     this.translate.setDefaultLang("en");
     this.translate.use("ua");
+    this.geolocation.getCurrentPosition().then((position) => {
+      this.globalConfig.globalPosition.latitude = position.coords.latitude;
+      this.globalConfig.globalPosition.longitude = position.coords.longitude;
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
 
     platform
       .ready().then(
       () => {
 
 
-        if (platform.is("android") || platform.is("ios")) {
-          this.globalization.getPreferredLanguage().then(res => {
-            this.rootPage = HomePage;
-          });
-        }
+        // if (platform.is("android") || platform.is("ios")) {
+        //   this.globalization.getPreferredLanguage().then(res => {
+        //     this.rootPage = HomePage;
+        //   });
+        // }
 
-        statusBar.styleDefault();
-        splashScreen.hide();
-
+        // statusBar.styleDefault();
+        // splashScreen.hide();
         this.langService.find({}).subscribe(langs => this.globalConfig.langs = langs);
-
-        this.geolocation.getCurrentPosition().then((position) => {
-          this.globalConfig.globalPosition.latitude = position.coords.latitude;
-          this.globalConfig.globalPosition.longitude = position.coords.longitude;
-          statusBar.styleDefault();
-          splashScreen.hide();
-        });
       }
     );
 

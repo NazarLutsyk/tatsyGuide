@@ -7,12 +7,12 @@
 <ion-content>
   <form #searchForm="ngForm" (ngSubmit)="getStat(searchForm)">
     <ion-item>
-      <ion-datetime ngModel name="start"></ion-datetime>
+      <ion-datetime ngModel name="start" placeholder="date from"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-datetime ngModel name="end"></ion-datetime>
+      <ion-datetime ngModel name="end" placeholder="date to"></ion-datetime>
     </ion-item>
-    <button ion-button full>Search</button>
+    <button ion-button type="submit" full [outline]="false" class="defaultBackgroundBrown" padding="50px" >Search</button>
   </form>
   <h4 text-center>{{reviews}}</h4>
 </ion-content>
