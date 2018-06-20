@@ -18,6 +18,8 @@
   <ion-list [virtualScroll]="places" [approxItemHeight]="'132px'">
     <ion-item *virtualItem="let place" (click)="toDetails(place)">
       <ion-icon item-start name="trash" class="icon-delete" (click)="removePlace(place,$event)"></ion-icon>
+
+
       <ion-thumbnail item-start>
         <img [src]="globalHost+place.avatar">
       </ion-thumbnail>

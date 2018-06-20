@@ -1,11 +1,21 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {
+  AlertController,
+  App,
+  InfiniteScroll,
+  IonicPage,
+  ModalController,
+  NavController,
+  NavParams,
+  Refresher
+} from 'ionic-angular';
 import {EventProvider} from "../../providers/event/EventProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdateEventPage} from "../update-event/update-event";
 import {SingleEventPage} from "../single-event/single-event";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -32,7 +42,11 @@ export class AllEventsPage {
     private app: App,
     private auth: AuthProvider,
     public modal: ModalController,
+    private alert: AlertController,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {
@@ -100,11 +114,17 @@ export class AllEventsPage {
   }
 
   removePromo(promo: any) {
+
+    event.stopPropagation();
     this.eventService.remove(promo._id).subscribe();
     this.events.splice(this.events.indexOf(promo), 1);
   }
 
-  updatePromo(promo: any) {
+
+  updatePromo(promo
+                :
+                any
+  ) {
     let modalItem = this.modal.create(ModalChooseLangPage, {
       object: promo,
       page: UpdateEventPage
@@ -112,7 +132,10 @@ export class AllEventsPage {
     modalItem.present();
   }
 
-  loadNextEventsPage(event: InfiniteScroll) {
+  loadNextEventsPage(event
+                       :
+                       InfiniteScroll
+  ) {
     if (this.allLoaded) {
       event.complete();
     } else {

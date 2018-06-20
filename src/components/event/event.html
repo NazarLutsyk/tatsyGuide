@@ -8,30 +8,38 @@
       {{event.multilang.description}}
     </p>
     <p>
-      {{event.startDate | date}}
+      {{event.startDate | date: 'dd/MM/yyyy'}}
     </p>
     <p>
-      {{event.endDate | date}}
+      {{event.endDate | date: 'dd/MM/yyyy'}}
     </p>
     <p *ngIf="pm">
       {{pm.name}}
     </p>
   </ion-card-content>
   <ion-buttons *ngIf="showControlButtons">
-    <button
-      ion-button
-      outline
-      class="defaultBackground2"
-      (click)="updatePromo(event,$event)">
-      Update
-    </button>
-
-    <button
-      ion-button
-      class="buttonDelete"
-      (click)="removePromo(event,$event)">
-      Delete
-    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <button
+            ion-button
+            outline
+            full
+            class="defaultBackground2"
+            (click)="updatePromo(event,$event)">
+            Update
+          </button>
+        </ion-col>
+        <ion-col col-6><button
+          ion-button
+          full
+          [outline]="true"
+          class="buttonDelete"
+          (click)="removePromo(event,$event)">
+          Delete
+        </button></ion-col>
+      </ion-row>
+    </ion-grid>
 
   </ion-buttons>
 </ion-card>

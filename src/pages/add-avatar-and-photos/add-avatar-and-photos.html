@@ -6,11 +6,27 @@
 
 
 <ion-content padding>
-  <button ion-button full (click)="getAvatar()">Select avatar</button>
-  <!--<img [src]="avatar" alt="">-->
-  <button ion-button full (click)="getImages()">Select images</button>
-  <!--<img *ngFor="let image of imagesToShow" [src]="image" alt="">-->
-  <button ion-button full (click)="uploadImage()">Upload Image</button>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button full [outline]="true" class="buttonUpdate" (click)="getAvatar()">Select avatar</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button full [outline]="true" class="buttonUpdate" (click)="getImages()">Select images</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button full [outline]="true" class="buttonUpdate" (click)="uploadImage()">Upload Image</button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="imageRow">
+      <ion-col col-auto><img [src]="avatar" alt=""></ion-col>
+      <ion-col col-auto *ngFor="let image of imagesToShow"><img  [src]="image" alt=""></ion-col>
+    </ion-row>
+
+  </ion-grid>
 
 
 </ion-content>

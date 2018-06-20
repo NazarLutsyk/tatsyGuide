@@ -114,6 +114,7 @@ export class PlacesProvider {
   }
 
   upload(id, files: { avatar?: string, images?: string[] }) {
+    console.log(files);
     return new Observable((subscriber) => {
       let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}/upload`;
       const transfer: FileTransferObject = this.fileTransfer.create();

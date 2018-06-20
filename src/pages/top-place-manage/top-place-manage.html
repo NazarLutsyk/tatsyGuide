@@ -30,11 +30,14 @@
       </p>
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <button ion-button full class="defaultBackgroundBrown" (click)="updateTopPlace(topPlace)">Update</button>
+          <ion-col col-6>
+            <button ion-button full [outline]="true" class="defaultBackground2" (click)="updateTopPlace(topPlace)">
+              Update
+            </button>
           </ion-col>
-          <ion-col>
-            <button ion-button full class="deleteButtonFill" (click)="removeTopPlace(topPlace)">Remove</button>
+          <ion-col col-6>
+            <button ion-button full [outline]="true" class="buttonDelete" (click)="removeTopPlace(topPlace,$event)">Remove
+            </button>
           </ion-col>
         </ion-row>
       </ion-grid>

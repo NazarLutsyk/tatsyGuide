@@ -1,7 +1,7 @@
 <ion-card (click)="openDrinkApplication(drinkApp)">
   <ion-card-content>
     <p>
-     {{'drinker.who'|translate}} - {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}
+      {{'drinker.who'|translate}} - {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}
     </p>
     <p *ngIf="pm">
       {{pm.name}}
@@ -10,35 +10,44 @@
       {{'drinker.when'|translate}} - {{drinkApp.date | date:'dd/MM/yyyy'}}
     </p>
     <!--<p>-->
-      <!--{{drinkApp.friends}}-->
+    <!--{{drinkApp.friends}}-->
     <!--</p>-->
     <p>
       {{'drinker.budget'|translate}} - {{drinkApp.budged}} {{'drinker.currency'|translate}}
     </p>
     <!--<p>-->
-      <!--{{drinkApp.goal}}-->
+    <!--{{drinkApp.goal}}-->
     <!--</p>-->
     <!--<p>-->
-     <!---->
+    <!---->
     <!--</p>-->
   </ion-card-content>
-  <ion-buttons
-    *ngIf="showControlButtons">
-    <button
-      ion-button
-      class="buttonUpdate"
-      outline
-      (click)="updateDrinkApp(drinkApp, $event)"
-    >Update
-    </button>
-    <button
-      ion-button
+  <ion-buttons *ngIf="showControlButtons">
+    <ion-grid>
 
-      outline
-      class="buttonDelete"
-      (click)="removeDrinkApp(drinkApp, $event)"
-    >Delete
-    </button>
+      <ion-row>
+        <ion-col col-6>
+          <button
+            ion-button
+            full
+            class="buttonUpdate"
+            outline
+            (click)="updateDrinkApp(drinkApp, $event)"
+          >Update
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button
+            ion-button
+            full
+            outline
+            class="buttonDelete"
+            (click)="removeDrinkApp(drinkApp, $event)"
+          >Delete
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-buttons>
 
 </ion-card>

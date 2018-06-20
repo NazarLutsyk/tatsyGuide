@@ -14,8 +14,7 @@
 
 
 <ion-content padding>
-  <button ion-button outline class="buttonUpdate" full (click)="updateClient(principal)">Update </button>
-  <button ion-button outline class="buttonDeleteOutline" full (click)="removeClient(principal)">Remove </button>
+
   <ion-list>
     <ion-item>
       <strong>Name:</strong>
@@ -38,4 +37,11 @@
       {{principal?.city}}
     </ion-item>
   </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6><button ion-button outline class="buttonUpdate" full (click)="updateClient(principal)">Update</button></ion-col>
+      <ion-col col-6><button ion-button outline class="buttonDeleteOutline" full (click)="removeClient(principal,$event)">Remove</button></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -7,7 +7,29 @@
 
 <ion-content>
 
-  <ion-slides margin-bottom="8px">
+  <!--<ion-slides margin-bottom="8px">-->
+  <!--<span *ngIf="place.defaultImage && place.images.length == 0">-->
+  <!---->
+  <!--<ion-slide>-->
+  <!--<ion-img src="{{place.defaultImage}}"></ion-img>-->
+  <!--</ion-slide>-->
+  <!--</span>-->
+  <!--<span *ngIf="place.images.length > 0">-->
+  <!--<ion-slide *ngFor="let image of place.images">-->
+  <!--<ion-img src="{{globalHost}}{{image}}"></ion-img>-->
+  <!--</ion-slide>-->
+  <!--</span>-->
+  <!--</ion-slides>-->
+
+  <!--<ion-slides margin-bottom="8px" *ngIf="place.defaultImage && place.images.length">-->
+
+    <!--<ion-slide>-->
+      <!--<ion-img src="{{place.defaultImage}}"></ion-img>-->
+    <!--</ion-slide>-->
+  <!--</ion-slides>-->
+
+  <!--<ion-slides *ngIf="place.images.length > 0">-->
+  <ion-slides >
     <ion-slide *ngFor="let image of place.images">
       <ion-img src="{{globalHost}}{{image}}"></ion-img>
     </ion-slide>

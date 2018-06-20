@@ -12,10 +12,10 @@
       {{bonuse.multilang.conditions}}
     </p>
     <p>
-      {{bonuse.startDate | date}}
+      {{bonuse.startDate | date: 'dd/MM/yyyy'}}
     </p>
     <p>
-      {{bonuse.endDate | date}}
+      {{bonuse.endDate | date: 'dd/MM/yyyy'}}
     </p>
     <p *ngIf="pm">
       {{pm.name}}
@@ -24,18 +24,26 @@
   <ion-buttons *ngIf="showControlButtons">
 
 
-    <button
-      ion-button outline
-      class="defaultBackground2"
-      (click)="updatePromo(bonuse,$event)">
-      Update
-    </button>
-
-    <button
-      ion-button
-      class="buttonDelete"
-      (click)="removePromo(bonuse,$event)">
-      Delete
-    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <button
+            full
+            ion-button outline
+            class="defaultBackground2"
+            (click)="updatePromo(bonuse,$event)">
+            Update
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button
+            ion-button  full [outline]="true"
+            class="buttonDelete"
+            (click)="removePromo(bonuse,$event)">
+            Delete
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-buttons>
 </ion-card>

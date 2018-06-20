@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
+import {AlertController} from "ionic-angular";
 
 @Component({
   selector: 'drink-application',
@@ -15,7 +16,7 @@ export class DrinkApplicationComponent {
   @Output() onRemoveDrinkApplication = new EventEmitter();
   @Output() onUpdateDrinkApplication = new EventEmitter();
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private alert: AlertController) {
     this.translate.setDefaultLang("en");
     this.translate.use("ua");
   }
@@ -26,7 +27,38 @@ export class DrinkApplicationComponent {
 
   removeDrinkApp(drinkApp, event) {
     event.stopPropagation();
-    this.onRemoveDrinkApplication.emit(this.drinkApp);
+    this.translate.get([
+        'placeInfo.delete',
+        'placeInfo.confirm',
+        'placeInfo.cancel',
+      ]
+    ).subscribe(translations => {
+
+
+      let alertWindow = this.alert.create({
+        enableBackdropDismiss: true,
+        title: translations['placeInfo.delete'] + "?",
+        buttons: [
+          {
+            text: translations['placeInfo.confirm'],
+            handler: () => {
+
+              event.stopPropagation();
+              this.onRemoveDrinkApplication.emit(this.drinkApp);
+
+
+            }
+          },
+          {
+            text: translations['placeInfo.cancel']
+          }
+        ]
+
+      });
+
+      alertWindow.present();
+    });
+
   }
 
   updateDrinkApp(drinkApp, event) {
