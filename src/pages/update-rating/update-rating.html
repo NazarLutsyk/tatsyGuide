@@ -11,10 +11,10 @@
   <form (ngSubmit)="updateRating(updateForm)" #updateForm="ngForm">
     <div ngModelGroup="rating">
       <ion-item>
-        <ion-label stacked>Comment</ion-label>
+        <!--<ion-label stacked></ion-label>-->
         <ion-textarea
           name="comment"
-          [(ngModel)]="rating.comment"
+          [(ngModel)]="rating.comment" placeholder="Comment"
         ></ion-textarea>
       </ion-item>
       <ion-item>
@@ -32,6 +32,6 @@
         <ion-input [(ngModel)]="rating.price" name="price" type="number"></ion-input>
       </ion-item>
     </div>
-    <button ion-button full margin-top>Update</button>
+    <button ion-button full class="buttonUpdate" margin-top>Update</button>
   </form>
 </ion-content>

@@ -21,9 +21,9 @@
       </p>
     </ion-item>
     <!--todo hide this buttons это кто писал?-->
-    <ion-icon *ngIf="showRemoveButton" item-start name="trash" (click)="removeRating(rating)"></ion-icon>
-    <button *ngIf="showUpdateButton" ion-button round item-end medium (click)="updateRating(rating)">
-      <ion-icon name="create"></ion-icon>
+    <button *ngIf="showRemoveButton" ion-button class="buttonDelete" [outline]="true" (click)="removeRating(rating)">remove </button>
+    <button *ngIf="showUpdateButton" ion-button  class="buttonUpdate"  (click)="updateRating(rating)">
+      update
     </button>
   </ion-card-content>
 </ion-card>

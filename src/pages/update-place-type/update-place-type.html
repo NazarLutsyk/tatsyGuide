@@ -7,12 +7,14 @@
 
 <ion-content padding>
   <form #ptForm = 'ngForm'>
-    <ion-label>Name: </ion-label>
+    <!--<ion-label>Name: </ion-label>-->
     <ion-input
       type="text"
       name="name"
       [(ngModel)]="objectToShow.name"
+      placeholder="place type title"
     ></ion-input>
-    <button ion-button full class="buttonUpdate" (click)="updatePlaceType(ptForm)">Update</button>
+    <hr>
+    <button ion-button full class="defaultBackgroundBrown" (click)="updatePlaceType(ptForm)">Update</button>
   </form>
 </ion-content>
