@@ -44,7 +44,24 @@
       <ion-list ngModelGroup="address">
         <ion-label>{{'updatePlace.city' | translate}}</ion-label>
         <ion-item>
-          <ion-input name="city" [(ngModel)]="placeMultilang.address.city"></ion-input>
+          <ion-label>Місто</ion-label>
+          <ion-select interface="popover" [(ngModel)]="placeMultilang.address.city" name="city">
+            <ion-option value="">
+              Оберіть місто
+            </ion-option>
+            <ion-option value="Львів">
+              Львів
+            </ion-option>
+            <ion-option value="Київ">
+              Київ
+            </ion-option>
+            <ion-option value="Харків">
+              Харків
+            </ion-option>
+            <ion-option value="Одеса">
+              Одеса
+            </ion-option>
+          </ion-select>
         </ion-item>
         <ion-label>{{'updatePlace.street' | translate}}</ion-label>
         <ion-item>

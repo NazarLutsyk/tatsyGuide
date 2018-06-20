@@ -117,6 +117,10 @@ export class AllPlacesPage {
       this.placeMultilangQuery.query['multilang.name'] = {$regex: this.searchStr, $options: "i"};
     else
       delete this.placeMultilangQuery.query['multilang.name'];
+    if (this.eventData.city)
+      this.placeMultilangQuery.query['multilang.address.city'] = this.eventData.city;
+    else
+      delete this.placeMultilangQuery.query['multilang.address.city'];
   }
 
   findPlacesByFilter(eventData, completeAfter?: any) {
