@@ -74,6 +74,12 @@ export class MyApp implements OnInit {
   ) {
     this.translate.setDefaultLang("en");
     this.translate.use("ua");
+    this.geolocation.getCurrentPosition().then((position) => {
+      this.globalConfig.globalPosition.latitude = position.coords.latitude;
+      this.globalConfig.globalPosition.longitude = position.coords.longitude;
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
 
     platform
       .ready().then(
@@ -89,12 +95,6 @@ export class MyApp implements OnInit {
         // statusBar.styleDefault();
         // splashScreen.hide();
         this.langService.find({}).subscribe(langs => this.globalConfig.langs = langs);
-        this.geolocation.getCurrentPosition().then((position) => {
-          this.globalConfig.globalPosition.latitude = position.coords.latitude;
-          this.globalConfig.globalPosition.longitude = position.coords.longitude;
-          statusBar.styleDefault();
-          splashScreen.hide();
-        });
       }
     );
 

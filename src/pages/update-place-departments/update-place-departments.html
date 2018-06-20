@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
+  <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)" >
     <ion-list>
       <ion-list-header text-center=""><h1>create new client</h1></ion-list-header>
     <ion-item (click)="selectClient()">
@@ -19,7 +19,7 @@
         <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
       </ion-select>
     </ion-item></ion-list>
-    <button margin-top="20px" ion-button full [outline]="true" class="defaultButton">Add</button>
+    <button margin-top="20px" ion-button full  class="defaultBackgroundBrown">Add</button>
   </form>
 
   <!--<ion-list>-->
