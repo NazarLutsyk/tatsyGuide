@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Rating} from "../../models/rating/Rating";
 import {RatingProvider} from "../../providers/rating/rating-provider";
 import {TranslateService} from "@ngx-translate/core";
@@ -20,7 +20,8 @@ export class ModalTestimonialPage {
               public navParams: NavParams,
               public viewController: ViewController,
               private ratingService: RatingProvider,
-              private translate: TranslateService
+              private translate: TranslateService,
+              private events: Events
   ) {
     this.translate.setDefaultLang("en");
     this.translate.use("ua");
@@ -28,7 +29,10 @@ export class ModalTestimonialPage {
 
   logForm() {
     let rating = new Rating(null, this.stars, this.text, this.sum, null, this.navParams.data._id);
-    this.ratingService.create(rating).subscribe(rating => this.navCtrl.pop());
+    this.ratingService.create(rating).subscribe(rating => {
+      this.events.publish('refresh:ratings');
+      this.navCtrl.pop()
+    });
   }
 
   dismiss() {

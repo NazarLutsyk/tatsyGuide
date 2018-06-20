@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, Events, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {RatingProvider} from "../../providers/rating/rating-provider";
 import {Rating} from "../../models/rating/Rating";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
@@ -32,7 +32,8 @@ export class TestimonialPage {
     private modal: ModalController,
     private app: App,
     private auth: AuthProvider,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private events: Events
   ) {
 
     this.translate.setDefaultLang("en");
@@ -40,11 +41,14 @@ export class TestimonialPage {
   }
 
   ngOnInit() {
+    this.events.subscribe('refresh:ratings', () => {
+      this.skip = 0;
+      this.allLoaded = false;
+      this.loadRatings().subscribe(ratings => this.ratings = ratings);
+    });
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.loadRatings().subscribe((ratings) => {
-        this.ratings = ratings;
-      });
+      this.loadRatings().subscribe(ratings => this.ratings = ratings);
     });
   }
 

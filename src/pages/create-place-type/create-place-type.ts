@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {PlaceTypeProvider} from "../../providers/place-type/place-type";
 import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
@@ -22,7 +22,8 @@ export class CreatePlaceTypePage {
     private globalConfig: GlobalConfigsService,
     private langService: LangProvider,
     private placeTypeService: PlaceTypeProvider,
-    private placeTypeMultilangService: PlaceTypeMultilangProvider
+    private placeTypeMultilangService: PlaceTypeMultilangProvider,
+    private events: Events
   ) {
   }
 
@@ -46,8 +47,12 @@ export class CreatePlaceTypePage {
         requests.push(this.placeTypeMultilangService.create(placeTypeM));
       }
       if (requests && requests.length > 0) {
-        zip(...requests).subscribe(() => this.navCtrl.pop());
+        zip(...requests).subscribe(() => {
+          this.events.publish('refresh:placetypes');
+          this.navCtrl.pop()
+        });
       } else {
+        this.events.publish('refresh:placetypes');
         this.navCtrl.pop();
       }
     });

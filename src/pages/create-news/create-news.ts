@@ -1,23 +1,12 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {NewsMultilangProvider} from "../../providers/news-multilang/news-multilang";
-// import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
-// import {File} from '@ionic-native/file';
 import {AuthProvider} from "../../providers/auth/auth";
-// import {News} from "../../models/promo/news/News";
-// import {NewsMultilang} from "../../models/multilang/NewsMultilang";
 import {NgForm} from "@angular/forms";
 
-
-/**
- * Generated class for the CreateNewsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -36,7 +25,8 @@ export class CreateNewsPage {
     private newsService: NewsProvider,
     private newsMultilangService: NewsMultilangProvider,
     private globalConfig: GlobalConfigsService,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private events: Events
   ) {
   }
 
@@ -58,6 +48,7 @@ export class CreateNewsPage {
       newsMultilang.promo = (<any>news)._id;
       this.newsMultilangService.create(newsMultilang).subscribe((newsM) => {
         this.newsService.upload((<any>news)._id, this.imageToUpload).subscribe();
+        this.events.publish('refresh:news');
         this.navCtrl.pop();
       });
     })
@@ -76,8 +67,6 @@ export class CreateNewsPage {
       correctOrientation: true
     };
     this.camera.getPicture(options).then((imageData) => {
-
-
       this.imageToUpload = imageData;
       console.log(imageData);
     })

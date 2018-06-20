@@ -1,5 +1,14 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {
+  App,
+  Events,
+  InfiniteScroll,
+  IonicPage,
+  ModalController,
+  NavController,
+  NavParams,
+  Refresher
+} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NewsProvider} from "../../providers/news/NewsProvider";
 import {News} from "../../models/promo/news/News";
@@ -22,7 +31,7 @@ export class NewsPage {
   departments;
 
   place: Place;
-  news: News[];
+  news: News[] = [];
   globalHost: string;
 
   skip = 0;
@@ -39,12 +48,18 @@ export class NewsPage {
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
     public modal: ModalController,
+    private events: Events
   ) {
   }
 
   ngOnInit() {
     this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
+    this.events.subscribe('refresh:news', () => {
+      this.skip = 0;
+      this.allLoaded = false;
+      this.loadNews().subscribe(news => this.news = news);
+    });
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
@@ -53,14 +68,10 @@ export class NewsPage {
           query: {place: (<any>this.place)._id, client: this.principal._id},
         }).subscribe((departments) => {
           this.departments = departments;
-          this.loadNews().subscribe((news) => {
-            this.news = news;
-          });
+          this.loadNews().subscribe(news => this.news = news);
         });
       } else {
-        this.loadNews().subscribe((news) => {
-          this.news = news;
-        });
+        this.loadNews().subscribe(news => this.news = news);
       }
     });
   }

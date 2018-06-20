@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {AlertController, Events, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
 import {PlaceTypeProvider} from "../../providers/place-type/place-type";
 import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
@@ -25,7 +25,8 @@ export class PlaceTypesPage {
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     public modal: ModalController,
     public alertCtrl: AlertController,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private events: Events
   ) {
 
     this.translate.setDefaultLang("en");
@@ -33,9 +34,10 @@ export class PlaceTypesPage {
   }
 
   ngOnInit() {
-    this.loadPlaceTypes().subscribe(placeTypesM => {
-      this.placeTypesM = placeTypesM;
+    this.events.subscribe('refresh:placetypes', () => {
+      this.loadPlaceTypes().subscribe(placeTypesM => this.placeTypesM = placeTypesM);
     });
+    this.loadPlaceTypes().subscribe(placeTypesM => this.placeTypesM = placeTypesM);
   }
 
   refresh(refresher: Refresher) {

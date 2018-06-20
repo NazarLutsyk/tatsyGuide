@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {EventProvider} from "../../providers/event/EventProvider";
 import {EventMultilangProvider} from "../../providers/event-multilang/event-multilang";
@@ -24,7 +24,8 @@ export class CreateEventPage {
     private eventService: EventProvider,
     private eventMultilangService: EventMultilangProvider,
     private globalConfig: GlobalConfigsService,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private events: Events
   ) {
   }
 
@@ -49,6 +50,7 @@ export class CreateEventPage {
       this.eventMultilangService.create(eventMultilang).subscribe((eventM) => {
         this.eventService.upload((<any>event)._id, this.imageToUpload).subscribe();
         this.navCtrl.pop();
+        this.events.publish('refresh:events');
       });
     })
   }
