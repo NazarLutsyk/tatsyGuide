@@ -22,7 +22,24 @@
 
       <ion-label>City</ion-label>
       <ion-item>
-        <ion-input name="city" ngModel></ion-input>
+        <ion-label>Місто</ion-label>
+        <ion-select interface="popover" ngModel name="city">
+          <ion-option value="">
+            Оберіть місто
+          </ion-option>
+          <ion-option value="Львів">
+            Львів
+          </ion-option>
+          <ion-option value="Київ">
+            Київ
+          </ion-option>
+          <ion-option value="Харків">
+            Харків
+          </ion-option>
+          <ion-option value="Одеса">
+            Одеса
+          </ion-option>
+        </ion-select>
       </ion-item>
 
       <ion-label>Street</ion-label>

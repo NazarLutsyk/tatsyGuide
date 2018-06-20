@@ -22,27 +22,6 @@
     <button margin-top="20px" ion-button full  class="defaultBackgroundBrown">Add</button>
   </form>
 
-  <!--<ion-list>-->
-  <!--<div *ngFor="let department of departments">-->
-  <!--<ion-item>-->
-  <!--<ion-label><strong>{{department.client.name}} {{department.client.surname}}</strong></ion-label>-->
-  <!--<ion-select name="roles" [(ngModel)]="department.roles" multiple (ionChange)="updateDepartment(department)">-->
-  <!--<ion-option value="BOSS_PLACE">BOSS</ion-option>-->
-  <!--<ion-option value="ADMIN_PLACE">ADMIN</ion-option>-->
-
-  <!--</ion-select>-->
-
-
-  <!--</ion-item>-->
-  <!--<button ion-button [full]="true" [outline]="true" class="defaultBackground2" (click)="openProfile(department)">-->
-  <!--details-->
-  <!--</button>-->
-  <!--<button ion-button [full]="true" [outline]="true" class="buttonDelete"-->
-  <!--(click)="removeDepartment(department,$event)">delete-->
-  <!--</button>-->
-  <!--</div>-->
-  <!--</ion-list>-->
-
   <ion-list>
     <ion-list-header text-center=""><h1>clients</h1></ion-list-header>
     <ion-item-sliding *ngFor="let department of departments">
@@ -52,7 +31,6 @@
         <ion-select name="roles" [(ngModel)]="department.roles" multiple (ionChange)="updateDepartment(department)">
           <ion-option value="BOSS_PLACE">BOSS</ion-option>
           <ion-option value="ADMIN_PLACE">ADMIN</ion-option>
-
         </ion-select>
       </ion-item>
 
