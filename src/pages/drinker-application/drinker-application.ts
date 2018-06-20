@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
@@ -36,7 +36,8 @@ export class DrinkerApplicationPage {
     private http: HttpClient,
     private globalVars: GlobalConfigsService,
     private drinkAppService: DrinkApplicationProvider,
-    private placeService: PlacesProvider
+    private placeService: PlacesProvider,
+    private events: Events
   ) {
     if (this.navParams.data.place) {
       this.drinkerApplicationObject.place = this.navParams.data.place._id;
@@ -74,6 +75,7 @@ export class DrinkerApplicationPage {
   logForm() {
     delete this.drinkerApplicationObject.placeObj;
     this.drinkAppService.create(this.drinkerApplicationObject).subscribe(drinkApp => {
+      this.events.publish('refresh:drinkapps');
       this.navCtrl.pop();
     });
   }

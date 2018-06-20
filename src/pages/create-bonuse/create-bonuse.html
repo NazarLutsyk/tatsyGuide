@@ -9,38 +9,92 @@
 
 <ion-content padding>
   <form (ngSubmit)="logForm(bonuseForm)" #bonuseForm="ngForm">
-    <button type="button" ion-button full [outline]="true" class="defaultButton" (click)="getAvatar()">Select avatar</button>
+    <button type="button" ion-button full [outline]="true" class="defaultButton" (click)="getAvatar()">Select avatar
+    </button>
     <!--<img [src]="bonuseObject.image" alt="">-->
     <div ngModelGroup="multilang">
       <ion-item>
-        <ion-label>Header</ion-label>
-        <ion-input ngModel name="header"></ion-input>
+        <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">Header</ion-label>
+        <ion-input
+          ngModel
+          name="header"
+          #header="ngModel"
+          required
+        ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Description</ion-label>
-        <ion-input ngModel name="description"></ion-input>
+        <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
+          Description
+        </ion-label>
+        <ion-input
+          ngModel
+          name="description"
+          #description="ngModel"
+          required
+        ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Conditions</ion-label>
-        <ion-input ngModel name="conditions"></ion-input>
+        <ion-label [ngStyle]="{'color': (conditions.invalid && conditions.touched) ? 'red' : ''}">
+          Conditions
+        </ion-label>
+        <ion-input
+          ngModel
+          name="conditions"
+          #conditions="ngModel"
+          required
+        ></ion-input>
       </ion-item>
     </div>
     <div ngModelGroup="bonuse">
       <ion-item>
-        <ion-label>Start date</ion-label>
-        <ion-datetime ngModel name="startDate"></ion-datetime>
+        <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
+          Start date
+        </ion-label>
+        <ion-datetime
+          ngModel
+          name="startDate"
+          #startDate="ngModel"
+          required
+        ></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>End date</ion-label>
-        <ion-datetime ngModel name="endDate"></ion-datetime>
+        <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
+          End date
+        </ion-label>
+        <ion-datetime
+          ngModel
+          name="endDate"
+          #endDate="ngModel"
+          required
+        ></ion-datetime>
       </ion-item>
       <ion-item *ngIf="isAdmin">
-        <ion-select name="topPromo" ngModel>
-          <ion-option value="true">TRUE</ion-option>
-          <ion-option value="false">FALSE</ion-option>
+        <ion-label [ngStyle]="{'color': (topPromo.invalid && topPromo.touched) ? 'red' : ''}">
+          Top
+        </ion-label>
+        <ion-select
+          name="topPromo"
+          ngModel
+          #topPromo="ngModel"
+          required
+        >
+          <ion-option
+            value="true">TRUE
+          </ion-option>
+          <ion-option
+            value="false">FALSE
+          </ion-option>
         </ion-select>
       </ion-item>
     </div>
-    <button ion-button type="submit" full [outline]="true" class="defaultBackground2" padding="20px">Add Todo</button>
+    <button
+      ion-button
+      [disabled]="!bonuseForm.valid"
+      type="submit"
+      full
+      [outline]="true"
+      class="defaultBackground2"
+      padding="20px">Add Todo
+    </button>
   </form>
 </ion-content>

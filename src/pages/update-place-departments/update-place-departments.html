@@ -5,21 +5,45 @@
 </ion-header>
 
 <ion-content>
-  <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)" >
+  <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
     <ion-list>
       <ion-list-header text-center=""><h1>create new client</h1></ion-list-header>
-    <ion-item (click)="selectClient()">
-      <ion-label>{{'updatePlaceDepartments.client'|translate}}</ion-label>
-      <ion-input name="client" disabled [(ngModel)]="newAdmin.name + ' ' +newAdmin.surname"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>{{'updatePlaceDepartments.role'|translate}}</ion-label>
-      <ion-select ngModel multiple name="role">
-        <ion-option value="BOSS_PLACE">BOSS_PLACE</ion-option>
-        <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
-      </ion-select>
-    </ion-item></ion-list>
-    <button margin-top="20px" ion-button full  class="defaultBackgroundBrown">Add</button>
+      <ion-item (click)="selectClient()">
+        <ion-label [ngStyle]="{'color': (client.invalid && client.touched) ? 'red' : ''}">
+          {{'updatePlaceDepartments.client'|translate}}
+        </ion-label>
+        <ion-input
+          name="client"
+          disabled
+          [(ngModel)]="newAdmin.name + ' ' +newAdmin.surname"
+          #client="ngModel"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label [ngStyle]="{'color': (role.invalid && role.touched) ? 'red' : ''}">
+          {{'updatePlaceDepartments.role'|translate}}
+        </ion-label>
+        <ion-select
+          ngModel
+          multiple
+          name="role"
+          #role="ngModel"
+          required
+        >
+          <ion-option value="BOSS_PLACE">BOSS_PLACE</ion-option>
+          <ion-option value="ADMIN_PLACE">ADMIN_PLACE</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <button
+      margin-top="20px"
+      ion-button
+      full
+      class="defaultBackgroundBrown"
+      [disabled]="!newAdminForm.valid"
+    >Add
+    </button>
   </form>
 
   <ion-list>

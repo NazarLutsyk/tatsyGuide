@@ -11,39 +11,59 @@
   <form (ngSubmit)="updatePromo(updateForm)" #updateForm="ngForm">
     <div ngModelGroup="client">
       <ion-item>
-        <ion-label stacked>Name</ion-label>
+        <ion-label [ngStyle]="{'color': (name.invalid && name.touched) ? 'red' : ''}">
+          Name
+        </ion-label>
         <ion-input
           type="text"
           name="name"
           [(ngModel)]="client.name"
+          #name="ngModel"
+          required
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Surname</ion-label>
+        <ion-label [ngStyle]="{'color': (surname.invalid && surname.touched) ? 'red' : ''}">
+          Surname
+        </ion-label>
         <ion-input
           type="text"
           name="surname"
           [(ngModel)]="client.surname"
+          #surname="ngModel"
+          required
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Phone</ion-label>
+        <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
+          Phone
+        </ion-label>
         <ion-input
-          type="text"
+          type="tel"
           name="phone"
           [(ngModel)]="client.phone"
+          pattern="^[0-9]+[0-9]*$"
+          minlength="6"
+          maxlength="15"
+          #phone="ngModel"
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Email</ion-label>
+        <ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">
+          Email
+        </ion-label>
         <ion-input
           type="text"
           name="email"
           [(ngModel)]="client.email"
+          #email="ngModel"
+          email
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>City</ion-label>
+        <ion-label>
+          City
+        </ion-label>
         <ion-input
           type="text"
           name="city"
@@ -51,6 +71,14 @@
         ></ion-input>
       </ion-item>
     </div>
-    <button ion-button full [outline]="true" class="buttonUpdate" margin-top>Update</button>
+    <button
+      ion-button
+      full
+      [outline]="true"
+      class="buttonUpdate"
+      margin-top
+      [disabled]="!updateForm.valid"
+    >Update
+    </button>
   </form>
 </ion-content>

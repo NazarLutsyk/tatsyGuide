@@ -18,8 +18,17 @@
         ></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label>Rating</ion-label>
-        <ion-select type="number" [(ngModel)]="rating.value" name="value" interface="action-sheet">
+        <ion-label [ngStyle]="{'color': (starsRef.invalid && starsRef.touched) ? 'red' : ''}">
+          Rating
+        </ion-label>
+        <ion-select
+          type="number"
+          [(ngModel)]="rating.value"
+          name="value"
+          interface="action-sheet"
+          #starsRef="ngModel"
+          required
+        >
           <ion-option value=1>1 Stars</ion-option>
           <ion-option value=2>2 Stars</ion-option>
           <ion-option value=3>3 Stars</ion-option>
@@ -32,6 +41,13 @@
         <ion-input [(ngModel)]="rating.price" name="price" type="number"></ion-input>
       </ion-item>
     </div>
-    <button ion-button full class="buttonUpdate" margin-top>Update</button>
+    <button
+      ion-button
+      full
+      class="buttonUpdate"
+      margin-top
+      [disabled]="!updateForm.valid"
+    >Update
+    </button>
   </form>
 </ion-content>

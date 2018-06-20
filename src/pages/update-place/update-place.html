@@ -8,15 +8,12 @@
 
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="updatePlace(form)">
-    <!--<ion-item>-->
     <img [src]="avatarToShow" width="100%" height="200px">
     <button
       ion-button type="button"
       outline class="defaultBackground2" full
       (click)="changeAvatar($event)">{{'updatePlace.changeAvatar' | translate}}
     </button>
-    <!--</ion-item>-->
-    <!--<ion-item style="overflow-x: scroll">-->
     <div style="overflow-x: scroll" *ngFor="let image of imagesToShow">
       <img [src]="image" width="100%" height="200px">
       <button
@@ -25,27 +22,52 @@
         (click)="removeImage(image,$event)">{{'updatePlace.removeImage' | translate}}
       </button>
     </div>
-    <!--</ion-item>-->
-    <!--<ion-item>-->
     <button
       ion-button type="button" outline class="defaultBackground2" full
       (click)="addImage($event)">{{'updatePlace.addImage' | translate}}
     </button>
-    <!--</ion-item>-->
+
+
     <div ngModelGroup="multilang">
-      <ion-label>{{'updatePlace.placeName' | translate}}</ion-label>
-      <ion-item>
-        <ion-input name="name" [(ngModel)]="placeMultilang.name"></ion-input>
-      </ion-item>
-      <ion-label>{{'updatePlace.description' | translate}}</ion-label>
-      <ion-item>
-        <ion-input name="description" [(ngModel)]="placeMultilang.description"></ion-input>
-      </ion-item>
-      <ion-list ngModelGroup="address">
-        <ion-label>{{'updatePlace.city' | translate}}</ion-label>
+      <ion-list>
         <ion-item>
-          <ion-label>Місто</ion-label>
-          <ion-select interface="popover" [(ngModel)]="placeMultilang.address.city" name="city">
+          <ion-label [ngStyle]="{'color': (name.invalid && name.touched) ? 'red' : ''}">
+            {{'updatePlace.placeName' | translate}}
+          </ion-label>
+          <ion-input
+            name="name"
+            [(ngModel)]="placeMultilang.name"
+            #name="ngModel"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
+            {{'updatePlace.description' | translate}}
+          </ion-label>
+          <ion-input
+            name="description"
+            [(ngModel)]="placeMultilang.description"
+            #description="ngModel"
+            required
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-list ngModelGroup="address">
+        <ion-label>
+          {{'updatePlace.city' | translate}}
+        </ion-label>
+        <ion-item>
+          <ion-label [ngStyle]="{'color': (city.invalid && city.touched) ? 'red' : ''}">
+            Місто
+          </ion-label>
+          <ion-select
+            interface="popover"
+            [(ngModel)]="placeMultilang.address.city"
+            name="city"
+            #city="ngModel"
+            required
+          >
             <ion-option value="">
               Оберіть місто
             </ion-option>
@@ -63,43 +85,83 @@
             </ion-option>
           </ion-select>
         </ion-item>
-        <ion-label>{{'updatePlace.street' | translate}}</ion-label>
         <ion-item>
-          <ion-input name="street" [(ngModel)]="placeMultilang.address.street"></ion-input>
+          <ion-label [ngStyle]="{'color': (street.invalid && street.touched) ? 'red' : ''}">
+            {{'updatePlace.street' | translate}}
+          </ion-label>
+          <ion-input
+            name="street"
+            [(ngModel)]="placeMultilang.address.street"
+            #street="ngModel"
+            required
+          ></ion-input>
         </ion-item>
-        <ion-label>{{'updatePlace.number' | translate}}</ion-label>
         <ion-item>
-          <ion-input name="number" [(ngModel)]="placeMultilang.address.number"></ion-input>
+          <ion-label [ngStyle]="{'color': (number.invalid && number.touched) ? 'red' : ''}">
+            {{'updatePlace.number' | translate}}
+          </ion-label>
+          <ion-input
+            name="number"
+            [(ngModel)]="placeMultilang.address.number"
+            #number="ngModel"
+            pattern="^[0-9]+[0-9]*$"
+            required
+          ></ion-input>
         </ion-item>
       </ion-list>
     </div>
 
     <div *ngIf="isAdmin">
-      <ion-label>{{'updatePlace.topcategories' | translate}}</ion-label>
       <ion-item>
+        <ion-label>
+          {{'updatePlace.topcategories' | translate}}
+        </ion-label>
         <ion-input name="topCategories" [(ngModel)]="topCategories"></ion-input>
       </ion-item>
     </div>
 
     <div ngModelGroup="place">
-      <div *ngIf="isAdmin">
-        <ion-label>{{'updatePlace.allowed' | translate}}</ion-label>
+      <ion-item *ngIf="isAdmin">
+        <ion-label>
+          {{'updatePlace.allowed' | translate}}
+        </ion-label>
         <ion-select name="allowed" [(ngModel)]="place.allowed">
           <ion-option value="true">{{'updatePlace.yes' | translate}}</ion-option>
           <ion-option value="false">{{'updatePlace.no' | translate}}</ion-option>
         </ion-select>
-      </div>
-      <ion-label>{{'updatePlace.tags' | translate}}</ion-label>
+      </ion-item>
       <ion-item>
+        <ion-label>
+          {{'updatePlace.tags' | translate}}
+        </ion-label>
         <ion-input name="hashTags" [(ngModel)]="hashTags"></ion-input>
       </ion-item>
-      <ion-label>{{'updatePlace.phone' | translate}}</ion-label>
       <ion-item>
-        <ion-input name="phone" [(ngModel)]="place.phone"></ion-input>
+        <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
+          {{'updatePlace.phone' | translate}}
+        </ion-label>
+        <ion-input
+          type="tel"
+          name="phone"
+          [(ngModel)]="place.phone"
+          #phone="ngModel"
+          pattern="^[0-9]+[0-9]*$"
+          minlength="6"
+          maxlength="15"
+          required
+        ></ion-input>
       </ion-item>
-      <ion-label>{{'updatePlace.email' | translate}}</ion-label>
       <ion-item>
-        <ion-input name="email" [(ngModel)]="place.email"></ion-input>
+        <ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">
+          {{'updatePlace.email' | translate}}
+        </ion-label>
+        <ion-input
+          name="email"
+          [(ngModel)]="place.email"
+          #email="ngModel"
+          email
+          required
+        ></ion-input>
       </ion-item>
 
       <div ngModelGroup="location">
@@ -117,48 +179,87 @@
       <ion-list ngModelGroup="features">
         <ion-list-header>{{'updatePlace.features' | translate}}</ion-list-header>
         <ion-item>
-          <ion-label>{{'updatePlace.wifi' | translate}}</ion-label>
+          <ion-label>
+            {{'updatePlace.wifi' | translate}}
+          </ion-label>
           <ion-checkbox name="wifi" [(ngModel)]="place.features.wifi"></ion-checkbox>
         </ion-item>
         <ion-item>
-          <ion-label>{{'updatePlace.karaoke' | translate}}</ion-label>
+          <ion-label>
+            {{'updatePlace.karaoke' | translate}}
+          </ion-label>
           <ion-checkbox name="karaoke" [(ngModel)]="place.features.karaoke"></ion-checkbox>
         </ion-item>
         <ion-item>
-          <ion-label>{{'updatePlace.parking' | translate}}</ion-label>
+          <ion-label>
+            {{'updatePlace.parking' | translate}}
+          </ion-label>
           <ion-checkbox name="parking" [(ngModel)]="place.features.parking"></ion-checkbox>
         </ion-item>
         <ion-item>
-          <ion-label>{{'updatePlace.vipRoom' | translate}}</ion-label>
+          <ion-label>
+            {{'updatePlace.vipRoom' | translate}}
+          </ion-label>
           <ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>
         </ion-item>
       </ion-list>
       <ion-item>
-        <ion-label>{{'updatePlace.placeTypes' | translate}}</ion-label>
-        <ion-select name="types" [(ngModel)]="place.types" okText="Okay" cancelText="Dismiss" multiple="true">
+        <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+          {{'updatePlace.placeTypes' | translate}}
+        </ion-label>
+        <ion-select
+          name="types"
+          [(ngModel)]="place.types"
+          okText="Okay"
+          cancelText="Dismiss"
+          multiple="true"
+          #types="ngModel"
+          required
+        >
           <ng-container *ngFor="let placeTypeM of placeTypesM">
             <ion-option [value]="placeTypeM.placeType.toString()" *ngIf="placeTypeM.placeType">
               {{placeTypeM.name}}
-
             </ion-option>
           </ng-container>
         </ion-select>
       </ion-item>
       <ion-item-group ngModelGroup="days">
         <ion-item-group ngModelGroup="1">
-
           <ion-item>
-            <ion-label>{{'updatePlace.from' | translate}}</ion-label>
-            <ion-datetime displayFormat="HH" name="start" [(ngModel)]="place.days['1'].start"></ion-datetime>
+            <ion-label [ngStyle]="{'color': (start.invalid && start.touched) ? 'red' : ''}">
+              {{'updatePlace.from' | translate}}
+            </ion-label>
+            <ion-datetime
+              displayFormat="HH"
+              name="start"
+              [(ngModel)]="place.days['1'].start"
+              #start="ngModel"
+              required
+            ></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label>{{'updatePlace.to' | translate}}</ion-label>
-            <ion-datetime displayFormat="HH" name="end" [(ngModel)]="place.days['1'].end"></ion-datetime>
+            <ion-label [ngStyle]="{'color': (end.invalid && end.touched) ? 'red' : ''}">
+              {{'updatePlace.to' | translate}}
+            </ion-label>
+            <ion-datetime
+              displayFormat="HH"
+              name="end"
+              [(ngModel)]="place.days['1'].end"
+              #end="ngModel"
+              required
+            ></ion-datetime>
           </ion-item>
         </ion-item-group>
       </ion-item-group>
     </div>
-    <button type="submit" full outline class="defaultBackground2" ion-button="">{{'updatePlace.save' | translate}}
+    <button
+      type="submit"
+      full
+      outline
+      class="defaultBackground2"
+      ion-button
+      [disabled]="!form.valid"
+    >{{'updatePlace.save' | translate}}
     </button>
   </form>
 </ion-content>

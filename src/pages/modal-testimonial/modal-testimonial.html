@@ -11,13 +11,25 @@
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="logForm()">
     <ion-item>
-      <ion-label>Testimonial</ion-label>
-      <ion-textarea [(ngModel)]="text" name="text"></ion-textarea>
+      <ion-label>
+        Testimonial
+      </ion-label>
+      <ion-textarea
+        [(ngModel)]="text"
+        name="text"
+      ></ion-textarea>
     </ion-item>
-
     <ion-item>
-      <ion-label>Rating</ion-label>
-      <ion-select type="number" [(ngModel)]="stars" name="stars" interface="action-sheet" required>
+      <ion-label [ngStyle]="{'color': (starsRef.invalid && starsRef.touched) ? 'red' : ''}">
+        Rating
+      </ion-label>
+      <ion-select
+        type="number"
+        [(ngModel)]="stars"
+        name="stars"
+        interface="action-sheet"
+        #starsRef="ngModel"
+        required>
         <ion-option value=1 selected>1 Stars</ion-option>
         <ion-option value=2>2 Stars</ion-option>
         <ion-option value=3>3 Stars</ion-option>
@@ -26,14 +38,18 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Sum</ion-label>
-      <ion-input required [(ngModel)]="sum" name="sum" type="number" ></ion-input>
+      <ion-label>
+        Sum
+      </ion-label>
+      <ion-input required [(ngModel)]="sum" name="sum" type="number"></ion-input>
     </ion-item>
-
-    <!--TODO nazik fetch client wich is registred-->
-
-
-    <button ion-button type="submit" block>Add Todo</button>
+    <button
+      ion-button
+      type="submit"
+      block
+      [disabled]="!form.valid"
+    >Add Todo
+    </button>
   </form>
 
 

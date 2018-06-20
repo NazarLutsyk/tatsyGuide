@@ -10,38 +10,59 @@
 <ion-content padding>
   <form #topPlaceForm="ngForm" (ngSubmit)="updateTopPlace(topPlaceForm)">
     <ion-item>
-      <ion-label>Start date</ion-label>
+      <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
+        Start date
+      </ion-label>
       <ion-datetime
         [(ngModel)]="topPlace.startDate"
         name="startDate"
+        #startDate="ngModel"
+        required
       ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>End date</ion-label>
+      <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
+        End date
+      </ion-label>
       <ion-datetime
         [(ngModel)]="topPlace.endDate"
         name="endDate"
+        #endDate="ngModel"
+        required
       ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>Price</ion-label>
+      <ion-label [ngStyle]="{'color': (price.invalid && price.touched) ? 'red' : ''}">
+        Price
+      </ion-label>
       <ion-input
         [(ngModel)]="topPlace.price"
         name="price"
+        #price="ngModel"
+        required
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Actual</ion-label>
+      <ion-label [ngStyle]="{'color': (actual.invalid && actual.touched) ? 'red' : ''}">
+        Actual
+      </ion-label>
       <ion-select
         [(ngModel)]="topPlace.actual"
         name="actual"
+        #actual="ngModel"
+        required
       >
         <ion-option value="true">TRUE</ion-option>
         <ion-option value="false">FALSE</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <button ion-button full class="defaultBackground">Update</button>
+      <button
+        ion-button
+        full
+        class="defaultBackground"
+        [disabled]="!topPlaceForm.valid"
+      >Update</button>
     </ion-item>
   </form>
 </ion-content>
