@@ -1,5 +1,14 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {
+  App,
+  Events,
+  InfiniteScroll,
+  IonicPage,
+  ModalController,
+  NavController,
+  NavParams,
+  Refresher
+} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Bonuse} from "../../models/promo/bonuse/Bonuse";
@@ -39,12 +48,19 @@ export class BonusePage {
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
     public modal: ModalController,
+    private events: Events
   ) {
   }
 
   ngOnInit() {
     this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
+
+    this.events.subscribe('refresh:bonuses', () => {
+      this.skip = 0;
+      this.allLoaded = false;
+      this.loadBonuses().subscribe(bonuses => this.bonuses = bonuses);
+    });
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;

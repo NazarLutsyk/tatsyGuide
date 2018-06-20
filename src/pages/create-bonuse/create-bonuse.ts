@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
@@ -24,7 +24,8 @@ export class CreateBonusePage {
     private bonuseService: BonuseProvider,
     private bonuseMultilangService: BonuseMultilangProvider,
     private globalConfig: GlobalConfigsService,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private events: Events
   ) {
   }
 
@@ -46,6 +47,7 @@ export class CreateBonusePage {
       bonuseMultilang.promo = (<any>bonuse)._id;
       this.bonuseMultilangService.create(bonuseMultilang).subscribe((bonuseM) => {
         this.bonuseService.upload((<any>bonuse)._id, this.imageToUpload).subscribe();
+        this.events.publish('refresh:bonuses');
         this.navCtrl.pop();
       });
     })

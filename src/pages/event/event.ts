@@ -1,5 +1,14 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, ModalController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {
+  App,
+  Events,
+  InfiniteScroll,
+  IonicPage,
+  ModalController,
+  NavController,
+  NavParams,
+  Refresher
+} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {EventProvider} from "../../providers/event/EventProvider";
@@ -38,12 +47,19 @@ export class EventPage {
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
     public modal: ModalController,
+    private globalEvents: Events
   ) {
   }
 
   ngOnInit() {
     this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
+
+    this.globalEvents.subscribe('refresh:events', () => {
+      this.skip = 0;
+      this.allLoaded = false;
+      this.loadEvents().subscribe(events => this.events = events);
+    });
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
