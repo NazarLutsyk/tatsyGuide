@@ -43,16 +43,23 @@
       (ngSubmit)="sendComment(commentForm)"
       *ngIf="principal">
       <ion-item>
-
+        <ion-label [ngStyle]="{'color': (comment.invalid && comment.touched) ? 'red' : ''}">
+          {{'drinker.comment' | translate}}
+        </ion-label>
         <ion-textarea
           name="comment"
           ngModel
-          placeholder="{{'drinker.comment' | translate}}">
-
+          #comment="ngModel"
+          required
+        >
         </ion-textarea>
-
       </ion-item>
-      <button ion-button [outline]="true" class="buttonUpdate">{{'drinker.send' | translate}}</button>
+      <button
+        ion-button
+        [outline]="true"
+        class="buttonUpdate"
+        [disabled]="!commentForm.valid"
+      >{{'drinker.send' | translate}}</button>
     </form>
   </ion-card>
   <ion-card>

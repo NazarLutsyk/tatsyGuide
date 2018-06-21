@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { SignUpPage } from './sign-up';
-import {HttpClient} from "@angular/common/http";
-import {createTranslateLoader} from "../../app/app.module";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {SignUpPage} from './sign-up';
+import {TranslateModule} from "@ngx-translate/core";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -11,14 +10,16 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
   ],
   imports: [
     IonicPageModule.forChild(SignUpPage),
-    TranslateModule
-     // TranslateModule.forChild({
-     //       loader: {
-     //         provide: TranslateLoader,
-     //         useFactory: createTranslateLoader,
-     //         deps: [HttpClient]
-     //       }
-     //     }),
+    TranslateModule,
+    // TranslateModule.forChild({
+    //       loader: {
+    //         provide: TranslateLoader,
+    //         useFactory: createTranslateLoader,
+    //         deps: [HttpClient]
+    //       }
+    //     }),
+    FormsModule
   ],
 })
-export class SignUpPageModule {}
+export class SignUpPageModule {
+}

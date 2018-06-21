@@ -15,46 +15,76 @@
         <button class="defaultBackground" ion-button type="button" full (click)="setNewImage($event)">Change</button>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Header</ion-label>
+        <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">
+          Header
+        </ion-label>
         <ion-input
           type="text"
           name="header"
           [(ngModel)]="newsMultilang.header"
+          #header="ngModel"
+          required
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Description</ion-label>
+        <ion-label [ngStyle]="{'color': (desc.invalid && desc.touched) ? 'red' : ''}">
+          Description
+        </ion-label>
         <ion-input
           type="text"
           name="description"
           [(ngModel)]="newsMultilang.description"
+          #desc="ngModel"
+          required
         ></ion-input>
       </ion-item>
     </div>
     <div ngModelGroup="promo">
       <ion-item>
-        <ion-label stacked>Start date</ion-label>
+        <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
+          Start date
+        </ion-label>
         <ion-datetime
           type="text"
           name="startDate"
           [(ngModel)]="news.startDate"
+          #startDate="ngModel"
+          required
         ></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label stacked>End date</ion-label>
+        <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
+          End date
+        </ion-label>
         <ion-datetime
           type="text"
           name="endDate"
           [(ngModel)]="news.endDate"
+          #endDate="ngModel"
+          required
         ></ion-datetime>
       </ion-item>
       <ion-item *ngIf="isAdmin">
-        <ion-select name="topPromo" [(ngModel)]="news.topPromo">
+        <ion-label [ngStyle]="{'color': (topPromo.invalid && topPromo.touched) ? 'red' : ''}">
+          Top
+        </ion-label>
+        <ion-select
+          name="topPromo"
+          [(ngModel)]="news.topPromo"
+          #topPromo="ngModel"
+          required
+        >
           <ion-option value="true">TRUE</ion-option>
           <ion-option value="false">FALSE</ion-option>
         </ion-select>
       </ion-item>
     </div>
-    <button class="defaultBackgroundBrown" ion-button full margin-top>Update</button>
+    <button
+      class="defaultBackgroundBrown"
+      ion-button
+      full
+      margin-top
+      [disabled]="!updateForm.valid"
+    >Update</button>
   </form>
 </ion-content>

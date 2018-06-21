@@ -9,35 +9,82 @@
 
 <ion-content padding>
   <form (ngSubmit)="logForm(newsForm)" #newsForm="ngForm" enctype="multipart/form-data">
-    <button type="button" ion-button full [outline]="true" class="defaultButton"  (click)="getAvatar()">Select avatar</button>
+    <button type="button" ion-button full [outline]="true" class="defaultButton" (click)="getAvatar()">Select avatar
+    </button>
     <!--<img [src]="newsToShow.image" alt="">-->
     <div ngModelGroup="multilang">
       <ion-item>
-        <ion-label>Header</ion-label>
-        <ion-input name="header" ngModel></ion-input>
+        <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">
+          Header
+        </ion-label>
+        <ion-input
+          name="header"
+          ngModel
+          #header="ngModel"
+          required
+        ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Description</ion-label>
-        <ion-input name="description" ngModel></ion-input>
+        <ion-label [ngStyle]="{'color': (desc.invalid && desc.touched) ? 'red' : ''}">
+          Description
+        </ion-label>
+        <ion-input
+          name="description"
+          ngModel
+          #desc="ngModel"
+          required
+        ></ion-input>
       </ion-item>
     </div>
     <div ngModelGroup="news">
       <ion-item>
-        <ion-label>Start date</ion-label>
-        <ion-datetime name="startDate" ngModel></ion-datetime>
+        <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
+          Start date
+        </ion-label>
+        <ion-datetime
+          name="startDate"
+          ngModel
+          #startDate="ngModel"
+          required
+        ></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>End date</ion-label>
-        <ion-datetime name="endDate" ngModel></ion-datetime>
+        <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
+          End date
+        </ion-label>
+        <ion-datetime
+          name="endDate"
+          ngModel
+          #endDate="ngModel"
+          required
+        ></ion-datetime>
       </ion-item>
       <ion-item *ngIf="isAdmin">
-        <ion-select name="topPromo" ngModel>
+        <ion-label [ngStyle]="{'color': (topPromo.invalid && topPromo.touched) ? 'red' : ''}">
+          Top
+        </ion-label>
+        <ion-select
+          name="topPromo"
+          ngModel
+          #topPromo="ngModel"
+          required
+        >
           <ion-option value="true">TRUE</ion-option>
           <ion-option value="false">FALSE</ion-option>
         </ion-select>
       </ion-item>
     </div>
-    <button ion-button type="submit" full [outline]="true" class="defaultBackground2" padding="20px">Add Todo</button>
+    <button
+      ion-button
+      type="submit"
+      full
+      class="defaultBackground2"
+      padding="20px"
+      [outline]="true"
+      color="secondary"
+      [disabled]="!newsForm.valid"
+    >Add Todo
+    </button>
   </form>
 </ion-content>
 

@@ -1,9 +1,3 @@
-<!--
-  Generated template for the SignInPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -14,14 +8,42 @@
 
 
 <ion-content padding>
-
-  <ion-item>
-    <ion-input [(ngModel)]="login" placeholder="{{'placeholder.email' | translate}}"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input [(ngModel)]="password" placeholder="{{'placeholder.password'| translate}}"></ion-input>
-  </ion-item>
-  <button margin-top="20px" ion-button full [outline]="true" class="defaultBackground2 fontBold" (click)="signInMe()">{{'signIn.enter' | translate}}</button>
+  <form #form="ngForm">
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (loginRef.invalid && loginRef.touched) ? 'red' : ''}">
+        Login:
+      </ion-label>
+      <ion-input
+        name="login"
+        [(ngModel)]="login"
+        #loginRef="ngModel"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (passwordRef.invalid && passwordRef.touched) ? 'red' : ''}">
+        Password:
+      </ion-label>
+      <ion-input
+        name="password"
+        [(ngModel)]="password"
+        #passwordRef="ngModel"
+        required
+        minlength="4"
+      ></ion-input>
+    </ion-item>
+    <button
+      margin-top="20px"
+      ion-button
+      full
+      [outline]="true"
+      class="defaultBackground2 fontBold"
+      (click)="signInMe()"
+      [disabled]="!form.valid"
+    >
+      {{'signIn.enter' | translate}}
+    </button>
+  </form>
   <div *ngIf="errorDuringSignIn">{{'signIn.message' | translate}}</div>
   <hr>
   <button ion-button icon-start text-center full (click)="facebookLogin()">
@@ -30,7 +52,7 @@
   </button>
   <hr>
   <!--google login-->
-  <button ion-button full  icon-start class="googleButton" (click)="googleLogin()">
+  <button ion-button full icon-start class="googleButton" (click)="googleLogin()">
     <ion-icon name="logo-google"></ion-icon>
     {{'signIn.enterWithG'| translate}}
   </button>

@@ -9,33 +9,77 @@
 
 <ion-content padding>
 
-  <form (ngSubmit)="logForm()">
+  <form #form="ngForm" (ngSubmit)="logForm()">
     <ion-item>
-      <ion-label>Alone/Not alone</ion-label>
-      <ion-input [(ngModel)]="drinkerApplicationObject.friends" name="alone or not"></ion-input>
+      <ion-label [ngStyle]="{'color': (friends.invalid && friends.touched) ? 'red' : ''}">
+        Alone/Not alone
+      </ion-label>
+      <ion-input
+        [(ngModel)]="drinkerApplicationObject.friends"
+        name="alone or not"
+        #friends="ngModel"
+        required
+      ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Goal</ion-label>
-      <ion-input [(ngModel)]="drinkerApplicationObject.goal" name="goal"></ion-input>
+      <ion-label [ngStyle]="{'color': (goal.invalid && goal.touched) ? 'red' : ''}">
+        Goal
+      </ion-label>
+      <ion-input
+        [(ngModel)]="drinkerApplicationObject.goal"
+        name="goal"
+        #goal="ngModel"
+        required
+      ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Money</ion-label>
-      <ion-input [(ngModel)]="drinkerApplicationObject.budged" name="money"></ion-input>
+      <ion-label [ngStyle]="{'color': (money.invalid && money.touched) ? 'red' : ''}">
+        Money
+      </ion-label>
+      <ion-input
+        [(ngModel)]="drinkerApplicationObject.budged"
+        name="money"
+        #money="ngModel"
+        required
+        pattern="^[0-9]+[0-9]*$"
+      ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Date</ion-label>
-      <ion-datetime [(ngModel)]="drinkerApplicationObject.date" name="date"></ion-datetime>
+      <ion-label [ngStyle]="{'color': (date.invalid && date.touched) ? 'red' : ''}">
+        Date
+      </ion-label>
+      <ion-datetime
+        [(ngModel)]="drinkerApplicationObject.date"
+        name="date"
+        #date="ngModel"
+        required
+      ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-select [disabled]="isActive" name="place" [(ngModel)]="drinkerApplicationObject.place">
+      <ion-label [ngStyle]="{'color': (place.invalid && place.touched) ? 'red' : ''}">
+        Active
+      </ion-label>
+      <ion-select
+        [disabled]="isActive"
+        name="place"
+        [(ngModel)]="drinkerApplicationObject.place"
+        #place="ngModel"
+        required
+      >
         <ion-option *ngFor="let place of places"
                     [value]="place._id">
           {{place.multilang[0].name}}
         </ion-option>
       </ion-select>
     </ion-item>
-    <button ion-button type="submit" block>Add Todo</button>
+    <button
+      ion-button
+      type="submit"
+      block
+      [disabled]="!form.valid"
+    >Add Todo
+    </button>
   </form>
 
 </ion-content>

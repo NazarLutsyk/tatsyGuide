@@ -9,37 +9,61 @@
 <ion-content padding>
   <form #topPlaceForm="ngForm" (ngSubmit)="createTopPlace(topPlaceForm)">
     <ion-item>
-      <ion-label>{{'createTopPlace.startDate' | translate}}</ion-label>
+      <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
+        {{'createTopPlace.startDate' | translate}}
+      </ion-label>
       <ion-datetime
         ngModel
         name="startDate"
+        #startDate="ngModel"
+        required
       ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>{{'createTopPlace.endDate' | translate}}</ion-label>
+      <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
+        {{'createTopPlace.endDate' | translate}}
+      </ion-label>
       <ion-datetime
         ngModel
         name="endDate"
+        #endDate="ngModel"
+        required
       ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>{{'createTopPlace.sum' | translate}}</ion-label>
+      <ion-label [ngStyle]="{'color': (price.invalid && price.touched) ? 'red' : ''}">
+        {{'createTopPlace.sum' | translate}}
+      </ion-label>
       <ion-input
         ngModel
         name="price"
+        #price="ngModel"
+        required
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>{{'createTopPlace.actual' | translate}}</ion-label>
+      <ion-label [ngStyle]="{'color': (actual.invalid && actual.touched) ? 'red' : ''}">
+        {{'createTopPlace.actual' | translate}}
+      </ion-label>
       <ion-select
         ngModel
         name="actual"
+        #actual="ngModel"
+        required
       >
         <ion-option value="true">{{'createTopPlace.yes' | translate}}</ion-option>
         <ion-option value="false">{{'createTopPlace.no' | translate}}</ion-option>
       </ion-select>
     </ion-item>
-      <button margin-top="20px" ion-button full [outline]="true" class="buttonUpdate">{{'createTopPlace.save' | translate}}</button>
+    <button
+      margin-top="20px"
+      ion-button
+      full
+      [outline]="true"
+      class="buttonUpdate"
+      [disabled]="!topPlaceForm.valid"
+    >{{'createTopPlace.save' | translate}}
+    </button>
   </form>
 
 </ion-content>

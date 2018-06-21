@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
@@ -12,7 +12,7 @@ export class MailProvider {
   ) {
   }
 
-  sendMail(data:{email: string, message: string}):Observable<any>{
+  sendMail(data: { from: string, message: string, to: string}): Observable<any> {
     return this.http.post(`${this.globalConfig.getGlobalHost()}/mail/send`, data);
   }
 

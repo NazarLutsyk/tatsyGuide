@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {DrinkerApplicationPage} from "../drinker-application/drinker-application";
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
@@ -35,7 +35,8 @@ export class PlaceAppliactionsPage {
     private drinkAppsService: DrinkApplicationProvider,
     private auth: AuthProvider,
     private globalConfig: GlobalConfigsService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private evetns: Events
   ) {
 
     this.translate.setDefaultLang("en");
@@ -43,6 +44,13 @@ export class PlaceAppliactionsPage {
   }
 
   ngOnInit() {
+
+    this.evetns.subscribe('refresh:drinkapps', () => {
+      this.skip = 0;
+      this.allLoaded = false;
+      this.loadDrinkApps().subscribe(drinkApps => this.drinkApps = drinkApps);
+    });
+
     this.place = this.navParams.data;
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;

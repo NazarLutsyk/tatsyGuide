@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {
   ActionSheetController,
+  Alert,
   AlertController,
   App,
   Events,
@@ -24,7 +25,6 @@ import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdatePlacePage} from "../update-place/update-place";
 import {CreateTopPlacePage} from "../create-top-place/create-top-place";
 import {TranslateService} from "@ngx-translate/core";
-// import {UpdatePlacePage} from "../update-place/update-place";
 import {CallNumber} from '@ionic-native/call-number';
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
@@ -80,9 +80,21 @@ export class PlaceInfoPage {
 
       if (this.principal) {
         this.departmentService.find({
-          query: {place: (<any>this.place)._id, client: this.principal._id},
+          query: {place: (<any>this.place)._id},
+          populate: [{path: 'client'}]
         }).subscribe((departments) => {
           if (departments.length > 0) {
+            let bossIndex = departments.findIndex((value, index, arr) => {
+              return value.roles.indexOf('BOSS_PLACE') >= 0 && value.client.email;
+            });
+            if (bossIndex < 0) {
+              bossIndex = departments.findIndex((value, index, arr) => {
+                return value.client.email;
+              });
+            }
+            if (bossIndex >= 0) {
+              this.bossPlaceEmail = departments[bossIndex].client.email;
+            }
             this.isAdmin = true;
             for (const department of departments) {
               if (department.roles.indexOf('BOSS_PLACE') >= 0)
@@ -91,15 +103,6 @@ export class PlaceInfoPage {
           }
         });
       }
-
-      this.departmentService.find({
-        query: {place: (<any>this.place)._id, roles: ['BOSS_PLACE']},
-        populate: [{path: 'client'}]
-      }).subscribe((department) => {
-        if (department[0]) {
-          this.bossPlaceEmail = department[0].client.email;
-        }
-      })
     });
   }
 
@@ -112,8 +115,6 @@ export class PlaceInfoPage {
     this.translate.get([
       'alert.message',
       'alert.email',
-
-
     ])
       .subscribe(value => {
 
@@ -121,7 +122,7 @@ export class PlaceInfoPage {
           title: '',
           inputs: [
             {
-              name: 'clientEmail',
+              name: 'from',
               placeholder: value['alert.email']
             },
             {
@@ -134,9 +135,13 @@ export class PlaceInfoPage {
             {
               text: 'send',
               handler: data => {
-                if (this.bossPlaceEmail) {
-                  data.email = this.bossPlaceEmail;
+                if (data.from && data.message && data.from.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                  data.message += `\n\tPlace ${this.place.multilang[0].name}`;
+                  data.to = this.bossPlaceEmail;
                   this.mailService.sendMail(data).subscribe();
+                } else {
+                  alert.setMessage('Invalid data!');
+                  return false;
                 }
               }
             }
@@ -174,13 +179,12 @@ export class PlaceInfoPage {
       'alert.email',
     ])
       .subscribe(value => {
-
-
-        let alert = this.alertController.create({
+        let alert: Alert = this.alertController.create({
           title: '', inputs: [
             {
-              name: 'clientEmail',
-              placeholder: value['alert.email']
+              name: 'from',
+              placeholder: value['alert.email'],
+              type: 'email'
             },
             {
               name: 'message',
@@ -192,17 +196,21 @@ export class PlaceInfoPage {
             {
               text: 'send',
               handler: data => {
-                this.complaintService.create(new Complaint(null, data.message, null, (<any>this.place)._id)).subscribe();
-                data.message += `Place ${this.place.multilang[0].name}`;
-                this.mailService.sendMail(data).subscribe();
+                if (data.message && data.from && data.from.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                  this.complaintService.create(new Complaint(null, data.message, null, (<any>this.place)._id)).subscribe();
+                  data.message += `\n\tPlace ${this.place.multilang[0].name}`;
+                  this.mailService.sendMail(data).subscribe();
+                  return true;
+                } else {
+                  alert.setMessage('Invalid data!');
+                  return false;
+                }
               }
             }
           ]
         });
         alert.present();
       });
-
-
   }
 
   updatePlaceDepartments(place: Place) {

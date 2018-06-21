@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Rating} from "../../models/rating/Rating";
 import {RatingProvider} from "../../providers/rating/rating-provider";
 import {NgForm} from "@angular/forms";
-import {zip} from "rxjs/observable/zip";
 
 @IonicPage()
 @Component({

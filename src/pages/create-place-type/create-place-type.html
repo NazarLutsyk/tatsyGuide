@@ -8,16 +8,27 @@
 
   <form #placeTypeForm="ngForm">
     <div *ngFor="let lang of langs">
-      <ion-label>{{lang.name}} Name:</ion-label>
+      <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
+        {{lang.name}} Name:
+      </ion-label>
       <ion-input
-        required
         type="text"
         [name]="lang._id"
         ngModel
+        #text="ngModel"
+        required
+        (input)="trim($event)"
       ></ion-input>
       <hr>
     </div>
-    <button ion-button full class="defaultBackground" (click)="createPlaceType(placeTypeForm)" [disabled]="">Create</button>
+    <button
+      ion-button
+      full
+      class="defaultBackground"
+      (click)="createPlaceType(placeTypeForm)"
+      [disabled]="!placeTypeForm.valid"
+    >Create
+    </button>
   </form>
 
 </ion-content>
