@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>top-place-manage</ion-title>
+    <ion-title> {{'topPlace.title'|translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,26 +17,27 @@
     </ion-item>
     <ion-item>
       <p>
-        <strong>Start date:</strong> {{topPlace.startDate | date}}
+        <strong> {{'topPlace.startDate'|translate}}:</strong> {{topPlace.startDate | date}}
       </p>
       <p>
-        <strong>End date:</strong> {{topPlace.endDate | date}}
+        <strong>{{'topPlace.endDate'|translate}}:</strong> {{topPlace.endDate | date}}
       </p>
       <p>
-        <strong>Price:</strong> {{topPlace.price}}
+        <strong>{{'topPlace.sum'|translate}}:</strong> {{topPlace.price}}
       </p>
       <p>
-        <strong>Is actual:</strong> {{topPlace.actual}}
+        <strong>{{'topPlace.actual'|translate}}:</strong> {{topPlace.actual}}
       </p>
       <ion-grid>
         <ion-row>
           <ion-col col-6>
             <button ion-button full [outline]="true" class="defaultBackground2" (click)="updateTopPlace(topPlace)">
-              Update
+              {{'topPlace.update'|translate}}
             </button>
           </ion-col>
           <ion-col col-6>
-            <button ion-button full [outline]="true" class="buttonDelete" (click)="removeTopPlace(topPlace,$event)">Remove
+            <button ion-button full [outline]="true" class="buttonDelete" (click)="removeTopPlace(topPlace,$event)">
+              {{'topPlace.remove'|translate}}
             </button>
           </ion-col>
         </ion-row>

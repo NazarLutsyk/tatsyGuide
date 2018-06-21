@@ -55,7 +55,7 @@ page-place-info {
     border-radius: 2px;
     //background: map_get($colors, defaultApp);
     //background: #efcf06;
-    background: #efb406f0;
+    background: map_get($colors, defaultApp);
     text-align: center;
     ion-icon {
       color: #fff;

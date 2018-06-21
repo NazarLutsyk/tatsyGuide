@@ -1,5 +1,6 @@
 <ion-menu [content]="content" side="left" id="leftSideMenu" type="overlay">
   <ion-header>
+
     <ion-toolbar>
       <ion-title>{{'sideMenu.titleLeft'|translate}}</ion-title>
     </ion-toolbar>
@@ -115,22 +116,22 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Місто</ion-label>
+      <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.city">
         <ion-option value="">
-          Оберіть місто
+          {{'sideMenu.filters.chooseCity' | translate}}
         </ion-option>
-        <ion-option value="Львів">
-          Львів
+        <ion-option value="{{'createPlace.lviv' | translate}}">
+          {{'createPlace.lviv' | translate}}
         </ion-option>
-        <ion-option value="Київ">
-          Київ
+        <ion-option value="{{'createPlace.kyiv' | translate}}">
+          {{'createPlace.kyiv' | translate}}
         </ion-option>
-        <ion-option value="Харків">
-          Харків
+        <ion-option value="{{'createPlace.kharkiv' | translate}}">
+          {{'createPlace.kharkiv' | translate}}
         </ion-option>
-        <ion-option value="Одеса">
-          Одеса
+        <ion-option value="{{'createPlace.odesa' | translate}}">
+          {{'createPlace.odesa' | translate}}
         </ion-option>
       </ion-select>
     </ion-item>

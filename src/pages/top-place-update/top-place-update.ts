@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {NgForm} from "@angular/forms";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -16,7 +17,11 @@ export class TopPlaceUpdatePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private topPlaceService: TopPlaceProvider,
+    private translate: TranslateService
   ) {
+
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

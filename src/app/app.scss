@@ -291,3 +291,7 @@ ion-item.item-input-has-focus .item-inner {
 .navTitleColor{
  color: map_get($colors,light);
 }
+
+ion-app.md [padding] .scroll-content,ion-app.ios [padding] .scroll-content {
+  padding: 0 !important;
+}

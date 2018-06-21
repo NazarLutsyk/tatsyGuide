@@ -4,6 +4,8 @@
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashScreenDelay" value="4000" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -122,6 +124,5 @@
     <plugin name="cordova-plugin-globalization" spec="^1.11.0" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
-    <engine name="android" spec="7.0.0" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
 </widget>

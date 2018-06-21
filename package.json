@@ -51,7 +51,6 @@
     "com-badrit-base64": "^0.2.0",
     "com-sarriaroman-photoviewer": "^1.1.18",
     "com.synconset.imagepicker": "~2.1.10",
-    "cordova-android": "7.0.0",
     "cordova-android-play-services-gradle-release": "^1.4.2",
     "cordova-browser": "5.0.3",
     "cordova-plugin-camera": "^4.0.3",
@@ -125,8 +124,6 @@
       "mx.ferreyra.callnumber": {},
       "com-sarriaroman-photoviewer": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }

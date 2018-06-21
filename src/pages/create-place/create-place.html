@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>createPlace</ion-title>
+    <ion-title>{{'createPlace.title'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,7 +12,7 @@
     <ion-list>
       <ion-item>
         <ion-label [ngStyle]="{'color': (name.invalid && name.touched) ? 'red' : ''}">
-          Place name
+          {{'createPlace.placeName' | translate}}
         </ion-label>
         <ion-input
           name="name"
@@ -23,7 +23,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
-          description
+          {{'createPlace.description' | translate}}
         </ion-label>
         <ion-input
           name="description"
@@ -34,9 +34,10 @@
       </ion-item>
     </ion-list>
     <ion-list ngModelGroup="address">
+
       <ion-item>
         <ion-label [ngStyle]="{'color': (city.invalid && city.touched) ? 'red' : ''}">
-          Місто
+          {{'createPlace.city' | translate}}
         </ion-label>
         <ion-select
           interface="popover"
@@ -46,26 +47,26 @@
           required
         >
           <ion-option value="">
-            Оберіть місто
+            {{'createPlace.chooseCity' | translate}}
           </ion-option>
-          <ion-option value="Львів">
-            Львів
+          <ion-option value=" {{'createPlace.lviv' | translate}}">
+            {{'createPlace.lviv' | translate}}
           </ion-option>
-          <ion-option value="Київ">
-            Київ
+          <ion-option value="{{'createPlace.kyiv' | translate}}">
+            {{'createPlace.kyiv' | translate}}
           </ion-option>
-          <ion-option value="Харків">
-            Харків
+          <ion-option value=" {{'createPlace.kharkiv' | translate}}">
+            {{'createPlace.kharkiv' | translate}}
           </ion-option>
-          <ion-option value="Одеса">
-            Одеса
+          <ion-option value="{{'createPlace.odesa' | translate}}">
+            {{'createPlace.odesa' | translate}}
           </ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label [ngStyle]="{'color': (street.invalid && street.touched) ? 'red' : ''}">
-          Street
+          {{'createPlace.street' | translate}}
         </ion-label>
         <ion-input
           name="street"
@@ -76,7 +77,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (number.invalid && number.touched) ? 'red' : ''}">
-          Number
+          {{'createPlace.number' | translate}}
         </ion-label>
         <ion-input
           type="number"
@@ -90,7 +91,7 @@
     </ion-list>
     <ion-item>
       <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
-        Phone
+        {{'createPlace.phone' | translate}}
       </ion-label>
       <ion-input
         type="tel"
@@ -106,7 +107,7 @@
 
     <ion-item>
       <ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">
-        email
+        {{'createPlace.email' | translate}}
       </ion-label>
       <ion-input
         name="email"
@@ -119,7 +120,7 @@
 
     <ion-item>
       <ion-label>
-        hash tags
+        {{'createPlace.tags' | translate}}
       </ion-label>
       <ion-input name="hashTags" ngModel></ion-input>
     </ion-item>
@@ -127,7 +128,7 @@
     <div *ngIf="isAdmin">
       <ion-item>
         <ion-label>
-          Top categories
+          {{'createPlace.bestFor' | translate}}
         </ion-label>
         <ion-input name="topCategories" ngModel></ion-input>
       </ion-item>
@@ -136,7 +137,7 @@
     <div *ngIf="isAdmin">
       <ion-item>
         <ion-label [ngStyle]="{'color': (allowed.invalid && allowed.touched) ? 'red' : ''}">
-          Allowed
+          {{'createPlace.allowed' | translate}}
         </ion-label>
         <ion-select
           name="allowed"
@@ -144,39 +145,39 @@
           #allowed="ngModel"
           required
         >
-          <ion-option value="true">TRUE</ion-option>
-          <ion-option value="false">FALSE</ion-option>
+          <ion-option value="true">{{'createPlace.yes' | translate}}</ion-option>
+          <ion-option value="false">{{'createPlace.no' | translate}}</ion-option>
         </ion-select>
       </ion-item>
     </div>
 
-    <button margin-top="25px" ion-button full class="buttonUpdate" type="button" (click)="goToChooseLocation()">chose
-      location
+    <button margin-top="25px" ion-button full outline class="buttonUpdate" type="button" (click)="goToChooseLocation()">chose
+      {{'createPlace.chooseLocation' | translate}}
     </button>
 
     <ion-list ngModelGroup="features">
-      <ion-list-header>Features</ion-list-header>
+      <ion-list-header>{{'createPlace.features' | translate}}</ion-list-header>
       <ion-item>
         <ion-label>
-          wifi
+          {{'createPlace.wifi' | translate}}
         </ion-label>
         <ion-checkbox name="wifi" ngModel></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
-          Karaoke
+          {{'createPlace.karaoke' | translate}}
         </ion-label>
         <ion-checkbox name="karaoke" ngModel></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
-          parking
+          {{'createPlace.parking' | translate}}
         </ion-label>
         <ion-checkbox name="parking" ngModel></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>
-          vip room
+          {{'createPlace.vipRoom' | translate}}
         </ion-label>
         <ion-checkbox name="vipRoom" ngModel></ion-checkbox>
       </ion-item>
@@ -184,7 +185,7 @@
 
     <ion-item>
       <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
-        Place Types
+        {{'createPlace.placeType' | translate}}
       </ion-label>
       <ion-select
         name="types"
@@ -205,7 +206,7 @@
       <ion-item-group ngModelGroup="1">
         <ion-item>
           <ion-label [ngStyle]="{'color': (start.invalid && start.touched) ? 'red' : ''}">
-            From
+            {{'createPlace.from' | translate}}
           </ion-label>
           <ion-datetime
             displayFormat="HH"
@@ -217,7 +218,7 @@
         </ion-item>
         <ion-item>
           <ion-label [ngStyle]="{'color': (end.invalid && end.touched) ? 'red' : ''}">
-            To
+            {{'createPlace.to' | translate}}
           </ion-label>
           <ion-datetime
             displayFormat="HH"
@@ -236,7 +237,7 @@
       class="buttonUpdate"
       margin-top="25px"
       [disabled]="!form.valid"
-    >send
+    >{{'createPlace.save' | translate}}
     </button>
   </form>
 
