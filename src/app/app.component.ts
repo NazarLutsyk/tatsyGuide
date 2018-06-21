@@ -75,25 +75,23 @@ export class MyApp implements OnInit {
   ) {
 
     platform
-      .ready().then(
-      () => {
-        // statusBar.styleDefault();
-        // splashScreen.hide();
-
-        // if (platform.is("android") || platform.is("ios")) {
-        //   this.globalization.getPreferredLanguage().then(res => {
-        //     this.rootPage = HomePage;
-        //   });
-        // }
+      .ready().then(() => {
         this.translate.setDefaultLang("en");
         this.translate.use("ua");
         this.geolocation.getCurrentPosition().then((position) => {
           this.globalConfig.globalPosition.latitude = position.coords.latitude;
           this.globalConfig.globalPosition.longitude = position.coords.longitude;
+          alert('ready');
+
+          // if (platform.is("android") || platform.is("ios")) {
+          //   this.globalization.getPreferredLanguage().then(res => {
+          //     this.rootPage = HomePage;
+          //   });
+          // }
 
 
-          statusBar.styleDefault();
-          splashScreen.hide();
+          // statusBar.styleDefault();
+          // splashScreen.hide();
           this.langService.find({}).subscribe(langs => this.globalConfig.langs = langs);
 
         });

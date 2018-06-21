@@ -57,7 +57,7 @@
       "managePlaceType": "Типи закладів",
       "manageTopPlace": "Топ заклади",
       "purgatory": "Узгодження нових закладів",
-      "clients": "Всі клієнити",
+      "clients": "Всі клієнти",
       "events": "Всі події",
       "bonuses": "Всі акції",
       "myProfile": "Мій профіль",
@@ -93,7 +93,9 @@
     "password": "пароль"
   },
   "placeType": {
-    "title": "Типи закладів"
+    "title": "Типи закладів",
+    "create": "Створити тип закладу",
+    "updateType": "Змінити тип закладу"
   },
   "updatePlace": {
     "changeAvatar": "Змінити аватар",
@@ -155,5 +157,51 @@
   "alert": {
     "confirm": "Підтвердити",
     "cancel": "Відміна"
+  },
+  "purgatory": {
+    "title": "Чистилище"
+  },
+  "clients": {
+    "title": "Перелік клієнтів"
+  },
+  "profile": {
+    "title": "Мій профіль"
+  },
+  "allEvents": {
+    "title": "Всі події"
+  },
+  "allBonuses": {
+    "title": "Всі події"
+  },
+  "myPlaces": {
+    "title": "Мої заклади"
+  },
+  "myFavPlaces": {
+    "title": "Мої улюбленні заклади"
+  },
+  "myRatings": {
+    "title": "Мої відгуки"
+  },
+  "createPlace": {
+    "title": "Створення закладу",
+    "chooseLocation": "Обрати розташування",
+    "placeName": "Назва закладу",
+    "description": "Опис закладу",
+    "city": "Місто",
+    "chooseCity": "Обрати місто",
+    "lviv": "Львів",
+    "kyiv": "Київ",
+    "kharkiv": "Харків",
+    "odesa": "Одеса",
+    "street": "Вулиця",
+    "number": "Номер будинку",
+    "phone": "Телефон",
+    "email": "Електронна пошта",
+    "tags": "Теги",
+    "bestFor": "Найкраще для",
+    "allowed": "Дозволено до показу",
+    "yes": "Так",
+    "no": "Ні",
+    "save": "Зберегти"
   }
 }

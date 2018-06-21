@@ -6,6 +6,7 @@ import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 import {Observable} from "rxjs/Observable";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -27,8 +28,11 @@ export class PurgatoryPlacesPage {
     public navParams: NavParams,
     private globalConfig: GlobalConfigsService,
     private placesService: PlacesProvider,
-    private placeMultilangService: PlaceMultilangProvider
+    private placeMultilangService: PlaceMultilangProvider,
+    private translate : TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

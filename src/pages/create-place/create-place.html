@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>createPlace</ion-title>
+    <ion-title>{{'createPlace.title'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,44 +9,43 @@
 
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="createPlace(form)">
-    <ion-label>Place name</ion-label>
+    <ion-label>{{'createPlace.placeName' | translate}}</ion-label>
     <ion-item>
       <ion-input name="name" ngModel></ion-input>
     </ion-item>
-    <ion-label>description</ion-label>
+    <ion-label>{{'createPlace.description' | translate}}</ion-label>
     <ion-item>
       <ion-input name="description" ngModel></ion-input>
     </ion-item>
 
     <ion-list ngModelGroup="address">
 
-      <ion-label>City</ion-label>
       <ion-item>
-        <ion-label>Місто</ion-label>
+        <ion-label>{{'createPlace.city' | translate}}</ion-label>
         <ion-select interface="popover" ngModel name="city">
           <ion-option value="">
-            Оберіть місто
+            {{'createPlace.chooseCity' | translate}}
           </ion-option>
-          <ion-option value="Львів">
-            Львів
+          <ion-option value="{{'createPlace.lviv' | translate}}">
+            {{'createPlace.lviv' | translate}}
           </ion-option>
-          <ion-option value="Київ">
-            Київ
+          <ion-option value="{{'createPlace.kyiv' | translate}}">
+            {{'createPlace.kyiv' | translate}}
           </ion-option>
-          <ion-option value="Харків">
-            Харків
+          <ion-option value="{{'createPlace.kharkiv' | translate}}">
+            {{'createPlace.kharkiv' | translate}}
           </ion-option>
-          <ion-option value="Одеса">
-            Одеса
+          <ion-option value="{{'createPlace.odesa' | translate}}">
+            {{'createPlace.odesa' | translate}}
           </ion-option>
         </ion-select>
       </ion-item>
 
-      <ion-label>Street</ion-label>
+      <ion-label>{{'createPlace.street' | translate}}</ion-label>
       <ion-item>
         <ion-input name="street" ngModel></ion-input>
       </ion-item>
-      <ion-label>Number</ion-label>
+      <ion-label>{{'createPlace.number' | translate}}</ion-label>
       <ion-item>
         <ion-input name="number" ngModel></ion-input>
       </ion-item>
@@ -54,62 +53,64 @@
 
     </ion-list>
 
-    <ion-label>Phone</ion-label>
+    <ion-label>{{'createPlace.phone' | translate}}</ion-label>
     <ion-item>
       <ion-input name="phone" ngModel></ion-input>
     </ion-item>
 
-    <ion-label>email</ion-label>
+    <ion-label>{{'createPlace.email' | translate}}</ion-label>
     <ion-item>
       <ion-input name="email" ngModel></ion-input>
     </ion-item>
 
-    <ion-label>hash tags</ion-label>
+    <ion-label>{{'createPlace.tags' | translate}}</ion-label>
     <ion-item>
       <ion-input name="hashTags" ngModel></ion-input>
     </ion-item>
 
     <div *ngIf="isAdmin">
-      <ion-label>Top categories</ion-label>
+      <ion-label>{{'createPlace.bestFor' | translate}}</ion-label>
       <ion-item>
         <ion-input name="topCategories" ngModel></ion-input>
       </ion-item>
     </div>
 
     <div *ngIf="isAdmin">
-      <ion-label>Allowed</ion-label>
+      <ion-label>{{'createPlace.allowed' | translate}}</ion-label>
       <ion-item>
         <ion-select name="allowed" ngModel>
-          <ion-option value="true">TRUE</ion-option>
-          <ion-option value="false">FALSE</ion-option>
+          <ion-option value="true">{{'createPlace.yes' | translate}}</ion-option>
+          <ion-option value="false">{{'createPlace.no' | translate}}</ion-option>
         </ion-select>
       </ion-item>
     </div>
 
-    <button margin-top="25px" ion-button full  class="buttonUpdate" type="button" (click)="goToChooseLocation()">chose location</button>
+    <button margin-top="25px" ion-button full class="buttonUpdate" type="button" (click)="goToChooseLocation()">
+      {{'createPlace.chooseLocation' | translate}}
+    </button>
 
     <ion-list ngModelGroup="features">
-      <ion-list-header>Features</ion-list-header>
+      <ion-list-header>{{'createPlace.features' | translate}}</ion-list-header>
       <ion-item>
-        <ion-label>wifi</ion-label>
+        <ion-label>{{'createPlace.wifi' | translate}}</ion-label>
         <ion-checkbox name="wifi" ngModel></ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>Karaoke</ion-label>
+        <ion-label>{{'createPlace.karaoke' | translate}}</ion-label>
         <ion-checkbox name="karaoke" ngModel></ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>parking</ion-label>
+        <ion-label>{{'createPlace.parking' | translate}}</ion-label>
         <ion-checkbox name="parking" ngModel></ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>vip room</ion-label>
+        <ion-label>{{'createPlace.vipRoom' | translate}}</ion-label>
         <ion-checkbox name="vipRoom" ngModel></ion-checkbox>
       </ion-item>
     </ion-list>
 
     <ion-item>
-      <ion-label>Place Types</ion-label>
+      <ion-label>{{'createPlace.placeType' | translate}}</ion-label>
       <ion-select name="types" ngModel okText="Okay" cancelText="Dismiss" multiple="true">
         <ion-option *ngFor="let placeTypeM of placeTypesM" [value]="placeTypeM.placeType">
           {{placeTypeM.name}}
@@ -120,16 +121,18 @@
     <ion-item-group ngModelGroup="days">
       <ion-item-group ngModelGroup="1">
         <ion-item>
-          <ion-label>From</ion-label>
+          <ion-label>{{'createPlace.from' | translate}}</ion-label>
           <ion-datetime displayFormat="HH" name="start" ngModel></ion-datetime>
         </ion-item>
         <ion-item>
-          <ion-label>To</ion-label>
+          <ion-label>{{'createPlace.to' | translate}}</ion-label>
           <ion-datetime displayFormat="HH" name="end" ngModel></ion-datetime>
         </ion-item>
       </ion-item-group>
     </ion-item-group>
-    <button type="submit" ion-button full  class="buttonUpdate" margin-top="25px">send</button>
+    <button type="submit" ion-button full class="buttonUpdate" margin-top="25px">
+      {{'createPlace.save' | translate}}
+    </button>
   </form>
 
 

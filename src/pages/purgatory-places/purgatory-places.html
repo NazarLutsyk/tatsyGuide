@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>purgatory-places</ion-title>
+    <ion-title>{{'purgatory.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,8 +18,8 @@
       </ion-thumbnail>
       <h2>{{place?.multilang[0]?.name}}</h2>
       <span> <ion-icon name="star"></ion-icon> {{place?.rating| number:'1.0-2'}} </span>
-      <ion-icon name="checkmark" item-end (click)="allowPlace(place, $event)" margin></ion-icon>
-      <ion-icon name="close" item-end (click)="disallowPlace(place, $event)" margin></ion-icon>
+      <ion-icon name="checkmark" class="icon-apply" item-end (click)="allowPlace(place, $event)" margin></ion-icon>
+      <ion-icon name="close" class="icon-delete" item-end (click)="disallowPlace(place, $event)" margin></ion-icon>
       <p><span *ngFor="let placeType of place?.types">{{placeType?.multilang[0]?.name}} </span></p>
       <p>{{place?.multilang[0]?.address.city}} {{place?.multilang[0]?.address.street}}
         {{place?.multilang[0]?.address.number}}</p>

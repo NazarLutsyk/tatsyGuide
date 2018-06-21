@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-navbar>
-    <span class="navTitleColor">my ratings</span>
+  <ion-navbar >
+    <ion-title>{{'myRatings.title'| translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,14 +9,14 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-    <rating
-      *ngFor="let rating of ratings"
-      [rating]="rating"
-      [showRemoveButton]="true"
-      [showUpdateButton]="true"
-      (onRemoveRating)="removeRating($event)"
-      (onUpdateRating)="updateRating($event)"
-    ></rating>
+  <rating
+    *ngFor="let rating of ratings"
+    [rating]="rating"
+    [showRemoveButton]="true"
+    [showUpdateButton]="true"
+    (onRemoveRating)="removeRating($event)"
+    (onUpdateRating)="updateRating($event)"
+  ></rating>
 
   <ion-infinite-scroll (ionInfinite)="loadNextRatingsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

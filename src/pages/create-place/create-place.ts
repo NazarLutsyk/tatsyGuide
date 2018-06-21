@@ -9,6 +9,7 @@ import {PlaceMultilangProvider} from "../../providers/place-multilang/place-mult
 import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AuthProvider} from "../../providers/auth/auth";
 import {AddAvatarAndPhotosPage} from "../add-avatar-and-photos/add-avatar-and-photos";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -29,8 +30,11 @@ export class CreatePlacePage {
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
     private navCtrl: NavController,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
       this.location.lng = data.lng;

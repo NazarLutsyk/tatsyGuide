@@ -6,6 +6,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {createTranslateLoader} from "../../app/app.module";
 import {CallNumber} from "@ionic-native/call-number";
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 
 @NgModule({
   declarations: [
@@ -23,8 +24,9 @@ import {CallNumber} from "@ionic-native/call-number";
     }),
 
   ],
-  providers :[
-    CallNumber
+  providers: [
+    CallNumber,
+    PhotoViewer
   ]
 })
 export class PlaceInfoPageModule {

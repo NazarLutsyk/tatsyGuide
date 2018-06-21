@@ -123,4 +123,5 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
 </widget>

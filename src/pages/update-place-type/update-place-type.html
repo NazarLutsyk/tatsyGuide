@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>update-place-type</ion-title>
+    <ion-title>{{'placeType.updateType' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <form #ptForm = 'ngForm'>
+  <form #ptForm='ngForm'>
     <!--<ion-label>Name: </ion-label>-->
     <ion-input
       type="text"
@@ -15,6 +15,8 @@
       placeholder="place type title"
     ></ion-input>
     <hr>
-    <button ion-button full class="defaultBackgroundBrown" (click)="updatePlaceType(ptForm)">Update</button>
+    <button
+      ion-button full [outline]="true" class="buttonUpdate"
+      (click)="updatePlaceType(ptForm)">{{'placeType.updateType' | translate}}</button>
   </form>
 </ion-content>

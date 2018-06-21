@@ -284,6 +284,10 @@ ion-item.item-input-has-focus .item-inner {
   color: #dd434c;
 }
 
+.icon-update, .icon-apply{
+  color: #caab85;
+}
+
 .navTitleColor{
  color: map_get($colors,light);
 }

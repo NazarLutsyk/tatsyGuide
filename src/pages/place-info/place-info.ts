@@ -27,6 +27,7 @@ import {TranslateService} from "@ngx-translate/core";
 // import {UpdatePlacePage} from "../update-place/update-place";
 import {CallNumber} from '@ionic-native/call-number';
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 
 declare var window: any;
 
@@ -60,7 +61,8 @@ export class PlaceInfoPage {
     private auth: AuthProvider,
     public translate: TranslateService,
     private callNumber: CallNumber,
-    public actionSheetCtrl: ActionSheetController
+    public actionSheetCtrl: ActionSheetController,
+    private photoViewer: PhotoViewer
   ) {
 
     translate.setDefaultLang('en');
@@ -329,5 +331,13 @@ export class PlaceInfoPage {
 
   toDrinkerPage() {
     this.app.getRootNav().push(PlaceAppliactionsPage, this.place)
+  }
+
+  showPhoto(url) {
+    console.log(url);
+
+    this.photoViewer.show(url);
+
+    // this.photoViewer.show('https://mysite.com/path/to/image.jpg', 'My image title', {share: false});
   }
 }

@@ -142,8 +142,17 @@
     </ion-item>
 
     <ion-buttons>
-      <button ion-button class="defaultBackground" type="submit" block (click)="show(searchObject)">Search</button>
-      <button ion-button type="button" color="danger" block (click)="reset(filterForm)">Reset</button>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button class="buttonUpdate" [outline]="true" type="submit" full (click)="show(searchObject)">Search
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button type="button" class="buttonDelete" [outline]="true" full (click)="reset(filterForm)">Reset</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-buttons>
   </ion-content>
 

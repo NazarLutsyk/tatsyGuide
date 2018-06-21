@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>place-types</ion-title>
+    <ion-title>{{'placeType.title'|translate}} </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,7 +9,9 @@
   <ion-refresher (ionRefresh)="refresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <button ion-button outline full class="defaultBackground2" (click)="goToCreatePlaceType()">Create place type</button>
+  <button ion-button outline full class="defaultBackground2" (click)="goToCreatePlaceType()">
+    {{'placeType.create'|translate}}
+  </button>
 
   <ion-list [virtualScroll]="placeTypesM" [approxItemHeight]="'132px'">
     <ion-item-sliding *virtualItem="let placeTypeM">
