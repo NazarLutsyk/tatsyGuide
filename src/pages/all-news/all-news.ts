@@ -7,6 +7,7 @@ import {UpdateNewsPage} from "../update-news/update-news";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {SingleNewsPage} from "../single-news/single-news";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -32,7 +33,10 @@ export class AllNewsPage {
     private app: App,
     private auth: AuthProvider,
     public modal: ModalController,
+    private translate : TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

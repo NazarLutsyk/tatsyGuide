@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {NgForm} from "@angular/forms";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -17,8 +18,11 @@ export class UpdateProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private clientService: ClientProvider
+    private clientService: ClientProvider,
+    private translate : TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
     this.client = this.navParams.data.client;
     this.clientId = (<any>this.client)._id;
   }

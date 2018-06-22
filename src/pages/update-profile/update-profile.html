@@ -1,7 +1,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>update-profile</ion-title>
+    <ion-title> {{'updateProfile.title' | translate}}
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,7 +13,7 @@
     <div ngModelGroup="client">
       <ion-item>
         <ion-label [ngStyle]="{'color': (name.invalid && name.touched) ? 'red' : ''}">
-          Name
+          {{'updateProfile.name' | translate}}*
         </ion-label>
         <ion-input
           type="text"
@@ -24,7 +25,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (surname.invalid && surname.touched) ? 'red' : ''}">
-          Surname
+          {{'updateProfile.surname' | translate}}*
         </ion-label>
         <ion-input
           type="text"
@@ -36,7 +37,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
-          Phone
+          {{'updateProfile.phone' | translate}}
         </ion-label>
         <ion-input
           type="tel"
@@ -50,7 +51,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">
-          Email
+          {{'updateProfile.email' | translate}}*
         </ion-label>
         <ion-input
           type="text"
@@ -62,7 +63,8 @@
       </ion-item>
       <ion-item>
         <ion-label>
-          City
+          {{'updateProfile.city' | translate}}
+
         </ion-label>
         <ion-input
           type="text"
@@ -78,7 +80,8 @@
       class="buttonUpdate"
       margin-top
       [disabled]="!updateForm.valid"
-    >Update
+    > {{'updateProfile.update' | translate}}
+
     </button>
   </form>
 </ion-content>

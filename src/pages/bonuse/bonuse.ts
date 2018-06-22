@@ -19,6 +19,7 @@ import {DepartmentProvider} from "../../providers/department/department-provider
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {UpdateBonusePage} from "../update-bonuse/update-bonuse";
 import {SingleBonusePage} from "../single-bonuse/single-bonuse";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -48,8 +49,11 @@ export class BonusePage {
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
     public modal: ModalController,
-    private events: Events
+    private events: Events,
+    private translate : TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

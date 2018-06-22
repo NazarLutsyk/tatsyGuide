@@ -18,6 +18,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {SingleEventPage} from "../single-event/single-event";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @IonicPage()
@@ -47,8 +48,11 @@ export class EventPage {
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
     public modal: ModalController,
-    private globalEvents: Events
+    private globalEvents: Events,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {
