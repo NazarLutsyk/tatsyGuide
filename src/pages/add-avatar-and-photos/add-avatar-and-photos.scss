@@ -1,3 +1,9 @@
 page-add-avatar-and-photos {
-
+  .imageRow{
+    ion-col{
+      img{
+        width: 20vh;
+      }
+    }
+  }
 }

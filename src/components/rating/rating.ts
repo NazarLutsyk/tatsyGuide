@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
+import {AlertController} from "ionic-angular";
 
 @Component({
   selector: 'rating',
@@ -13,11 +15,44 @@ export class RatingComponent {
   @Output() onRemoveRating = new EventEmitter();
   @Output() onUpdateRating = new EventEmitter();
 
-  constructor() {
+  constructor(private translate: TranslateService,
+              private alert: AlertController) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
-  removeRating(rating) {
-    this.onRemoveRating.emit(this.rating);
+  removeRating(rating, event) {
+    event.stopPropagation();
+    this.translate.get([
+        'placeInfo.delete',
+        'placeInfo.confirm',
+        'placeInfo.cancel',
+      ]
+    ).subscribe(translations => {
+
+      event.stopPropagation();
+
+      let alertWindow = this.alert.create({
+        enableBackdropDismiss: true,
+        title: translations['placeInfo.delete'] + "?",
+        buttons: [
+          {
+            text: translations['placeInfo.confirm'],
+            handler: () => {
+
+              this.onRemoveRating.emit(this.rating);
+
+            }
+          },
+          {
+            text: translations['placeInfo.cancel']
+          }
+        ]
+
+      });
+
+      alertWindow.present();
+    });
   }
 
   updateRating(rating) {

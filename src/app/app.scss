@@ -283,3 +283,7 @@ ion-item.item-input-has-focus .item-inner {
 .icon-delete{
   color: #dd434c;
 }
+
+.navTitleColor{
+ color: map_get($colors,light);
+}

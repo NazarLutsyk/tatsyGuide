@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {AlertController, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
 import {TopPlace} from "../../models/tops/TopPlace";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {TopPlaceUpdatePage} from "../top-place-update/top-place-update";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @IonicPage()
@@ -25,8 +26,13 @@ export class TopPlaceManagePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private topPlaceService: TopPlaceProvider,
-    private globalVars: GlobalConfigsService
+    private globalVars: GlobalConfigsService,
+    private translate: TranslateService,
+    private alert: AlertController
   ) {
+
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {
@@ -102,10 +108,43 @@ export class TopPlaceManagePage {
     this.navCtrl.push(TopPlaceUpdatePage, topPlace);
   }
 
-  removeTopPlace(topPlace) {
-    this.topPlaceService.remove(topPlace._id).subscribe(() => {
-      this.loadTopPlaces().subscribe(topPlaces => this.topPlaces = topPlaces);
+  removeTopPlace(topPlace, event) {
+    event.stopPropagation();
+    this.translate.get([
+        'placeInfo.delete',
+        'placeInfo.confirm',
+        'placeInfo.cancel',
+      ]
+    ).subscribe(translations => {
+
+
+      let alertWindow = this.alert.create({
+        enableBackdropDismiss: true,
+        title: translations['placeInfo.delete'] + "?",
+        buttons: [
+          {
+            text: translations['placeInfo.confirm'],
+            handler: () => {
+
+              event.stopPropagation();
+              this.topPlaceService.remove(topPlace._id).subscribe(() => {
+                this.loadTopPlaces().subscribe(topPlaces => this.topPlaces = topPlaces);
+              });
+
+
+            }
+          },
+          {
+            text: translations['placeInfo.cancel']
+          }
+        ]
+
+      });
+
+      alertWindow.present();
     });
+
+
   }
 
   loadNextTopPlacesAppPage(event: InfiniteScroll) {

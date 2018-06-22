@@ -11,7 +11,11 @@ import {Event} from "../promo/event/Event";
 import {Review} from "../review/Review";
 
 export class Place {
+
+
+
   constructor(
+
     public id: string = '',
     public phone: string = '',
     public email: string = '',
@@ -62,12 +66,9 @@ export class Place {
     public ratings: Rating[] = [],
     public departments: Department[] = [],
     public statistic: Review[] = [],
-  ) {
-  }
 
-  generateArray(obj) {
-    return Object.keys(obj).map((key) => {
-      return {key: key, value: obj[key]}
-    });
+  ) {
+
+
   }
 }

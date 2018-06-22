@@ -66,6 +66,7 @@ export class PlaceInfoPage {
     translate.setDefaultLang('en');
     translate.use('ua');
 
+
   }
 
   ngOnInit() {
@@ -174,8 +175,6 @@ export class PlaceInfoPage {
     this.translate.get([
       'alert.message',
       'alert.email',
-
-
     ])
       .subscribe(value => {
         let alert: Alert = this.alertController.create({
@@ -295,7 +294,7 @@ export class PlaceInfoPage {
                 },
                 {
                   text: value['placeInfo.deletePlace'],
-                  cssClass: "deleteButton xxx",
+                  cssClass: "actionSheetDeleteColor xxx",
                   role: 'destructive',
                   icon: !this.platform.is('ios') ? 'trash' : null,
                   handler: () => {

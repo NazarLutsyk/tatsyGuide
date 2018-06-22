@@ -1,5 +1,14 @@
 import {Component} from '@angular/core';
-import {Events, InfiniteScroll, IonicPage, LoadingController, NavController, NavParams, Refresher} from 'ionic-angular';
+import {
+  AlertController,
+  Events,
+  InfiniteScroll,
+  IonicPage,
+  LoadingController,
+  NavController,
+  NavParams,
+  Refresher
+} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Place} from "../../models/place/Place";
@@ -12,6 +21,7 @@ import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {Observable} from "rxjs/Observable";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @IonicPage()
@@ -43,8 +53,12 @@ export class MyPlacesPage {
     private events: Events,
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private translate: TranslateService,
+    private alert: AlertController
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
     this.globalHost = globalVars.getGlobalHost();
   }
 
@@ -166,10 +180,44 @@ export class MyPlacesPage {
   }
 
 
-  removePlace(place, $event) {
+  removePlace(place, event) {
+
     event.stopPropagation();
-    this.places.splice(this.places.indexOf(place), 1);
-    this.placesService.remove(place._id);
+    this.translate.get([
+        'placeInfo.delete',
+        'placeInfo.confirm',
+        'placeInfo.cancel',
+      ]
+    ).subscribe(translations => {
+
+      event.stopPropagation();
+
+      let alertWindow = this.alert.create({
+        enableBackdropDismiss: true,
+        title: translations['placeInfo.delete'] + "?",
+        buttons: [
+          {
+            text: translations['placeInfo.confirm'],
+            handler: () => {
+
+              // event.stopPropagation();
+              // this.onRemoveDrinkApplication.emit(this.drinkApp);
+
+              this.places.splice(this.places.indexOf(place), 1);
+              this.placesService.remove(place._id).subscribe();
+
+            }
+          },
+          {
+            text: translations['placeInfo.cancel']
+          }
+        ]
+
+      });
+
+      alertWindow.present();
+    });
+
   }
 
   loadNextPlacesPage(event: InfiniteScroll) {

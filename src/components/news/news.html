@@ -8,30 +8,38 @@
       {{news.multilang.description}}
     </p>
     <p>
-      {{news.startDate | date}}
+      {{news.startDate | date : 'dd/MM/yyyy'}}
     </p>
     <p>
-      {{news.endDate | date}}
+      {{news.endDate | date: 'dd/MM/yyyy'}}
     </p>
     <p *ngIf="pm">
       {{pm.name}}
     </p>
   </ion-card-content>
-  <ion-buttons
-    *ngIf="showControlButtons">
-    <button
-      ion-button outline
-      class="defaultBackground2"
-      (click)="updatePromo(news,$event)">
-      Update
-    </button>
-
-    <button
-      ion-button outline
-      class="buttonDelete"
-      (click)="removePromo(news,$event)">
-      Delete
-    </button>
+  <ion-buttons *ngIf="showControlButtons">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <button
+            [full]="true"
+            ion-button outline
+            class="defaultBackground2"
+            (click)="updatePromo(news,$event)">
+            Update
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button
+            [full]="true"
+            ion-button outline
+            class="buttonDelete"
+            (click)="removePromo(news,$event)">
+            Delete
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-buttons>
 
 </ion-card>

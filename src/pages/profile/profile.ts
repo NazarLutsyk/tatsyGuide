@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AuthProvider} from "../../providers/auth/auth";
 import {Client} from "../../models/client/Client";
 import {UpdateProfilePage} from "../update-profile/update-profile";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {ObjectUtils} from "../../utils/ObjectUtils";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -20,8 +21,12 @@ export class ProfilePage {
     public navParams: NavParams,
     private auth: AuthProvider,
     private clientService: ClientProvider,
-    private app: App
+    private app: App,
+    private translate: TranslateService,
+    private alert: AlertController
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {
@@ -37,8 +42,41 @@ export class ProfilePage {
   }
 
   removeClient(principal) {
-    this.clientService.remove(principal._id).subscribe(() => {
-      this.navCtrl.goToRoot({});
-    })
+    event.stopPropagation();
+    this.translate.get([
+        'placeInfo.delete',
+        'placeInfo.confirm',
+        'placeInfo.cancel',
+      ]
+    ).subscribe(translations => {
+
+
+      let alertWindow = this.alert.create({
+        enableBackdropDismiss: true,
+        title: translations['placeInfo.delete'] + "?",
+        buttons: [
+          {
+            text: translations['placeInfo.confirm'],
+            handler: () => {
+
+              event.stopPropagation();
+              this.clientService.remove(principal._id).subscribe(() => {
+                this.navCtrl.goToRoot({});
+              })
+
+
+            }
+          },
+          {
+            text: translations['placeInfo.cancel']
+          }
+        ]
+
+      });
+
+      alertWindow.present();
+    });
+
+
   }
 }
