@@ -37,7 +37,14 @@ export class AllDrinkApplicationsPage {
   ngOnInit() {
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.loadDrinkApps().subscribe((apps) => {
+      let skip;
+      let limit;
+      if (!principal) {
+        this.allLoaded = true;
+        skip = 0;
+        limit = 5;
+      }
+      this.loadDrinkApps(skip, limit).subscribe((apps) => {
         this.drinkApps = apps;
       });
     });
@@ -58,7 +65,7 @@ export class AllDrinkApplicationsPage {
   //   this.app.getRootNav().push(DrinkerApplicationPage, {disabled: false});
   // }
 
-  private loadDrinkApps(): Observable<any> {
+  private loadDrinkApps(skip?: number, limit?: number): Observable<any> {
     return this.drinkAppsService.find({
       aggregate: [
         {
@@ -81,8 +88,8 @@ export class AllDrinkApplicationsPage {
         {$unwind: "$place"},
         {$match: {'place.lang': this.gc.getGlobalLang()}},
         {$sort: {createdAt: -1}},
-        {$skip: this.skip},
-        {$limit: this.limit},
+        {$skip: skip || this.skip},
+        {$limit: limit || this.limit},
       ]
     })
   }

@@ -80,6 +80,7 @@ export class CreatePlacePage {
       email: formPlace.email,
       features: formPlace.features,
       types: formPlace.types,
+      site: formPlace.site,
       hashTags: formPlace.hashTags.split(','),
       days: {
         1: {start: formPlace.days[1].start, end: formPlace.days[1].end},

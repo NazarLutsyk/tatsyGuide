@@ -118,10 +118,11 @@ export class SingleDrinkApplicationPage {
       drinkApplication: (<any>this.drinkApp)._id,
     };
     ngForm.form.setValue({comment: ''});
-    console.log(this.drinkApp.comments.length);
     this.drinkAppCommentService
       .create(comment)
       .subscribe((comment) => {
+        this.skip = 0;
+        this.allLoaded = false;
         this.loadComments()
           .subscribe(comments => {
             this.drinkApp.comments = comments
