@@ -19,6 +19,7 @@ export class Place {
     public id: string = '',
     public phone: string = '',
     public email: string = '',
+    public site: string = '',
     public averagePrice: number = 0,
     public reviews: number = 0,
     public rating: number = 0,

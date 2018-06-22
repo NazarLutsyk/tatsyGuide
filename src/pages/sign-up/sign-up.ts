@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
-import {HomePage} from "../home/home";
 import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
@@ -40,7 +39,7 @@ export class SignUpPage {
       name: this.name, surname: this.surname, email: this.email,
       login: this.login, password: this.password
     }).subscribe(() => {
-      this.app.getRootNav().setRoot(HomePage);
+      this.message = 'Please check your email, and sign in!';
     }, (error) => {
       console.log(error);
     });
