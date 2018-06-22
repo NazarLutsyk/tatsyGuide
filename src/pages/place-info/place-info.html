@@ -36,11 +36,11 @@
   </ion-slides>
 
   <ion-grid>
-    <ion-row *ngIf="principal && principal.roles.indexOf('ADMIN') >= 0" text-center="">
+    <ion-row *ngIf="principal && (isAdmin || isBoss || principal.roles.indexOf('ADMIN') > -1)" text-center="">
       <ion-col>
         <button ion-button class="defaultBackground2" outline full
                 (click)="presentActionSheet()">
-          {{'placeInfo.manage'|translate}}
+          {{'placeInfo.manage'| translate}}
         </button>
       </ion-col>
     </ion-row>

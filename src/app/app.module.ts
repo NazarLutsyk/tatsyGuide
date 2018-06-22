@@ -99,6 +99,7 @@ import {SingleNewsPageModule} from "../pages/single-news/single-news.module";
 import {SingleBonusePageModule} from "../pages/single-bonuse/single-bonuse.module";
 import {SingleEventPageModule} from "../pages/single-event/single-event.module";
 import {PopoverPageModule} from "../pages/popover/popover.module";
+import {TopPlaceApplicationPageModule} from "../pages/top-place-application/top-place-application.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -172,6 +173,7 @@ export function createTranslateLoader(http: HttpClient) {
     SingleBonusePageModule,
     SingleEventPageModule,
     PopoverPageModule,
+    TopPlaceApplicationPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
