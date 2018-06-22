@@ -44,7 +44,7 @@ export class MyApp implements OnInit {
   @ViewChild('myNav')
   navCtrl: NavController;
 
-  rootPage: any = HomePage;
+  rootPage: any /*= HomePage*/;
   placeTypesM = [];
   searchObject = {
     range: {lower: 0, upper: 10000},
@@ -84,15 +84,16 @@ export class MyApp implements OnInit {
           this.globalConfig.globalPosition.latitude = position.coords.latitude;
           this.globalConfig.globalPosition.longitude = position.coords.longitude;
 
-          // if (platform.is("android") || platform.is("ios")) {
-          //   this.globalization.getPreferredLanguage().then(res => {
-          //     this.rootPage = HomePage;
-          //   });
-          // }
+          if (platform.is("android") || platform.is("ios")) {
+            this.globalization.getPreferredLanguage().then(res => {
+              console.log(res);
+              this.rootPage = HomePage;
+            });
+          }
 
 
           this.langService.find({}).subscribe(langs => this.globalConfig.langs = langs);
-
+          this.rootPage = HomePage;
         });
       }
     );

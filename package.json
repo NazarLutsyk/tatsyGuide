@@ -51,6 +51,7 @@
     "com-badrit-base64": "^0.2.0",
     "com-sarriaroman-photoviewer": "^1.1.18",
     "com.synconset.imagepicker": "~2.1.10",
+    "cordova-android": "7.0.0",
     "cordova-android-play-services-gradle-release": "^1.4.2",
     "cordova-browser": "5.0.3",
     "cordova-plugin-camera": "^4.0.3",
@@ -76,7 +77,8 @@
     "rxjs": "5.5.7",
     "sw-toolbox": "3.6.0",
     "xml2js": "^0.4.19",
-    "zone.js": "0.8.20"
+    "zone.js": "0.8.20",
+    "mx.ferreyra.callnumber": "~0.0.2"
   },
   "devDependencies": {
     "@angular/cli": "^6.0.0",
@@ -124,6 +126,8 @@
       "mx.ferreyra.callnumber": {},
       "com-sarriaroman-photoviewer": {}
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

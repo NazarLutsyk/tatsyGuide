@@ -4,6 +4,7 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
 import {HomePage} from "../home/home";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -22,8 +23,11 @@ export class AddAvatarAndPhotosPage {
     private camera: Camera,
     private placeService: PlacesProvider,
     private imagePicker: ImagePicker,
-    private app: App
+    private app: App,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   uploadImage() {
