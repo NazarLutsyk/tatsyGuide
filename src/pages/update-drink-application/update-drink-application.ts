@@ -4,6 +4,7 @@ import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
 import {NgForm} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
@@ -19,10 +20,10 @@ export class UpdateDrinkApplicationPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private drinkAppService: DrinkApplicationProvider,
-    private translate : TranslateService
+    private translate : TranslateService,private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

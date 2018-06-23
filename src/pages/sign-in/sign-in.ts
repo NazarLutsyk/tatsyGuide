@@ -30,10 +30,11 @@ export class SignInPage {
     private app: App,
     private events: Events,
     private auth: AuthProvider,
-    private translate : TranslateService
+    private translate : TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
 
     fb.getLoginStatus()
       .then(res => {

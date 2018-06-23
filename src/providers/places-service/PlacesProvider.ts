@@ -44,13 +44,13 @@ export class PlacesProvider {
   }
 
 
-  findOneWithMultilang(id, langID): Observable<Place> {
-
-    let lang = this.globalConfig.langChooser(langID);
-
-    let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?populate=[{"path":"multilang","match":{"lang" : ${lang} }]`;
-    return this.http.get<Place>(url);
-  }
+  // findOneWithMultilang(id, langID): Observable<Place> {
+  //
+  //   let lang = this.globalConfig.langChooser(langID);
+  //
+  //   let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?populate=[{"path":"multilang","match":{"lang" : ${lang} }]`;
+  //   return this.http.get<Place>(url);
+  // }
 
   findOne(id: any, request) {
     let url = this.globalConfig.getGlobalHost() + `/api/places/${id}?`;

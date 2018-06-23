@@ -55,10 +55,11 @@ export class MyPlacesPage {
     private departmentService: DepartmentProvider,
     private loadingCtrl: LoadingController,
     private translate: TranslateService,
-    private alert: AlertController
+    private alert: AlertController,
+    private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
     this.globalHost = globalVars.getGlobalHost();
   }
 

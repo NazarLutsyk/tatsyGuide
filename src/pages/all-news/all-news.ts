@@ -33,10 +33,11 @@ export class AllNewsPage {
     private app: App,
     private auth: AuthProvider,
     public modal: ModalController,
-    private translate : TranslateService
+    private translate : TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AlertController} from "ionic-angular";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @Component({
   selector: 'rating',
@@ -16,9 +17,9 @@ export class RatingComponent {
   @Output() onUpdateRating = new EventEmitter();
 
   constructor(private translate: TranslateService,
-              private alert: AlertController) {
+              private alert: AlertController,private globalConfig : GlobalConfigsService) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   removeRating(rating, event) {

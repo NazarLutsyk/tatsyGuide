@@ -30,7 +30,7 @@ export class PlaceTypesPage {
   ) {
 
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

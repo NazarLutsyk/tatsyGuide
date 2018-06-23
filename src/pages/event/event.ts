@@ -49,10 +49,11 @@ export class EventPage {
     private departmentService: DepartmentProvider,
     public modal: ModalController,
     private globalEvents: Events,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

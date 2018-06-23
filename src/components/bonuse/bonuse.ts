@@ -1,12 +1,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AlertController} from "ionic-angular";
 import {TranslateService} from "@ngx-translate/core";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @Component({
   selector: 'bonuse',
   templateUrl: 'bonuse.html'
 })
 export class BonuseComponent {
+  // asddsad
 
   @Input() bonuse;
   @Input() pm;
@@ -17,9 +19,9 @@ export class BonuseComponent {
   @Output() onUpdatePromo = new EventEmitter();
 
   constructor(private alert: AlertController,
-              private translate: TranslateService) {
+              private translate: TranslateService, private globalConfig: GlobalConfigsService) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   removePromo(bonuse, $event) {

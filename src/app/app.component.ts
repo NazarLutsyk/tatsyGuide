@@ -85,6 +85,7 @@ export class MyApp implements OnInit {
 
           if (platform.is("android") || platform.is("ios")) {
             this.globalization.getPreferredLanguage().then(res => {
+              // console.log(!!res);
 
               if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
                 this.globalConfig.deviceLang = "ua";
@@ -92,14 +93,19 @@ export class MyApp implements OnInit {
                 this.globalConfig.deviceLang = "en";
               }
               this.translate.setDefaultLang("en");
-              this.translate.use("ua");
+              this.translate.use(this.globalConfig.deviceLang);
               this.rootPage = HomePage;
 
             });
           }
 
 
-          this.langService.find({}).subscribe(langs => this.globalConfig.langs = langs);
+          this.langService.find({}).subscribe(langs => {
+              this.globalConfig.langs = langs;
+              console.log('langs - ', langs);
+            }
+          );
+
           this.rootPage = HomePage;
         });
       }

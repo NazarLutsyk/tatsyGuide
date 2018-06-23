@@ -14,10 +14,13 @@ export class GlobalConfigsService {
     private platform: Platform,
   ) {
     if (platform.is("android")) {
+      // this.globalHost = 'http://localhost:3000';
       this.globalHost = 'http://192.168.1.25:3000';
+      // this.globalHost = 'http://192.168.1.14:3000';
     } else {
       this.globalHost = 'http://localhost:3000';
     }
+    console.log(this.globalHost);
   }
 
   getGlobalHost(): string {
@@ -34,16 +37,16 @@ export class GlobalConfigsService {
   }
 
 
-  langChooser(lang) {
-    lang = lang.toLowerCase();
-    if (lang == 'ua') {
-      return "5b1e7e02749f5b3aa072ccf4";
-    } else if (lang == 'en') {
-
-      return "5b1e7e03749f5b3aa072ccf5";
-    }
-
-  }
+  // langChooser(lang) {
+  //   lang = lang.toLowerCase();
+  //   if (lang == 'ua') {
+  //     return "5b1e7e02749f5b3aa072ccf4";
+  //   } else if (lang == 'en') {
+  //
+  //     return "5b1e7e03749f5b3aa072ccf5";
+  //   }
+  //
+  // }
 
 
 }

@@ -4,6 +4,7 @@ import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {ProfilePage} from "../profile/profile";
 import {TranslateService} from "@ngx-translate/core";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
@@ -26,10 +27,11 @@ export class ClientsPage {
     private clientService: ClientProvider,
     private menuController: MenuController,
     private events: Events,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

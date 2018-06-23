@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AlertController} from "ionic-angular";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @Component({
   selector: 'drink-application',
@@ -16,9 +17,9 @@ export class DrinkApplicationComponent {
   @Output() onRemoveDrinkApplication = new EventEmitter();
   @Output() onUpdateDrinkApplication = new EventEmitter();
 
-  constructor(private translate: TranslateService, private alert: AlertController) {
+  constructor(private translate: TranslateService, private alert: AlertController,private globalConfig : GlobalConfigsService) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   openDrinkApplication(drinkApp) {

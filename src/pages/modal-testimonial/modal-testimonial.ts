@@ -3,6 +3,7 @@ import {Events, IonicPage, NavController, NavParams, ViewController} from 'ionic
 import {Rating} from "../../models/rating/Rating";
 import {RatingProvider} from "../../providers/rating/rating-provider";
 import {TranslateService} from "@ngx-translate/core";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 
 @IonicPage()
@@ -21,10 +22,11 @@ export class ModalTestimonialPage {
               public viewController: ViewController,
               private ratingService: RatingProvider,
               private translate: TranslateService,
-              private events: Events
+              private events: Events,
+              private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
   }
 
   logForm() {

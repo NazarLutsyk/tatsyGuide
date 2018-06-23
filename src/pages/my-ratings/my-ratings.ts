@@ -32,10 +32,11 @@ export class MyRatingsPage {
     private modal: ModalController,
     private auth: AuthProvider,
     private app: App,
-    private translate : TranslateService
+    private translate : TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
     this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    this.translate.use(this.globalConfig.deviceLang);
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.loadRatings().subscribe(ratings => this.ratings = ratings);
