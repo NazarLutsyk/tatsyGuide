@@ -6,6 +6,7 @@ import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {BonuseMultilangProvider} from "../../providers/bonuse-multilang/bonuse-multilang";
 import {AuthProvider} from "../../providers/auth/auth";
 import {NgForm} from "@angular/forms";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -25,8 +26,11 @@ export class CreateBonusePage {
     private bonuseMultilangService: BonuseMultilangProvider,
     private globalConfig: GlobalConfigsService,
     private auth: AuthProvider,
-    private events: Events
+    private events: Events,
+    private translate : TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

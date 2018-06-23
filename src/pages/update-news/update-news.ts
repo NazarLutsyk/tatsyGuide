@@ -10,6 +10,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
 import {Camera, CameraOptions} from "@ionic-native/camera";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -35,7 +36,10 @@ export class UpdateNewsPage {
     private auth: AuthProvider,
     private globalConfig: GlobalConfigsService,
     private camera: Camera,
+    private translate: TranslateService
   ) {
+    this.translate.setDefaultLang("en");
+    this.translate.use("ua");
   }
 
   ngOnInit() {

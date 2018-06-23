@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>all-places-statistic</ion-title>
+    <ion-title>{{'allPlaceStatistics.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,13 +8,17 @@
   <form #searchForm="ngForm" (ngSubmit)="getStat(searchForm)">
     <ion-item>
 
-      <ion-datetime ngModel name="start" placeholder="start"></ion-datetime>
+      <ion-datetime ngModel name="start" placeholder="{{'allPlaceStatistics.start' | translate}}">
+
+      </ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-datetime ngModel name="end" placeholder="end"></ion-datetime>
+      <ion-datetime ngModel name="end" placeholder="{{'allPlaceStatistics.end' | translate}}">
+
+      </ion-datetime>
     </ion-item>
     <ion-item>
-      <button ion-button full class="defaultBackground">Search</button>
+      <button ion-button full class="defaultBackground">{{'allPlaceStatistics.search' | translate}}</button>
     </ion-item>
   </form>
 
