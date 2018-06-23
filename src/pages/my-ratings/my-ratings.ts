@@ -35,8 +35,8 @@ export class MyRatingsPage {
     private translate : TranslateService,
     private globalConfig : GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.loadRatings().subscribe(ratings => this.ratings = ratings);

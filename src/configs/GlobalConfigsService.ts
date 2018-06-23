@@ -14,9 +14,9 @@ export class GlobalConfigsService {
     private platform: Platform,
   ) {
     if (platform.is("android")) {
+      this.globalHost = 'http://192.168.0.4:3000';
+      // this.globalHost = 'http://192.168.1.25:3000';
       // this.globalHost = 'http://localhost:3000';
-      this.globalHost = 'http://192.168.1.25:3000';
-      // this.globalHost = 'http://192.168.1.14:3000';
     } else {
       this.globalHost = 'http://localhost:3000';
     }
@@ -28,12 +28,7 @@ export class GlobalConfigsService {
   }
 
   getGlobalLang() {
-    // if (this.globalLang.includes('ru') || this.globalLang.includes('RU') || this.globalLang.includes('ua') || this.globalLang.includes('UA')) {
-    //   return "5b1e7e02749f5b3aa072ccf4";
-    // } else if (this.globalLang.includes('en') || this.globalLang.includes('EN')) {
-    //   return "5b1e7e02749f5b3aa072ccf4"
-    // }
-    return "5b1e7e03749f5b3aa072ccf5";
+    return this.deviceLang == 'ua' ? "5b1e7e02749f5b3aa072ccf4" : '5b1e7e03749f5b3aa072ccf5'
   }
 
 

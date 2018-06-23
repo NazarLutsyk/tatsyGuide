@@ -25,8 +25,8 @@ export class ModalTestimonialPage {
               private events: Events,
               private globalConfig : GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   logForm() {

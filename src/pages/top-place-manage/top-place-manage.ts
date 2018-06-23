@@ -32,8 +32,8 @@ export class TopPlaceManagePage {
     private globalConfig : GlobalConfigsService
   ) {
 
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

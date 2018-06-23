@@ -25,8 +25,8 @@ export class UpdatePlaceDepartmentsPage {
     private events: Events,
     private alert: AlertController
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.setDefaultLang("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.setDefaultLang("ua");
   }
 
   ngOnInit() {

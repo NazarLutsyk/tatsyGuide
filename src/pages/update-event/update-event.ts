@@ -38,8 +38,8 @@ export class UpdateEventPage {
     private camera: Camera,
     private translate: TranslateService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

@@ -62,12 +62,14 @@ export class PlaceInfoPage {
     public translate: TranslateService,
     private callNumber: CallNumber,
     public actionSheetCtrl: ActionSheetController,
-    private photoViewer: PhotoViewer
+    private photoViewer: PhotoViewer,
+    private globalConfig: GlobalConfigsService
   ) {
 
-    translate.setDefaultLang('en');
-    translate.use('ua');
+    // translate.setDefaultLang('en');
+    translate.use(this.globalConfig.deviceLang);
 
+    console.log(this.translate.currentLang);
 
   }
 

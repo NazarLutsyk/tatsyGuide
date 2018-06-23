@@ -46,8 +46,8 @@ export class MyFavoritePlacesPage {
     private globalConfig : GlobalConfigsService
   ) {
     this.globalHost = globalVars.getGlobalHost();
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

@@ -7,6 +7,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {ModalController} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {PopoverPage} from "../popover/popover";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @Component({
   selector: 'page-home',
@@ -23,11 +24,13 @@ export class HomePage implements OnInit {
   constructor(
     translate: TranslateService,
     public modal: ModalController,
-    public storage: Storage
+    public storage: Storage,
+    // private globalConfig: GlobalConfigsService
   ) {
-    translate.setDefaultLang('ua');
 
-    translate.use('en');
+    // translate.setDefaultLang('en');
+    //
+    // translate.use(globalConfig.deviceLang);
   }
 
   ngOnInit(): void {

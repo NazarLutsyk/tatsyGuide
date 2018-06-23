@@ -7,6 +7,11 @@
   </ion-header>
   <ion-content>
     <ion-list>
+      <ion-item>
+        <ion-label>{{'switchLang' | translate}}</ion-label>
+        <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()" ></ion-toggle>
+
+      </ion-item>
       <ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0">
         <span (click)="goToPlaceTypesPage()">{{'sideMenu.leftMenu.managePlaceType' | translate}}</span>
       </ion-item>
@@ -145,11 +150,14 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6>
-            <button ion-button class="buttonUpdate" [outline]="true" type="submit" full (click)="show(searchObject)">Search
+            <button ion-button class="buttonUpdate" [outline]="true" type="submit" full (click)="show(searchObject)">
+              Search
             </button>
           </ion-col>
           <ion-col col-6>
-            <button ion-button type="button" class="buttonDelete" [outline]="true" full (click)="reset(filterForm)">Reset</button>
+            <button ion-button type="button" class="buttonDelete" [outline]="true" full (click)="reset(filterForm)">
+              Reset
+            </button>
           </ion-col>
         </ion-row>
       </ion-grid>

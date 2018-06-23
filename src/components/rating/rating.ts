@@ -18,8 +18,8 @@ export class RatingComponent {
 
   constructor(private translate: TranslateService,
               private alert: AlertController,private globalConfig : GlobalConfigsService) {
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   removeRating(rating, event) {

@@ -23,8 +23,8 @@ export class ModalChooseLangPage {
     private globalConfig: GlobalConfigsService,
     public translate: TranslateService
 ) {
-  this.translate.setDefaultLang("en");
-  this.translate.use(this.globalConfig.deviceLang);
+  // this.translate.setDefaultLang("en");
+  // this.translate.use(this.globalConfig.deviceLang);
 }
 
   ngOnInit() {
@@ -36,6 +36,8 @@ export class ModalChooseLangPage {
 
   goToUpdate(lang) {
     let data = this.navParams.data;
+    console.log(lang);
+    console.log(data);
     this.viewController.dismiss();
     this.lang = lang;
     this.app.getRootNav().push(data.page, {object: data.object, choosenLang: this.lang});

@@ -31,8 +31,8 @@ export class PurgatoryPlacesPage {
     private placeMultilangService: PlaceMultilangProvider,
     private translate : TranslateService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

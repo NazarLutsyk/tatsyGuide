@@ -1,12 +1,11 @@
 {
   "placeInfo": {
-    "xxx": "helloxxx",
-    "complaint": "complaint",
+    "complaint": "Complaint",
     "contactToManager": "Contact to manager",
-    "reviews": "Reviews",
-    "rating": "Rating",
-    "category": "Category",
-    "info": "Information",
+    "reviews": "reviews",
+    "rating": "rating",
+    "category": "Specials",
+    "info": "Info",
     "descr": "Description",
     "tags": "Tags",
     "avgPrice": "Average bill",
@@ -17,14 +16,362 @@
     "news": "news",
     "map": "map",
     "testimonials": "testimonials",
+    "stat": "stats",
     "parking": "parking",
     "karaoke": "karaoke",
     "vipRoom": "vip room",
     "manage": "Manage place",
-    "updatePlace": "Update place",
-    "addToTop": "Move place to top",
-    "manageAdmins": "Manage admins",
+    "updatePlace": "update",
+    "addToTop": "Rise place",
+    "manageAdmins": "Change manager",
     "deletePlace": "Delete place",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "deleteTitle": "Confirm delete",
+    "deleteMessage": "Are you sure?",
+    "delete": "Delete",
+    "currency": "uah"
+  },
+  "modalChooseLang": {
+    "message": "Choose language"
+  },
+  "sideMenu": {
+    "titleLeft": "Menu",
+    "titleRight": "Choose filter",
+    "filters": {
+      "noSort": "No sort",
+      "rating": "By rating",
+      "avg": "By average bill",
+      "abc": "By name",
+      "location": "By location",
+      "asc": "Ascending",
+      "desc": "Descending",
+      "type": "Place type",
+      "choose": "All place types",
+      "range": "Average bill (from...to)",
+      "wifi": "wi-fi",
+      "city": "Place",
+      "chooseCity": "Choose place"
+    },
+    "leftMenu": {
+      "stat": "Statistic",
+      "managePlaceType": "Place types ",
+      "manageTopPlace": "TOP places",
+      "purgatory": "Approval of new places ",
+      "clients": "All clients",
+      "events": "All events",
+      "bonuses": "All bonuses",
+      "myProfile": "My profile",
+      "myPlaces": "My places",
+      "favPlaces": "Favorite places",
+      "myTestimonials": "My testimonials",
+      "createPlace": "Add place",
+      "logout": "LogOut",
+      "login": "LogIn"
+    }
+  },
+  "testimonials": {
+    "add": "Add testimonial"
+  },
+  "signUp": {
+    "signUp": "Sign Up"
+  },
+  "login": {
+    "signIn": "sign In",
+    "signUp": "Registration"
+  },
+  "signIn": {
+    "enter": "Enter",
+    "message": "Wrong login or password",
+    "enterWithFB": "LogIn via Facebook",
+    "enterWithG": "LogIn via Google"
+  },
+  "placeholder": {
+    "name": "Name",
+    "surname": "Surname",
+    "email": "email",
+    "login": "login",
+    "password": "password"
+  },
+  "placeType": {
+    "title": "Place types ",
+    "create": "Create place type",
+    "updateType": "Change place type"
+  },
+  "updatePlace": {
+    "title": "Update place",
+    "changeAvatar": "Change avatar (300*300px)",
+    "removeImage": "Delete image",
+    "addImage": "Add image",
+    "placeName": "Place name",
+    "description": "Place description",
+    "city": "Place",
+    "street": "Street",
+    "number": "House number",
+    "topcategories": "Specials",
+    "allowed": "Allowed",
+    "yes": "Yes",
+    "no": "No",
+    "tags": "Tags (coma separated)",
+    "phone": "Phone",
+    "email": "email",
+    "location": "Choose location",
+    "features": "Features",
+    "wifi": "wi-fi",
+    "karaoke": "Karaoke",
+    "parking": "Parking",
+    "vipRoom": "VIP room",
+    "placeTypes": "Place type",
+    "workTime": "Work time",
+    "from": "from",
+    "to": "to",
+    "save": "Save",
+    "choosePlace": "Choose place",
+    "lviv": "Lviv",
+    "kyiv": "Kyiv",
+    "odesa": "Odesa",
+    "kharkiv": "Kharkiv"
+  },
+  "createTopPlace": {
+    "title": "Add place to TOP",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "sum": "Sum",
+    "actual": "Actuality",
+    "yes": "Yes",
+    "no": "No",
+    "save": "Save"
+  },
+  "updatePlaceDepartments": {
+    "client": "User",
+    "role": "Role",
+    "title": "Managers",
+    "save": "save",
+    "delete": "Delete",
+    "details": "Details",
+    "add": "Add new manager",
+    "managers": "Current managers"
+  },
+  "alert": {
+    "message": "Message",
+    "email": "Your email"
+  },
+  "drinker": {
+    "title": "Applications",
+    "create": "Create application",
+    "who": "Who",
+    "when": "When",
+    "where": "Where",
+    "budget": "Budget",
+    "currency": "uah.",
+    "friends": "Alone or company?",
+    "goal": "Goal",
+    "comment": "Comment",
+    "send": "Leave comment",
+    "update": "Change",
+    "remove": "Delete"
+  },
+  "alert": {
+    "confirm": "Confirm",
     "cancel": "Cancel"
+  },
+  "purgatory": {
+    "title": "Purgatory"
+  },
+  "clients": {
+    "title": "Users list"
+  },
+  "profile": {
+    "title": "My profile",
+    "name": "Name",
+    "surname": "Surname",
+    "phone": "Phone",
+    "email": "email",
+    "city": "Place",
+    "update": "save",
+    "remove": "Delete"
+  },
+  "allEvents": {
+    "title": "All events",
+    "create": "Create event"
+  },
+  "allBonuses": {
+    "title": "All events",
+    "create": "Create bonus",
+    "conditions": "Condition of bonus"
+  },
+  "myPlaces": {
+    "title": "My places"
+  },
+  "myFavPlaces": {
+    "title": "My favorite places"
+  },
+  "myRatings": {
+    "title": "My testimonials"
+  },
+  "createPlace": {
+    "title": "Create place",
+    "chooseLocation": "Choose location",
+    "placeName": "Place name",
+    "description": "Place description",
+    "city": "Place",
+    "chooseCity": "Choose place",
+    "lviv": "Lviv",
+    "kyiv": "Kyiv",
+    "kharkiv": "Kharkiv",
+    "odesa": "Odesa",
+    "street": "Street",
+    "number": "House number",
+    "phone": "Phone",
+    "email": "email",
+    "tags": "Tags (coma separated)",
+    "site": "Site",
+    "bestFor": "Specials",
+    "allowed": "Allowed",
+    "yes": "Yes",
+    "no": "No",
+    "features": "Features",
+    "wifi": "wi-fi",
+    "karaoke": "karaoke",
+    "parking": "parking",
+    "vipRoom": "VIP room",
+    "placeType": "Place type",
+    "from": "from",
+    "to": "to",
+    "save": "save",
+    "addAvatarAndPhoto": "Add avatar/photo",
+    "selectAvatar": "Choose avatar (300*300px)",
+    "selectPhotos": "Choose photo (6 max)",
+    "upload": "Upload"
+  },
+  "topPlace": {
+    "title": "TOP places",
+    "manage": "Change actuality",
+    "startDate": "Start",
+    "endDate": "End",
+    "sum": "Sum",
+    "actual": "actuality",
+    "yes": "Yes",
+    "no": "No",
+    "update": "Change",
+    "remove": "Delete from TOP"
+  },
+  "updateDrinkApp": {
+    "title": "Change application",
+    "desc": "Description",
+    "goal": "Goal",
+    "budget": "Budget",
+    "date": "Date",
+    "save": "save changes"
+  },
+  "updateProfile": {
+    "title": "Change",
+    "name": "Name",
+    "surname": "Surname",
+    "phone": "Phone",
+    "email": "email",
+    "city": "Place",
+    "update": "save"
+  },
+  "updateEvent": {
+    "title": "Change event",
+    "header": "Header",
+    "desc": "Description",
+    "start": "Start",
+    "end": "End",
+    "update": "Change",
+    "changeAvatar": "Change avatar",
+    "place": "Place",
+    "remove": "Delete"
+  },
+  "news": {
+    "create": "Create news",
+    "title": "News",
+    "header": "Header",
+    "desc": "Description",
+    "startDate": "Start",
+    "endDate": "End",
+    "save": "Change",
+    "remove": "Delete",
+    "place": "Place"
+  },
+  "createBonuse": {
+    "title": "Create bonus",
+    "getAvatar": "Choose avatar",
+    "header": "Header",
+    "desc": "Create bonus",
+    "conditions": "Condition of bonus",
+    "start": "Start",
+    "end": "End",
+    "top": "TOP",
+    "yes": "Yes",
+    "no": "No",
+    "save": "save"
+  },
+  "createEvent": {
+    "title": "Create bonus",
+    "getAvatar": "Choose avatar",
+    "header": "Header",
+    "desc": "Create bonus",
+    "start": "Start",
+    "end": "End",
+    "top": "TOP",
+    "yes": "Yes",
+    "no": "No",
+    "save": "save"
+  },
+  "createNews": {
+    "title": "Create bonus",
+    "getAvatar": "Choose avatar",
+    "header": "Header",
+    "desc": "Create bonus",
+    "start": "Start",
+    "end": "End",
+    "top": "TOP",
+    "yes": "Yes",
+    "no": "No",
+    "save": "save"
+  },
+  "updateBonuse": {
+    "title": "Change bonus",
+    "header": "Header",
+    "desc": "Description",
+    "conditions": "Condition of bonus",
+    "start": "Start",
+    "end": "End",
+    "update": "Change",
+    "changeAvatar": "Change avatar",
+    "place": "Place",
+    "remove": "Delete",
+    "top": "TOP",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "updateNews": {
+    "title": "Change news",
+    "header": "Header",
+    "desc": "Description",
+    "start": "Start",
+    "end": "End",
+    "update": "Change",
+    "getAvatar": "Change avatar",
+    "top": "TOP",
+    "yes": "Yes",
+    "no": "No",
+    "place": "Place",
+    "remove": "Delete"
+  },
+  "allPlaceStatistics": {
+    "title": "Change news",
+    "search": "Search",
+    "start": "Start",
+    "end": "End"
+  },
+  "switchLang": "English",
+  "tab":{
+    "home":"Home",
+    "top": "TOP",
+    "news" : "News",
+    "drinker" :"Drinker"
   }
 }

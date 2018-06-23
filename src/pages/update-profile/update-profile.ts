@@ -23,8 +23,8 @@ export class UpdateProfilePage {
     private translate : TranslateService,
     private globalConfig : GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
     this.client = this.navParams.data.client;
     this.clientId = (<any>this.client)._id;
   }

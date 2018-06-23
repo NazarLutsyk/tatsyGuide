@@ -28,8 +28,8 @@ export class AddAvatarAndPhotosPage {
     private translate: TranslateService,
     private globalConfig : GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use(this.globalConfig.deviceLang);
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   uploadImage() {

@@ -43,8 +43,8 @@ export class MyApp implements OnInit {
 
   @ViewChild('myNav')
   navCtrl: NavController;
-
-  rootPage: any /*= HomePage*/;
+  rootPage: any;
+  languageSwitcher: boolean = true;
   placeTypesM = [];
   searchObject = {
     range: {lower: 0, upper: 10000},
@@ -74,43 +74,37 @@ export class MyApp implements OnInit {
               private google: GooglePlus
   ) {
 
+
+    if (platform.is("android") || platform.is("ios")) {
+      this.globalization.getPreferredLanguage().then(res => {
+
+        if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
+          this.globalConfig.deviceLang = "ua";
+          this.languageSwitcher = true;
+        } else {
+          this.globalConfig.deviceLang = "en";
+        }
+        this.translate.setDefaultLang("en");
+        this.translate.use(this.globalConfig.deviceLang);
+      });
+    }
+
     platform
       .ready().then(() => {
+        console.log('platform ready');
         statusBar.styleDefault();
         splashScreen.hide();
 
         this.geolocation.getCurrentPosition().then((position) => {
           this.globalConfig.globalPosition.latitude = position.coords.latitude;
           this.globalConfig.globalPosition.longitude = position.coords.longitude;
-
-          if (platform.is("android") || platform.is("ios")) {
-            this.globalization.getPreferredLanguage().then(res => {
-              // console.log(!!res);
-
-              if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
-                this.globalConfig.deviceLang = "ua";
-              } else {
-                this.globalConfig.deviceLang = "en";
-              }
-              this.translate.setDefaultLang("en");
-              this.translate.use(this.globalConfig.deviceLang);
-              this.rootPage = HomePage;
-
-            });
-          }
-
-
-          this.langService.find({}).subscribe(langs => {
-              this.globalConfig.langs = langs;
-              console.log('langs - ', langs);
-            }
-          );
-
           this.rootPage = HomePage;
         });
       }
     );
 
+    // this.translate.setDefaultLang("en");
+    // this.translate.use("ua");
 
   }
 
@@ -231,6 +225,13 @@ export class MyApp implements OnInit {
   goToPlaceTypesPage() {
     this.menuController.close();
     this.navCtrl.push(PlaceTypesPage);
+  }
+
+
+  switchLang() {
+    this.globalConfig.deviceLang = this.languageSwitcher ? "ua" : "en";
+    this.translate.use(this.globalConfig.deviceLang);
+
   }
 }
 
