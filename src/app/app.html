@@ -9,7 +9,7 @@
     <ion-list>
       <ion-item>
         <ion-label>{{'switchLang' | translate}}</ion-label>
-        <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()" ></ion-toggle>
+        <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()"></ion-toggle>
 
       </ion-item>
       <ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0">
@@ -110,9 +110,9 @@
     <ion-item>
       <ion-label>{{'sideMenu.filters.type' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
-        <ion-option value="">
-          {{'sideMenu.filters.choose' | translate}}
-        </ion-option>
+        <!--<ion-option value="" >-->
+          <!--{{'filters.choose' | translate}}-->
+        <!--</ion-option>-->
         <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">
           {{placeTypeM.name}}
         </ion-option>
@@ -122,9 +122,9 @@
     <ion-item>
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.city">
-        <ion-option value="">
-          {{'sideMenu.filters.chooseCity' | translate}}
-        </ion-option>
+        <!--<ion-option value="">-->
+          <!--{{'filters.chooseCity' | translate}}-->
+        <!--</ion-option>-->
         <ion-option value="{{'createPlace.lviv' | translate}}">
           {{'createPlace.lviv' | translate}}
         </ion-option>

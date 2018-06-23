@@ -54,19 +54,19 @@
         </ion-item>
       </ion-list>
       <ion-list ngModelGroup="address">
-        <ion-label>
-          {{'updatePlace.city' | translate}}
-        </ion-label>
+        <!--<ion-label>-->
+        <!--{{'updatePlace.city' | translate}}-->
+        <!--</ion-label>-->
         <ion-item>
           <ion-label [ngStyle]="{'color': (city.invalid && city.touched) ? 'red' : ''}">
             <!--Місто-->
           </ion-label>
-          <ion-select
-            interface="popover"
-            [(ngModel)]="placeMultilang.address.city"
-            name="city"
-            #city="ngModel"
-            required
+          <ion-select placeholder="{{'updatePlace.city' | translate}}"
+                      interface="popover"
+                      [(ngModel)]="placeMultilang.address.city"
+                      name="city"
+                      #city="ngModel"
+                      required
           >
             <ion-option value="">
               {{'updatePlace.choosePlace' | translate}}

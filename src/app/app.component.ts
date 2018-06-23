@@ -75,31 +75,30 @@ export class MyApp implements OnInit {
   ) {
 
 
-    if (platform.is("android") || platform.is("ios")) {
-      this.globalization.getPreferredLanguage().then(res => {
-
-        if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
-          this.globalConfig.deviceLang = "ua";
-          this.languageSwitcher = true;
-        } else {
-          this.globalConfig.deviceLang = "en";
-        }
-        this.translate.setDefaultLang("en");
-        this.translate.use(this.globalConfig.deviceLang);
-      });
-    }
-
     platform
       .ready().then(() => {
         console.log('platform ready');
         statusBar.styleDefault();
         splashScreen.hide();
+        if (platform.is("android") || platform.is("ios")) {
+          this.globalization.getPreferredLanguage().then(res => {
+            if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
+              this.globalConfig.deviceLang = "ua";
+              console.log("i am here");
+              this.languageSwitcher = true;
+            } else {
+              this.globalConfig.deviceLang = "en";
+            }
+            this.geolocation.getCurrentPosition().then((position) => {
+              this.globalConfig.globalPosition.latitude = position.coords.latitude;
+              this.globalConfig.globalPosition.longitude = position.coords.longitude;
+              this.rootPage = HomePage;
+            });
+            console.log(this.globalConfig.getGlobalLang());
+            this.translate.use(this.globalConfig.deviceLang);
+          });
+        }
 
-        this.geolocation.getCurrentPosition().then((position) => {
-          this.globalConfig.globalPosition.latitude = position.coords.latitude;
-          this.globalConfig.globalPosition.longitude = position.coords.longitude;
-          this.rootPage = HomePage;
-        });
       }
     );
 

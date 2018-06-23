@@ -8,7 +8,7 @@ export class GlobalConfigsService {
   public globalLang = '5b1e7e02749f5b3aa072ccf4';
   public globalPosition = {latitude: 0, longitude: 0};
 
-  public deviceLang = "en";
+  public deviceLang /*= "ua"*/;
 
   constructor(
     private platform: Platform,

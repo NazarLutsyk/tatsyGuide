@@ -70,6 +70,7 @@ export class PlacesProvider {
     for (const key in request) {
       url += `${key}=${JSON.stringify(request[key])}&`;
     }
+    console.log(url);
     return this.http.get<any[]>(url).map((places) => {
       for (const place of places) {
         if (place.location) {
