@@ -78,16 +78,23 @@ export class MyApp implements OnInit {
       .ready().then(() => {
         statusBar.styleDefault();
         splashScreen.hide();
-        this.translate.setDefaultLang("en");
-        this.translate.use("ua");
+
         this.geolocation.getCurrentPosition().then((position) => {
           this.globalConfig.globalPosition.latitude = position.coords.latitude;
           this.globalConfig.globalPosition.longitude = position.coords.longitude;
 
           if (platform.is("android") || platform.is("ios")) {
             this.globalization.getPreferredLanguage().then(res => {
-              console.log(res);
+
+              if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
+                this.globalConfig.deviceLang = "ua";
+              } else {
+                this.globalConfig.deviceLang = "en";
+              }
+              this.translate.setDefaultLang("en");
+              this.translate.use("ua");
               this.rootPage = HomePage;
+
             });
           }
 

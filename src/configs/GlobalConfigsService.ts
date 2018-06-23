@@ -8,16 +8,15 @@ export class GlobalConfigsService {
   public globalLang = '5b1e7e02749f5b3aa072ccf4';
   public globalPosition = {latitude: 0, longitude: 0};
 
+  public deviceLang = "en";
+
   constructor(
     private platform: Platform,
   ) {
     if (platform.is("android")) {
       this.globalHost = 'http://192.168.1.25:3000';
-      // this.globalHost = 'http://localhost:3000';
-      // this.globalHost = 'http://ec2-18-185-28-247.eu-central-1.compute.amazonaws.com';
     } else {
       this.globalHost = 'http://localhost:3000';
-      // this.globalHost = 'http://ec2-18-185-28-247.eu-central-1.compute.amazonaws.com';
     }
   }
 
