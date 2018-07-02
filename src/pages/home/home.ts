@@ -35,8 +35,6 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.storage.get('initialpopover').then((show) => {
-      console.log('storage get')
-      console.log(show)
       if (show || show === null) {
         let modalPage = this.modal.create(
           PopoverPage,
