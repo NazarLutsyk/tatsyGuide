@@ -18,9 +18,9 @@ export class PopoverPage {
   }
 
   close(showNextTime) {
-    this.storage.set('initialpopover', showNextTime);
-    this.viewCtrl.dismiss();
-    this.storage.clear();
+    this.storage.set('initialpopover', showNextTime).then(() => {
+      this.viewCtrl.dismiss();
+    });
   }
 
 }

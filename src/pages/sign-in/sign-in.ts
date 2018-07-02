@@ -75,15 +75,17 @@ export class SignInPage {
           // this.getUserDetail(res.authResponse.userID);
           this.fb.getAccessToken().then(token => {
             console.log(token);
-            this.auth.loginByFacebook(token).subscribe(value => console.log(value));
-
+            this.auth.loginByFacebook(token).subscribe(value => {
+              console.log('response login by facebook')
+              console.log(value)
+              this.app.getRootNav().setRoot(HomePage);
+            });
           })
-
         } else {
           this.isFacebookLoggedIn = false;
         }
 
-        this.navCtrl.goToRoot({});
+        // this.navCtrl.goToRoot({});
       })
       .catch(e => console.log('Error logging into Facebook', e));
   }
@@ -153,10 +155,11 @@ export class SignInPage {
         // });
 
         this.auth.loginByGoolge(res.accessToken).subscribe(value => {
+          console.log('response login by google')
           console.log(value)
-
+          this.app.getRootNav().setRoot(HomePage);
         });
-        this.navCtrl.goToRoot({});
+        // this.navCtrl.goToRoot({});
 
       })
       .catch(err => console.error(err));

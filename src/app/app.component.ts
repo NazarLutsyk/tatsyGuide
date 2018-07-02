@@ -153,6 +153,8 @@ export class MyApp implements OnInit {
 
 
   logout() {
+    console.log('logout')
+    console.log(this.principal)
     if (this.principal.facebookId) {
       console.log("FB");
       this.fb.logout().then(value => {
@@ -160,20 +162,28 @@ export class MyApp implements OnInit {
         this.logoutServer();
       }).catch(reason => {
         console.log(reason);
+        this.logoutServer();
       });
     } else if (this.principal.googleId) {
       console.log("GOOGLE+");
       this.google.logout().then(value => {
+        console.log('google value')
         console.log(value);
         this.logoutServer();
       }).catch(reason => {
+        console.log('google error');
         console.log(reason);
+        this.logoutServer();
       });
+    } else {
+      this.logoutServer();
     }
   }
 
   logoutServer() {
+    console.log('logout start')
     this.auth.logOut().subscribe(() => {
+      console.log('logout end')
       this.principal = null;
       this.menuController.close();
       this.navCtrl.goToRoot({});
