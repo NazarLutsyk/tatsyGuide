@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>top-place-update</ion-title>
+    <ion-title>{{'topPlace.title'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -11,7 +11,7 @@
   <form #topPlaceForm="ngForm" (ngSubmit)="updateTopPlace(topPlaceForm)">
     <ion-item>
       <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
-        Start date
+        {{'topPlace.startDate'|translate}}
       </ion-label>
       <ion-datetime
         [(ngModel)]="topPlace.startDate"
@@ -22,7 +22,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
-        End date
+        {{'topPlace.endDate'|translate}}
       </ion-label>
       <ion-datetime
         [(ngModel)]="topPlace.endDate"
@@ -33,7 +33,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (price.invalid && price.touched) ? 'red' : ''}">
-        Price
+        {{'topPlace.sum'|translate}}
       </ion-label>
       <ion-input
         [(ngModel)]="topPlace.price"
@@ -44,7 +44,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (actual.invalid && actual.touched) ? 'red' : ''}">
-        Actual
+        {{'topPlace.actual'|translate}}
       </ion-label>
       <ion-select
         [(ngModel)]="topPlace.actual"
@@ -52,17 +52,18 @@
         #actual="ngModel"
         required
       >
-        <ion-option value="true">TRUE</ion-option>
-        <ion-option value="false">FALSE</ion-option>
+        <ion-option value="true"> {{'topPlace.yes'|translate}}</ion-option>
+        <ion-option value="false"> {{'topPlace.no'|translate}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <button
-        ion-button
-        full
-        class="defaultBackground"
-        [disabled]="!topPlaceForm.valid"
-      >Update</button>
-    </ion-item>
+
+    <button
+      ion-button
+      full
+      class="defaultBackground"
+      [disabled]="!topPlaceForm.valid"
+    >   {{'topPlace.actual'|translate}}
+    </button>
+
   </form>
 </ion-content>

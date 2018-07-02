@@ -4,7 +4,7 @@
 
     <ion-title (click)="pop()">
       <ion-icon name="arrow-round-back"></ion-icon>
-      modal-choose-lang
+      {{'modalChooseLang.message' | translate}}
     </ion-title>
   </ion-navbar>
 
@@ -21,7 +21,8 @@
   <!--</ion-select>-->
 
   <div *ngFor="let singleLang of langs">
-    <button outline ion-button full class="defaultBackground2" (click)="goToUpdate(singleLang)">{{singleLang.name}}</button>
+    <button outline ion-button full class="defaultBackground2" (click)="goToUpdate(singleLang)">{{singleLang.name}}
+    </button>
   </div>
 
   <!--<button ion-button class="buttonUpdate" (click)="goToUpdate()">-->

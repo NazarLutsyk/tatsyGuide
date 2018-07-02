@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>update-news</ion-title>
+    <ion-title>{{'updateNews.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,11 +12,15 @@
     <div ngModelGroup="multilang">
       <ion-item>
         <ion-img [src]="imageToShow" width="100%" height="200px"></ion-img>
-        <button class="defaultBackground" ion-button type="button" full (click)="setNewImage($event)">Change</button>
+
+
+        <button margin-top="25px" margin-bottom="25px" ion-button type="button"
+                full [outline]="true" class="buttonUpdate"
+                (click)="setNewImage($event)">{{'updateNews.getAvatar'|translate}}</button>
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">
-          Header
+          {{'updateNews.header' | translate}}
         </ion-label>
         <ion-input
           type="text"
@@ -28,7 +32,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (desc.invalid && desc.touched) ? 'red' : ''}">
-          Description
+          {{'updateNews.desc' | translate}}
         </ion-label>
         <ion-input
           type="text"
@@ -42,7 +46,7 @@
     <div ngModelGroup="promo">
       <ion-item>
         <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
-          Start date
+          {{'updateNews.start' | translate}}
         </ion-label>
         <ion-datetime
           type="text"
@@ -54,7 +58,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
-          End date
+          {{'updateNews.end' | translate}}
         </ion-label>
         <ion-datetime
           type="text"
@@ -66,7 +70,7 @@
       </ion-item>
       <ion-item *ngIf="isAdmin">
         <ion-label [ngStyle]="{'color': (topPromo.invalid && topPromo.touched) ? 'red' : ''}">
-          Top
+          {{'updateNews.top' | translate}}
         </ion-label>
         <ion-select
           name="topPromo"
@@ -74,8 +78,8 @@
           #topPromo="ngModel"
           required
         >
-          <ion-option value="true">TRUE</ion-option>
-          <ion-option value="false">FALSE</ion-option>
+          <ion-option value="true">{{'updateNews.yes' | translate}}</ion-option>
+          <ion-option value="false">{{'updateNews.no' | translate}}</ion-option>
         </ion-select>
       </ion-item>
     </div>
@@ -85,6 +89,6 @@
       full
       margin-top
       [disabled]="!updateForm.valid"
-    >Update</button>
+    >{{'updateNews.update' | translate}}</button>
   </form>
 </ion-content>

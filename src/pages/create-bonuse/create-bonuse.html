@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>create-bonuse</ion-title>
+    <ion-title>{{'createBonuse.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,12 +9,14 @@
 
 <ion-content padding>
   <form (ngSubmit)="logForm(bonuseForm)" #bonuseForm="ngForm">
-    <button type="button" ion-button full [outline]="true" class="defaultButton" (click)="getAvatar()">Select avatar
-    </button>
+
     <!--<img [src]="bonuseObject.image" alt="">-->
     <div ngModelGroup="multilang">
       <ion-item>
-        <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">Header</ion-label>
+        <ion-label
+          [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">
+          {{'createBonuse.header' | translate}}
+        </ion-label>
         <ion-input
           ngModel
           name="header"
@@ -24,7 +26,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
-          Description
+          {{'createBonuse.desc' | translate}}
         </ion-label>
         <ion-input
           ngModel
@@ -35,7 +37,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (conditions.invalid && conditions.touched) ? 'red' : ''}">
-          Conditions
+          {{'createBonuse.conditions' | translate}}
         </ion-label>
         <ion-input
           ngModel
@@ -48,7 +50,7 @@
     <div ngModelGroup="bonuse">
       <ion-item>
         <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
-          Start date
+          {{'createBonuse.start' | translate}}
         </ion-label>
         <ion-datetime
           ngModel
@@ -59,7 +61,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
-          End date
+          {{'createBonuse.end' | translate}}
         </ion-label>
         <ion-datetime
           ngModel
@@ -70,7 +72,7 @@
       </ion-item>
       <ion-item *ngIf="isAdmin">
         <ion-label [ngStyle]="{'color': (topPromo.invalid && topPromo.touched) ? 'red' : ''}">
-          Top
+          {{'createBonuse.top' | translate}}
         </ion-label>
         <ion-select
           name="topPromo"
@@ -79,14 +81,26 @@
           required
         >
           <ion-option
-            value="true">TRUE
+            value="true">
+            {{'createBonuse.yes' | translate}}
           </ion-option>
           <ion-option
-            value="false">FALSE
+            value="false">
+            {{'createBonuse.no' | translate}}
           </ion-option>
         </ion-select>
       </ion-item>
     </div>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col col-8 offset-2><button type="button" ion-button full [outline]="true"
+                                        class="defaultButton buttonBorderWidth1px"
+                                        (click)="getAvatar()">
+          {{'createBonuse.getAvatar' | translate}}
+        </button></ion-col>
+      </ion-row>
+    </ion-grid>
     <button
       ion-button
       [disabled]="!bonuseForm.valid"
@@ -94,7 +108,8 @@
       full
       [outline]="true"
       class="defaultBackground2"
-      padding="20px">Add Todo
+      margin-top="20px">
+      {{'createBonuse.save' | translate}}
     </button>
   </form>
 </ion-content>

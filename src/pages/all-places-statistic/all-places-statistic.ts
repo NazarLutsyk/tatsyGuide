@@ -6,6 +6,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 import {Observable} from "rxjs/Observable";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -27,9 +28,12 @@ export class AllPlacesStatisticPage {
     public navParams: NavParams,
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
-    private placeMultilangService: PlaceMultilangProvider
+    private placeMultilangService: PlaceMultilangProvider,
+    private translate : TranslateService
   ) {
     this.globalHost = globalConfig.getGlobalHost();
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>update-place-departments</ion-title>
+    <ion-title>{{'updatePlaceDepartments.title'|translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <form #newAdminForm="ngForm" (ngSubmit)="addAdminToPlace(newAdminForm)">
     <ion-list>
-      <ion-list-header text-center=""><h1>create new client</h1></ion-list-header>
+      <ion-list-header text-center=""><h2>{{'updatePlaceDepartments.add'|translate}}</h2></ion-list-header>
       <ion-item (click)="selectClient()">
         <ion-label [ngStyle]="{'color': (client.invalid && client.touched) ? 'red' : ''}">
           {{'updatePlaceDepartments.client'|translate}}
@@ -38,16 +38,18 @@
     </ion-list>
     <button
       margin-top="20px"
+      margin-bottom="20px"
       ion-button
       full
-      class="defaultBackgroundBrown"
+      [outline]="true"
+      class="buttonUpdate"
       [disabled]="!newAdminForm.valid"
-    >Add
+    >{{'updatePlaceDepartments.save'|translate}}
     </button>
   </form>
 
   <ion-list>
-    <ion-list-header text-center=""><h1>clients</h1></ion-list-header>
+    <ion-list-header text-center=""><h2>{{'updatePlaceDepartments.managers'|translate}}</h2></ion-list-header>
     <ion-item-sliding *ngFor="let department of departments">
 
       <ion-item>
@@ -59,13 +61,13 @@
       </ion-item>
 
       <ion-item-options side="right">
-        <button ion-button [outline]="true" class="deleteButton" (click)="removeDepartment(department,$event)">
+        <button ion-button [outline]="true" class="buttonDelete" (click)="removeDepartment(department,$event)">
           <ion-icon name="trash"></ion-icon>
-          delete
+          {{'updatePlaceDepartments.delete'|translate}}
         </button>
-        <button ion-button [outline]="true" class="defaultButton" (click)="openProfile(department)">
+        <button ion-button [outline]="true" class="buttonUpdate" (click)="openProfile(department)">
           <ion-icon name="arrow-dropright"></ion-icon>
-          more
+          {{'updatePlaceDepartments.details'|translate}}
         </button>
       </ion-item-options>
 

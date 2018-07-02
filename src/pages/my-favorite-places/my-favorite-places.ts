@@ -11,6 +11,7 @@ import {ClientProvider} from "../../providers/client/ClientProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {Observable} from "rxjs/Observable";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -40,9 +41,13 @@ export class MyFavoritePlacesPage {
     private placeMultilangService: PlaceMultilangProvider,
     private events: Events,
     private auth: AuthProvider,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private translate: TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
     this.globalHost = globalVars.getGlobalHost();
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

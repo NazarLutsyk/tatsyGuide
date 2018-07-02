@@ -56,12 +56,16 @@ export class AllPlacesPage {
     private events: Events,
     private auth: AuthProvider,
     private placeMultilangService: PlaceMultilangProvider,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private globalConfig : GlobalConfigsService
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
 
   ngOnInit() {
+
+    console.log('this.globalConfig.deviceLang - ',this.globalConfig.deviceLang );
+    console.log('this.globalConfig.getGlobalLang() - ',this.globalConfig.getGlobalLang() );
     this.eventData = {};
     this.auth.principal.subscribe(principal => this.principal = principal);
     this.auth.loadPrincipal().subscribe();

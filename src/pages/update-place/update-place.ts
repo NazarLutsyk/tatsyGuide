@@ -55,8 +55,8 @@ export class UpdatePlacePage {
     private imagePicker: ImagePicker,
     private translate: TranslateService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
       this.location.lng = data.lng;

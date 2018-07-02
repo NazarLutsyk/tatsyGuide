@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AlertController} from "ionic-angular";
 import {TranslateService} from "@ngx-translate/core";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @Component({
   selector: "news",
@@ -16,9 +17,10 @@ export class NewsComponent {
   @Output() onUpdatePromo = new EventEmitter();
 
   constructor(private alert: AlertController,
-              private translate: TranslateService) {
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+              private translate: TranslateService
+    , private globalConfig: GlobalConfigsService) {
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   removePromo(news, $event) {

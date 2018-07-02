@@ -98,6 +98,7 @@ import {CreatePlaceTypePageModule} from "../pages/create-place-type/create-place
 import {SingleNewsPageModule} from "../pages/single-news/single-news.module";
 import {SingleBonusePageModule} from "../pages/single-bonuse/single-bonuse.module";
 import {SingleEventPageModule} from "../pages/single-event/single-event.module";
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {PopoverPageModule} from "../pages/popover/popover.module";
 import {TopPlaceApplicationPageModule} from "../pages/top-place-application/top-place-application.module";
 
@@ -181,6 +182,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     })
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [],

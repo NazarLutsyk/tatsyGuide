@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>update-drink-application</ion-title>
+    <ion-title>{{'updateDrinkApp.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -13,7 +13,7 @@
   <form (ngSubmit)="updateDrinkApp(form)" #form="ngForm">
     <ion-item>
       <ion-label [ngStyle]="{'color': (friends.invalid && friends.touched) ? 'red' : ''}">
-        Alone/Not alone
+        {{'updateDrinkApp.desc' | translate}} *
       </ion-label>
       <ion-input
         [(ngModel)]="drinkApp.friends"
@@ -24,7 +24,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (goal.invalid && goal.touched) ? 'red' : ''}">
-        Goal
+        {{'updateDrinkApp.goal' | translate}} *
       </ion-label>
       <ion-input
         [(ngModel)]="drinkApp.goal"
@@ -35,7 +35,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (money.invalid && money.touched) ? 'red' : ''}">
-        Money
+        {{'updateDrinkApp.budget' | translate}} *
       </ion-label>
       <ion-input
         [(ngModel)]="drinkApp.budged"
@@ -47,7 +47,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (date.invalid && date.touched) ? 'red' : ''}">
-        Date
+        {{'updateDrinkApp.date' | translate}} *
       </ion-label>
       <ion-datetime
         [(ngModel)]="drinkApp.date"
@@ -57,13 +57,14 @@
       ></ion-datetime>
     </ion-item>
 
-    <button
+    <button margin-top="25px"
       ion-button
       type="submit"
       [full]="true"
+      [outline]="true"
       class="buttonUpdate"
       [disabled]="!form.valid"
-    >Update application
+    >{{'updateDrinkApp.save' | translate}}
     </button>
   </form>
 

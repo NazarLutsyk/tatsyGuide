@@ -33,11 +33,12 @@ export class TestimonialPage {
     private app: App,
     private auth: AuthProvider,
     public translate: TranslateService,
-    private events: Events
+    private events: Events,
+    private globalConfig : GlobalConfigsService
   ) {
 
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

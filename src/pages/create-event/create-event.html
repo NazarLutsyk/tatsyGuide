@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>create-event</ion-title>
+    <ion-title>{{'createEvent.title'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,15 +10,11 @@
 <ion-content padding>
 
   <form (ngSubmit)="logForm(eventForm)" #eventForm="ngForm">
-    <button type="button" ion-button full [outline]="true"
-            class="defaultButton" (click)="getAvatar()">
-      Select avatar
-    </button>
     <!--<img [src]="eventObject.image" alt="">-->
     <div ngModelGroup="multilang">
       <ion-item>
         <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">
-          Header
+          {{'createEvent.header'|translate}}
         </ion-label>
         <ion-input
           ngModel
@@ -29,7 +25,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
-          Description
+          {{'createEvent.desc'|translate}}
         </ion-label>
         <ion-input
           ngModel
@@ -42,7 +38,7 @@
     <div ngModelGroup="event">
       <ion-item>
         <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
-          Start date
+          {{'createEvent.start'|translate}}
         </ion-label>
         <ion-datetime
           ngModel
@@ -53,7 +49,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
-          End date
+          {{'createEvent.end'|translate}}
         </ion-label>
         <ion-datetime
           ngModel
@@ -64,7 +60,7 @@
       </ion-item>
       <ion-item *ngIf="isAdmin">
         <ion-label [ngStyle]="{'color': (topPromo.invalid && topPromo.touched) ? 'red' : ''}">
-          Top
+          {{'createEvent.top'|translate}}
         </ion-label>
         <ion-select
           name="topPromo"
@@ -72,11 +68,25 @@
           #topPromo="ngModel"
           required
         >
-          <ion-option value="true">TRUE</ion-option>
-          <ion-option value="false">FALSE</ion-option>
+          <ion-option value="true">{{'createEvent.yes'|translate}}</ion-option>
+          <ion-option value="false">{{'createEvent.no'|translate}}</ion-option>
         </ion-select>
       </ion-item>
     </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8 offset-2="">
+          <button type="button" ion-button full [outline]="true"
+                  class="defaultButton buttonBorderWidth1px" (click)="getAvatar()">
+            {{'createEvent.getAvatar'|translate}}
+          </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
     <button
       margin-top="20px"
       ion-button
@@ -86,7 +96,7 @@
       full
       color="secondary"
       [disabled]="!eventForm.valid"
-    >Add Todo
+    >{{'createEvent.save'|translate}}
     </button>
   </form>
 </ion-content>

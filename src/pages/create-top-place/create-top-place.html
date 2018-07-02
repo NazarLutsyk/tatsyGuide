@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>create-top-place {{placeName}}</ion-title>
+    <ion-title>{{'createTopPlace.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,7 +10,7 @@
   <form #topPlaceForm="ngForm" (ngSubmit)="createTopPlace(topPlaceForm)">
     <ion-item>
       <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
-        {{'createTopPlace.startDate' | translate}}
+        {{'createTopPlace.startDate' | translate}} *
       </ion-label>
       <ion-datetime
         ngModel
@@ -21,7 +21,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
-        {{'createTopPlace.endDate' | translate}}
+        {{'createTopPlace.endDate' | translate}} *
       </ion-label>
       <ion-datetime
         ngModel
@@ -32,7 +32,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (price.invalid && price.touched) ? 'red' : ''}">
-        {{'createTopPlace.sum' | translate}}
+        {{'createTopPlace.sum' | translate}} *
       </ion-label>
       <ion-input
         ngModel
@@ -43,7 +43,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (actual.invalid && actual.touched) ? 'red' : ''}">
-        {{'createTopPlace.actual' | translate}}
+        {{'createTopPlace.actual' | translate}} *
       </ion-label>
       <ion-select
         ngModel

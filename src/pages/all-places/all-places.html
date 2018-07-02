@@ -13,7 +13,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list [virtualScroll]="places" [approxItemHeight]="'132px'">
+  <ion-list [virtualScroll]="places" [approxItemHeight]="'320px'">
     <ion-item *virtualItem="let place" (click)="toDetails(place._id)">
       <ion-thumbnail item-start>
         <img [src]="globalHost+place?.avatar">

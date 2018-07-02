@@ -43,8 +43,8 @@ export class MyApp implements OnInit {
 
   @ViewChild('myNav')
   navCtrl: NavController;
-
-  rootPage: any = HomePage;
+  rootPage: any;
+  languageSwitcher: boolean = true;
   placeTypesM = [];
   searchObject = {
     range: {lower: 0, upper: 10000},
@@ -74,38 +74,44 @@ export class MyApp implements OnInit {
               private google: GooglePlus
   ) {
 
+
     platform
-      .ready().then(
-      () => {
-        // statusBar.styleDefault();
-        // splashScreen.hide();
+      .ready().then(() => {
+        console.log('platform ready');
+        statusBar.styleDefault();
+        splashScreen.hide();
+        if (platform.is("android") || platform.is("ios")) {
+          this.globalization.getPreferredLanguage().then(res => {
+            if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
+              this.globalConfig.deviceLang = "ua";
+              console.log("i am here");
+              this.languageSwitcher = true;
+            } else {
+              this.globalConfig.deviceLang = "en";
+            }
+            this.geolocation.getCurrentPosition().then((position) => {
+              this.globalConfig.globalPosition.latitude = position.coords.latitude;
+              this.globalConfig.globalPosition.longitude = position.coords.longitude;
+              this.rootPage = HomePage;
+            });
+            console.log(this.globalConfig.getGlobalLang());
+            this.translate.use(this.globalConfig.deviceLang);
+          });
+        }
 
-        // if (platform.is("android") || platform.is("ios")) {
-        //   this.globalization.getPreferredLanguage().then(res => {
-        //     this.rootPage = HomePage;
-        //   });
-        // }
-        this.translate.setDefaultLang("en");
-        this.translate.use("ua");
-        this.geolocation.getCurrentPosition().then((position) => {
-          this.globalConfig.globalPosition.latitude = position.coords.latitude;
-          this.globalConfig.globalPosition.longitude = position.coords.longitude;
-
-
-          statusBar.styleDefault();
-          splashScreen.hide();
-          this.langService.find({}).subscribe(langs => this.globalConfig.langs = langs);
-
-        });
       }
     );
 
+    // this.translate.setDefaultLang("en");
+    // this.translate.use("ua");
 
   }
 
   ngOnInit() {
+    console.log(this.principal, !!this.principal, 1);
     this.auth.principal.subscribe((principal) => {
       this.principal = principal;
+      console.log(this.principal, !!this.principal, 2);
     });
     zip(
       this.auth.loadPrincipal(),
@@ -145,13 +151,21 @@ export class MyApp implements OnInit {
   logout() {
     let logoutPromise = new Promise(((resolve, reject) => resolve(true)));
     if (this.principal.facebookId) {
+      console.log("FB");
       logoutPromise = this.fb.logout();
     } else if (this.principal.googleId) {
-      logoutPromise = this.google.logout();
+      console.log("GOOGLE+");
+      this.google.logout().then(value => {
+        console.log(value);
+      }).catch(reason => {
+        console.log(reason);
+      });
+      // logoutPromise = this.google.logout();
     }
+
     logoutPromise
-      .then(res => {
-        this.auth.logOut().subscribe((data) => {
+      .then(() => {
+        this.auth.logOut().subscribe(() => {
           this.principal = null;
           this.menuController.close();
           this.navCtrl.goToRoot({});
@@ -159,7 +173,10 @@ export class MyApp implements OnInit {
           console.log(error);
         });
       })
-      .catch(e => console.log('Logout error', e))
+      .catch(e => {
+        console.log('Logout error', e);
+
+      })
   }
 
   goToCreatePlacePage() {
@@ -220,6 +237,13 @@ export class MyApp implements OnInit {
   goToPlaceTypesPage() {
     this.menuController.close();
     this.navCtrl.push(PlaceTypesPage);
+  }
+
+
+  switchLang() {
+    this.globalConfig.deviceLang = this.languageSwitcher ? "ua" : "en";
+    this.translate.use(this.globalConfig.deviceLang);
+
   }
 }
 

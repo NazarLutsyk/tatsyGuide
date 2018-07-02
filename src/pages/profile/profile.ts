@@ -6,6 +6,7 @@ import {UpdateProfilePage} from "../update-profile/update-profile";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {ObjectUtils} from "../../utils/ObjectUtils";
 import {TranslateService} from "@ngx-translate/core";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
@@ -23,10 +24,11 @@ export class ProfilePage {
     private clientService: ClientProvider,
     private app: App,
     private translate: TranslateService,
-    private alert: AlertController
+    private alert: AlertController,
+    private globalConfig : GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

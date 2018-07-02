@@ -5,6 +5,7 @@ import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/p
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NgForm} from "@angular/forms";
 import {Observable} from "rxjs/Observable";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -25,8 +26,11 @@ export class UpdatePlaceTypePage {
     public navParams: NavParams,
     private globalConfig: GlobalConfigsService,
     private placeTypeService: PlaceTypeProvider,
-    private placeTypeMService: PlaceTypeMultilangProvider
+    private placeTypeMService: PlaceTypeMultilangProvider,
+    private translate : TranslateService
   ) {
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

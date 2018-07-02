@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, App, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ProfilePage} from "../profile/profile";
 import {NgForm} from "@angular/forms";
@@ -22,10 +22,11 @@ export class UpdatePlaceDepartmentsPage {
     private departmentService: DepartmentProvider,
     private app: App,
     private translate: TranslateService,
-    private events: Events
+    private events: Events,
+    private alert: AlertController
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.setDefaultLang("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.setDefaultLang("ua");
   }
 
   ngOnInit() {
@@ -62,10 +63,41 @@ export class UpdatePlaceDepartmentsPage {
   }
 
   removeDepartment(department, event) {
+
     event.stopPropagation();
-    this.departmentService
-      .remove(department._id)
-      .subscribe(() => this.loadDepartments());
+    this.translate.get([
+        'placeInfo.delete',
+        'placeInfo.confirm',
+        'placeInfo.cancel',
+      ]
+    ).subscribe(translations => {
+
+
+      let alertWindow = this.alert.create({
+        enableBackdropDismiss: true,
+        title: translations['placeInfo.delete'] + "?",
+        buttons: [
+          {
+            text: translations['placeInfo.confirm'],
+            handler: () => {
+
+              this.departmentService
+                .remove(department._id)
+                .subscribe(() => this.loadDepartments());
+
+
+            }
+          },
+          {
+            text: translations['placeInfo.cancel']
+          }
+        ]
+
+      });
+
+      alertWindow.present();
+    });
+
   }
 
   updateDepartment(department) {

@@ -27,6 +27,7 @@ import {CreateTopPlacePage} from "../create-top-place/create-top-place";
 import {TranslateService} from "@ngx-translate/core";
 import {CallNumber} from '@ionic-native/call-number';
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {TopPlaceApplicationPage} from "../top-place-application/top-place-application";
 
 declare var window: any;
@@ -61,12 +62,15 @@ export class PlaceInfoPage {
     private auth: AuthProvider,
     public translate: TranslateService,
     private callNumber: CallNumber,
-    public actionSheetCtrl: ActionSheetController
+    public actionSheetCtrl: ActionSheetController,
+    private photoViewer: PhotoViewer,
+    private globalConfig: GlobalConfigsService
   ) {
 
-    translate.setDefaultLang('en');
-    translate.use('ua');
+    // translate.setDefaultLang('en');
+    translate.use(this.globalConfig.deviceLang);
 
+    console.log(this.translate.currentLang);
 
   }
 
@@ -352,5 +356,13 @@ export class PlaceInfoPage {
 
   toTopPlaceApplication() {
     this.app.getRootNav().push(TopPlaceApplicationPage, {place: this.place, client: this.principal});
+  }
+
+  showPhoto(url) {
+    console.log(url);
+
+    this.photoViewer.show(url);
+
+    // this.photoViewer.show('https://mysite.com/path/to/image.jpg', 'My image title', {share: false});
   }
 }

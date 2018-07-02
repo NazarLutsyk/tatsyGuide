@@ -28,11 +28,12 @@ export class TopPlaceManagePage {
     private topPlaceService: TopPlaceProvider,
     private globalVars: GlobalConfigsService,
     private translate: TranslateService,
-    private alert: AlertController
+    private alert: AlertController,
+    private globalConfig : GlobalConfigsService
   ) {
 
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

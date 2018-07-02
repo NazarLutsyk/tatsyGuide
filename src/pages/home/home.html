@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar text-center="">
+    <img src="assets/imgs/logo_orange.svg"  style="display:inline-block" />
     <button ion-button menuToggle left>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -13,10 +14,10 @@
 </ion-header>
 
 <ion-tabs>
-  <ion-tab [root]="placesTab" tabTitle="Home" tabIcon="ios-home-outline"></ion-tab>
-  <ion-tab [root]="topPlacesTab" tabTitle="top" tabIcon="ios-information-circle-outline"></ion-tab>
-  <ion-tab [root]="newsTab" tabTitle="news" tabIcon="ios-list-box-outline"></ion-tab>
-  <ion-tab [root]="drinkerTab" tabTitle="drinker" tabIcon="ios-beer-outline"></ion-tab>
+  <ion-tab [root]="placesTab" tabTitle="{{'tab.home' | translate}}" tabIcon="ios-home-outline"></ion-tab>
+  <ion-tab [root]="topPlacesTab" tabTitle="{{'tab.top' | translate}}" tabIcon="ios-information-circle-outline"></ion-tab>
+  <ion-tab [root]="newsTab" tabTitle="{{'tab.news' | translate}}" tabIcon="ios-list-box-outline"></ion-tab>
+  <ion-tab [root]="drinkerTab" tabTitle="{{'tab.drinker' | translate}}" tabIcon="ios-beer-outline"></ion-tab>
 </ion-tabs>
 
 

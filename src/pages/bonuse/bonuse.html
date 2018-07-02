@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>bonuse</ion-title>
+    <ion-title>{{'allBonuses.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,7 +14,11 @@
 
 
   <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
-    <button ion-button full [outline]="true" class="defaultBackground2" (click)="goToCreateBonuse()">Create Bonuse</button>
+    <button ion-button full [outline]="true"
+            class="defaultBackground2"
+            (click)="goToCreateBonuse()">
+      {{'allBonuses.create' | translate}}
+    </button>
   </ion-row>
 
   <bonuse

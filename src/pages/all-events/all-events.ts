@@ -43,10 +43,11 @@ export class AllEventsPage {
     private auth: AuthProvider,
     public modal: ModalController,
     private alert: AlertController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

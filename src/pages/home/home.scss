@@ -3,15 +3,20 @@ page-home {
     color: map_get($colors, defaultApp);
   }
 
-
   .toolbar-background {
     background: #fff !important;
   }
 
+  .tabs .tab-button[aria-selected=true] .tab-button-icon, .tabs .tab-button[aria-selected=true] {
+    color: map-get($colors, defaultApp);
+    background: white;
+  }
 
-.tabs .tab-button[aria-selected=true] .tab-button-icon, .tabs .tab-button[aria-selected=true] {
-  color: map-get($colors, defaultApp);
-  background: white;
+ion-navbar{
+  img{
+    width: 100px;
+
+  }
 }
 
 }

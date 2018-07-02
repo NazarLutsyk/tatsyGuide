@@ -6,6 +6,7 @@ import {EventMultilangProvider} from "../../providers/event-multilang/event-mult
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NgForm} from "@angular/forms";
 import {AuthProvider} from "../../providers/auth/auth";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -25,8 +26,11 @@ export class CreateEventPage {
     private eventMultilangService: EventMultilangProvider,
     private globalConfig: GlobalConfigsService,
     private auth: AuthProvider,
-    private events: Events
+    private events: Events,
+    private translate : TranslateService
   ) {
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

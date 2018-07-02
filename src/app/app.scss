@@ -284,6 +284,19 @@ ion-item.item-input-has-focus .item-inner {
   color: #dd434c;
 }
 
+.icon-update, .icon-apply{
+  color: #caab85;
+}
+
 .navTitleColor{
  color: map_get($colors,light);
+}
+
+ion-app.md [padding] .scroll-content,ion-app.ios [padding] .scroll-content {
+  padding: 0 !important;
+}
+
+.buttonBorderWidth1px{
+  border-right-width: 1px !important;
+  border-left-width: 1px !important;
 }

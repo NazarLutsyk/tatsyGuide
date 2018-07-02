@@ -31,7 +31,7 @@
   <!--<ion-slides *ngIf="place.images.length > 0">-->
   <ion-slides >
     <ion-slide *ngFor="let image of place.images">
-      <ion-img src="{{globalHost}}{{image}}"></ion-img>
+      <ion-img #img src="{{globalHost}}{{image}}" (click)="showPhoto(img.src)"></ion-img>
     </ion-slide>
   </ion-slides>
 

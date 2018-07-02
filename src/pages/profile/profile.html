@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profile</ion-title>
+    <ion-title>{{'profile.title'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,31 +17,41 @@
 
   <ion-list>
     <ion-item>
-      <strong>Name:</strong>
+      <strong>{{'profile.name'|translate}}:</strong>
       {{principal?.name}}
     </ion-item>
     <ion-item>
-      <strong>Surname:</strong>
+      <strong>{{'profile.surname'|translate}}:</strong>
       {{principal?.surname}}
     </ion-item>
     <ion-item>
-      <strong>Phone:</strong>
+      <strong>{{'profile.phone'|translate}}:</strong>
       {{principal?.phone}}
     </ion-item>
     <ion-item>
-      <strong>Email:</strong>
+      <strong>{{'profile.email'|translate}}:</strong>
       {{principal?.email}}
     </ion-item>
     <ion-item>
-      <strong>City:</strong>
+      <strong>{{'profile.city'|translate}}:</strong>
       {{principal?.city}}
     </ion-item>
   </ion-list>
 
   <ion-grid>
     <ion-row>
-      <ion-col col-6><button ion-button outline class="buttonUpdate" full (click)="updateClient(principal)">Update</button></ion-col>
-      <ion-col col-6><button ion-button outline class="buttonDeleteOutline" full (click)="removeClient(principal,$event)">Remove</button></ion-col>
+      <ion-col col-6>
+        <button ion-button outline class="buttonUpdate" full
+                (click)="updateClient(principal)">
+          {{'profile.update'|translate}}
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button outline class="buttonDeleteOutline" full
+                (click)="removeClient(principal,$event)">
+          {{'profile.remove'|translate}}
+        </button>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

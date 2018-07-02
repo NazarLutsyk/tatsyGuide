@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>addAvatarAndPhotos</ion-title>
+    <ion-title>{{'createPlace.addAvatarAndPhoto' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -10,20 +10,32 @@
 
     <ion-row>
       <ion-col col-6>
-        <button ion-button full [outline]="true" class="buttonUpdate" (click)="getAvatar()">Select avatar</button>
+        <button
+          ion-button full [outline]="true" class="buttonUpdate"
+          (click)="getAvatar()">{{'createPlace.selectAvatar' | translate}}
+        </button>
       </ion-col>
       <ion-col col-6>
-        <button ion-button full [outline]="true" class="buttonUpdate" (click)="getImages()">Select images</button>
+        <button ion-button full [outline]="true"
+                class="buttonUpdate"
+                (click)="getImages()">
+          {{'createPlace.selectPhotos' | translate}}
+        </button>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <button ion-button full [outline]="true" class="buttonUpdate" (click)="uploadImage()">Upload Image</button>
+        <button
+          ion-button
+          full [outline]="true" class="buttonUpdate"
+          (click)="uploadImage()">
+          {{'createPlace.upload' | translate}}
+        </button>
       </ion-col>
     </ion-row>
     <ion-row class="imageRow">
       <ion-col col-auto><img [src]="avatar" alt=""></ion-col>
-      <ion-col col-auto *ngFor="let image of imagesToShow"><img  [src]="image" alt=""></ion-col>
+      <ion-col col-auto *ngFor="let image of imagesToShow"><img [src]="image" alt=""></ion-col>
     </ion-row>
 
   </ion-grid>

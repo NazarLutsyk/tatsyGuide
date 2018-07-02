@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>update-place-type</ion-title>
+    <ion-title>{{'placeType.updateType' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,11 +20,10 @@
     <hr>
     <button
       ion-button
-      full
-      class="defaultBackgroundBrown"
+      full [outline]="true"
+      class="buttonUpdate"
       (click)="updatePlaceType(ptForm)"
       [disabled]="!ptForm.valid"
-    >Update
-    </button>
+    >{{'placeType.updateType' | translate}}</button>
   </form>
 </ion-content>

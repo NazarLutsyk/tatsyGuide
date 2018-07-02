@@ -7,6 +7,7 @@ import {Client} from "../../models/client/Client";
 import {AuthProvider} from "../../providers/auth/auth";
 import {UpdateRatingPage} from "../update-rating/update-rating";
 import {Observable} from "rxjs/Observable";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -30,8 +31,12 @@ export class MyRatingsPage {
     private globalConfigProvider: GlobalConfigsService,
     private modal: ModalController,
     private auth: AuthProvider,
-    private app: App
+    private app: App,
+    private translate : TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.loadRatings().subscribe(ratings => this.ratings = ratings);

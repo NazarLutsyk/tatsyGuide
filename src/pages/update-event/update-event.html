@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>update-event</ion-title>
+    <ion-title>{{'updateEvent.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,11 +12,14 @@
     <div ngModelGroup="multilang">
       <ion-item>
         <ion-img [src]="imageToShow" width="100%" height="200px"></ion-img>
-        <button ion-button type="button" full class="defaultBackground" (click)="setNewImage($event)">Change</button>
+        <button margin-top="25px" margin-bottom="25px" ion-button type="button" full [outline]="true"
+                class="buttonUpdate" (click)="setNewImage($event)">
+          {{'updateEvent.changeAvatar' | translate}}
+        </button>
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">
-          Header
+          {{'updateEvent.header' | translate}}
         </ion-label>
         <ion-input
           type="text"
@@ -28,7 +31,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
-          Description
+          {{'updateEvent.desc' | translate}}
         </ion-label>
         <ion-input
           type="text"
@@ -42,7 +45,7 @@
     <div ngModelGroup="promo">
       <ion-item>
         <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
-          Start date
+          {{'updateEvent.start' | translate}}
         </ion-label>
         <ion-datetime
           type="text"
@@ -54,7 +57,7 @@
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
-          End date
+          {{'updateEvent.end' | translate}}
         </ion-label>
         <ion-datetime
           type="text"
@@ -85,7 +88,7 @@
       margin-top
       class="defaultBackgroundBrown"
       [disabled]="!updateForm.valid"
-    >Update
+    >{{'updateEvent.update' | translate}}
     </button>
   </form>
 </ion-content>

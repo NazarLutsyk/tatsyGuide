@@ -30,10 +30,11 @@ export class SignInPage {
     private app: App,
     private events: Events,
     private auth: AuthProvider,
-    private translate : TranslateService
+    private translate: TranslateService,
+    private globalConfig: GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
 
     fb.getLoginStatus()
       .then(res => {
@@ -45,6 +46,8 @@ export class SignInPage {
         }
       })
       .catch(e => console.log(e));
+
+
   }
 
 
@@ -79,6 +82,8 @@ export class SignInPage {
         } else {
           this.isFacebookLoggedIn = false;
         }
+
+        this.navCtrl.goToRoot({});
       })
       .catch(e => console.log('Error logging into Facebook', e));
   }
@@ -151,7 +156,7 @@ export class SignInPage {
           console.log(value)
 
         });
-
+        this.navCtrl.goToRoot({});
 
       })
       .catch(err => console.error(err));

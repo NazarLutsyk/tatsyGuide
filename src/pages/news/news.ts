@@ -19,6 +19,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {SingleNewsPage} from "../single-news/single-news";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -48,8 +49,12 @@ export class NewsPage {
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
     public modal: ModalController,
-    private events: Events
+    private events: Events,
+    private translate: TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

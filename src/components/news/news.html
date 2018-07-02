@@ -5,16 +5,16 @@
       {{news.multilang.header}}
     </ion-card-title>
     <p>
-      {{news.multilang.description}}
+      <span class="fontBold">{{'news.desc' | translate}}</span> : {{news.multilang.description}}
     </p>
     <p>
-      {{news.startDate | date : 'dd/MM/yyyy'}}
+      <span class="fontBold">{{'news.startDate' | translate}}</span> : {{news.startDate | date : 'dd/MM/yyyy'}}
     </p>
     <p>
-      {{news.endDate | date: 'dd/MM/yyyy'}}
+      <span class="fontBold">{{'news.endDate' | translate}}</span> : {{news.endDate | date: 'dd/MM/yyyy'}}
     </p>
     <p *ngIf="pm">
-      {{pm.name}}
+      <span class="fontBold">{{'news.place' | translate}}</span> : {{pm.name}}
     </p>
   </ion-card-content>
   <ion-buttons *ngIf="showControlButtons">
@@ -26,7 +26,7 @@
             ion-button outline
             class="defaultBackground2"
             (click)="updatePromo(news,$event)">
-            Update
+            {{'news.save' | translate}}
           </button>
         </ion-col>
         <ion-col col-6>
@@ -35,7 +35,7 @@
             ion-button outline
             class="buttonDelete"
             (click)="removePromo(news,$event)">
-            Delete
+            {{'news.remove' | translate}}
           </button>
         </ion-col>
       </ion-row>

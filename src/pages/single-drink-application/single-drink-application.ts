@@ -35,8 +35,8 @@ export class SingleDrinkApplicationPage {
     private globalConfig: GlobalConfigsService,
     private translate: TranslateService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

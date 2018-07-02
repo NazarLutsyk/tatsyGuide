@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {SignUpPage} from "../sign-up/sign-up";
 import {SignInPage} from "../sign-in/sign-in";
 import {TranslateService} from "@ngx-translate/core";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 /**
  * Generated class for the LoginPage page.
@@ -24,10 +25,11 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private  translate: TranslateService
+    private  translate: TranslateService,
+    private globalConfig : GlobalConfigsService
   ) {
-    this.translate.setDefaultLang("en");
-    this.translate.use("ua");
+    // this.translate.setDefaultLang("en");
+    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ionViewDidLoad() {
