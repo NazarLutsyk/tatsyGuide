@@ -14,8 +14,8 @@ export class GlobalConfigsService {
     private platform: Platform,
   ) {
     if (platform.is("android")) {
-      this.globalHost = 'http://192.168.0.4:3000';
-      // this.globalHost = 'http://192.168.1.25:3000';
+      // this.globalHost = 'http://192.168.0.4:3000';
+      this.globalHost = 'http://192.168.1.33:3000';
       // this.globalHost = 'http://localhost:3000';
     } else {
       this.globalHost = 'http://localhost:3000';
