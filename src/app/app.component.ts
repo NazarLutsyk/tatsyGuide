@@ -84,7 +84,6 @@ export class MyApp implements OnInit {
           this.globalization.getPreferredLanguage().then(res => {
             if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
               this.globalConfig.deviceLang = "ua";
-              console.log("i am here");
               this.languageSwitcher = true;
             } else {
               this.globalConfig.deviceLang = "en";
@@ -97,6 +96,9 @@ export class MyApp implements OnInit {
             console.log(this.globalConfig.getGlobalLang());
             this.translate.use(this.globalConfig.deviceLang);
           });
+        } else {
+          this.rootPage = HomePage;
+
         }
 
       }
