@@ -97,6 +97,11 @@ export class MyApp implements OnInit {
             console.log(this.globalConfig.getGlobalLang());
             this.translate.use(this.globalConfig.deviceLang);
           });
+        } else {
+          this.globalConfig.deviceLang = "ua";
+          this.languageSwitcher = true;
+          this.translate.use(this.globalConfig.deviceLang);
+          this.rootPage = HomePage;
         }
 
       }
@@ -149,34 +154,33 @@ export class MyApp implements OnInit {
 
 
   logout() {
-    let logoutPromise = new Promise(((resolve, reject) => resolve(true)));
     if (this.principal.facebookId) {
       console.log("FB");
-      logoutPromise = this.fb.logout();
+      this.fb.logout().then(value => {
+        console.log(value);
+        this.logoutServer();
+      }).catch(reason => {
+        console.log(reason);
+      });
     } else if (this.principal.googleId) {
       console.log("GOOGLE+");
       this.google.logout().then(value => {
         console.log(value);
+        this.logoutServer();
       }).catch(reason => {
         console.log(reason);
       });
-      // logoutPromise = this.google.logout();
     }
+  }
 
-    logoutPromise
-      .then(() => {
-        this.auth.logOut().subscribe(() => {
-          this.principal = null;
-          this.menuController.close();
-          this.navCtrl.goToRoot({});
-        }, (error) => {
-          console.log(error);
-        });
-      })
-      .catch(e => {
-        console.log('Logout error', e);
-
-      })
+  logoutServer() {
+    this.auth.logOut().subscribe(() => {
+      this.principal = null;
+      this.menuController.close();
+      this.navCtrl.goToRoot({});
+    }, (error) => {
+      console.log(error);
+    })
   }
 
   goToCreatePlacePage() {
