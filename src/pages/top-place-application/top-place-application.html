@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>top-place-application</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm">
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
+        Start date
+      </ion-label>
+      <ion-datetime
+        name="startDate"
+        ngModel
+        #startDate="ngModel"
+        required
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
+        End date
+      </ion-label>
+      <ion-datetime
+        name="endDate"
+        ngModel
+        #endDate="ngModel"
+        required
+      ></ion-datetime>
+    </ion-item>
+    <button ion-button full [disabled]="!form.valid" (click)="sendApp(form)">Send</button>
+  </form>
+</ion-content>

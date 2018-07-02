@@ -28,6 +28,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {CallNumber} from '@ionic-native/call-number';
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
+import {TopPlaceApplicationPage} from "../top-place-application/top-place-application";
 
 declare var window: any;
 
@@ -82,7 +83,7 @@ export class PlaceInfoPage {
 
       if (this.principal) {
         this.departmentService.find({
-          query: {place: (<any>this.place)._id},
+          query: {place: (<any>this.place)._id, client: this.principal._id},
           populate: [{path: 'client'}]
         }).subscribe((departments) => {
           if (departments.length > 0) {
@@ -261,78 +262,88 @@ export class PlaceInfoPage {
 
     ])
       .subscribe(value => {
-        console.log(value);
+
+        let buttons = [
+          {
+            text: value['placeInfo.updatePlace'],
+            icon: !this.platform.is('ios') ? 'md-create' : null,
+            cssClass: "xxx",
+
+            handler: () => {
+              console.log(value['placeInfo.updatePlace']);
+              this.updatePlace(this.place);
+            }
+          },
+          {
+            text: value['placeInfo.manageAdmins'],
+            cssClass: "xxx",
+            icon: !this.platform.is('ios') ? 'people' : null,
+
+            handler: () => {
+              this.updatePlaceDepartments(this.place);
+            }
+          },
+          {
+            text: value['placeInfo.cancel'],
+            icon: !this.platform.is('ios') ? 'close' : null,
+            role: 'cancel',
+          }
+        ];
+
+        if (this.principal.roles.indexOf('ADMIN') >= 0) {
+          buttons.push({
+            text: value['placeInfo.addToTop'],
+            cssClass: "xxx",
+            icon: !this.platform.is('ios') ? 'arrow-round-up' : null,
+            handler: () => {
+              this.toTopPlaceCreate(this.place);
+            }
+          });
+        } else {
+          buttons.push({
+            text: value['placeInfo.addToTop'],
+            cssClass: "xxx",
+            icon: !this.platform.is('ios') ? 'arrow-round-up' : null,
+            handler: () => {
+              this.toTopPlaceApplication();
+            }
+          });
+        }
+
+        buttons.push({
+          text: value['placeInfo.deletePlace'],
+          cssClass: "actionSheetDeleteColor xxx",
+          role: 'destructive',
+          icon: !this.platform.is('ios') ? 'trash' : null,
+          handler: () => {
+            let alert = this.alertController.create({
+              title: value['placeInfo.deleteTitle'],
+              message: value['placeInfo.deleteMessage'],
+              buttons: [
+                {
+                  text: value['placeInfo.cancel'],
+                  role: 'cancel',
+                  handler: () => {
+                    console.log('Cancel clicked');
+                  }
+                },
+                {
+                  text: value['placeInfo.confirm'],
+                  handler: () => {
+                    this.removePlace(this.place);
+                  }
+                }
+              ]
+            });
+            alert.present();
+          }
+        });
 
         const actionSheet = this.actionSheetCtrl.create({
             title: value['placeInfo.manage'],
             enableBackdropDismiss: true,
             cssClass: 'actionSheetStyle',
-            buttons:
-              [
-                {
-                  text: value['placeInfo.updatePlace'],
-                  icon: !this.platform.is('ios') ? 'md-create' : null,
-                  cssClass: "xxx",
-
-                  handler: () => {
-                    console.log(value['placeInfo.updatePlace']);
-                    this.updatePlace(this.place);
-                  }
-                },
-                {
-                  text: value['placeInfo.addToTop'],
-                  cssClass: "xxx",
-                  icon: !this.platform.is('ios') ? 'arrow-round-up' : null,
-                  handler: () => {
-                    this.toTopPlaceCreate(this.place);
-                  }
-                },
-                {
-                  text: value['placeInfo.manageAdmins'],
-                  cssClass: "xxx",
-                  icon: !this.platform.is('ios') ? 'people' : null,
-
-                  handler: () => {
-                    this.updatePlaceDepartments(this.place);
-                  }
-                },
-                {
-                  text: value['placeInfo.deletePlace'],
-                  cssClass: "actionSheetDeleteColor xxx",
-                  role: 'destructive',
-                  icon: !this.platform.is('ios') ? 'trash' : null,
-                  handler: () => {
-                    let alert = this.alertController.create({
-                      title: value['placeInfo.deleteTitle'],
-                      message: value['placeInfo.deleteMessage'],
-                      buttons: [
-                        {
-                          text: value['placeInfo.cancel'],
-                          role: 'cancel',
-                          handler: () => {
-                            console.log('Cancel clicked');
-                          }
-                        },
-                        {
-                          text: value['placeInfo.confirm'],
-                          handler: () => {
-                            this.removePlace(this.place);
-                          }
-                        }
-                      ]
-                    });
-                    alert.present();
-
-                  }
-                },
-                {
-                  text: value['placeInfo.cancel'],
-                  icon: !this.platform.is('ios') ? 'close' : null,
-                  role: 'cancel',
-
-                }
-
-              ]
+            buttons: buttons
           })
         ;
         actionSheet.present();
@@ -341,6 +352,10 @@ export class PlaceInfoPage {
 
   toDrinkerPage() {
     this.app.getRootNav().push(PlaceAppliactionsPage, this.place)
+  }
+
+  toTopPlaceApplication() {
+    this.app.getRootNav().push(TopPlaceApplicationPage, {place: this.place, client: this.principal});
   }
 
   showPhoto(url) {

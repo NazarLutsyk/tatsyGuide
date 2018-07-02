@@ -12,7 +12,7 @@ export class MailProvider {
   ) {
   }
 
-  sendMail(data: { from: string, message: string, to: string}): Observable<any> {
+  sendMail(data: { from: string, message: string, to?: string}): Observable<any> {
     return this.http.post(`${this.globalConfig.getGlobalHost()}/mail/send`, data);
   }
 

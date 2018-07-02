@@ -18,8 +18,7 @@ export class PopoverPage {
   }
 
   close(showNextTime) {
-    console.log("close pop");
-    // this.storage.set('initialpopover', showNextTime);
+    this.storage.set('initialpopover', showNextTime);
     this.viewCtrl.dismiss();
     this.storage.clear();
   }
