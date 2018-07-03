@@ -81,16 +81,25 @@ export class MyApp implements OnInit {
         statusBar.styleDefault();
         splashScreen.hide();
         if (platform.is("android") || platform.is("ios")) {
+          console.log('try get lang');
           this.globalization.getPreferredLanguage().then(res => {
+            console.log('success get lang');
             if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
               this.globalConfig.deviceLang = "ua";
               this.languageSwitcher = true;
             } else {
               this.globalConfig.deviceLang = "en";
             }
+            console.log('try get position');
             this.geolocation.getCurrentPosition().then((position) => {
+              console.log('success get position');
               this.globalConfig.globalPosition.latitude = position.coords.latitude;
               this.globalConfig.globalPosition.longitude = position.coords.longitude;
+              this.rootPage = HomePage;
+            }).catch(() => {
+              console.log('failed get position');
+              this.globalConfig.globalPosition.latitude = 0;
+              this.globalConfig.globalPosition.longitude = 0;
               this.rootPage = HomePage;
             });
             console.log(this.globalConfig.getGlobalLang());
