@@ -53,5 +53,15 @@
         </button>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <!--// todo serj add translate-->
+      <button
+        ion-button
+        outline
+        full
+        (click)="goToClientPlacesPage()"
+        *ngIf="client && client.roles && client.roles.indexOf('ADMIN') >= 0"
+      >Places</button>
+    </ion-row>
   </ion-grid>
 </ion-content>

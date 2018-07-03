@@ -101,6 +101,7 @@ import {SingleEventPageModule} from "../pages/single-event/single-event.module";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {PopoverPageModule} from "../pages/popover/popover.module";
 import {TopPlaceApplicationPageModule} from "../pages/top-place-application/top-place-application.module";
+import {ClientPlacesPageModule} from "../pages/client-places/client-places.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -174,6 +175,7 @@ export function createTranslateLoader(http: HttpClient) {
     SingleBonusePageModule,
     SingleEventPageModule,
     PopoverPageModule,
+    ClientPlacesPageModule,
     TopPlaceApplicationPageModule,
     TranslateModule.forRoot({
       loader: {
