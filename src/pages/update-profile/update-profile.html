@@ -9,7 +9,7 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="updatePromo(updateForm)" #updateForm="ngForm">
+  <form (ngSubmit)="updateProfile(updateForm)" #updateForm="ngForm">
     <div ngModelGroup="client">
       <ion-item>
         <ion-label [ngStyle]="{'color': (name.invalid && name.touched) ? 'red' : ''}">

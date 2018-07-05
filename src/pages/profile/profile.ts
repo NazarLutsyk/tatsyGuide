@@ -7,6 +7,7 @@ import {ClientProvider} from "../../providers/client/ClientProvider";
 import {ObjectUtils} from "../../utils/ObjectUtils";
 import {TranslateService} from "@ngx-translate/core";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {ClientPlacesPage} from "../client-places/client-places";
 
 @IonicPage()
 @Component({
@@ -15,7 +16,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 })
 export class ProfilePage {
 
-  principal: Client;
+  client: Client = new Client();
 
   constructor(
     public navCtrl: NavController,
@@ -33,9 +34,11 @@ export class ProfilePage {
 
   ngOnInit() {
     if (!ObjectUtils.isEmpty(this.navParams.data)) {
-      this.principal = this.navParams.data;
+      this.client = this.navParams.data;
     } else {
-      this.auth.loadPrincipal().subscribe(principal => this.principal = principal);
+      this.auth.loadPrincipal().subscribe(client => {
+        this.client = client
+      });
     }
   }
 
@@ -43,7 +46,7 @@ export class ProfilePage {
     this.app.getRootNav().push(UpdateProfilePage, {client: client});
   }
 
-  removeClient(principal) {
+  removeClient(client) {
     event.stopPropagation();
     this.translate.get([
         'placeInfo.delete',
@@ -62,7 +65,7 @@ export class ProfilePage {
             handler: () => {
 
               event.stopPropagation();
-              this.clientService.remove(principal._id).subscribe(() => {
+              this.clientService.remove(client._id).subscribe(() => {
                 this.navCtrl.goToRoot({});
               })
 
@@ -73,12 +76,12 @@ export class ProfilePage {
             text: translations['placeInfo.cancel']
           }
         ]
-
       });
-
       alertWindow.present();
     });
+  }
 
-
+  goToClientPlacesPage() {
+    this.app.getRootNav().push(ClientPlacesPage, this.client);
   }
 }

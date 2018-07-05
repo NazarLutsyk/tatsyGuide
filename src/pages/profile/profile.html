@@ -1,9 +1,3 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -18,40 +12,51 @@
   <ion-list>
     <ion-item>
       <strong>{{'profile.name'|translate}}:</strong>
-      {{principal?.name}}
+      {{client?.name}}
     </ion-item>
     <ion-item>
       <strong>{{'profile.surname'|translate}}:</strong>
-      {{principal?.surname}}
+      {{client?.surname}}
     </ion-item>
     <ion-item>
       <strong>{{'profile.phone'|translate}}:</strong>
-      {{principal?.phone}}
+      {{client?.phone}}
     </ion-item>
     <ion-item>
       <strong>{{'profile.email'|translate}}:</strong>
-      {{principal?.email}}
+      {{client?.email}}
     </ion-item>
     <ion-item>
       <strong>{{'profile.city'|translate}}:</strong>
-      {{principal?.city}}
+      {{client?.city}}
     </ion-item>
   </ion-list>
 
   <ion-grid>
     <ion-row>
       <ion-col col-6>
+        <!--//todo Serj change button translate from save to update-->
         <button ion-button outline class="buttonUpdate" full
-                (click)="updateClient(principal)">
+                (click)="updateClient(client)">
           {{'profile.update'|translate}}
         </button>
       </ion-col>
       <ion-col col-6>
         <button ion-button outline class="buttonDeleteOutline" full
-                (click)="removeClient(principal,$event)">
+                (click)="removeClient(client,$event)">
           {{'profile.remove'|translate}}
         </button>
       </ion-col>
+    </ion-row>
+    <ion-row>
+      <!--// todo serj add translate-->
+      <button
+        ion-button
+        outline
+        full
+        (click)="goToClientPlacesPage()"
+        *ngIf="client && client.roles && client.roles.indexOf('ADMIN') >= 0"
+      >Places</button>
     </ion-row>
   </ion-grid>
 </ion-content>
