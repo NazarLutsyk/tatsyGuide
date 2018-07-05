@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{'placeType.title'|translate}} </ion-title>
+    <ion-title>{{'placeType.title'|translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,15 +9,23 @@
   <ion-refresher (ionRefresh)="refresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <button ion-button outline full class="defaultBackground2" (click)="goToCreatePlaceType()">
-    {{'placeType.create'|translate}}
-  </button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 offset-3>
+        <button ion-button outline full class="defaultBackground2" (click)="goToCreatePlaceType()">
+          {{'placeType.create'|translate}}
+        </button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-list [virtualScroll]="placeTypesM" [approxItemHeight]="'132px'">
     <ion-item-sliding *virtualItem="let placeTypeM">
-      <ion-item text-center="" >
+      <ion-item text-center="">
 
-        <h2>  {{placeTypeM.name}}</h2>
+        <h2> {{placeTypeM.name}}</h2>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button icon-only class="buttonUpdate" (click)="goToUpdatePlaceType(placeTypeM)">
@@ -34,29 +42,29 @@
   </ion-list>
 
   <!--<ion-list [virtualScroll]="placeTypesM" [approxItemHeight]="'132px'">-->
-    <!--<ion-item *virtualItem="let placeTypeM">-->
+  <!--<ion-item *virtualItem="let placeTypeM">-->
 
 
-      <!--<ion-grid>-->
+  <!--<ion-grid>-->
 
-        <!--<ion-row align-items-center>-->
-          <!--<ion-col class="fontBold" col-6>-->
-            <!--{{placeTypeM.name}}-->
-          <!--</ion-col>-->
-          <!--<ion-col text-center>-->
-            <!--<button ion-button icon-only class="buttonUpdate" (click)="goToUpdatePlaceType(placeTypeM)">-->
-              <!--<ion-icon name="md-create"></ion-icon>-->
-            <!--</button>-->
-          <!--</ion-col>-->
-          <!--<ion-col text-center>-->
-            <!--<button ion-button icon-only-->
-                    <!--class="buttonDelete"-->
-                    <!--(click)="removePlaceType(placeTypeM)">-->
-              <!--<ion-icon name="trash"></ion-icon>-->
-            <!--</button>-->
-          <!--</ion-col>-->
-        <!--</ion-row>-->
-      <!--</ion-grid>-->
-    <!--</ion-item>-->
+  <!--<ion-row align-items-center>-->
+  <!--<ion-col class="fontBold" col-6>-->
+  <!--{{placeTypeM.name}}-->
+  <!--</ion-col>-->
+  <!--<ion-col text-center>-->
+  <!--<button ion-button icon-only class="buttonUpdate" (click)="goToUpdatePlaceType(placeTypeM)">-->
+  <!--<ion-icon name="md-create"></ion-icon>-->
+  <!--</button>-->
+  <!--</ion-col>-->
+  <!--<ion-col text-center>-->
+  <!--<button ion-button icon-only-->
+  <!--class="buttonDelete"-->
+  <!--(click)="removePlaceType(placeTypeM)">-->
+  <!--<ion-icon name="trash"></ion-icon>-->
+  <!--</button>-->
+  <!--</ion-col>-->
+  <!--</ion-row>-->
+  <!--</ion-grid>-->
+  <!--</ion-item>-->
   <!--</ion-list>-->
 </ion-content>

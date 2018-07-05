@@ -16,8 +16,8 @@ import {TranslateService} from "@ngx-translate/core";
 export class SignInPage {
 
 
-  login: string = "vasya";
-  password: string = "vaysa";
+  login: string = "";
+  password: string = "";
   errorDuringSignIn: boolean;
 
   constructor(

@@ -51,7 +51,9 @@
       "range": "Average bill (from...to)",
       "wifi": "wi-fi",
       "city": "Place",
-      "chooseCity": "Choose place"
+      "chooseCity": "Choose place",
+      "search": "SEARCH",
+      "reset": "RESET"
     },
     "leftMenu": {
       "stat": "Statistic",
@@ -83,8 +85,8 @@
   "signIn": {
     "enter": "Enter",
     "message": "Wrong login or password",
-    "enterWithFB": "LogIn via Facebook",
-    "enterWithG": "LogIn via Google"
+    "enterWithFB": "Facebook",
+    "enterWithG": "Google"
   },
   "placeholder": {
     "name": "Name",

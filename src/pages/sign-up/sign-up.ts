@@ -12,11 +12,11 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class SignUpPage {
 
-  name: string = "vaysa";
-  surname: string = "pupkin";
-  email: string = "vasya@vaysa.com";
-  login: string = "vasya";
-  password: string = "vaysa";
+  name: string = "";
+  surname: string = "";
+  email: string = "";
+  login: string = "";
+  password: string = "";
 
   message: string;
 

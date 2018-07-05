@@ -52,7 +52,9 @@
       "range": "Середній чек (від...до)",
       "wifi": "вай-фай",
       "city": "Місто",
-      "chooseCity": "Оберіть місто"
+      "chooseCity": "Оберіть місто",
+      "search": "ПОШУК",
+      "reset": "ОБНУЛИТИ"
     },
     "leftMenu": {
       "stat": "Статистика",
@@ -84,8 +86,8 @@
   "signIn": {
     "enter": "Увійти",
     "message": "Не вірний логін або пароль!",
-    "enterWithFB": "Увійти через Facebook",
-    "enterWithG": "Увійти через Google"
+    "enterWithFB": "Facebook",
+    "enterWithG": "Google"
   },
   "placeholder": {
     "name": "ім'я",

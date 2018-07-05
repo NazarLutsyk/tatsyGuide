@@ -12,7 +12,7 @@
   <form>
     <ion-item>
       <ion-label [ngStyle]="{'color': (nameRef.invalid && nameRef.touched) ? 'red' : ''}">
-        Name:
+        <!--Name:-->
       </ion-label>
       <ion-input
         name="name"
@@ -25,7 +25,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (surnameRef.invalid && surnameRef.touched) ? 'red' : ''}">
-        Surname:
+        <!--Surname:-->
       </ion-label>
       <ion-input
         name="surname"
@@ -37,7 +37,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (emailRef.invalid && emailRef.touched) ? 'red' : ''}">
-        Email:
+        <!--Email:-->
       </ion-label>
       <ion-input
         name="email"
@@ -51,7 +51,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (loginRef.invalid && loginRef.touched) ? 'red' : ''}">
-        Login:
+        <!--Login:-->
       </ion-label>
       <ion-input
         name="login"
@@ -64,7 +64,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (passwordRef.invalid && passwordRef.touched) ? 'red' : ''}">
-        Password:
+        <!--Password:-->
       </ion-label>
       <ion-input
         name="password"
@@ -77,9 +77,16 @@
       >
       </ion-input>
     </ion-item>
-    <button margin-top="20px" ion-button [full]="true" outline class="defaultBackground2 fontBold" (click)="signUpMe()">
-      {{'signUp.signUp' |translate}}
-    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 offset-3>
+          <button margin-top="20px" ion-button [full]="true" outline class="defaultBackground2 fontBold"
+                  (click)="signUpMe()">
+            {{'signUp.signUp' |translate}}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
   <div *ngIf="message">{{message}}</div>
 </ion-content>

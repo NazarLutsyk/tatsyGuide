@@ -151,12 +151,14 @@
         <ion-row>
           <ion-col col-6>
             <button ion-button class="buttonUpdate" [outline]="true" type="submit" full (click)="show(searchObject)">
-              Search
+
+
+              {{'sideMenu.filters.search' | translate}}
             </button>
           </ion-col>
           <ion-col col-6>
             <button ion-button type="button" class="buttonDelete" [outline]="true" full (click)="reset(filterForm)">
-              Reset
+              {{'sideMenu.filters.reset' | translate}}
             </button>
           </ion-col>
         </ion-row>
@@ -167,13 +169,13 @@
 </ion-menu>
 
 <!--<script>-->
-  <!--let promise = new Promise(function (resolve, reject) {-->
+<!--let promise = new Promise(function (resolve, reject) {-->
 
 
-    <!--navigator.geolocation.getCurrentPosition(position => {-->
+<!--navigator.geolocation.getCurrentPosition(position => {-->
 
-      <!--resolve(position);-->
-    <!--});-->
-  <!--});-->
+<!--resolve(position);-->
+<!--});-->
+<!--});-->
 
 <!--</script>-->

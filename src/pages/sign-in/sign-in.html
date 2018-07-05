@@ -11,7 +11,7 @@
   <form #form="ngForm">
     <ion-item>
       <ion-label [ngStyle]="{'color': (loginRef.invalid && loginRef.touched) ? 'red' : ''}">
-        Login:
+        {{'placeholder.login' | translate}}
       </ion-label>
       <ion-input
         name="login"
@@ -22,7 +22,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (passwordRef.invalid && passwordRef.touched) ? 'red' : ''}">
-        Password:
+        {{'placeholder.password' | translate}}
       </ion-label>
       <ion-input
         name="password"
@@ -30,31 +30,50 @@
         #passwordRef="ngModel"
         required
         minlength="4"
+        type="password"
       ></ion-input>
     </ion-item>
-    <button
-      margin-top="20px"
-      ion-button
-      full
-      [outline]="true"
-      class="defaultBackground2 fontBold"
-      (click)="signInMe()"
-      [disabled]="!form.valid"
-    >
-      {{'signIn.enter' | translate}}
-    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 offset-3>
+          <button
+            margin-top="20px"
+            ion-button
+            full
+            outline class="defaultBackground2 fontBold"
+            (click)="signInMe()"
+            [disabled]="!form.valid"
+          >
+            {{'signIn.enter' | translate}}
+          </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
   <div *ngIf="errorDuringSignIn">{{'signIn.message' | translate}}</div>
-  <hr>
-  <button ion-button icon-start text-center full (click)="facebookLogin()">
-    <ion-icon name="logo-facebook"></ion-icon>
-    {{'signIn.enterWithFB'| translate}}
-  </button>
-  <hr>
+  <!--<hr>-->
+  <!--<hr>-->
   <!--google login-->
-  <button ion-button full icon-start class="googleButton" (click)="googleLogin()">
-    <ion-icon name="logo-google"></ion-icon>
-    {{'signIn.enterWithG'| translate}}
-  </button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+
+        <button ion-button icon-start text-center full (click)="facebookLogin()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          {{'signIn.enterWithFB'| translate}}
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button full icon-start class="googleButton" (click)="googleLogin()">
+          <ion-icon name="logo-google"></ion-icon>
+          {{'signIn.enterWithG'| translate}}
+        </button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
 </ion-content>
