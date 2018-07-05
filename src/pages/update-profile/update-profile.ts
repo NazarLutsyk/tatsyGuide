@@ -29,7 +29,7 @@ export class UpdateProfilePage {
     this.clientId = (<any>this.client)._id;
   }
 
-  updatePromo(updateForm: NgForm) {
+  updateProfile(updateForm: NgForm) {
     this.client = updateForm.form.value.client;
     this.clientService.update(this.clientId, this.client)
       .subscribe((client) => this.navCtrl.pop());

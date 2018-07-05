@@ -16,7 +16,7 @@ import {ClientPlacesPage} from "../client-places/client-places";
 })
 export class ProfilePage {
 
-  client: Client;
+  client: Client = new Client();
 
   constructor(
     public navCtrl: NavController,
@@ -36,7 +36,9 @@ export class ProfilePage {
     if (!ObjectUtils.isEmpty(this.navParams.data)) {
       this.client = this.navParams.data;
     } else {
-      this.auth.loadPrincipal().subscribe(client => this.client = client);
+      this.auth.loadPrincipal().subscribe(client => {
+        this.client = client
+      });
     }
   }
 
