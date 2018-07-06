@@ -149,6 +149,8 @@
         <ion-select
           name="allowed"
           ngModel
+          okText="{{'placeInfo.confirm' | translate}}"
+          cancelText="{{'placeInfo.cancel' | translate}}"
           #allowed="ngModel"
           required
         >
@@ -158,10 +160,19 @@
       </ion-item>
     </div>
 
-    <button margin-top="25px" ion-button full outline class="buttonUpdate" type="button" (click)="goToChooseLocation()">
-      chose
-      {{'createPlace.chooseLocation' | translate}}
-    </button>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 offset-3>
+          <button margin-top="25px" margin-bottom="20px" ion-button full outline class="buttonUpdate" type="button"
+                  (click)="goToChooseLocation()">
+
+            {{'createPlace.chooseLocation' | translate}}
+          </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
     <ion-list ngModelGroup="features">
       <ion-list-header>{{'createPlace.features' | translate}}</ion-list-header>
@@ -198,8 +209,8 @@
       <ion-select
         name="types"
         ngModel
-        okText="Okay"
-        cancelText="Dismiss"
+        okText="{{'placeInfo.confirm' | translate}}"
+        cancelText="{{'placeInfo.cancel' | translate}}"
         multiple="true"
         #types="ngModel"
         required
@@ -212,6 +223,7 @@
 
     <ion-item-group ngModelGroup="days">
       <ion-item-group ngModelGroup="1">
+        <ion-item>{{'updatePlace.workTime' | translate}}</ion-item>
         <ion-item>
           <ion-label [ngStyle]="{'color': (start.invalid && start.touched) ? 'red' : ''}">
             {{'createPlace.from' | translate}} *

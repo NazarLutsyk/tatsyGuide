@@ -15,11 +15,11 @@ export class GlobalConfigsService {
   ) {
     if (platform.is("android")) {
       // this.globalHost = 'http://192.168.0.4:3000';
-      this.globalHost = 'http://192.168.1.33:3000';
+      this.globalHost = 'http://192.168.1.14:3000';
       // this.globalHost = 'http://localhost:3000';
     } else {
-      this.globalHost = 'http://192.168.1.33:3000';
-      // this.globalHost = 'http://localhost:3000';
+      // this.globalHost = 'http://192.168.1.14:3000';
+      this.globalHost = 'http://localhost:3000';
     }
     console.log(this.globalHost);
   }

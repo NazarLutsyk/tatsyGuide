@@ -6,6 +6,7 @@ import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/p
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {LangProvider} from "../../providers/lang/lang";
 import {zip} from "rxjs/observable/zip";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -23,7 +24,8 @@ export class CreatePlaceTypePage {
     private langService: LangProvider,
     private placeTypeService: PlaceTypeProvider,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
-    private events: Events
+    private events: Events,
+    private translate : TranslateService
   ) {
   }
 

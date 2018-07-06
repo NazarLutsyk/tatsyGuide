@@ -121,10 +121,8 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.principal, !!this.principal, 1);
     this.auth.principal.subscribe((principal) => {
       this.principal = principal;
-      console.log(this.principal, !!this.principal, 2);
     });
     zip(
       this.auth.loadPrincipal(),
@@ -162,26 +160,16 @@ export class MyApp implements OnInit {
 
 
   logout() {
-    console.log('logout')
-    console.log(this.principal)
     if (this.principal.facebookId) {
-      console.log("FB");
       this.fb.logout().then(value => {
-        console.log(value);
         this.logoutServer();
       }).catch(reason => {
-        console.log(reason);
         this.logoutServer();
       });
     } else if (this.principal.googleId) {
-      console.log("GOOGLE+");
       this.google.logout().then(value => {
-        console.log('google value')
-        console.log(value);
         this.logoutServer();
       }).catch(reason => {
-        console.log('google error');
-        console.log(reason);
         this.logoutServer();
       });
     } else {
@@ -190,14 +178,11 @@ export class MyApp implements OnInit {
   }
 
   logoutServer() {
-    console.log('logout start')
     this.auth.logOut().subscribe(() => {
-      console.log('logout end')
       this.principal = null;
       this.menuController.close();
       this.navCtrl.goToRoot({});
     }, (error) => {
-      console.log(error);
     })
   }
 
