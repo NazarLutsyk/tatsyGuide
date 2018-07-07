@@ -39,7 +39,7 @@ import {GooglePlus} from "@ionic-native/google-plus";
   providers: []
 
 })
-export class MyApp implements OnInit {
+export class MyApp {
 
   @ViewChild('myNav')
   navCtrl: NavController;
@@ -77,41 +77,41 @@ export class MyApp implements OnInit {
 
     platform
       .ready().then(() => {
-        console.log('platform ready');
         statusBar.styleDefault();
         splashScreen.hide();
-        if (platform.is("android") || platform.is("ios")) {
-          console.log('try get lang');
-          this.globalization.getPreferredLanguage().then(res => {
-            console.log('success get lang');
-            if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
-              this.globalConfig.deviceLang = "ua";
-              this.languageSwitcher = true;
-            } else {
-              this.globalConfig.deviceLang = "en";
-            }
-            console.log('try get position');
-            this.geolocation.getCurrentPosition().then((position) => {
-              console.log('success get position');
-              this.globalConfig.globalPosition.latitude = position.coords.latitude;
-              this.globalConfig.globalPosition.longitude = position.coords.longitude;
-              this.rootPage = HomePage;
-            }).catch(() => {
-              console.log('failed get position');
-              this.globalConfig.globalPosition.latitude = 0;
-              this.globalConfig.globalPosition.longitude = 0;
-              this.rootPage = HomePage;
-            });
-            console.log(this.globalConfig.getGlobalLang());
-            this.translate.use(this.globalConfig.deviceLang);
-          });
-        } else {
-          this.globalConfig.deviceLang = "ua";
-          this.languageSwitcher = true;
-          this.translate.use(this.globalConfig.deviceLang);
-          this.rootPage = HomePage;
-        }
 
+        this.langService.find({}).subscribe((langs) => {
+          this.globalConfig.langs = langs;
+
+          if (platform.is("android") || platform.is("ios")) {
+            this.globalization.getPreferredLanguage().then(res => {
+              if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
+                this.globalConfig.deviceLang = "ua";
+                this.languageSwitcher = true;
+              } else {
+                this.globalConfig.deviceLang = "en";
+              }
+              this.init();
+              this.geolocation.getCurrentPosition().then((position) => {
+                this.globalConfig.globalPosition.latitude = position.coords.latitude;
+                this.globalConfig.globalPosition.longitude = position.coords.longitude;
+                this.init();
+              }).catch(() => {
+                this.globalConfig.globalPosition.latitude = 0;
+                this.globalConfig.globalPosition.longitude = 0;
+                this.init();
+              });
+              this.translate.use(this.globalConfig.deviceLang);
+            });
+          } else {
+            this.globalConfig.deviceLang = "ua";
+            this.languageSwitcher = true;
+            this.translate.use(this.globalConfig.deviceLang);
+            this.globalConfig.globalPosition.latitude = 0;
+            this.globalConfig.globalPosition.longitude = 0;
+            this.init();
+          }
+        });
       }
     );
 
@@ -120,7 +120,7 @@ export class MyApp implements OnInit {
 
   }
 
-  ngOnInit() {
+  init() {
     this.auth.principal.subscribe((principal) => {
       this.principal = principal;
     });
@@ -132,6 +132,7 @@ export class MyApp implements OnInit {
       })
     ).subscribe(([principal, placeTypesM]) => {
       this.placeTypesM = placeTypesM;
+      this.rootPage = HomePage;
     }, (err) => {
       console.log(err);
     })

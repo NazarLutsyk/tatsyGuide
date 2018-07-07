@@ -5,23 +5,19 @@ import {Platform} from "ionic-angular";
 export class GlobalConfigsService {
   private globalHost;
   public langs = [];
-  public globalLang = '5b1e7e02749f5b3aa072ccf4';
+  public globalLang = '5b2cbc58fa9cd2ab1e737d2a';
   public globalPosition = {latitude: 0, longitude: 0};
 
-  public deviceLang /*= "ua"*/;
+  public deviceLang = '';
 
   constructor(
     private platform: Platform,
   ) {
     if (platform.is("android")) {
-      // this.globalHost = 'http://192.168.0.4:3000';
-      this.globalHost = 'http://192.168.1.14:3000';
-      // this.globalHost = 'http://localhost:3000';
+      this.globalHost = 'http://192.168.1.43:3000';
     } else {
-      // this.globalHost = 'http://192.168.1.14:3000';
       this.globalHost = 'http://localhost:3000';
     }
-    console.log(this.globalHost);
   }
 
   getGlobalHost(): string {
@@ -29,7 +25,20 @@ export class GlobalConfigsService {
   }
 
   getGlobalLang() {
-    return this.deviceLang == 'ua' ? "5b1e7e02749f5b3aa072ccf4" : '5b1e7e03749f5b3aa072ccf5'
+    // return this.deviceLang == 'ua' ? "5b2cbc58fa9cd2ab1e737d2a" : '5b2cbc5bfa9cd2ab1e737d2b'
+    if (this.deviceLang.toLowerCase() === 'ua') {
+      let uaLangIndex = this.langs.findIndex((value, index, obj) => {
+          return value.name.toLowerCase() === 'ua'
+      });
+      return this.langs[uaLangIndex]._id;
+    } else if(this.deviceLang.toLowerCase() === 'en'){
+      let enLangIndex = this.langs.findIndex((value, index, obj) => {
+        return value.name.toLowerCase() === 'en'
+      });
+      return this.langs[enLangIndex]._id;
+    }else {
+      return this.langs[0]._id;
+    }
   }
 
 
