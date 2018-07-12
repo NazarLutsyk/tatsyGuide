@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
+import {TranslateService} from "@ngx-translate/core";
 
 declare var window: any;
 declare var position: any;
@@ -16,7 +17,11 @@ export class MapPage {
   map: any;
   currentPlace: Place;
 
-  constructor(public navParams: NavParams, private placeService: PlacesProvider) {
+  constructor(
+    public navParams: NavParams,
+    private placeService: PlacesProvider,
+    private translate : TranslateService
+    ) {
     this.currentPlace = this.navParams.data;
     console.log(this.currentPlace.location.lat, this.currentPlace.location.lng);
     this.map = {

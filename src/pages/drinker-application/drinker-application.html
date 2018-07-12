@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>DrinkerApplication</ion-title>
+    <ion-title>{{'drinker.create' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,7 +12,7 @@
   <form #form="ngForm" (ngSubmit)="logForm()">
     <ion-item>
       <ion-label [ngStyle]="{'color': (friends.invalid && friends.touched) ? 'red' : ''}">
-        Alone/Not alone
+        {{'drinker.friends' | translate}}
       </ion-label>
       <ion-input
         [(ngModel)]="drinkerApplicationObject.friends"
@@ -24,7 +24,7 @@
 
     <ion-item>
       <ion-label [ngStyle]="{'color': (goal.invalid && goal.touched) ? 'red' : ''}">
-        Goal
+        {{'drinker.goal' | translate}}
       </ion-label>
       <ion-input
         [(ngModel)]="drinkerApplicationObject.goal"
@@ -35,7 +35,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (money.invalid && money.touched) ? 'red' : ''}">
-        Money
+        {{'drinker.budget' | translate}}
       </ion-label>
       <ion-input
         [(ngModel)]="drinkerApplicationObject.budged"
@@ -47,7 +47,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (date.invalid && date.touched) ? 'red' : ''}">
-        Date
+        {{'drinker.when' | translate}}
       </ion-label>
       <ion-datetime
         [(ngModel)]="drinkerApplicationObject.date"
@@ -58,7 +58,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (place.invalid && place.touched) ? 'red' : ''}">
-        Active
+        {{'drinker.where' | translate}}
       </ion-label>
       <ion-select
         [disabled]="isActive"
@@ -78,7 +78,7 @@
       type="submit"
       block
       [disabled]="!form.valid"
-    >Add Todo
+    >{{'drinker.update' | translate}}
     </button>
   </form>
 

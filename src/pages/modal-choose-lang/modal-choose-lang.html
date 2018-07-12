@@ -16,18 +16,20 @@
     <ion-col class="fontBold" text-center>{{'modalChooseLang.message' | translate}}</ion-col>
   </ion-row>
 
-  <!--<ion-select [(ngModel)]="lang">-->
-  <!--<ion-option *ngFor="let singleLang of langs" [value]="singleLang._id">{{singleLang.name}}</ion-option>-->
-  <!--</ion-select>-->
+
 
   <div *ngFor="let singleLang of langs">
+    <ion-grid>
+     <ion-row>
+        <ion-col col-6 offset-3>
     <button outline ion-button full class="defaultBackground2" (click)="goToUpdate(singleLang)">{{singleLang.name}}
     </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 
-  <!--<button ion-button class="buttonUpdate" (click)="goToUpdate()">-->
-  <!--update-->
-  <!--</button>-->
 
 
 </ion-content>

@@ -245,8 +245,6 @@ export class PlaceInfoPage {
   }
 
   presentActionSheet() {
-    //   "manageAdmins": "manage admins",
-    //   "deletePlace": "delete place"
 
 
     this.translate.get([
@@ -270,7 +268,6 @@ export class PlaceInfoPage {
             cssClass: "xxx",
 
             handler: () => {
-              console.log(value['placeInfo.updatePlace']);
               this.updatePlace(this.place);
             }
           },

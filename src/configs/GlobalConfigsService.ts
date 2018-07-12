@@ -14,9 +14,11 @@ export class GlobalConfigsService {
     private platform: Platform,
   ) {
     if (platform.is("android")) {
-      this.globalHost = 'http://192.168.1.43:3000';
+      this.globalHost = 'http://192.168.1.14:3000';
+      // this.globalHost = 'http://ec2-18-222-181-7.us-east-2.compute.amazonaws.com';
     } else {
       this.globalHost = 'http://localhost:3000';
+      // this.globalHost = 'http://ec2-18-222-181-7.us-east-2.compute.amazonaws.com';
     }
   }
 
