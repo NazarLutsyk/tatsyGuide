@@ -22,14 +22,15 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
-          {{'createPlace.description' | translate}} *
+        <!--<ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">-->
+        <ion-label >
+          {{'createPlace.description' | translate}}
         </ion-label>
         <ion-input
           name="description"
           ngModel
           #description="ngModel"
-          required
+
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -76,43 +77,47 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label [ngStyle]="{'color': (number.invalid && number.touched) ? 'red' : ''}">
-          {{'createPlace.number' | translate}} *
+        <!--<ion-label [ngStyle]="{'color': (number.invalid && number.touched) ? 'red' : ''}">-->
+        <ion-label >
+          {{'createPlace.number' | translate}}
         </ion-label>
         <ion-input
           type="text"
           name="number"
           ngModel
           #number="ngModel"
-          pattern="^[0-9]+[0-9]*$"
-          required
+
         ></ion-input>
       </ion-item>
     </ion-list>
     <ion-item>
       <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
-        {{'createPlace.phone' | translate}} *
+        {{'createPlace.phone' | translate}}
       </ion-label>
       <ion-input
         type="tel"
         name="phone"
         ngModel
         #phone="ngModel"
-        pattern="^[0-9]+[0-9]*$"
+        type="number"
         minlength="6"
         maxlength="15"
+        placeholder="0671234567"
+        required
+
       ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">
-        {{'createPlace.email' | translate}} *
+      <!--<ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">-->
+      <ion-label >
+        {{'createPlace.email' | translate}}
       </ion-label>
       <ion-input
         name="email"
         ngModel
         #email="ngModel"
-        email
+
       ></ion-input>
     </ion-item>
 
@@ -161,7 +166,7 @@
 
     <ion-grid>
       <ion-row>
-        <ion-col col-6 offset-3>
+        <ion-col col-8 offset-2>
           <button margin-top="25px" margin-bottom="20px" ion-button full outline class="buttonUpdate" type="button"
                   (click)="goToChooseLocation()">
 

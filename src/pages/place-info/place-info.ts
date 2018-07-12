@@ -60,21 +60,20 @@ export class PlaceInfoPage {
     private departmentService: DepartmentProvider,
     private complaintService: ComplaintProvider,
     private auth: AuthProvider,
-    public translate: TranslateService,
     private callNumber: CallNumber,
     public actionSheetCtrl: ActionSheetController,
     private photoViewer: PhotoViewer,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    public translate: TranslateService,
   ) {
 
-    // translate.setDefaultLang('en');
-    translate.use(this.globalConfig.deviceLang);
 
-    console.log(this.translate.currentLang);
 
   }
 
   ngOnInit() {
+
+
     this.place = this.navParams.data;
     this.globalHost = this.gc.getGlobalHost();
 
@@ -107,6 +106,7 @@ export class PlaceInfoPage {
         });
       }
     });
+
   }
 
 

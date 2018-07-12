@@ -50,8 +50,6 @@ export class PlaceDeatilsPage {
               private departmentService: DepartmentProvider,
               public translate: TranslateService,
   ) {
-    translate.setDefaultLang('en');
-    translate.use('ua');
   }
 
   ngOnInit() {
