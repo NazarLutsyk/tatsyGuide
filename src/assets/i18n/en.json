@@ -21,7 +21,7 @@
     "karaoke": "karaoke",
     "vipRoom": "vip room",
     "manage": "Manage place",
-    "updatePlace": "update",
+    "updatePlace": "Update",
     "addToTop": "Rise place",
     "manageAdmins": "Change manager",
     "deletePlace": "Delete place",
@@ -98,7 +98,8 @@
   "placeType": {
     "title": "Place types ",
     "create": "Create place type",
-    "updateType": "Change place type"
+    "updateType": "Change place type",
+    "save": "Save"
   },
   "updatePlace": {
     "title": "Update place",
@@ -154,10 +155,6 @@
     "add": "Add new manager",
     "managers": "Current managers"
   },
-  "alert": {
-    "message": "Message",
-    "email": "Your email"
-  },
   "drinker": {
     "title": "Applications",
     "create": "Create application",
@@ -165,17 +162,19 @@
     "when": "When",
     "where": "Where",
     "budget": "Budget",
-    "currency": "uah.",
+    "currency": "UAH",
     "friends": "Alone or company?",
     "goal": "Goal",
     "comment": "Comment",
     "send": "Leave comment",
-    "update": "Change",
+    "update": "Save",
     "remove": "Delete"
   },
   "alert": {
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "message": "Message",
+    "email": "Your email"
   },
   "purgatory": {
     "title": "Purgatory"
@@ -191,7 +190,8 @@
     "email": "email",
     "city": "Place",
     "update": "save",
-    "remove": "Delete"
+    "remove": "Delete",
+    "places": "Places"
   },
   "allEvents": {
     "title": "All events",
@@ -252,7 +252,7 @@
     "startDate": "Start",
     "endDate": "End",
     "sum": "Sum",
-    "actual": "actuality",
+    "actual": "Save",
     "yes": "Yes",
     "no": "No",
     "update": "Change",
@@ -311,7 +311,7 @@
     "save": "save"
   },
   "createEvent": {
-    "title": "Create bonus",
+    "title": "Create event",
     "getAvatar": "Choose avatar",
     "header": "Header",
     "desc": "Create bonus",
@@ -366,14 +366,23 @@
   "allPlaceStatistics": {
     "title": "Change news",
     "search": "Search",
-    "start": "Start",
-    "end": "End"
+    "start": "Start date",
+    "end": "End date"
   },
   "switchLang": "English",
-  "tab":{
-    "home":"Home",
+  "tab": {
+    "home": "Home",
     "top": "TOP",
-    "news" : "News",
-    "drinker" :"Drinker"
+    "news": "News",
+    "drinker": "Drinker"
+  },
+  "popover": {
+    "title": "Atention!",
+    "request": "Dear users!",
+    "preMessage": "We urge you to be careful and cautious when choosing colleagues in 'Pyachka'.",
+    "message": "The administration can not predict the outcome of your meeting and, accordingly, be responsible for it. Therefore, we urge you to be careful in choosing colleagues for rest, not to visit unfamiliar and suspicious places for you, not to use extra. For the sake of your safety and tranquility.",
+    "messageEnd": " Taking care of you, the administration of Tasty Guide.",
+    "understand": "Understand",
+    "dontUnderstand": "Don`t understand"
   }
 }

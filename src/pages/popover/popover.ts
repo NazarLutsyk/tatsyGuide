@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -13,7 +14,8 @@ export class PopoverPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    public storage: Storage
+    public storage: Storage,
+    private translate : TranslateService
   ) {
   }
 

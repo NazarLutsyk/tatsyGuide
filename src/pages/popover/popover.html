@@ -1,12 +1,45 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>popover</ion-title>
+    <ion-title text-center>{{'popover.request' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <button ion-button full color="secondary" (click)="close(false)">Ok</button>
-  <button ion-button full color="danger" (click)="close(true)">No</button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 offset-3>
+        <h2 text-center>
+          {{'popover.title' | translate}}
+        </h2>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div padding class="text-justify">
+    <p>{{'popover.message' | translate}}</p>
+    <p>{{'popover.messageEnd' | translate}}</p>
+
+  </div>
+
+  <ion-grid>
+   <ion-row>
+      <ion-col col-8 offset-2>
+  <button ion-button full outline color="secondary" (click)="close(false)">{{'popover.understand' | translate}}</button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+   <ion-row>
+      <ion-col col-8 offset-2>
+  <button ion-button full outline color="danger" (click)="close(true)">{{'popover.dontUnderstand' | translate}}</button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

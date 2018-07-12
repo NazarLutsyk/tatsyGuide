@@ -9,23 +9,46 @@
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="updatePlace(form)">
     <img [src]="avatarToShow" width="100%" height="200px">
-    <button
-      ion-button type="button"
-      outline class="defaultBackground2" full
-      (click)="changeAvatar($event)">{{'updatePlace.changeAvatar' | translate}}
-    </button>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <button
+            ion-button type="button"
+            outline class="defaultBackground2" full
+            (click)="changeAvatar($event)">{{'updatePlace.changeAvatar' | translate}}
+          </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <div style="overflow-x: scroll" *ngFor="let image of imagesToShow">
       <img [src]="image" width="100%" height="200px">
-      <button
-        ion-button outline
-        type="button" class="buttonDeleteOutline" full
-        (click)="removeImage(image,$event)">{{'updatePlace.removeImage' | translate}}
-      </button>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8 offset-2>
+            <button
+              ion-button outline
+              type="button" class="buttonDeleteOutline" full
+              (click)="removeImage(image,$event)">{{'updatePlace.removeImage' | translate}}
+            </button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
-    <button
-      ion-button type="button" outline class="defaultBackground2" full
-      (click)="addImage($event)">{{'updatePlace.addImage' | translate}}
-    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <button
+            ion-button type="button" outline class="defaultBackground2" full
+            (click)="addImage($event)">{{'updatePlace.addImage' | translate}}
+          </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
 
     <div ngModelGroup="multilang">
@@ -176,10 +199,18 @@
       </ion-item>
 
       <div ngModelGroup="location">
-        <button margin-top="20px" ion-button outline full class="defaultBackground2" type="button"
-                (click)="goToChooseLocation()">
-          {{'updatePlace.location' | translate}}
-        </button>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-8 offset-2>
+              <button margin-top="20px" ion-button outline full class="defaultBackground2" type="button"
+                      (click)="goToChooseLocation()">
+                {{'updatePlace.location' | translate}}
+              </button>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <ion-item>
           <ion-input name="lat" [(ngModel)]="place.location.lat" disabled></ion-input>
         </ion-item>
@@ -263,14 +294,22 @@
         </ion-item-group>
       </ion-item-group>
     </div>
-    <button
-      type="submit"
-      full
-      outline
-      class="defaultBackground2"
-      ion-button
-      [disabled]="!form.valid"
-    >{{'updatePlace.save' | translate}}
-    </button>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <button
+            type="submit"
+            full
+            outline
+            class="defaultBackground2"
+            ion-button
+            [disabled]="!form.valid"
+          >{{'updatePlace.save' | translate}}
+          </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>

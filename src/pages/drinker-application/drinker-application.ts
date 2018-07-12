@@ -5,6 +5,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
 import {Place} from "../../models/place/Place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
+import {TranslateService} from "@ngx-translate/core";
 
 
 class DrinkerApplicationObjectTemplate {
@@ -37,7 +38,8 @@ export class DrinkerApplicationPage {
     private globalVars: GlobalConfigsService,
     private drinkAppService: DrinkApplicationProvider,
     private placeService: PlacesProvider,
-    private events: Events
+    private events: Events,
+    private translate: TranslateService
   ) {
     if (this.navParams.data.place) {
       this.drinkerApplicationObject.place = this.navParams.data.place._id;

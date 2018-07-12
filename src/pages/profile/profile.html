@@ -38,7 +38,7 @@
         <!--//todo Serj change button translate from save to update-->
         <button ion-button outline class="buttonUpdate" full
                 (click)="updateClient(client)">
-          {{'profile.update'|translate}}
+          {{'profile.edit'|translate}}
         </button>
       </ion-col>
       <ion-col col-6>
@@ -48,14 +48,19 @@
         </button>
       </ion-col>
     </ion-row>
+
     <ion-row>
-      <button
-        ion-button
-        outline
-        full
-        (click)="goToClientPlacesPage()"
-        *ngIf="client && client.roles && client.roles.indexOf('ADMIN') >= 0"
-      >{{'profile.places' | translate}}</button>
+      <ion-col col-8 offset-2>
+        <button
+          ion-button
+          outline
+          full
+          (click)="goToClientPlacesPage()"
+          *ngIf="client && client.roles && client.roles.indexOf('ADMIN') >= 0"
+        >{{'profile.places' | translate}}
+        </button>
+
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

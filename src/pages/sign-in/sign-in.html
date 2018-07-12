@@ -51,7 +51,8 @@
       </ion-row>
     </ion-grid>
   </form>
-  <div *ngIf="errorDuringSignIn">{{'signIn.message' | translate}}</div>
+
+  <div text-center class="warningColor" *ngIf="errorDuringSignIn">{{'signIn.message' | translate}}</div>
   <!--<hr>-->
   <!--<hr>-->
   <!--google login-->

@@ -77,7 +77,7 @@ export class MyApp {
 
     platform
       .ready().then(() => {
-        statusBar.styleDefault();
+        // statusBar.styleDefault();
         splashScreen.hide();
 
         this.langService.find({}).subscribe((langs) => {

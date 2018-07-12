@@ -12,7 +12,8 @@
   <form>
     <ion-item>
       <ion-label [ngStyle]="{'color': (nameRef.invalid && nameRef.touched) ? 'red' : ''}">
-        <!--Name:-->
+        {{'placeholder.name' | translate}}
+
       </ion-label>
       <ion-input
         name="name"
@@ -25,7 +26,8 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (surnameRef.invalid && surnameRef.touched) ? 'red' : ''}">
-        <!--Surname:-->
+        {{'placeholder.surname' | translate}}
+
       </ion-label>
       <ion-input
         name="surname"
@@ -37,7 +39,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (emailRef.invalid && emailRef.touched) ? 'red' : ''}">
-        <!--Email:-->
+        {{'placeholder.email' | translate}}
       </ion-label>
       <ion-input
         name="email"
@@ -51,7 +53,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (loginRef.invalid && loginRef.touched) ? 'red' : ''}">
-        <!--Login:-->
+        {{'placeholder.login' | translate}}
       </ion-label>
       <ion-input
         name="login"
@@ -64,7 +66,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (passwordRef.invalid && passwordRef.touched) ? 'red' : ''}">
-        <!--Password:-->
+        {{'placeholder.password' | translate}}
       </ion-label>
       <ion-input
         name="password"

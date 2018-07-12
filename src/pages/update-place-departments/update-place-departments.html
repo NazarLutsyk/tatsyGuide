@@ -36,22 +36,51 @@
         </ion-select>
       </ion-item>
     </ion-list>
-    <button
-      margin-top="20px"
-      margin-bottom="20px"
-      ion-button
-      full
-      [outline]="true"
-      class="buttonUpdate"
-      [disabled]="!newAdminForm.valid"
-    >{{'updatePlaceDepartments.save'|translate}}
-    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <button
+            margin-top="20px"
+            margin-bottom="20px"
+            ion-button
+            full
+            [outline]="true"
+            class="buttonUpdate"
+            [disabled]="!newAdminForm.valid"
+          >{{'updatePlaceDepartments.save'|translate}}
+          </button>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 
   <ion-list>
     <ion-list-header text-center=""><h2>{{'updatePlaceDepartments.managers'|translate}}</h2></ion-list-header>
-    <ion-item-sliding *ngFor="let department of departments">
+    <!--<ion-item-sliding *ngFor="let department of departments">-->
 
+    <!--<ion-item>-->
+    <!--<ion-label>{{department.client.name}} {{department.client.surname}}</ion-label>-->
+    <!--<ion-select name="roles" [(ngModel)]="department.roles" multiple (ionChange)="updateDepartment(department)">-->
+    <!--<ion-option value="BOSS_PLACE">BOSS</ion-option>-->
+    <!--<ion-option value="ADMIN_PLACE">ADMIN</ion-option>-->
+    <!--</ion-select>-->
+    <!--</ion-item>-->
+
+    <!--<ion-item-options side="right">-->
+    <!--<button ion-button [outline]="true" class="buttonDelete" (click)="removeDepartment(department,$event)">-->
+    <!--<ion-icon name="trash"></ion-icon>-->
+    <!--{{'updatePlaceDepartments.delete'|translate}}-->
+    <!--</button>-->
+    <!--<button ion-button [outline]="true" class="buttonUpdate" (click)="openProfile(department)">-->
+    <!--<ion-icon name="arrow-dropright"></ion-icon>-->
+    <!--{{'updatePlaceDepartments.details'|translate}}-->
+    <!--</button>-->
+    <!--</ion-item-options>-->
+
+    <!--</ion-item-sliding>-->
+
+    <ion-list *ngFor="let department of departments">
       <ion-item>
         <ion-label>{{department.client.name}} {{department.client.surname}}</ion-label>
         <ion-select name="roles" [(ngModel)]="department.roles" multiple (ionChange)="updateDepartment(department)">
@@ -59,18 +88,19 @@
           <ion-option value="ADMIN_PLACE">ADMIN</ion-option>
         </ion-select>
       </ion-item>
-
-      <ion-item-options side="right">
+      <ion-item>
         <button ion-button [outline]="true" class="buttonDelete" (click)="removeDepartment(department,$event)">
-          <ion-icon name="trash"></ion-icon>
+          <!--<ion-icon name="trash"></ion-icon>-->
           {{'updatePlaceDepartments.delete'|translate}}
         </button>
         <button ion-button [outline]="true" class="buttonUpdate" (click)="openProfile(department)">
-          <ion-icon name="arrow-dropright"></ion-icon>
+          <!--<ion-icon name="arrow-dropright"></ion-icon>-->
           {{'updatePlaceDepartments.details'|translate}}
         </button>
-      </ion-item-options>
 
-    </ion-item-sliding>
+      </ion-item>
+    </ion-list>
+
+
   </ion-list>
 </ion-content>

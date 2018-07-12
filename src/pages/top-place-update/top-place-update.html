@@ -56,14 +56,21 @@
         <ion-option value="false"> {{'topPlace.no'|translate}}</ion-option>
       </ion-select>
     </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8 offset-2>
 
-    <button
-      ion-button
-      full
-      class="defaultBackground"
-      [disabled]="!topPlaceForm.valid"
-    >   {{'topPlace.actual'|translate}}
-    </button>
+          <button
+            ion-button
+            full
+            [outline]="true"
+            class="buttonUpdate"
+            [disabled]="!topPlaceForm.valid"
+          > {{'topPlace.actual'|translate}}
+          </button>
 
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>
