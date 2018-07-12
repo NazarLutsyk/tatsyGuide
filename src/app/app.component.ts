@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Events, MenuController, NavController, Platform} from 'ionic-angular';
+import {Events, MenuController, NavController, Platform, ToastController} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -32,6 +32,8 @@ import {PlaceTypesPage} from "../pages/place-types/place-types";
 import {TranslateService} from "@ngx-translate/core";
 import {Facebook} from "@ionic-native/facebook";
 import {GooglePlus} from "@ionic-native/google-plus";
+import {Subject} from "rxjs/Subject";
+import {Storage} from "@ionic/storage";
 
 
 @Component({
@@ -39,7 +41,7 @@ import {GooglePlus} from "@ionic-native/google-plus";
   providers: []
 
 })
-export class MyApp implements OnInit{
+export class MyApp implements OnInit {
 
 
   @ViewChild('myNav')
@@ -55,6 +57,9 @@ export class MyApp implements OnInit{
     city: ''
   };
   principal: Client = null;
+  doneSubject = new Subject();
+  getLang = false;
+  getLocation = false;
 
   constructor(public platform: Platform,
               statusBar: StatusBar,
@@ -72,12 +77,12 @@ export class MyApp implements OnInit{
               private globalization: Globalization,
               private translate: TranslateService,
               private fb: Facebook,
-              private google: GooglePlus
+              private google: GooglePlus,
+              private storage: Storage,
+              private toastLang: ToastController
   ) {
 
     console.log('const start', this.globalConfig.deviceLang);
-
-
 
 
     platform
@@ -126,42 +131,86 @@ export class MyApp implements OnInit{
   }
 
   ngOnInit(): void {
+
+    this.doneSubject.subscribe((val) => {
+      this.getLang = val === 'lang' ? true : this.getLang;
+      this.getLocation = val === 'location' ? true : this.getLocation;
+      console.log('get lang', this.getLang);
+      console.log('get location', this.getLocation);
+      if (this.getLang && this.getLocation) {
+        this.init();
+      }
+    });
+
     this.langService.find({}).subscribe((langs) => {
       this.globalConfig.langs = langs;
       console.log('const if start', this.globalConfig.deviceLang);
 
       if (this.platform.is("android") || this.platform.is("ios")) {
-        this.globalization.getPreferredLanguage().then(res => {
-          if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
+        this.storage.get('lang').then((lang) => {
+          if (lang) {
+            this.globalConfig.deviceLang = lang;
+            this.languageSwitcher = true;
+            this.translate.use(this.globalConfig.deviceLang);
+            this.doneSubject.next('lang');
+          } else {
+            this.getPrefferedLang();
+          }
+        }).catch(() => {
+          this.getPrefferedLang()
+        });
+        this.geolocation.getCurrentPosition({timeout: 10000,}).then((position) => {
+          this.globalConfig.globalPosition.latitude = position.coords.latitude;
+          this.globalConfig.globalPosition.longitude = position.coords.longitude;
+          this.doneSubject.next('location');
+        }).catch(() => {
+          this.globalConfig.globalPosition.latitude = 0;
+          this.globalConfig.globalPosition.longitude = 0;
+          this.doneSubject.next('location');
+        })
+      } else {
+        this.storage.get('lang').then((lang) => {
+          if (lang) {
+            this.globalConfig.deviceLang = lang;
+            this.languageSwitcher = true;
+            this.translate.use(this.globalConfig.deviceLang);
+            this.init();
+          } else {
             this.globalConfig.deviceLang = "ua";
             this.languageSwitcher = true;
-          } else {
-            this.globalConfig.deviceLang = "en";
-          }
-          this.init();
-          this.geolocation.getCurrentPosition().then((position) => {
-            this.globalConfig.globalPosition.latitude = position.coords.latitude;
-            this.globalConfig.globalPosition.longitude = position.coords.longitude;
-            this.init();
-          }).catch(() => {
+            this.translate.use(this.globalConfig.deviceLang);
             this.globalConfig.globalPosition.latitude = 0;
             this.globalConfig.globalPosition.longitude = 0;
             this.init();
-          });
-
-          console.log("!!!!!!!!!!!", this.globalConfig.deviceLang);
+          }
+        }).catch(() => {
+          this.globalConfig.deviceLang = "ua";
+          this.languageSwitcher = true;
           this.translate.use(this.globalConfig.deviceLang);
+          this.globalConfig.globalPosition.latitude = 0;
+          this.globalConfig.globalPosition.longitude = 0;
+          this.init();
         });
-      } else {
-        this.globalConfig.deviceLang = "ua";
-        this.languageSwitcher = true;
-        console.log("!!!!!!!!!!!", this.globalConfig.deviceLang);
-        this.translate.use(this.globalConfig.deviceLang);
-        this.globalConfig.globalPosition.latitude = 0;
-        this.globalConfig.globalPosition.longitude = 0;
-        this.init();
       }
     });
+  }
+
+  getPrefferedLang() {
+    this.globalization.getPreferredLanguage().then(res => {
+      if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
+        this.globalConfig.deviceLang = "ua";
+        this.languageSwitcher = true;
+      } else {
+        this.globalConfig.deviceLang = "en";
+      }
+      this.translate.use(this.globalConfig.deviceLang);
+      this.doneSubject.next('lang');
+    }).catch(() => {
+      this.globalConfig.deviceLang = "ua";
+      this.languageSwitcher = true;
+      this.translate.use(this.globalConfig.deviceLang);
+      this.doneSubject.next('lang');
+    })
   }
 
   init() {
@@ -293,9 +342,17 @@ export class MyApp implements OnInit{
 
 
   switchLang() {
-    this.globalConfig.deviceLang = this.languageSwitcher ? "ua" : "en";
-    this.translate.use(this.globalConfig.deviceLang);
-
+    // this.globalConfig.deviceLang = this.languageSwitcher ? "ua" : "en";
+    // this.translate.use(this.globalConfig.deviceLang);
+    let selectedLang = this.globalConfig.deviceLang === 'ua' ? "en" : "ua";
+    this.storage.set('lang', selectedLang);
+    //todo serj add translate
+    this.toastLang.create({
+      dismissOnPageChange: true,
+      message: "Please reload app!",
+      duration: 3000,
+      position: 'top'
+    }).present();
   }
 }
 
