@@ -18,7 +18,7 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
-        useFactory: createTranslateLoader,
+        useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
     }),

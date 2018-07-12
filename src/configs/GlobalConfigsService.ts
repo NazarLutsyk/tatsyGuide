@@ -8,17 +8,17 @@ export class GlobalConfigsService {
   public globalLang = '5b2cbc58fa9cd2ab1e737d2a';
   public globalPosition = {latitude: 0, longitude: 0};
 
-  public deviceLang = '';
+  public deviceLang = 'ua';
 
   constructor(
     private platform: Platform,
   ) {
     if (platform.is("android")) {
-      this.globalHost = 'http://192.168.1.14:3000';
-      // this.globalHost = 'http://ec2-18-222-181-7.us-east-2.compute.amazonaws.com';
+      // this.globalHost = 'http://192.168.1.14:3000';
+      this.globalHost = 'http://ec2-18-222-181-7.us-east-2.compute.amazonaws.com';
     } else {
-      this.globalHost = 'http://localhost:3000';
-      // this.globalHost = 'http://ec2-18-222-181-7.us-east-2.compute.amazonaws.com';
+      // this.globalHost = 'http://localhost:3000';
+      this.globalHost = 'http://ec2-18-222-181-7.us-east-2.compute.amazonaws.com';
     }
   }
 

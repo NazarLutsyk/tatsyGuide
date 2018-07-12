@@ -12,48 +12,61 @@
         <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()"></ion-toggle>
 
       </ion-item>
-      <ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToPlaceTypesPage()">{{'sideMenu.leftMenu.managePlaceType' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToTopPlacesManagePage()"> {{'sideMenu.leftMenu.manageTopPlace' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToPlacesStatisticPage()"> {{'sideMenu.leftMenu.stat' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToPlacesPurgatoryPage()">{{'sideMenu.leftMenu.purgatory' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0">
-        <span (click)="goToClientsPage()"> {{'sideMenu.leftMenu.clients' | translate}}</span>
-      </ion-item>
-      <ion-item>
-        <span (click)="goToEventsPage()"> {{'sideMenu.leftMenu.events' | translate}}</span>
-      </ion-item>
-      <ion-item>
-        <span (click)="goToBonusesPage()"> {{'sideMenu.leftMenu.bonuses' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal">
-        <span (click)="goToMyProfilePage()"> {{'sideMenu.leftMenu.myProfile' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal">
-        <span (click)="goToMyPlacesPage()"> {{'sideMenu.leftMenu.myPlaces' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal">
-        <span (click)="goToMyFavoritePlacesPage()"> {{'sideMenu.leftMenu.favPlaces' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal">
-        <span (click)="goToMyRatingsPage()">{{'sideMenu.leftMenu.myTestimonials' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal">
-        <span (click)="goToCreatePlacePage()">{{'sideMenu.leftMenu.createPlace' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="principal" (click)="logout()">
-        <span>{{'sideMenu.leftMenu.logout' | translate}}</span>
-      </ion-item>
-      <ion-item *ngIf="!principal">
-        <span (click)="goToLoginRegistration()"> {{'sideMenu.leftMenu.login' | translate}}</span>
-      </ion-item>
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="goToPlaceTypesPage()">
+        {{'sideMenu.leftMenu.managePlaceType' | translate}}
+      </button>
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="goToTopPlacesManagePage()">
+        {{'sideMenu.leftMenu.manageTopPlace' | translate}}
+
+      </button>
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="goToPlacesStatisticPage()">
+        {{'sideMenu.leftMenu.stat' | translate}}
+      </button>
+      <button ion-item=""
+              *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+              (click)="goToPlacesPurgatoryPage()">
+        {{'sideMenu.leftMenu.purgatory' | translate}}
+      </button>
+      <button ion-item *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+              (click)="goToClientsPage()">
+        {{'sideMenu.leftMenu.clients' | translate}}
+      </button>
+      <button ion-item (click)="goToEventsPage()">
+        {{'sideMenu.leftMenu.events' | translate}}
+      </button>
+      <button ion-item (click)="goToBonusesPage()">
+        {{'sideMenu.leftMenu.bonuses' | translate}}
+      </button>
+      <button ion-item *ngIf="principal" (click)="goToMyProfilePage()">
+        {{'sideMenu.leftMenu.myProfile' | translate}}
+      </button>
+      <button ion-item *ngIf="principal" (click)="goToMyPlacesPage()">
+        {{'sideMenu.leftMenu.myPlaces' | translate}}
+      </button>
+      <button ion-item *ngIf="principal" (click)="goToMyFavoritePlacesPage()">
+        {{'sideMenu.leftMenu.favPlaces' | translate}}
+      </button>
+      <button ion-item *ngIf="principal" (click)="goToMyRatingsPage()">
+        {{'sideMenu.leftMenu.myTestimonials' | translate}}
+      </button>
+      <button ion-item *ngIf="principal" (click)="goToCreatePlacePage()">
+        {{'sideMenu.leftMenu.createPlace' | translate}}
+      </button>
+      <button ion-item *ngIf="principal" (click)="logout()">
+        {{'sideMenu.leftMenu.logout' | translate}}
+      </button>
+      <button ion-item *ngIf="!principal" (click)="goToLoginRegistration()">
+        {{'sideMenu.leftMenu.login' | translate}}
+      </button>
     </ion-list>
   </ion-content>
 </ion-menu>
