@@ -33,6 +33,7 @@ export class AllPlacesPage {
   globalHost: string;
   principal: Client;
   searchStr: string = '';
+  searchHashTags: string[] = [];
   placeQuery: any = {};
   placeMultilangQuery: any = {};
   eventData: any = {};
@@ -57,15 +58,15 @@ export class AllPlacesPage {
     private auth: AuthProvider,
     private placeMultilangService: PlaceMultilangProvider,
     private loadingCtrl: LoadingController,
-    private globalConfig : GlobalConfigsService
+    private globalConfig: GlobalConfigsService
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
 
   ngOnInit() {
 
-    console.log('this.globalConfig.deviceLang - ',this.globalConfig.deviceLang );
-    console.log('this.globalConfig.getGlobalLang() - ',this.globalConfig.getGlobalLang() );
+    console.log('this.globalConfig.deviceLang - ', this.globalConfig.deviceLang);
+    console.log('this.globalConfig.getGlobalLang() - ', this.globalConfig.getGlobalLang());
     this.eventData = {};
     this.auth.principal.subscribe(principal => this.principal = principal);
     this.auth.loadPrincipal().subscribe();
@@ -117,10 +118,18 @@ export class AllPlacesPage {
     if (!ObjectUtils.isEmpty(eventData.range) && eventData.range.upper !== 10000 && eventData.range.lower !== 0) {
       this.placeQuery.query.averagePrice = {$gte: eventData.range.lower, $lte: eventData.range.upper};
     }
-    if (this.searchStr)
+    if (this.searchStr) {
       this.placeMultilangQuery.query['multilang.name'] = {$regex: this.searchStr, $options: "i"};
-    else
+    }
+    else {
       delete this.placeMultilangQuery.query['multilang.name'];
+    }
+    if (this.searchHashTags.length > 0) {
+      this.placeQuery.query.hashTags = {$in: this.searchHashTags};
+    }
+    else {
+      delete this.placeQuery.query['hashTags'];
+    }
     if (this.eventData.city)
       this.placeMultilangQuery.query['multilang.address.city'] = this.eventData.city;
     else
@@ -222,7 +231,19 @@ export class AllPlacesPage {
     this.skip = 0;
     this.allLoaded = false;
     setTimeout(() => {
-      this.searchStr = event.target.value;
+      let searchStrInput = event.target.value;
+      if (searchStrInput.indexOf('#') > -1) {
+        this.searchHashTags = searchStrInput
+          .trim()
+          .replace(' ', '')
+          .split(',')
+          .filter(value => value.length > 0 && value[0] === '#')
+          .map(value => value.replace('#', ''));
+        this.searchStr = '';
+      } else {
+        this.searchStr = searchStrInput.trim();
+        this.searchHashTags = [];
+      }
       this.findPlacesByFilter(this.eventData);
     }, 500);
   }

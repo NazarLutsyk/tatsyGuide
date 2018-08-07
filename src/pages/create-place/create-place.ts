@@ -99,6 +99,7 @@ export class CreatePlacePage {
         formPlace.topCategories ? formPlace.topCategories.split(',') : [];
       place.allowed = formPlace.allowed;
     }
+
     this.placeService.create(place).subscribe((place) => {
       placeMultilang.place = (<any>place)._id;
       this.placeMultilangService.create(placeMultilang).subscribe(multilang => {

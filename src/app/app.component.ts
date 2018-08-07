@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Events, MenuController, NavController, Platform, ToastController} from 'ionic-angular';
+import {Events, MenuController, NavController, Platform, ToastController, ViewController} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -81,56 +81,21 @@ export class MyApp implements OnInit {
               private storage: Storage,
               private toastLang: ToastController
   ) {
-
-    console.log('const start', this.globalConfig.deviceLang);
-
-
     platform
       .ready().then(() => {
         splashScreen.hide();
-
-
-        // this.langService.find({}).subscribe((langs) => {
-        //   this.globalConfig.langs = langs;
-        //
-        //   if (platform.is("android") || platform.is("ios")) {
-        //     this.globalization.getPreferredLanguage().then(res => {
-        //       if (res.value.includes("ua") || res.value.includes("UA") || res.value.includes("ru") || res.value.includes("RU")) {
-        //         this.globalConfig.deviceLang = "ua";
-        //         this.languageSwitcher = true;
-        //       } else {
-        //         this.globalConfig.deviceLang = "en";
-        //       }
-        //       this.init();
-        //       this.geolocation.getCurrentPosition().then((position) => {
-        //         this.globalConfig.globalPosition.latitude = position.coords.latitude;
-        //         this.globalConfig.globalPosition.longitude = position.coords.longitude;
-        //         this.init();
-        //       }).catch(() => {
-        //         this.globalConfig.globalPosition.latitude = 0;
-        //         this.globalConfig.globalPosition.longitude = 0;
-        //         this.init();
-        //       });
-        //       this.translate.use(this.globalConfig.deviceLang);
-        //     });
-        //   } else {
-        //     this.globalConfig.deviceLang = "ua";
-        //     this.languageSwitcher = true;
-        //     this.translate.use(this.globalConfig.deviceLang);
-        //     this.globalConfig.globalPosition.latitude = 0;
-        //     this.globalConfig.globalPosition.longitude = 0;
-        //     this.init();
-        //   }
-        // });
       }
     );
-
-    // this.translate.setDefaultLang("en");
-    // this.translate.use("ua");
-
   }
 
   ngOnInit(): void {
+    this.navCtrl.viewDidEnter.subscribe((viewController: ViewController) => {
+      let shouldEnable = viewController.index === 0;
+      this.menuController.swipeEnable(shouldEnable, 'leftSideMenu');
+      this.menuController.swipeEnable(shouldEnable, 'rightSideMenu');
+      this.menuController.enable(shouldEnable, 'leftSideMenu');
+      this.menuController.enable(shouldEnable, 'rightSideMenu');
+    });
 
     this.doneSubject.subscribe((val) => {
       this.getLang = val === 'lang' ? true : this.getLang;
@@ -251,7 +216,6 @@ export class MyApp implements OnInit {
     this.navCtrl.push(LoginPage);
     this.menuController.close();
   }
-
 
   logout() {
     if (this.principal.facebookId) {

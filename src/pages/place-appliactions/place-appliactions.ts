@@ -117,6 +117,6 @@ export class PlaceAppliactionsPage {
   }
 
   openDrinkApplication(drinkApp: DrinkApplication) {
-    this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: false});
+    this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: false, _id: (<any>drinkApp)._id});
   }
 }

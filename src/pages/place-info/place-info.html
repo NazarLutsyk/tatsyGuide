@@ -7,7 +7,7 @@
 
 <ion-content>
 
-  <ion-slides >
+  <ion-slides>
     <ion-slide *ngFor="let image of place.images">
       <ion-img #img src="{{globalHost}}{{image}}" (click)="showPhoto(img.src)"></ion-img>
     </ion-slide>
@@ -89,15 +89,11 @@
             <mat-expansion-panel-header>
               {{'placeInfo.tags' | translate}}
             </mat-expansion-panel-header>
-            <ul>
-              <li *ngFor="let hashTag of place.hashTags">
-                <p>
-                  <strong (click)="findPlacesByHashTag(hashTag)">
-                    {{hashTag}}
-                  </strong>
-                </p>
-              </li>
-            </ul>
+            <p>
+              <strong *ngFor="let hashTag of place.hashTags" (click)="findPlacesByHashTag(hashTag)">
+                #{{hashTag}},
+              </strong>
+            </p>
           </mat-expansion-panel>
         </mat-accordion>
       </ion-col>

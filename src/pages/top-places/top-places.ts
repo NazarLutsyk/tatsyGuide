@@ -41,14 +41,28 @@ export class TopPlacesPage {
 
   loadTopPlaces() {
     return new Observable<Place[]>((subscriber) => {
-      this.topPlaceService.find({
-        query: {actual: true},
-        select: 'place'
-      }).subscribe(topPlaces => {
-        let placesIds = topPlaces.map(topPlace => topPlace.place);
+        let alreadyLoadedPlaces = this.topPlaces.map(value => (<any>value)._id);
         this.placeService.find({
           aggregate: [
-            {$match: {_id: {$in : placesIds}}},
+            {
+              $match: {
+                _id: {$nin: [...alreadyLoadedPlaces]}
+              }
+            },
+            {
+              $lookup: {
+                from: 'topplaces',
+                localField: '_id',
+                foreignField: 'place',
+                as: 'tops',
+              }
+            },
+            {$unwind: "$tops"},
+            {
+              $match: {
+                'tops.actual': true
+              }
+            },
             {
               $lookup: {
                 from: 'multilangs',
@@ -94,21 +108,20 @@ export class TopPlacesPage {
                 createdAt: {$first: '$createdAt'},
               }
             },
-            {$sort: {createdAt: -1}},
-            {$skip: this.skip},
-            {$limit: this.limit},
+            {$sample: {size: this.limit}},
           ]
         }).subscribe((places) => {
           subscriber.next(places);
         })
-      });
-    });
+      }
+    );
   }
 
   doRefresh(refresher) {
     this.skip = 0;
     this.allLoaded = false;
-
+    this.topPlaces = [];
+    
     this.loadTopPlaces()
       .subscribe(places => {
         this.topPlaces = places;

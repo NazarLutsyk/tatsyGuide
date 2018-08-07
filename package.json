@@ -73,7 +73,7 @@
     "ionicons": "^3.0.0",
     "lodash": "^4.17.5",
     "minimist": "^1.2.0",
-    "mx.ferreyra.callnumber": "~0.0.2",
+    "mx.ferreyra.callnumber": "0.0.2",
     "rxjs": "5.5.7",
     "sw-toolbox": "3.6.0",
     "xml2js": "^0.4.19",
@@ -123,7 +123,8 @@
       "cordova-plugin-globalization": {},
       "cordova-plugin-statusbar": {},
       "mx.ferreyra.callnumber": {},
-      "com-sarriaroman-photoviewer": {}
+      "com-sarriaroman-photoviewer": {},
+      "call-number": {}
     },
     "platforms": [
       "android"

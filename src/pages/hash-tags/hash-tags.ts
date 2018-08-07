@@ -34,36 +34,86 @@ export class HashTagsPage {
     if (this.navParams.data.hashTag) {
       this.searchHashTag = this.navParams.data.hashTag;
     }
-    this.onSearchPlaces().subscribe(places => this.places = places);
+    this.findPlaces().subscribe(places => this.places = places);
   }
 
   doRefresh(refresher: Refresher) {
     this.skip = 0;
     this.allLoaded = false;
 
-    this.onSearchPlaces().subscribe(places => {
+    this.findPlaces().subscribe(places => {
       this.places = places;
       refresher.complete();
     });
   }
 
   onSearchPlaces($event = {}) {
-    let hashTags = this.searchHashTag.split(',');
-    return this.placesService
-      .find(
+    this.skip = 0;
+    this.allLoaded = false;
+    setTimeout(() => {
+      this.findPlaces().subscribe(places => this.places = places);
+    }, 500);
+  }
+
+  findPlaces() {
+    let hashTagsInput = this.searchHashTag
+      .trim()
+      .replace(' ', '')
+      .split(',')
+      .filter(value => value.length > 0 && value[0] === '#')
+      .map(value => value.replace('#', ''));
+
+    return this.placesService.find({
+      aggregate: [
+        {$match: {hashTags: {$in: hashTagsInput}}},
         {
-          query: {hashTags: {$in: hashTags}},
-          populate: [
-            {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
-            },
-          ],
-          skip: this.skip,
-          limit: this.limit
-        }
-      );
+          $lookup: {
+            from: 'multilangs',
+            localField: '_id',
+            foreignField: 'place',
+            as: 'multilang',
+          }
+        },
+        {$unwind: "$multilang"},
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: 'types',
+            foreignField: 'placeType',
+            as: 'types',
+          }
+        },
+        {$unwind: "$types"},
+        {
+          $match: {
+            'types.lang': this.globalConfig.getGlobalLang(),
+            'multilang.lang': this.globalConfig.getGlobalLang()
+          }
+        },
+        {
+          $group: {
+            _id: '$_id',
+            types: {$push: '$types'},
+            multilang: {$addToSet: '$multilang'},
+            phone: {$first: '$phone'},
+            email: {$first: '$email'},
+            averagePrice: {$first: '$averagePrice'},
+            reviews: {$first: '$reviews'},
+            rating: {$first: '$rating'},
+            allowed: {$first: '$allowed'},
+            avatar: {$first: '$avatar'},
+            location: {$first: '$location'},
+            features: {$first: '$features'},
+            topCategories: {$first: '$topCategories'},
+            images: {$first: '$images'},
+            days: {$first: '$days'},
+            hashTags: {$first: '$hashTags'},
+          }
+        },
+        {$skip: this.skip},
+        {$limit: this.limit}
+      ]
+    });
   }
 
   loadNextPlacesPage(event: InfiniteScroll) {
@@ -71,7 +121,7 @@ export class HashTagsPage {
       event.complete();
     } else {
       this.setNextPage();
-      this.onSearchPlaces()
+      this.findPlaces()
         .subscribe((places) => {
           if (places.length < this.pageSize) this.allLoaded = true;
           this.places.push(...places);

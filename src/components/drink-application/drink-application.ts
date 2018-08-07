@@ -23,7 +23,7 @@ export class DrinkApplicationComponent {
   }
 
   openDrinkApplication(drinkApp) {
-    this.onOpenDrinkApplication.emit(this.drinkApp);
+    this.onOpenDrinkApplication.emit(drinkApp);
   }
 
   removeDrinkApp(drinkApp, event) {

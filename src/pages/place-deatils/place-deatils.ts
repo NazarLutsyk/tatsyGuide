@@ -55,10 +55,10 @@ export class PlaceDeatilsPage {
   ngOnInit() {
 
     this.place = this.navParams.data;
-    let menus = this.menuController.getMenus();
-    for (const menu of menus) {
-      menu.swipeEnable(false);
-    }
+    // let menus = this.menuController.getMenus();
+    // for (const menu of menus) {
+    //   menu.swipeEnable(false);
+    // }
     this.auth.loadPrincipal().subscribe((principal) => {
 
       if (principal) {

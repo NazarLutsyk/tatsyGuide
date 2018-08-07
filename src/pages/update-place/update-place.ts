@@ -88,6 +88,7 @@ export class UpdatePlacePage {
     });
 
     zip(currentPlace, currentPlaceTypeMultilang).subscribe(values => {
+      console.log(values);
       this.place = values[0];
       this.placeMultilang = this.place.multilang[0] ? this.place.multilang[0] : new PlaceMultilang();
       this.placeMultilangId = (<any>this.placeMultilang)._id;
@@ -148,6 +149,7 @@ export class UpdatePlacePage {
       placeMultilangUpdateQuery =
         this.placeMultilangService.create(this.placeMultilang);
     }
+    console.log(this.placeMultilang);
     zip(
       placeMultilangUpdateQuery,
       placeUpdateQuery,

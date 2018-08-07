@@ -68,7 +68,6 @@ export class PlaceInfoPage {
   ) {
 
 
-
   }
 
   ngOnInit() {
@@ -172,7 +171,7 @@ export class PlaceInfoPage {
   }
 
   findPlacesByHashTag(hashTag: string) {
-    this.app.getRootNav().push(HashTagsPage, {hashTag: hashTag});
+    this.app.getRootNav().push(HashTagsPage, {hashTag: '#' + hashTag});
   }
 
   sendComplaint() {

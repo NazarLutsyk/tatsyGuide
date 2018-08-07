@@ -122,6 +122,6 @@ export class AllDrinkApplicationsPage {
   }
 
   openDrinkApplication(drinkApp: DrinkApplication) {
-    this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: true});
+    this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: true, _id: (<any>drinkApp)._id});
   }
 }
