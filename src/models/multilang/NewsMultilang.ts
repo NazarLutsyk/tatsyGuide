@@ -3,7 +3,7 @@ import {Multilang} from "./Multilang";
 
 export class NewsMultilang extends Multilang{
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public header: string = '',
     public description: string = '',
     public promo: string = '',

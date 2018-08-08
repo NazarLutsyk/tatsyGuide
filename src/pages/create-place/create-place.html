@@ -23,7 +23,7 @@
       </ion-item>
       <ion-item>
         <!--<ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">-->
-        <ion-label >
+        <ion-label>
           {{'createPlace.description' | translate}}
         </ion-label>
         <ion-input
@@ -35,35 +35,6 @@
       </ion-item>
     </ion-list>
     <ion-list ngModelGroup="address">
-
-      <ion-item>
-        <ion-label [ngStyle]="{'color': (city.invalid && city.touched) ? 'red' : ''}">
-          {{'createPlace.city' | translate}} *
-        </ion-label>
-        <ion-select
-          interface="popover"
-          ngModel
-          name="city"
-          #city="ngModel"
-          required
-        >
-          <ion-option value="">
-            {{'createPlace.chooseCity' | translate}}
-          </ion-option>
-          <ion-option value=" {{'createPlace.lviv' | translate}}">
-            {{'createPlace.lviv' | translate}}
-          </ion-option>
-          <ion-option value="{{'createPlace.kyiv' | translate}}">
-            {{'createPlace.kyiv' | translate}}
-          </ion-option>
-          <ion-option value=" {{'createPlace.kharkiv' | translate}}">
-            {{'createPlace.kharkiv' | translate}}
-          </ion-option>
-          <ion-option value="{{'createPlace.odesa' | translate}}">
-            {{'createPlace.odesa' | translate}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
 
       <ion-item>
         <ion-label [ngStyle]="{'color': (street.invalid && street.touched) ? 'red' : ''}">
@@ -78,7 +49,7 @@
       </ion-item>
       <ion-item>
         <!--<ion-label [ngStyle]="{'color': (number.invalid && number.touched) ? 'red' : ''}">-->
-        <ion-label >
+        <ion-label>
           {{'createPlace.number' | translate}}
         </ion-label>
         <ion-input
@@ -110,7 +81,7 @@
 
     <ion-item>
       <!--<ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">-->
-      <ion-label >
+      <ion-label>
         {{'createPlace.email' | translate}}
       </ion-label>
       <ion-input
@@ -134,15 +105,6 @@
       </ion-label>
       <ion-input type="url" name="site" ngModel></ion-input>
     </ion-item>
-
-    <div *ngIf="isAdmin">
-      <ion-item>
-        <ion-label>
-          {{'createPlace.bestFor' | translate}}
-        </ion-label>
-        <ion-input name="topCategories" ngModel></ion-input>
-      </ion-item>
-    </div>
 
     <div *ngIf="isAdmin">
       <ion-item>
@@ -220,6 +182,63 @@
       >
         <ion-option *ngFor="let placeTypeM of placeTypesM" [value]="placeTypeM.placeType">
           {{placeTypeM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!--todo Serj translate-->
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+        Kitchen
+      </ion-label>
+      <ion-select
+        name="kitchens"
+        ngModel
+        okText="{{'placeInfo.confirm' | translate}}"
+        cancelText="{{'placeInfo.cancel' | translate}}"
+        #types="ngModel"
+        multiple="true"
+      >
+        <ion-option *ngFor="let kitchenM of kitchensM" [value]="kitchenM.kitchen">
+          {{kitchenM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+
+    <!--todo Serj translate-->
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+        Cities
+      </ion-label>
+      <ion-select
+        name="city"
+        ngModel
+        okText="{{'placeInfo.confirm' | translate}}"
+        cancelText="{{'placeInfo.cancel' | translate}}"
+        #types="ngModel"
+      >
+        <ion-option *ngFor="let cityM of citiesM" [value]="cityM.city">
+          {{cityM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!--todo Serj translate-->
+    <ion-item *ngIf="isAdmin">
+      <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+        Top categories
+      </ion-label>
+      <ion-select
+        name="topCategories"
+        ngModel
+        okText="{{'placeInfo.confirm' | translate}}"
+        cancelText="{{'placeInfo.cancel' | translate}}"
+        multiple="true"
+        #types="ngModel"
+      >
+        <ion-option *ngFor="let topCategoryM of topCategoriesM" [value]="topCategoryM.topCategory">
+          {{topCategoryM.name}}
         </ion-option>
       </ion-select>
     </ion-item>

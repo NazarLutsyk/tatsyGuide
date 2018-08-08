@@ -5,7 +5,7 @@ import {Promo} from "../Promo";
 
 export class Bonuse extends Promo {
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public image: string = '',
     public author: Client = null,
     public place: Place = null,
@@ -14,6 +14,6 @@ export class Bonuse extends Promo {
     public topPromo: boolean = true,
     public multilang: BonuseMultilang[] = []
   ) {
-    super(id, image, startDate, endDate, topPromo, author, place);
+    super(_id, image, startDate, endDate, topPromo, author, place);
   }
 }

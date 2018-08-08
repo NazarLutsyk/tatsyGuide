@@ -1,0 +1,36 @@
+<!--// ToDo Serj translate-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>update-city</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <form #cityForm='ngForm'>
+    <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
+      Name:
+    </ion-label>
+    <ion-input
+      type="text"
+      name="name"
+      [(ngModel)]="objectToShow.name"
+      #text="ngModel"
+      required
+    ></ion-input>
+    <hr>
+    <button
+      ion-button
+      full [outline]="true"
+      class="buttonUpdate"
+      (click)="updateCity(cityForm)"
+      [disabled]="!cityForm.valid"
+    >
+      <!--{{'placeType.updateType' | translate}}-->
+      Update
+    </button>
+  </form>
+
+</ion-content>

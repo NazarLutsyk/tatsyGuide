@@ -34,6 +34,9 @@ import {Facebook} from "@ionic-native/facebook";
 import {GooglePlus} from "@ionic-native/google-plus";
 import {Subject} from "rxjs/Subject";
 import {Storage} from "@ionic/storage";
+import {AllKitchensPage} from "../pages/all-kitchens/all-kitchens";
+import {AllCitiesPage} from "../pages/all-cities/all-cities";
+import {AllTopCategoriesPage} from "../pages/all-top-categories/all-top-categories";
 
 
 @Component({
@@ -100,8 +103,6 @@ export class MyApp implements OnInit {
     this.doneSubject.subscribe((val) => {
       this.getLang = val === 'lang' ? true : this.getLang;
       this.getLocation = val === 'location' ? true : this.getLocation;
-      console.log('get lang', this.getLang);
-      console.log('get location', this.getLocation);
       if (this.getLang && this.getLocation) {
         this.init();
       }
@@ -109,7 +110,6 @@ export class MyApp implements OnInit {
 
     this.langService.find({}).subscribe((langs) => {
       this.globalConfig.langs = langs;
-      console.log('const if start', this.globalConfig.deviceLang);
 
       if (this.platform.is("android") || this.platform.is("ios")) {
         this.storage.get('lang').then((lang) => {
@@ -192,7 +192,6 @@ export class MyApp implements OnInit {
       this.placeTypesM = placeTypesM;
       this.rootPage = HomePage;
     }, (err) => {
-      console.log(err);
     })
   }
 
@@ -304,6 +303,20 @@ export class MyApp implements OnInit {
     this.navCtrl.push(PlaceTypesPage);
   }
 
+  goToKitchensPage() {
+    this.menuController.close();
+    this.navCtrl.push(AllKitchensPage);
+  }
+
+  goToCitiesPage() {
+    this.menuController.close();
+    this.navCtrl.push(AllCitiesPage);
+  }
+
+  goToTopCategoriesPage() {
+    this.menuController.close();
+    this.navCtrl.push(AllTopCategoriesPage);
+  }
 
   switchLang() {
     // this.globalConfig.deviceLang = this.languageSwitcher ? "ua" : "en";

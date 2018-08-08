@@ -4,7 +4,7 @@ import {Lang} from "../lang/Lang";
 
 export class PlaceTypeMultilang extends Multilang {
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public name: string = '',
     public placeType: PlaceType = null,
     public lang: Lang = null

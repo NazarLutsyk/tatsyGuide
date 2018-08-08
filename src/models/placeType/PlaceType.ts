@@ -3,7 +3,7 @@ import {Place} from "../place/Place";
 
 export class PlaceType {
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public multilang: PlaceTypeMultilang[] = [],
     public places: Place[] = []
   ) {

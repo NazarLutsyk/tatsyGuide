@@ -77,37 +77,6 @@
         </ion-item>
       </ion-list>
       <ion-list ngModelGroup="address">
-        <!--<ion-label>-->
-        <!--{{'updatePlace.city' | translate}}-->
-        <!--</ion-label>-->
-        <ion-item>
-          <ion-label [ngStyle]="{'color': (city.invalid && city.touched) ? 'red' : ''}">
-            {{'createPlace.city' | translate}}
-          </ion-label>
-          <ion-select
-            interface="popover"
-            [(ngModel)]="placeMultilang.address.city"
-            name="city"
-            #city="ngModel"
-            required
-          >
-            <ion-option value="">
-              {{'updatePlace.choosePlace' | translate}}
-            </ion-option>
-            <ion-option value="{{'updatePlace.lviv' | translate}}">
-              {{'updatePlace.lviv' | translate}}
-            </ion-option>
-            <ion-option value="{{'updatePlace.kyiv' | translate}}">
-              {{'updatePlace.kyiv' | translate}}
-            </ion-option>
-            <ion-option value="{{'updatePlace.kharkiv' | translate}}">
-              {{'updatePlace.kharkiv' | translate}}
-            </ion-option>
-            <ion-option value="{{'updatePlace.odesa' | translate}}">
-              {{'updatePlace.odesa' | translate}}
-            </ion-option>
-          </ion-select>
-        </ion-item>
         <ion-item>
           <ion-label [ngStyle]="{'color': (street.invalid && street.touched) ? 'red' : ''}">
             {{'updatePlace.street' | translate}}
@@ -121,7 +90,7 @@
         </ion-item>
         <ion-item>
           <!--<ion-label [ngStyle]="{'color': (number.invalid && number.touched) ? 'red' : ''}">-->
-          <ion-label >
+          <ion-label>
             {{'updatePlace.number' | translate}}
           </ion-label>
           <ion-input
@@ -131,15 +100,6 @@
           ></ion-input>
         </ion-item>
       </ion-list>
-    </div>
-
-    <div *ngIf="isAdmin">
-      <ion-item>
-        <ion-label>
-          {{'updatePlace.topcategories' | translate}}
-        </ion-label>
-        <ion-input name="topCategories" [(ngModel)]="topCategories"></ion-input>
-      </ion-item>
     </div>
 
     <div ngModelGroup="place">
@@ -262,6 +222,70 @@
           </ng-container>
         </ion-select>
       </ion-item>
+
+      <!--todo Serj translate-->
+      <ion-item>
+        <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+          City
+        </ion-label>
+        <ion-select
+          name="city"
+          [(ngModel)]="place.city"
+          okText="Okay"
+          cancelText="Dismiss"
+          #types="ngModel"
+          required
+        >
+          <ng-container *ngFor="let cityM of citiesM">
+            <ion-option [value]="cityM.city.toString()" *ngIf="cityM.city">
+              {{cityM.name}}
+            </ion-option>
+          </ng-container>
+        </ion-select>
+      </ion-item>
+
+      <!--todo Serj translate-->
+      <ion-item>
+        <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+          Kitchen
+        </ion-label>
+        <ion-select
+          name="kitchens"
+          [(ngModel)]="place.kitchens"
+          okText="Okay"
+          cancelText="Dismiss"
+          multiple="true"
+          #types="ngModel"
+        >
+          <ng-container *ngFor="let kitchenM of kitchensM">
+            <ion-option [value]="kitchenM.kitchen.toString()" *ngIf="kitchenM.kitchen">
+              {{kitchenM.name}}
+            </ion-option>
+          </ng-container>
+        </ion-select>
+      </ion-item>
+
+      <!--todo Serj translate-->
+      <ion-item *ngIf="isAdmin">
+        <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+          Top categories
+        </ion-label>
+        <ion-select
+          name="topCategories"
+          [(ngModel)]="place.topCategories"
+          okText="Okay"
+          cancelText="Dismiss"
+          multiple="true"
+          #types="ngModel"
+        >
+          <ng-container *ngFor="let tapCategoryM of topCategoriesM">
+            <ion-option [value]="tapCategoryM.topCategory.toString()" *ngIf="tapCategoryM.topCategory">
+              {{tapCategoryM.name}}
+            </ion-option>
+          </ng-container>
+        </ion-select>
+      </ion-item>
+
       <ion-item-group ngModelGroup="days">
         <ion-item-group ngModelGroup="1">
           <ion-item>

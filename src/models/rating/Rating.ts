@@ -3,12 +3,12 @@ import {Place} from "../place/Place";
 
 export class Rating {
   constructor(
-    private id: string = '',
-    private value: number = 0,
-    private comment: string = '',
-    private price: number = 0,
-    private client: Client = null,
-    private place: Place = null
+    public _id: string = '',
+    public value: number = 0,
+    public comment: string = '',
+    public price: number = 0,
+    public client: Client = null,
+    public place: Place = null
   ) {
   }
 }

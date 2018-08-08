@@ -9,14 +9,13 @@ import {Department} from "../department/Department";
 import {News} from "../promo/news/News";
 import {Event} from "../promo/event/Event";
 import {Review} from "../review/Review";
+import {TopCategory} from "../topCategory/TopCategory";
+import {Kitchen} from "../kitchen/Kitchen";
 
 export class Place {
 
-
-
   constructor(
-
-    public id: string = '',
+    public _id: string = '',
     public phone: string = '',
     public email: string = '',
     public site: string = '',
@@ -25,6 +24,7 @@ export class Place {
     public rating: number = 0,
     public allowed: boolean = false,
     public avatar: string = '',
+    public city: string = '',
     public distance: number = 0,
     public location: {
       lat: number;
@@ -36,7 +36,6 @@ export class Place {
       vipRoom: boolean;
       karaoke: boolean
     } = {wifi: false, parking: false, vipRoom: false, karaoke: false},
-    public topCategories: string[] = [],
     public images: string[] = [],
     public days: {
       1: { start: string, end: string };
@@ -55,6 +54,8 @@ export class Place {
       6: {start: "", end: ""},
       7: {start: "", end: ""},
     },
+    public topCategories: TopCategory[] = [],
+    public kitchens: Kitchen[] = [],
     public news: News[] = [],
     public events: Event[] = [],
     public bonuses: Bonuse[] = [],
@@ -67,9 +68,6 @@ export class Place {
     public ratings: Rating[] = [],
     public departments: Department[] = [],
     public statistic: Review[] = [],
-
   ) {
-
-
   }
 }

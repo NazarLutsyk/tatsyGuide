@@ -3,7 +3,7 @@ import {Place} from "../place/Place";
 
 export class Promo {
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public image: string = '',
     public startDate: string = '',
     public endDate: string = '',

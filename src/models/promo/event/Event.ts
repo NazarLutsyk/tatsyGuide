@@ -7,7 +7,7 @@ export class Event extends Promo {
 
 
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public image: string = '',
     public author: Client = null,
     public place: Place = null,
@@ -16,6 +16,6 @@ export class Event extends Promo {
     public topPromo: boolean = true,
     public multilang: EventMultilang[] = []
   ) {
-    super(id, image, startDate, endDate, topPromo, author, place);
+    super(_id, image, startDate, endDate, topPromo, author, place);
   }
 }

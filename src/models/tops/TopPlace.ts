@@ -2,7 +2,7 @@ import {Place} from "../place/Place";
 
 export class TopPlace {
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public startDate: string = '',
     public endDate: string = '',
     public price: number = 0,

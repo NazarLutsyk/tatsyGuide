@@ -70,12 +70,8 @@ export class PlaceDeatilsPage {
           this.departments = departments;
         });
 
-        let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place.id);
-        if (favouriteIndex >= 0) {
-          this.isFavorite = true;
-        } else {
-          this.isFavorite = false;
-        }
+        let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place._id);
+        this.isFavorite = favouriteIndex >= 0;
       } else {
         this.isFavorite = false
       }

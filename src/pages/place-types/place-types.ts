@@ -28,9 +28,6 @@ export class PlaceTypesPage {
     public translate: TranslateService,
     private events: Events
   ) {
-
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

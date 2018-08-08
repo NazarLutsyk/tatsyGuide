@@ -98,10 +98,25 @@ import {CreatePlaceTypePageModule} from "../pages/create-place-type/create-place
 import {SingleNewsPageModule} from "../pages/single-news/single-news.module";
 import {SingleBonusePageModule} from "../pages/single-bonuse/single-bonuse.module";
 import {SingleEventPageModule} from "../pages/single-event/single-event.module";
-import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {PopoverPageModule} from "../pages/popover/popover.module";
 import {TopPlaceApplicationPageModule} from "../pages/top-place-application/top-place-application.module";
 import {ClientPlacesPageModule} from "../pages/client-places/client-places.module";
+import {CityProvider} from '../providers/city/city';
+import {CityMultilangProvider} from '../providers/city-multilang/city-multilang';
+import {KitchenProvider} from '../providers/kitchen/kitchen';
+import {KitchenMultilangProvider} from '../providers/kitchen-multilang/kitchen-multilang';
+import {TopCategoryMultilangProvider} from '../providers/top-category-multilang/top-category-multilang';
+import {TopCategoryProvider} from '../providers/top-category/top-category';
+import {AllKitchensPageModule} from "../pages/all-kitchens/all-kitchens.module";
+import {AllTopCategoriesPageModule} from "../pages/all-top-categories/all-top-categories.module";
+import {AllCitiesPageModule} from "../pages/all-cities/all-cities.module";
+import {CreateKitchenPageModule} from "../pages/create-kitchen/create-kitchen.module";
+import {UpdateKitchenPageModule} from "../pages/update-kitchen/update-kitchen.module";
+import {CreateCityPageModule} from "../pages/create-city/create-city.module";
+import {UpdateCityPageModule} from "../pages/update-city/update-city.module";
+import {CreateTopCategoryPageModule} from "../pages/create-top-category/create-top-category.module";
+import {UpdateTopCategoryPageModule} from "../pages/update-top-category/update-top-category.module";
+import { PromoProvider } from '../providers/promo/promo';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -115,7 +130,7 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp,{
+    IonicModule.forRoot(MyApp, {
       backButtonText: ''
     }),
     FormsModule,
@@ -177,6 +192,15 @@ export function createTranslateLoader(http: HttpClient) {
     PopoverPageModule,
     ClientPlacesPageModule,
     TopPlaceApplicationPageModule,
+    AllKitchensPageModule,
+    AllTopCategoriesPageModule,
+    AllCitiesPageModule,
+    CreateKitchenPageModule,
+    UpdateKitchenPageModule,
+    CreateCityPageModule,
+    UpdateCityPageModule,
+    CreateTopCategoryPageModule,
+    UpdateTopCategoryPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -230,7 +254,14 @@ export function createTranslateLoader(http: HttpClient) {
     Base64,
     MailProvider,
     ReviewProvider,
-    Globalization
+    Globalization,
+    CityProvider,
+    CityMultilangProvider,
+    KitchenProvider,
+    KitchenMultilangProvider,
+    TopCategoryProvider,
+    TopCategoryMultilangProvider,
+    PromoProvider,
 
   ],
   exports: [

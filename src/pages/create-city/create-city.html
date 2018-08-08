@@ -1,0 +1,48 @@
+<!--// todo Serj translate-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>create-city</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form #cityForm="ngForm">
+    <div *ngFor="let lang of langs">
+
+      <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
+        {{lang.name}} Name:
+      </ion-label>
+      <ion-input
+        type="text"
+        [name]="lang._id"
+        ngModel
+        #text="ngModel"
+        required
+      ></ion-input>
+      <hr>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 offset-3>
+          <button
+            ion-button
+            full
+            class="buttonUpdate"
+            (click)="createCity(cityForm)"
+            [disabled]="!cityForm.valid"
+            [outline]="true"
+          >
+            <!--{{'placeType.save' | translate}}-->
+            Save
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

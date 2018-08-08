@@ -9,7 +9,7 @@ import {News} from "../promo/news/News";
 import {Bonuse} from "../promo/bonuse/Bonuse";
 
 export class Client {
-  constructor(public id: string = '',
+  constructor(public _id: string = '',
               public name: string = '',
               public surname: string = '',
               public login: string = '',

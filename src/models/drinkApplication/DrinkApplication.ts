@@ -4,7 +4,7 @@ import {DrinkApplicationComment} from "../drinkApplicationComment/DrinkApplicati
 
 export class DrinkApplication {
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public friends: string = '',
     public goal: string = '',
     public budged: number = 0,

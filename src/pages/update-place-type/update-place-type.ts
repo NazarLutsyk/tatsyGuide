@@ -29,8 +29,6 @@ export class UpdatePlaceTypePage {
     private placeTypeMService: PlaceTypeMultilangProvider,
     private translate : TranslateService
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {
@@ -46,6 +44,7 @@ export class UpdatePlaceTypePage {
     }).subscribe(([ptm]) => {
       this.createNewMultilang = !(!!ptm);
       this.objectToShow = ptm ? ptm : {name: ''};
+      this.placeTypeMId = ptm ? ptm._id : '';
     })
   }
 

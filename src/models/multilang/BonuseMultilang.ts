@@ -4,7 +4,7 @@ import {Lang} from "../lang/Lang";
 
 export class BonuseMultilang extends Multilang {
   constructor(
-    public id: string = '',
+    public _id: string = '',
     public header: string = '',
     public description: string = '',
     public conditions: string = '',

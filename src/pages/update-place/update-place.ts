@@ -15,6 +15,12 @@ import {Observable} from "rxjs/Observable";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
 import {TranslateService} from "@ngx-translate/core";
+import {KitchenMultilang} from "../../models/multilang/KitchenMultilang";
+import {TopCategoryMultilang} from "../../models/multilang/TopCategoryMultilang";
+import {CityMultilang} from "../../models/multilang/CityMultilang";
+import {KitchenMultilangProvider} from "../../providers/kitchen-multilang/kitchen-multilang";
+import {TopCategoryMultilangProvider} from "../../providers/top-category-multilang/top-category-multilang";
+import {CityMultilangProvider} from "../../providers/city-multilang/city-multilang";
 
 
 @IonicPage()
@@ -32,8 +38,10 @@ export class UpdatePlacePage {
   placeMultilang: PlaceMultilang = new PlaceMultilang();
   placeMultilangId: string;
   placeTypesM: PlaceTypeMultilang[] = [];
+  kitchensM: KitchenMultilang[] = [];
+  topCategoriesM: TopCategoryMultilang[] = [];
+  citiesM: CityMultilang[] = [];
   hashTags: string = '';
-  topCategories: string = '';
   isAdmin = false;
   globalHost;
   imagesToShow = [];
@@ -48,6 +56,9 @@ export class UpdatePlacePage {
     private placeService: PlacesProvider,
     private placeMultilangService: PlaceMultilangProvider,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
+    private kitchenMultilangProvider: KitchenMultilangProvider,
+    private topCatrgoryMultilangProvider: TopCategoryMultilangProvider,
+    private cityMultilangProvider: CityMultilangProvider,
     private globalConfig: GlobalConfigsService,
     private event: Events,
     private auth: AuthProvider,
@@ -76,8 +87,7 @@ export class UpdatePlacePage {
       populate:
         [
           {
-            path: "multilang",
-            match: {lang: this.navParams.data.choosenLang}
+            path: "multilang", match: {lang: this.navParams.data.choosenLang}
           }
         ]
     });
@@ -86,19 +96,29 @@ export class UpdatePlacePage {
     let currentPlaceTypeMultilang = this.placeTypeMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()}
     });
+    let currentCityMultilang = this.cityMultilangProvider.find({
+      query: {lang: this.globalConfig.getGlobalLang()}
+    });
+    let currentTopCategoryMultilang = this.topCatrgoryMultilangProvider.find({
+      query: {lang: this.globalConfig.getGlobalLang()}
+    });
+    let currentKitchenMultilang = this.kitchenMultilangProvider.find({
+      query: {lang: this.globalConfig.getGlobalLang()}
+    });
 
-    zip(currentPlace, currentPlaceTypeMultilang).subscribe(values => {
-      console.log(values);
+    zip(currentPlace, currentPlaceTypeMultilang, currentCityMultilang, currentTopCategoryMultilang, currentKitchenMultilang).subscribe(values => {
       this.place = values[0];
       this.placeMultilang = this.place.multilang[0] ? this.place.multilang[0] : new PlaceMultilang();
       this.placeMultilangId = (<any>this.placeMultilang)._id;
       this.placeId = (<any>this.place)._id;
 
       this.location = this.place.location;
-      this.topCategories = this.place.topCategories.join(',');
       this.hashTags = this.place.hashTags.join(',');
 
       this.placeTypesM = values[1];
+      this.citiesM = values[2];
+      this.topCategoriesM = values[3];
+      this.kitchensM = values[4];
 
       this.avatarToShow = this.place.avatar ? this.globalHost + this.place.avatar : '';
       this.imagesToShow = this.place.images ? this.place.images.map(image => this.globalHost + image) : [];
@@ -123,8 +143,7 @@ export class UpdatePlacePage {
     this.place = updateForm.form.value.place;
 
     this.place.images = this.imagesToUpdate;
-    this.place.topCategories =
-      this.topCategories.length > 0 ? this.topCategories.split(',') : [];
+    this.place.topCategories = updateForm.form.value.place.topCategories;
     this.place.hashTags =
       this.hashTags.length > 0 ? this.hashTags.split(',') : [];
     this.place.days = {
@@ -149,13 +168,11 @@ export class UpdatePlacePage {
       placeMultilangUpdateQuery =
         this.placeMultilangService.create(this.placeMultilang);
     }
-    console.log(this.placeMultilang);
     zip(
       placeMultilangUpdateQuery,
       placeUpdateQuery,
       uploadImg
     ).subscribe(([multilang, place, res]) => {
-      console.log('here');
       this.navCtrl.pop()
     });
   }

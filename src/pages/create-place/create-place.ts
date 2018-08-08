@@ -10,6 +10,12 @@ import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AuthProvider} from "../../providers/auth/auth";
 import {AddAvatarAndPhotosPage} from "../add-avatar-and-photos/add-avatar-and-photos";
 import {TranslateService} from "@ngx-translate/core";
+import {KitchenMultilang} from "../../models/multilang/KitchenMultilang";
+import {TopCategoryMultilang} from "../../models/multilang/TopCategoryMultilang";
+import {CityMultilang} from "../../models/multilang/CityMultilang";
+import {KitchenMultilangProvider} from "../../providers/kitchen-multilang/kitchen-multilang";
+import {TopCategoryMultilangProvider} from "../../providers/top-category-multilang/top-category-multilang";
+import {CityMultilangProvider} from "../../providers/city-multilang/city-multilang";
 
 @IonicPage()
 @Component({
@@ -20,6 +26,9 @@ export class CreatePlacePage {
 
   location: any = {lat: 0, lng: 0};
   placeTypesM: PlaceTypeMultilang[] = [];
+  kitchensM: KitchenMultilang[] = [];
+  topCategoriesM: TopCategoryMultilang[] = [];
+  citiesM: CityMultilang[] = [];
 
   isAdmin = false;
 
@@ -27,14 +36,15 @@ export class CreatePlacePage {
     private event: Events,
     private placeTypeMultilangService: PlaceTypeMultilangProvider,
     private placeMultilangService: PlaceMultilangProvider,
+    private kitchenMultilangProvider: KitchenMultilangProvider,
+    private topCatrgoryMultilangProvider: TopCategoryMultilangProvider,
+    private cityMultilangProvider: CityMultilangProvider,
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
     private navCtrl: NavController,
     private auth: AuthProvider,
     private translate: TranslateService
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
       this.location.lng = data.lng;
@@ -47,12 +57,23 @@ export class CreatePlacePage {
         this.isAdmin = true;
       }
     });
+
     this.placeTypeMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()}
-    })
-      .subscribe((placeTypesM) => {
-        this.placeTypesM = placeTypesM;
-      })
+    }).subscribe(placeTypesM => this.placeTypesM = placeTypesM);
+
+    this.kitchenMultilangProvider.find({
+      query: {lang: this.globalConfig.getGlobalLang()}
+    }).subscribe(kitchensM => this.kitchensM = kitchensM);
+
+    this.topCatrgoryMultilangProvider.find({
+      query: {lang: this.globalConfig.getGlobalLang()}
+    }).subscribe(topCategoriesM => this.topCategoriesM = topCategoriesM);
+
+    this.cityMultilangProvider.find({
+      query: {lang: this.globalConfig.getGlobalLang()}
+    }).subscribe(citiesM => this.citiesM = citiesM);
+
   }
 
 
@@ -68,7 +89,6 @@ export class CreatePlacePage {
       name: formPlace.name,
       description: formPlace.description,
       address: {
-        city: formPlace.address.city,
         street: formPlace.address.street,
         number: formPlace.address.number
       },
@@ -80,7 +100,9 @@ export class CreatePlacePage {
       email: formPlace.email,
       features: formPlace.features,
       types: formPlace.types,
+      city: formPlace.city,
       site: formPlace.site,
+      kitchens: formPlace.kitchens,
       hashTags: formPlace.hashTags.split(','),
       days: {
         1: {start: formPlace.days[1].start, end: formPlace.days[1].end},
@@ -95,8 +117,7 @@ export class CreatePlacePage {
     };
 
     if (this.isAdmin) {
-      place.topCategories =
-        formPlace.topCategories ? formPlace.topCategories.split(',') : [];
+      place.topCategories = formPlace.topCategories;
       place.allowed = formPlace.allowed;
     }
 
@@ -107,7 +128,6 @@ export class CreatePlacePage {
       });
     });
   }
-
 
   goToChooseLocation() {
     this.navCtrl.push(ChooseLocationPage)

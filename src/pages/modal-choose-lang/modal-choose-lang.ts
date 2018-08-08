@@ -36,8 +36,6 @@ export class ModalChooseLangPage {
 
   goToUpdate(lang) {
     let data = this.navParams.data;
-    console.log(lang);
-    console.log(data);
     this.viewController.dismiss();
     this.lang = lang;
     this.app.getRootNav().push(data.page, {object: data.object, choosenLang: this.lang});

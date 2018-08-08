@@ -10,7 +10,6 @@
       <ion-item>
         <ion-label>{{'switchLang' | translate}}</ion-label>
         <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()"></ion-toggle>
-
       </ion-item>
       <button
         ion-item
@@ -18,12 +17,32 @@
         (click)="goToPlaceTypesPage()">
         {{'sideMenu.leftMenu.managePlaceType' | translate}}
       </button>
+      <!--//todo Serj translate-->
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="goToKitchensPage()">
+        Типи кухонь
+      </button>
+      <!--//todo Serj translate-->
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="goToCitiesPage()">
+        Міста
+      </button>
+      <!--//todo Serj translate-->
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="goToTopCategoriesPage()">
+        Топ категорї
+      </button>
       <button
         ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         (click)="goToTopPlacesManagePage()">
         {{'sideMenu.leftMenu.manageTopPlace' | translate}}
-
       </button>
       <button
         ion-item
