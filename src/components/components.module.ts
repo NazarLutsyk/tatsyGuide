@@ -9,6 +9,7 @@ import { RatingComponent } from './rating/rating';
 import {HttpClient} from "@angular/common/http";
 import {createTranslateLoader} from "../app/app.module";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import { EmptyComponent } from './empty/empty';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
     BonuseComponent,
     EventComponent,
     RatingComponent,
+    EmptyComponent,
   ],
   imports: [CommonModule, IonicModule ,  TranslateModule.forChild({
         loader: {
@@ -31,6 +33,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
     BonuseComponent,
     EventComponent,
     RatingComponent,
+    EmptyComponent,
   ]
 })
 export class ComponentsModule {

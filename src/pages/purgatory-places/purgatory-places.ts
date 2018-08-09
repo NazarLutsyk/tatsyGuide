@@ -29,7 +29,7 @@ export class PurgatoryPlacesPage {
     private globalConfig: GlobalConfigsService,
     private placesService: PlacesProvider,
     private placeMultilangService: PlaceMultilangProvider,
-    private translate : TranslateService
+    private translate: TranslateService
   ) {
     // this.translate.setDefaultLang("en");
     // this.translate.use(this.globalConfig.deviceLang);
@@ -105,33 +105,7 @@ export class PurgatoryPlacesPage {
   }
 
   toDetails(place) {
-    this.placesService
-      .findOne(
-        place._id,
-        {
-          populate: [
-            {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
-            },
-          ]
-        }
-      )
-      .subscribe((foundedPlace) => {
-        let place = foundedPlace;
-        if (!place.multilang || place.multilang.length === 0) {
-          this.placeMultilangService.find({
-            query: {place: place._id},
-            limit: 1
-          }).subscribe((pm) => {
-            place.multilang = pm;
-            this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
-          })
-        } else {
-          this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
-        }
-      });
+    this.navCtrl.push(PlaceDeatilsPage, {id: place._id});
   }
 
   allowPlace(place, $event) {

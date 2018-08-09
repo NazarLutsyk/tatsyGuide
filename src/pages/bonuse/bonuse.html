@@ -21,15 +21,21 @@
     </button>
   </ion-row>
 
-  <bonuse
-    *ngFor="let bonuse of bonuses"
-    [bonuse]="bonuse"
-    [globalHost]="globalHost"
-    [showControlButtons]="(principal && principal?._id === bonuse.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
-    (onRemovePromo)="removePromo($event)"
-    (onUpdatePromo)="updatePromo($event)"
-    (click)="goToSingleBonuse(bonuse)"
-  ></bonuse>
+  <div *ngIf="bonuses && bonuses.length > 0">
+    <bonuse
+      *ngFor="let bonuse of bonuses"
+      [bonuse]="bonuse"
+      [globalHost]="globalHost"
+      [showControlButtons]="(principal && principal?._id === bonuse.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+      (onRemovePromo)="removePromo($event)"
+      (onUpdatePromo)="updatePromo($event)"
+      (click)="goToSingleBonuse(bonuse)"
+    ></bonuse>
+  </div>
+  <div *ngIf="bonuses && bonuses.length <= 0">
+    <empty>
+    </empty>
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="loadNextBonusesPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

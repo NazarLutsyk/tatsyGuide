@@ -5,7 +5,6 @@ import {GoogleMap} from '@ionic-native/google-maps';
 import {Place} from "../../models/place/Place";
 import {PlaceInfoPage} from "../place-info/place-info";
 import {AuthProvider} from "../../providers/auth/auth";
-// import {Client} from "../../models/client/Client";
 import {ClientProvider} from "../../providers/client/ClientProvider";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {BonusePage} from "../bonuse/bonuse";
@@ -16,6 +15,8 @@ import {TestimonialPage} from "../testimonial/testimonial";
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PlaceStatisticPage} from "../place-statistic/place-statistic";
 import {TranslateService} from "@ngx-translate/core";
+import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
+import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 
 @Component({
@@ -49,33 +50,57 @@ export class PlaceDeatilsPage {
               private clientService: ClientProvider,
               private departmentService: DepartmentProvider,
               public translate: TranslateService,
+              private placeService: PlacesProvider,
+              private globalConfig: GlobalConfigsService,
   ) {
   }
 
   ngOnInit() {
-
-    this.place = this.navParams.data;
-    // let menus = this.menuController.getMenus();
-    // for (const menu of menus) {
-    //   menu.swipeEnable(false);
-    // }
-    this.auth.loadPrincipal().subscribe((principal) => {
-
-      if (principal) {
-        this.principal = principal;
-
-        this.departmentService.find({
-          query: {place: (<any>this.place)._id, client: this.principal._id},
-        }).subscribe((departments) => {
-          this.departments = departments;
-        });
-
-        let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place._id);
-        this.isFavorite = favouriteIndex >= 0;
-      } else {
-        this.isFavorite = false
-      }
+    this.loadPlace(this.navParams.data.id).subscribe((place) => {
+      this.place = place;
+      this.auth.loadPrincipal().subscribe((principal) => {
+        if (principal) {
+          this.principal = principal;
+          this.departmentService.find({
+            query: {place: (<any>this.place)._id, client: this.principal._id},
+          }).subscribe((departments) => {
+            this.departments = departments;
+          });
+          let favouriteIndex = (<any>this.principal.favoritePlaces).indexOf(this.place._id);
+          this.isFavorite = favouriteIndex >= 0;
+        } else {
+          this.isFavorite = false
+        }
+      });
     });
+  }
+
+  loadPlace(id: String) {
+    return this.placeService
+      .findOne(
+        id,
+        {
+          populate: [
+            {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}},
+            {
+              path: 'types',
+              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+            },
+            {
+              path: 'topCategories',
+              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+            },
+            {
+              path: 'kitchens',
+              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+            },
+            {
+              path: 'city',
+              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+            },
+          ]
+        }
+      )
   }
 
   addToFavorite(place: Place) {

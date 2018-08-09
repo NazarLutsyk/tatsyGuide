@@ -18,14 +18,22 @@
     </button>
   </ion-row>
 
-  <drink-application
-    *ngFor="let drinkApp of drinkApps"
-    [drinkApp]="drinkApp"
-    [showControlButtons]="(principal && (drinkApp.organizer._id === principal._id || principal.roles.indexOf('ADMIN') >= 0))"
-    (onOpenDrinkApplication)="openDrinkApplication($event)"
-    (onRemoveDrinkApplication)="removeDrinkApp($event)"
-    (onUpdateDrinkApplication)="updateDrinkApp($event)"
-  ></drink-application>
+
+  <div *ngIf="drinkApps && drinkApps.length > 0">
+    <drink-application
+      *ngFor="let drinkApp of drinkApps"
+      [drinkApp]="drinkApp"
+      [showControlButtons]="(principal && (drinkApp.organizer._id === principal._id || principal.roles.indexOf('ADMIN') >= 0))"
+      (onOpenDrinkApplication)="openDrinkApplication($event)"
+      (onRemoveDrinkApplication)="removeDrinkApp($event)"
+      (onUpdateDrinkApplication)="updateDrinkApp($event)"
+    ></drink-application>
+  </div>
+  <div *ngIf="drinkApps && drinkApps.length <= 0">
+    <empty>
+    </empty>
+  </div>
+
 
   <ion-infinite-scroll (ionInfinite)="loadNextApplicationsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

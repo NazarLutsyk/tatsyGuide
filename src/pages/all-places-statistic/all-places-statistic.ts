@@ -29,7 +29,7 @@ export class AllPlacesStatisticPage {
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
     private placeMultilangService: PlaceMultilangProvider,
-    private translate : TranslateService
+    private translate: TranslateService
   ) {
     this.globalHost = globalConfig.getGlobalHost();
     // this.translate.setDefaultLang("en");
@@ -107,33 +107,7 @@ export class AllPlacesStatisticPage {
   }
 
   toDetails(place) {
-    this.placeService
-      .findOne(
-        place._id,
-        {
-          populate: [
-            {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
-            },
-          ]
-        }
-      )
-      .subscribe((foundedPlace) => {
-        let place = foundedPlace;
-        if (!place.multilang || place.multilang.length === 0) {
-          this.placeMultilangService.find({
-            query: {place: place._id},
-            limit: 1
-          }).subscribe((pm) => {
-            place.multilang = pm;
-            this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
-          })
-        } else {
-          this.navCtrl.push(PlaceDeatilsPage, foundedPlace);
-        }
-      });
+    this.navCtrl.push(PlaceDeatilsPage, {id: place._id});
   }
 
   loadNextStatisticPage(event: InfiniteScroll) {

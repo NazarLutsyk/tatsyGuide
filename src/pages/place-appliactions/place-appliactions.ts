@@ -10,6 +10,7 @@ import {SingleDrinkApplicationPage} from "../single-drink-application/single-dri
 import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TranslateService} from "@ngx-translate/core";
+import {AllPlacesPage} from "../all-places/all-places";
 
 @IonicPage()
 @Component({

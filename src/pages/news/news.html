@@ -15,18 +15,25 @@
   <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
     <button
       ion-button full [outline]="true" color="defaultApp"
-      (click)="goToCreateNews()">{{'news.create' | translate}}</button>
+      (click)="goToCreateNews()">{{'news.create' | translate}}
+    </button>
   </ion-row>
 
-  <news
-    *ngFor="let singleNews of news"
-    [news]="singleNews"
-    [globalHost]="globalHost"
-    [showControlButtons]="(principal && principal._id === singleNews.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
-    (onRemovePromo)="removePromo($event)"
-    (onUpdatePromo)="updatePromo($event)"
-    (click)="goToSingleNews(singleNews)"
-  ></news>
+  <div *ngIf="news && news.length > 0">
+    <news
+      *ngFor="let singleNews of news"
+      [news]="singleNews"
+      [globalHost]="globalHost"
+      [showControlButtons]="(principal && principal._id === singleNews.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+      (onRemovePromo)="removePromo($event)"
+      (onUpdatePromo)="updatePromo($event)"
+      (click)="goToSingleNews(singleNews)"
+    ></news>
+  </div>
+  <div *ngIf="news && news.length <= 0">
+    <empty>
+    </empty>
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="loadNextNewsPage($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

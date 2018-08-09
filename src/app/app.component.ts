@@ -37,6 +37,9 @@ import {Storage} from "@ionic/storage";
 import {AllKitchensPage} from "../pages/all-kitchens/all-kitchens";
 import {AllCitiesPage} from "../pages/all-cities/all-cities";
 import {AllTopCategoriesPage} from "../pages/all-top-categories/all-top-categories";
+import {CityMultilangProvider} from "../providers/city-multilang/city-multilang";
+import {KitchenMultilangProvider} from "../providers/kitchen-multilang/kitchen-multilang";
+import {TopCategoryMultilangProvider} from "../providers/top-category-multilang/top-category-multilang";
 
 
 @Component({
@@ -52,24 +55,34 @@ export class MyApp implements OnInit {
   rootPage: any;
   languageSwitcher: boolean = true;
   placeTypesM = [];
+  topCategoriesM = [];
+  citiesM = [];
+  kitchensM = [];
   searchObject = {
     range: {lower: 0, upper: 10000},
     direction: false,
     filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
     placeType: '',
-    city: ''
+    city: '',
+    topCategory: '',
+    kitchen: ''
   };
   principal: Client = null;
   doneSubject = new Subject();
   getLang = false;
   getLocation = false;
+  currentCity = '';
+  changeCityFromInit = false;
 
   constructor(public platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private placeTypeService: PlaceTypeProvider,
               private placeService: PlacesProvider,
-              private placeTYpeMultilangService: PlaceTypeMultilangProvider,
+              private placeTypeMultilangService: PlaceTypeMultilangProvider,
+              private citiesMultilangService: CityMultilangProvider,
+              private kitchensMultilangService: KitchenMultilangProvider,
+              private topCategoriesMultilangService: TopCategoryMultilangProvider,
               private langService: LangProvider,
               private events: Events,
               private menuController: MenuController,
@@ -98,6 +111,26 @@ export class MyApp implements OnInit {
       this.menuController.swipeEnable(shouldEnable, 'rightSideMenu');
       this.menuController.enable(shouldEnable, 'leftSideMenu');
       this.menuController.enable(shouldEnable, 'rightSideMenu');
+    });
+
+    Promise.all(
+      [
+        this.storage.get('city'),
+        this.storage.get('newCity'),
+      ]
+    ).then(([city, newCity]) => {
+      if (newCity !== null) {
+        this.currentCity = newCity;
+        Promise.all(
+          [
+            this.storage.remove('newCity'),
+            this.storage.set('city', newCity),
+          ]
+        );
+      } else {
+        this.currentCity = city ? city : '';
+      }
+      this.changeCityFromInit = true;
     });
 
     this.doneSubject.subscribe((val) => {
@@ -184,12 +217,27 @@ export class MyApp implements OnInit {
     });
     zip(
       this.auth.loadPrincipal(),
-      this.placeTYpeMultilangService.find({
+      this.placeTypeMultilangService.find({
         query: {lang: this.globalConfig.getGlobalLang()},
         populate: [{path: 'placeType'}]
-      })
-    ).subscribe(([principal, placeTypesM]) => {
+      }),
+      this.kitchensMultilangService.find({
+        query: {lang: this.globalConfig.getGlobalLang()},
+        populate: [{path: 'kitchen'}]
+      }),
+      this.topCategoriesMultilangService.find({
+        query: {lang: this.globalConfig.getGlobalLang()},
+        populate: [{path: 'topCategory'}]
+      }),
+      this.citiesMultilangService.find({
+        query: {lang: this.globalConfig.getGlobalLang()},
+        populate: [{path: 'city'}]
+      }),
+    ).subscribe(([principal, placeTypesM, kitchensM, topCategoriesM, citiesM]) => {
       this.placeTypesM = placeTypesM;
+      this.kitchensM = kitchensM;
+      this.topCategoriesM = topCategoriesM;
+      this.citiesM = citiesM;
       this.rootPage = HomePage;
     }, (err) => {
     })
@@ -205,7 +253,9 @@ export class MyApp implements OnInit {
       direction: false,
       filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
       placeType: '',
-      city: ''
+      city: '',
+      topCategory: '',
+      kitchen: ''
     };
     form.reset();
     this.show(this.searchObject);
@@ -319,8 +369,6 @@ export class MyApp implements OnInit {
   }
 
   switchLang() {
-    // this.globalConfig.deviceLang = this.languageSwitcher ? "ua" : "en";
-    // this.translate.use(this.globalConfig.deviceLang);
     let selectedLang = this.globalConfig.deviceLang === 'ua' ? "en" : "ua";
     this.storage.set('lang', selectedLang);
     //todo serj add translate
@@ -330,6 +378,20 @@ export class MyApp implements OnInit {
       duration: 3000,
       position: 'top'
     }).present();
+  }
+
+  changeGlobalCity() {
+    this.storage.set('newCity', this.currentCity);
+    if (!this.changeCityFromInit) {
+      //todo serj add translate
+      this.toastLang.create({
+        dismissOnPageChange: true,
+        message: "Please reload app!",
+        duration: 3000,
+        position: 'top'
+      }).present();
+    }
+    this.changeCityFromInit = false;
   }
 }
 

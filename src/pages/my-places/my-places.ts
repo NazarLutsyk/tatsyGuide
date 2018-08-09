@@ -56,7 +56,7 @@ export class MyPlacesPage {
     private loadingCtrl: LoadingController,
     private translate: TranslateService,
     private alert: AlertController,
-    private globalConfig : GlobalConfigsService
+    private globalConfig: GlobalConfigsService
   ) {
     // this.translate.setDefaultLang("en");
     // this.translate.use(this.globalConfig.deviceLang);
@@ -96,6 +96,10 @@ export class MyPlacesPage {
                 {
                   path: 'types',
                   populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+                },
+                {
+                  path: 'city',
+                  populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
                 }
               ],
               skip: this.skip,
@@ -119,12 +123,17 @@ export class MyPlacesPage {
                       {
                         path: 'types',
                         populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
+                      },
+                      {
+                        path: 'city',
+                        populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
                       }
                     ],
                     $project: {
                       multilang: {$arrayElemAt: ["$multilang", 0]},
                       types: 1,
                       rating: 1,
+                      city: 1,
                     },
                     skip: this.skip,
                     limit: this.limit
@@ -143,41 +152,7 @@ export class MyPlacesPage {
   }
 
   toDetails(place) {
-    let spinner = this.loadingCtrl.create({
-      dismissOnPageChange: true,
-      enableBackdropDismiss: true
-    });
-    spinner.present();
-    let placesSubscriber = this.placesService
-      .find(
-        {
-          query: {_id: place._id},
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-            }
-          ]
-        }
-      )
-      .subscribe((foundedPlace) => {
-        let place = foundedPlace[0];
-        if (!place.multilang || place.multilang.length === 0) {
-          this.placeMultilangService.find({
-            query: {place: place._id},
-            limit: 1
-          }).subscribe((pm) => {
-            place.multilang = pm;
-            this.navCtrl.push(PlaceDeatilsPage, place);
-          })
-        } else {
-          this.navCtrl.push(PlaceDeatilsPage, place);
-        }
-      });
-    spinner.onWillDismiss(() => {
-      placesSubscriber.unsubscribe();
-    });
+    this.navCtrl.push(PlaceDeatilsPage, {id: place._id});
   }
 
 

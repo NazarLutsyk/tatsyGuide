@@ -88,6 +88,16 @@ export class TopPlacesPage {
               }
             },
             {
+              $lookup: {
+                from: 'multilangs',
+                localField: 'city',
+                foreignField: 'city',
+                as: 'city',
+              }
+            },
+            {$unwind: "$city"},
+            {$match: {'city.lang': this.globalVars.getGlobalLang(), 'multilang.lang': this.globalVars.getGlobalLang()}},
+            {
               $group: {
                 _id: '$_id',
                 types: {$push: '$types'},
@@ -106,6 +116,7 @@ export class TopPlacesPage {
                 days: {$first: '$days'},
                 hashTags: {$first: '$hashTags'},
                 createdAt: {$first: '$createdAt'},
+                city: {$first: '$city'},
               }
             },
             {$sample: {size: this.limit}},
@@ -121,7 +132,7 @@ export class TopPlacesPage {
     this.skip = 0;
     this.allLoaded = false;
     this.topPlaces = [];
-    
+
     this.loadTopPlaces()
       .subscribe(places => {
         this.topPlaces = places;
@@ -130,30 +141,7 @@ export class TopPlacesPage {
   }
 
   toDetails(place) {
-    let spinner = this.loadingCtrl.create({
-      dismissOnPageChange: true,
-      enableBackdropDismiss: true
-    });
-    spinner.present();
-    let placesSubscriber = this.placeService
-      .findOne(
-        place._id,
-        {
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-            },
-          ]
-        }
-      )
-      .subscribe((foundedPlace) => {
-        this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
-      });
-    spinner.onWillDismiss(() => {
-      placesSubscriber.unsubscribe();
-    });
+    this.app.getRootNav().push(PlaceDeatilsPage, {id: place._id});
   }
 
 

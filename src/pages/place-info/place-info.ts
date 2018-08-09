@@ -43,7 +43,7 @@ export class PlaceInfoPage {
   isBoss = false;
 
   globalHost: string;
-  place: Place;
+  place: Place = new Place();
   bossPlaceEmail: string;
 
   constructor(
@@ -66,19 +66,13 @@ export class PlaceInfoPage {
     private globalConfig: GlobalConfigsService,
     public translate: TranslateService,
   ) {
-
-
   }
 
   ngOnInit() {
-
-
-    this.place = this.navParams.data;
     this.globalHost = this.gc.getGlobalHost();
-
+    this.place = this.navParams.data;
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-
       if (this.principal) {
         this.departmentService.find({
           query: {place: (<any>this.place)._id, client: this.principal._id},
@@ -105,7 +99,6 @@ export class PlaceInfoPage {
         });
       }
     });
-
   }
 
 

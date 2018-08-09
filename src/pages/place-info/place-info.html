@@ -50,8 +50,20 @@
               {{"placeInfo.category" | translate}}
             </mat-expansion-panel-header>
             <ul>
-              <li *ngFor="let topCategory of place.topCategories">
-                {{topCategory}}
+              <li *ngFor="let topCategory of place?.topCategories">
+                {{topCategory?.multilang[0]?.name}}
+              </li>
+            </ul>
+          </mat-expansion-panel>
+
+          <!--todo Serj translate-->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Кухні
+            </mat-expansion-panel-header>
+            <ul>
+              <li *ngFor="let kitchen of place?.kitchens">
+                {{kitchen?.multilang[0]?.name}}
               </li>
             </ul>
           </mat-expansion-panel>
@@ -146,8 +158,8 @@
           <ion-icon name="ios-pin-outline"></ion-icon>
         </ion-col>
         <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
-          {{place?.multilang[0]?.address.city}} {{place?.multilang[0]?.address.street}}
-          {{place?.multilang[0]?.address.number}}
+          {{place?.city?.multilang[0]?.name}} {{place.multilang[0].address.street}}
+          {{place.multilang[0].address.number}}
         </ion-col>
       </ion-row>
       <ion-row margin-top="15px" (click)="connectToManager()">

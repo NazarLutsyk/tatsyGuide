@@ -1,6 +1,5 @@
 <ion-menu [content]="content" side="left" id="leftSideMenu" type="overlay">
   <ion-header>
-
     <ion-toolbar>
       <ion-title>{{'sideMenu.titleLeft'|translate}}</ion-title>
     </ion-toolbar>
@@ -10,6 +9,17 @@
       <ion-item>
         <ion-label>{{'switchLang' | translate}}</ion-label>
         <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
+        <ion-select interface="action-sheet" [(ngModel)]="currentCity" (ionChange)="changeGlobalCity()">
+          <ion-option value="">
+            None
+          </ion-option>
+          <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
+            {{cityM.name}}
+          </ion-option>
+        </ion-select>
       </ion-item>
       <button
         ion-item
@@ -142,9 +152,6 @@
     <ion-item>
       <ion-label>{{'sideMenu.filters.type' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
-        <!--<ion-option value="" >-->
-        <!--{{'filters.choose' | translate}}-->
-        <!--</ion-option>-->
         <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">
           {{placeTypeM.name}}
         </ion-option>
@@ -154,27 +161,35 @@
     <ion-item>
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.city">
-        <!--<ion-option value="">-->
-        <!--{{'filters.chooseCity' | translate}}-->
-        <!--</ion-option>-->
-        <ion-option value="{{'createPlace.lviv' | translate}}">
-          {{'createPlace.lviv' | translate}}
-        </ion-option>
-        <ion-option value="{{'createPlace.kyiv' | translate}}">
-          {{'createPlace.kyiv' | translate}}
-        </ion-option>
-        <ion-option value="{{'createPlace.kharkiv' | translate}}">
-          {{'createPlace.kharkiv' | translate}}
-        </ion-option>
-        <ion-option value="{{'createPlace.odesa' | translate}}">
-          {{'createPlace.odesa' | translate}}
+        <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
+          {{cityM.name}}
         </ion-option>
       </ion-select>
     </ion-item>
+
+    <!--todo serj translate-->
+    <ion-item>
+      <ion-label> Кухня </ion-label>
+      <ion-select interface="popover" [(ngModel)]="searchObject.kitchen">
+        <ion-option [value]="kitchenM.kitchen._id" *ngFor="let kitchenM of kitchensM">
+          {{kitchenM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <!--todo serj translate-->
+    <ion-item>
+      <ion-label> Топ категорія </ion-label>
+      <ion-select interface="popover" [(ngModel)]="searchObject.topCategory">
+        <ion-option [value]="topCategoryM.topCategory._id" *ngFor="let topCategoryM of topCategoriesM">
+          {{topCategoryM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
       <ion-label>{{feature}}</ion-label>
-      <ion-checkbox color="dark"
-                    [(ngModel)]="searchObject.filterFeature[feature]"></ion-checkbox>
+      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature[feature]"></ion-checkbox>
     </ion-item>
 
     <ion-buttons>
@@ -182,8 +197,6 @@
         <ion-row>
           <ion-col col-6>
             <button ion-button class="buttonUpdate" [outline]="true" type="submit" full (click)="show(searchObject)">
-
-
               {{'sideMenu.filters.search' | translate}}
             </button>
           </ion-col>

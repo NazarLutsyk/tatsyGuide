@@ -58,7 +58,7 @@ export class AllPlacesPage {
     private auth: AuthProvider,
     private placeMultilangService: PlaceMultilangProvider,
     private loadingCtrl: LoadingController,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
@@ -109,6 +109,15 @@ export class AllPlacesPage {
     if (eventData.placeType) {
       this.placeQuery.query.types = eventData.placeType;
     }
+    if (eventData.kitchen) {
+      this.placeQuery.query.kitchens = eventData.kitchen;
+    }
+    if (eventData.topCategory) {
+      this.placeQuery.query.topCategories = eventData.topCategory;
+    }
+    if (eventData.city) {
+      this.placeQuery.query.city = eventData.city;
+    }
     for (const feature in eventData.filterFeature) {
       if (!eventData.filterFeature[feature]) delete eventData.filterFeature[feature];
       this.placeQuery.query['features.' + feature] = eventData.filterFeature[feature];
@@ -128,10 +137,6 @@ export class AllPlacesPage {
     else {
       delete this.placeQuery.query['hashTags'];
     }
-    if (this.eventData.city)
-      this.placeMultilangQuery.query['multilang.address.city'] = this.eventData.city;
-    else
-      delete this.placeMultilangQuery.query['multilang.address.city'];
   }
 
   findPlacesByFilter(eventData, completeAfter?: any) {
@@ -158,6 +163,16 @@ export class AllPlacesPage {
         },
         {$unwind: "$types"},
         {$match: {'types.lang': this.globalVars.getGlobalLang(), 'multilang.lang': this.globalVars.getGlobalLang()}},
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: 'city',
+            foreignField: 'city',
+            as: 'city',
+          }
+        },
+        {$unwind: "$city"},
+        {$match: {'city.lang': this.globalVars.getGlobalLang(), 'multilang.lang': this.globalVars.getGlobalLang()}},
         {$match: this.placeMultilangQuery.query},
         {
           $group: {
@@ -177,6 +192,7 @@ export class AllPlacesPage {
             images: {$first: '$images'},
             days: {$first: '$days'},
             hashTags: {$first: '$hashTags'},
+            city: {$first: '$city'},
           }
         },
         {
@@ -247,30 +263,9 @@ export class AllPlacesPage {
   }
 
   toDetails(id) {
-    let spinner = this.loadingCtrl.create({
-      dismissOnPageChange: true,
-      enableBackdropDismiss: true
-    });
-    spinner.present();
-    let placesSubscriber = this.placesService
-      .findOne(
-        id,
-        {
-          populate: [
-            {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-            {
-              path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-            },
-          ]
-        }
-      ).subscribe((foundedPlace) => {
-        this.app.getRootNav().push(PlaceDeatilsPage, foundedPlace);
-      });
-    spinner.onWillDismiss(() => {
-      placesSubscriber.unsubscribe();
-    });
+    this.app.getRootNav().push(PlaceDeatilsPage, {id});
   }
+
 
   loadNextPlacesPage(event: InfiniteScroll) {
     if (this.allLoaded) {

@@ -4,10 +4,9 @@ import {TopPlacesPage} from "../top-places/top-places";
 import {AllNewsPage} from "../all-news/all-news";
 import {AllDrinkApplicationsPage} from "../all-drink-applications/all-drink-applications";
 import {TranslateService} from "@ngx-translate/core";
-import {ModalController} from "ionic-angular";
+import {Events, ModalController, ToastController} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {PopoverPage} from "../popover/popover";
-import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @Component({
   selector: 'page-home',
@@ -25,15 +24,24 @@ export class HomePage implements OnInit {
     translate: TranslateService,
     public modal: ModalController,
     public storage: Storage,
-    // private globalConfig: GlobalConfigsService
+    private events: Events,
+    private toastController: ToastController
   ) {
-
-    // translate.setDefaultLang('en');
-    //
-    // translate.use(globalConfig.deviceLang);
   }
 
   ngOnInit(): void {
+    //todo serj translate
+    this.events.subscribe('click-drink-app-create', () => {
+      let drinkerToast = this.toastController.create(
+        {
+          duration: 3000,
+          message: 'Please, select place...',
+          position: 'top'
+        }
+      );
+      drinkerToast.present();
+    });
+
     this.storage.get('initialpopover').then((show) => {
       if (show || show === null) {
         let modalPage = this.modal.create(

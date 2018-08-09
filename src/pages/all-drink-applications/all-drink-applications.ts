@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
 import {Observable} from "rxjs/Observable";
@@ -7,6 +7,7 @@ import {UpdateDrinkApplicationPage} from "../update-drink-application/update-dri
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
 import {AuthProvider} from "../../providers/auth/auth";
+import {AllPlacesPage} from "../all-places/all-places";
 
 
 @IonicPage()
@@ -30,7 +31,8 @@ export class AllDrinkApplicationsPage {
     private app: App,
     private gc: GlobalConfigsService,
     private drinkAppsService: DrinkApplicationProvider,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private events: Events
   ) {
   }
 
@@ -123,5 +125,10 @@ export class AllDrinkApplicationsPage {
 
   openDrinkApplication(drinkApp: DrinkApplication) {
     this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: true, _id: (<any>drinkApp)._id});
+  }
+
+  goToSelectPlacePage(place) {
+    this.navCtrl.parent.select(1);
+    this.events.publish('click-drink-app-create');
   }
 }

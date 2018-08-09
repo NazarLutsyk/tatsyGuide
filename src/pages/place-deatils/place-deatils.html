@@ -18,7 +18,7 @@
 </ion-header>
 
 
-<ion-tabs class="tabs-basic" tabsPlacement="bottom">
+<ion-tabs *ngIf="place" class="tabs-basic" tabsPlacement="bottom">
   <ion-tab [root]="placeInfoPage"
            tabTitle="{{'placeInfo.place' | translate }}"
            tabIcon="ios-list-outline"
