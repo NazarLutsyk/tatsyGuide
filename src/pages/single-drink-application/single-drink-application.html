@@ -14,11 +14,11 @@
   <ion-card>
     <ion-item>
       <h2>{{'drinker.who' | translate}} :</h2>
-
       <p> {{drinkApp?.organizer.name}} {{drinkApp?.organizer.surname}}</p>
     </ion-item>
     <ion-list>
       <ion-item *ngIf="drinkApp?.place.multilang && drinkApp?.place.multilang.length > 0 && showPlaceInfo">
+        <h2>{{'drinker.where' | translate}} :</h2>
         <p> {{drinkApp?.place.multilang[0].name}}</p>
       </ion-item>
       <ion-item>

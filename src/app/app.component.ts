@@ -21,8 +21,6 @@ import {PlaceTypeMultilangProvider} from "../providers/place-type-multilang/plac
 import {ProfilePage} from "../pages/profile/profile";
 import {ClientsPage} from "../pages/clients/clients";
 import {PurgatoryPlacesPage} from "../pages/purgatory-places/purgatory-places";
-import {AllEventsPage} from "../pages/all-events/all-events";
-import {AllBonusesPage} from "../pages/all-bonuses/all-bonuses";
 import {AllPlacesStatisticPage} from "../pages/all-places-statistic/all-places-statistic";
 import {TopPlaceManagePage} from "../pages/top-place-manage/top-place-manage";
 import {NgForm} from "@angular/forms";
@@ -67,12 +65,21 @@ export class MyApp implements OnInit {
     topCategory: '',
     kitchen: ''
   };
+  searchPromoObject = {
+    kind: '',
+    city: ''
+  };
+  searchDrinkAppObject = {
+    city: ''
+  };
   principal: Client = null;
   doneSubject = new Subject();
   getLang = false;
   getLocation = false;
+  getCity = false;
   currentCity = '';
   changeCityFromInit = false;
+  rightMenu = '';
 
   constructor(public platform: Platform,
               statusBar: StatusBar,
@@ -105,92 +112,111 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit(): void {
-    this.navCtrl.viewDidEnter.subscribe((viewController: ViewController) => {
-      let shouldEnable = viewController.index === 0;
-      this.menuController.swipeEnable(shouldEnable, 'leftSideMenu');
-      this.menuController.swipeEnable(shouldEnable, 'rightSideMenu');
-      this.menuController.enable(shouldEnable, 'leftSideMenu');
-      this.menuController.enable(shouldEnable, 'rightSideMenu');
-    });
-
-    Promise.all(
-      [
-        this.storage.get('city'),
-        this.storage.get('newCity'),
-      ]
-    ).then(([city, newCity]) => {
-      if (newCity !== null) {
-        this.currentCity = newCity;
-        Promise.all(
-          [
-            this.storage.remove('newCity'),
-            this.storage.set('city', newCity),
-          ]
-        );
-      } else {
-        this.currentCity = city ? city : '';
-      }
-      this.changeCityFromInit = true;
-    });
+    this.configTabs();
+    // this.configGlobalCity();
+    this.configGlobalLang();
+    this.configGlobalLocation();
 
     this.doneSubject.subscribe((val) => {
+      console.log('loaded', val);
       this.getLang = val === 'lang' ? true : this.getLang;
       this.getLocation = val === 'location' ? true : this.getLocation;
-      if (this.getLang && this.getLocation) {
+      // this.getCity = val === 'city' ? true : this.getCity;
+      if (this.getLang && this.getLocation/* && this.getCity*/) {
+        console.log('init other settings');
         this.init();
       }
     });
+  }
 
-    this.langService.find({}).subscribe((langs) => {
-      this.globalConfig.langs = langs;
-
-      if (this.platform.is("android") || this.platform.is("ios")) {
-        this.storage.get('lang').then((lang) => {
-          if (lang) {
-            this.globalConfig.deviceLang = lang;
-            this.languageSwitcher = true;
-            this.translate.use(this.globalConfig.deviceLang);
-            this.doneSubject.next('lang');
-          } else {
-            this.getPrefferedLang();
-          }
-        }).catch(() => {
-          this.getPrefferedLang()
-        });
-        this.geolocation.getCurrentPosition({timeout: 10000,}).then((position) => {
-          this.globalConfig.globalPosition.latitude = position.coords.latitude;
-          this.globalConfig.globalPosition.longitude = position.coords.longitude;
-          this.doneSubject.next('location');
-        }).catch(() => {
-          this.globalConfig.globalPosition.latitude = 0;
-          this.globalConfig.globalPosition.longitude = 0;
-          this.doneSubject.next('location');
-        })
+  private configTabs() {
+    this.events.subscribe('changeTab', (index) => {
+      if (index === 1) {
+        this.rightMenu = 'places';
+      } else if (index === 2) {
+        this.rightMenu = 'promos';
+      } else if (index === 3) {
+        this.rightMenu = 'drinkApps';
       } else {
-        this.storage.get('lang').then((lang) => {
-          if (lang) {
-            this.globalConfig.deviceLang = lang;
-            this.languageSwitcher = true;
-            this.translate.use(this.globalConfig.deviceLang);
-            this.init();
-          } else {
-            this.globalConfig.deviceLang = "ua";
-            this.languageSwitcher = true;
-            this.translate.use(this.globalConfig.deviceLang);
-            this.globalConfig.globalPosition.latitude = 0;
-            this.globalConfig.globalPosition.longitude = 0;
-            this.init();
-          }
-        }).catch(() => {
-          this.globalConfig.deviceLang = "ua";
-          this.languageSwitcher = true;
-          this.translate.use(this.globalConfig.deviceLang);
-          this.globalConfig.globalPosition.latitude = 0;
-          this.globalConfig.globalPosition.longitude = 0;
-          this.init();
-        });
+        this.rightMenu = '';
       }
     });
+    this.navCtrl.viewDidEnter.subscribe((viewController: ViewController) => {
+      let shouldEnable = viewController.index === 0;
+      this.menuController.swipeEnable(shouldEnable, 'leftSideMenu');
+      this.menuController.enable(shouldEnable, 'leftSideMenu');
+
+      this.menuController.swipeEnable(shouldEnable, 'rightSideMenu');
+      this.menuController.enable(shouldEnable, 'rightSideMenu');
+
+      this.menuController.swipeEnable(shouldEnable, 'rightSideMenuPromo');
+      this.menuController.enable(shouldEnable, 'rightSideMenuPromo');
+
+      this.menuController.swipeEnable(shouldEnable, 'rightSideMenuDrinkApp');
+      this.menuController.enable(shouldEnable, 'rightSideMenuDrinkApp');
+    });
+  }
+
+  // private configGlobalCity() {
+  //   Promise.all(
+  //     [
+  //       this.storage.get('city'),
+  //       this.storage.get('newCity'),
+  //     ]
+  //   ).then(([city, newCity]) => {
+  //     if (newCity !== null) {
+  //       this.currentCity = newCity;
+  //       this.globalConfig.globalCity = this.currentCity;
+  //       this.doneSubject.next('city');
+  //       Promise.all(
+  //         [
+  //           this.storage.remove('newCity'),
+  //           this.storage.set('city', newCity),
+  //         ]
+  //       )
+  //     } else {
+  //       this.currentCity = city ? city : '';
+  //       this.globalConfig.globalCity = this.currentCity;
+  //       this.doneSubject.next('city');
+  //     }
+  //     this.changeCityFromInit = true;
+  //   });
+  // }
+
+  private configGlobalLang() {
+    this.langService.find({}).subscribe((langs) => {
+      this.globalConfig.langs = langs;
+      this.storage.get('lang').then((lang) => {
+        if ((this.platform.is("android") || this.platform.is("ios")) && !lang) {
+          this.getPrefferedLang();
+        } else {
+          this.globalConfig.deviceLang = lang || '';
+          this.languageSwitcher = true;
+          this.translate.use(this.globalConfig.deviceLang);
+          this.doneSubject.next('lang');
+        }
+      }).catch(() => {
+        this.getPrefferedLang()
+      });
+    })
+  }
+
+  private configGlobalLocation() {
+    if (this.platform.is("android") || this.platform.is("ios")) {
+      this.geolocation.getCurrentPosition({timeout: 6000,}).then((position) => {
+        this.globalConfig.globalPosition.latitude = position.coords.latitude;
+        this.globalConfig.globalPosition.longitude = position.coords.longitude;
+        this.doneSubject.next('location');
+      }).catch(() => {
+        this.globalConfig.globalPosition.latitude = 0;
+        this.globalConfig.globalPosition.longitude = 0;
+        this.doneSubject.next('location');
+      })
+    } else {
+      this.globalConfig.globalPosition.latitude = 0;
+      this.globalConfig.globalPosition.longitude = 0;
+      this.doneSubject.next('location');
+    }
   }
 
   getPrefferedLang() {
@@ -247,6 +273,14 @@ export class MyApp implements OnInit {
     this.events.publish('functionCall:find', so);
   }
 
+  showPromos(so) {
+    this.events.publish('functionCall:findPromos', so);
+  }
+
+  showDrinkApps(so) {
+    this.events.publish('functionCall:findDrinkApps', so);
+  }
+
   reset(form: NgForm) {
     this.searchObject = {
       range: {lower: 0, upper: 10000},
@@ -259,6 +293,21 @@ export class MyApp implements OnInit {
     };
     form.reset();
     this.show(this.searchObject);
+  }
+
+  resetPromos() {
+    this.searchPromoObject = {
+      kind: '',
+      city: '',
+    };
+    this.showPromos(this.searchPromoObject);
+  }
+
+  resetDrinkApps() {
+    this.searchDrinkAppObject = {
+      city: ''
+    };
+    this.showDrinkApps(this.searchDrinkAppObject);
   }
 
   goToLoginRegistration() {
@@ -289,7 +338,6 @@ export class MyApp implements OnInit {
       this.principal = null;
       this.menuController.close();
       this.navCtrl.goToRoot({});
-    }, (error) => {
     })
   }
 
@@ -321,16 +369,6 @@ export class MyApp implements OnInit {
   goToClientsPage() {
     this.menuController.close();
     this.navCtrl.push(ClientsPage);
-  }
-
-  goToEventsPage() {
-    this.menuController.close();
-    this.navCtrl.push(AllEventsPage);
-  }
-
-  goToBonusesPage() {
-    this.menuController.close();
-    this.navCtrl.push(AllBonusesPage);
   }
 
   goToPlacesPurgatoryPage() {

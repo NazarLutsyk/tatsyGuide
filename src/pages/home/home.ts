@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AllPlacesPage} from "../all-places/all-places";
 import {TopPlacesPage} from "../top-places/top-places";
-import {AllNewsPage} from "../all-news/all-news";
 import {AllDrinkApplicationsPage} from "../all-drink-applications/all-drink-applications";
 import {TranslateService} from "@ngx-translate/core";
-import {Events, ModalController, ToastController} from "ionic-angular";
+import {Events, ModalController, Tab, ToastController} from "ionic-angular";
 import {Storage} from "@ionic/storage";
 import {PopoverPage} from "../popover/popover";
+import {AllPromosPage} from "../all-promos/all-promos";
 
 @Component({
   selector: 'page-home',
@@ -16,7 +16,7 @@ export class HomePage implements OnInit {
 
   placesTab = AllPlacesPage;
   topPlacesTab = TopPlacesPage;
-  newsTab = AllNewsPage;
+  promosTab = AllPromosPage;
   drinkerTab = AllDrinkApplicationsPage;
 
 
@@ -54,5 +54,8 @@ export class HomePage implements OnInit {
     });
   }
 
+  handleChangeTab($event: Tab) {
+    this.events.publish('changeTab', $event.index);
+  }
 }
 

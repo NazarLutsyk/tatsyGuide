@@ -7,7 +7,6 @@ import {UpdateDrinkApplicationPage} from "../update-drink-application/update-dri
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
 import {AuthProvider} from "../../providers/auth/auth";
-import {AllPlacesPage} from "../all-places/all-places";
 
 
 @IonicPage()
@@ -24,6 +23,12 @@ export class AllDrinkApplicationsPage {
   pageSize = 7;
   limit = this.pageSize;
   allLoaded = false;
+  eventData: any = {
+    city: ''
+  };
+  placeQuery: any = {
+    query: {}
+  };
 
   constructor(
     public navCtrl: NavController,
@@ -39,15 +44,15 @@ export class AllDrinkApplicationsPage {
   ngOnInit() {
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      let skip;
-      let limit;
-      if (!principal) {
-        this.allLoaded = true;
-        skip = 0;
-        limit = 5;
-      }
-      this.loadDrinkApps(skip, limit).subscribe((apps) => {
+      this.loadDrinkApps().subscribe((apps) => {
         this.drinkApps = apps;
+        this.events.subscribe('functionCall:findDrinkApps', (eventData) => {
+          this.skip = 0;
+          this.allLoaded = false;
+          this.eventData = eventData;
+          this.loadDrinkApps(eventData).subscribe(drinkApps => this.drinkApps = drinkApps);
+        });
+
       });
     });
   }
@@ -56,18 +61,26 @@ export class AllDrinkApplicationsPage {
     this.skip = 0;
     this.allLoaded = false;
 
-    this.loadDrinkApps()
+    this.loadDrinkApps(this.eventData)
       .subscribe((apps) => {
         this.drinkApps = apps;
         refresher.complete();
       });
   }
 
-  // goToCreateDrinkerApplication() {
-  //   this.app.getRootNav().push(DrinkerApplicationPage, {disabled: false});
-  // }
+  private prepareQuery(dataQuery: { city: string }) {
+    this.placeQuery = {
+      query: {}
+    };
 
-  private loadDrinkApps(skip?: number, limit?: number): Observable<any> {
+    if (dataQuery.city) {
+      this.placeQuery.query['place.city'] = dataQuery.city;
+    }
+  }
+
+  private loadDrinkApps(eventData = {city: ''}): Observable<any> {
+    this.prepareQuery(eventData);
+
     return this.drinkAppsService.find({
       aggregate: [
         {
@@ -84,14 +97,32 @@ export class AllDrinkApplicationsPage {
             from: 'multilangs',
             localField: 'place',
             foreignField: 'place',
+            as: 'placeM',
+          }
+        },
+        {$unwind: "$placeM"},
+        {
+          $match: {
+            'placeM.lang': this.gc.getGlobalLang(),
+          }
+        },
+        {
+          $lookup: {
+            from: 'places',
+            localField: 'place',
+            foreignField: '_id',
             as: 'place',
           }
         },
         {$unwind: "$place"},
-        {$match: {'place.lang': this.gc.getGlobalLang()}},
+        {
+          $match: {
+            ...this.placeQuery.query
+          }
+        },
         {$sort: {createdAt: -1}},
-        {$skip: skip || this.skip},
-        {$limit: limit || this.limit},
+        {$skip: this.skip},
+        {$limit: this.limit},
       ]
     })
   }
@@ -110,7 +141,7 @@ export class AllDrinkApplicationsPage {
       event.complete();
     } else {
       this.setNextPage();
-      this.loadDrinkApps()
+      this.loadDrinkApps(this.eventData)
         .subscribe((drinkApps) => {
           if (drinkApps.length < this.pageSize) this.allLoaded = true;
           this.drinkApps.push(...drinkApps);
@@ -127,7 +158,7 @@ export class AllDrinkApplicationsPage {
     this.app.getRootNav().push(SingleDrinkApplicationPage, {showPlaceInfo: true, _id: (<any>drinkApp)._id});
   }
 
-  goToSelectPlacePage(place) {
+  goToSelectPlacePage() {
     this.navCtrl.parent.select(1);
     this.events.publish('click-drink-app-create');
   }

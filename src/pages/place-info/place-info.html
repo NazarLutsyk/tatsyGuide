@@ -95,6 +95,14 @@
                 <ion-icon name="checkmark" padding-right="5px"></ion-icon>
                 {{'placeInfo.vipRoom'|translate}}
               </li>
+              <li *ngIf="place.features.businessLunch">
+                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
+                {{'placeInfo.businessLunch'|translate}}
+              </li>
+              <li *ngIf="place.features.dayAndNight">
+                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
+                {{'placeInfo.dayAndNight'|translate}}
+              </li>
             </ul>
           </mat-expansion-panel>
           <mat-expansion-panel>

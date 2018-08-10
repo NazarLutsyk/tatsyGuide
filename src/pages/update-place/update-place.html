@@ -201,6 +201,18 @@
           </ion-label>
           <ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>
         </ion-item>
+        <ion-item>
+          <ion-label>
+            {{'updatePlace.businessLunch' | translate}}
+          </ion-label>
+          <ion-checkbox name="businessLunch" [(ngModel)]="place.features.businessLunch"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            {{'updatePlace.dayAndNight' | translate}}
+          </ion-label>
+          <ion-checkbox name="dayAndNight" [(ngModel)]="place.features.dayAndNight"></ion-checkbox>
+        </ion-item>
       </ion-list>
       <ion-item>
         <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">

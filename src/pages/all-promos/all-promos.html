@@ -1,0 +1,61 @@
+<ion-header>
+  <!--// todo Serj add translate-->
+  <ion-navbar>
+    <ion-title>all-promos</ion-title>
+  </ion-navbar>
+  <ion-searchbar (ionInput)="onSearchPromos($event)">
+  </ion-searchbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="promos && promos.length > 0">
+    <div *ngFor="let promo of promos">
+      <news
+        *ngIf="promo.kind.toLowerCase() === 'news'"
+        [news]="promo"
+        [pm]="promo.placeM"
+        [globalHost]="globalHost"
+        [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+        (onRemovePromo)="removePromo($event)"
+        (onUpdatePromo)="updatePromo($event)"
+        (click)="goToSinglePromo(promo)">
+      </news>
+      <bonuse
+        *ngIf="promo.kind.toLowerCase() === 'bonuse'"
+        [bonuse]="promo"
+        [pm]="promo.placeM"
+        [globalHost]="globalHost"
+        [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+        (onRemovePromo)="removePromo($event)"
+        (onUpdatePromo)="updatePromo($event)"
+        (click)="goToSinglePromo(promo)">
+      </bonuse>
+      <event
+        *ngIf="promo.kind.toLowerCase() === 'event'"
+        [event]="promo"
+        [pm]="promo.placeM"
+        [globalHost]="globalHost"
+        [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+        (onRemovePromo)="removePromo($event)"
+        (onUpdatePromo)="updatePromo($event)"
+        (click)="goToSinglePromo(promo)">
+      </event>
+    </div>
+  </div>
+
+  <div *ngIf="promos && promos.length <= 0">
+    <empty>
+    </empty>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="loadNextPromosPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

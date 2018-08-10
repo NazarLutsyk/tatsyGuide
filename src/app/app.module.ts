@@ -70,9 +70,6 @@ import {PlaceAppliactionsPageModule} from "../pages/place-appliactions/place-app
 import {UpdateDrinkApplicationPageModule} from "../pages/update-drink-application/update-drink-application.module";
 import {ClientsPageModule} from "../pages/clients/clients.module";
 import {PurgatoryPlacesPageModule} from "../pages/purgatory-places/purgatory-places.module";
-import {AllNewsPageModule} from "../pages/all-news/all-news.module";
-import {AllEventsPageModule} from "../pages/all-events/all-events.module";
-import {AllBonusesPageModule} from "../pages/all-bonuses/all-bonuses.module";
 import {AllDrinkApplicationsPageModule} from "../pages/all-drink-applications/all-drink-applications.module";
 import {HashTagsPageModule} from "../pages/hash-tags/hash-tags.module";
 import {PlaceStatisticPageModule} from "../pages/place-statistic/place-statistic.module";
@@ -116,7 +113,8 @@ import {CreateCityPageModule} from "../pages/create-city/create-city.module";
 import {UpdateCityPageModule} from "../pages/update-city/update-city.module";
 import {CreateTopCategoryPageModule} from "../pages/create-top-category/create-top-category.module";
 import {UpdateTopCategoryPageModule} from "../pages/update-top-category/update-top-category.module";
-import { PromoProvider } from '../providers/promo/promo';
+import {PromoProvider} from '../providers/promo/promo';
+import {AllPromosPageModule} from "../pages/all-promos/all-promos.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -168,9 +166,6 @@ export function createTranslateLoader(http: HttpClient) {
     PlaceAppliactionsPageModule,
     ClientsPageModule,
     PurgatoryPlacesPageModule,
-    AllNewsPageModule,
-    AllEventsPageModule,
-    AllBonusesPageModule,
     AllDrinkApplicationsPageModule,
     HashTagsPageModule,
     PlaceStatisticPageModule,
@@ -201,6 +196,7 @@ export function createTranslateLoader(http: HttpClient) {
     UpdateCityPageModule,
     CreateTopCategoryPageModule,
     UpdateTopCategoryPageModule,
+    AllPromosPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

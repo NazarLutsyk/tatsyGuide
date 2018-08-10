@@ -5,18 +5,23 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-     <!--<span *ngIf="principal">{{principal.name}}</span>-->
     </ion-title>
     <button ion-button menuToggle="rightSideMenu" right>
+      <ion-icon name="options"></ion-icon>
+    </button>
+    <button ion-button menuToggle="rightSideMenuPromo" right>
+      <ion-icon name="options"></ion-icon>
+    </button>
+    <button ion-button menuToggle="rightSideMenuDrinkApp" right>
       <ion-icon name="options"></ion-icon>
     </button>
   </ion-navbar>
 </ion-header>
 
-<ion-tabs>
+<ion-tabs (ionChange)="handleChangeTab($event)">
   <ion-tab [root]="topPlacesTab" tabTitle="{{'tab.top' | translate}}" tabIcon="ios-information-circle-outline"></ion-tab>
   <ion-tab [root]="placesTab" tabTitle="{{'tab.home' | translate}}" tabIcon="ios-home-outline"></ion-tab>
-  <ion-tab [root]="newsTab" tabTitle="{{'tab.news' | translate}}" tabIcon="ios-list-box-outline"></ion-tab>
+  <ion-tab [root]="promosTab" tabTitle="{{'tab.news' | translate}}" tabIcon="ios-list-box-outline"></ion-tab>
   <ion-tab [root]="drinkerTab" tabTitle="{{'tab.drinker' | translate}}" tabIcon="ios-beer-outline"></ion-tab>
 </ion-tabs>
 

@@ -34,8 +34,10 @@ export class Place {
       wifi: boolean;
       parking: boolean;
       vipRoom: boolean;
-      karaoke: boolean
-    } = {wifi: false, parking: false, vipRoom: false, karaoke: false},
+      karaoke: boolean,
+      businessLunch: boolean,
+      dayAndNight: boolean
+    } = {wifi: false, parking: false, vipRoom: false, karaoke: false, businessLunch: false, dayAndNight: false},
     public images: string[] = [],
     public days: {
       1: { start: string, end: string };

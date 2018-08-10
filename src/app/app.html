@@ -10,17 +10,17 @@
         <ion-label>{{'switchLang' | translate}}</ion-label>
         <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()"></ion-toggle>
       </ion-item>
-      <ion-item>
-        <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
-        <ion-select interface="action-sheet" [(ngModel)]="currentCity" (ionChange)="changeGlobalCity()">
-          <ion-option value="">
-            None
-          </ion-option>
-          <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
-            {{cityM.name}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
+      <!--<ion-item>-->
+      <!--<ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>-->
+      <!--<ion-select interface="action-sheet" [(ngModel)]="currentCity" (ionChange)="changeGlobalCity()">-->
+      <!--<ion-option value="">-->
+      <!--None-->
+      <!--</ion-option>-->
+      <!--<ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">-->
+      <!--{{cityM.name}}-->
+      <!--</ion-option>-->
+      <!--</ion-select>-->
+      <!--</ion-item>-->
       <button
         ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
@@ -69,12 +69,6 @@
               (click)="goToClientsPage()">
         {{'sideMenu.leftMenu.clients' | translate}}
       </button>
-      <button ion-item (click)="goToEventsPage()">
-        {{'sideMenu.leftMenu.events' | translate}}
-      </button>
-      <button ion-item (click)="goToBonusesPage()">
-        {{'sideMenu.leftMenu.bonuses' | translate}}
-      </button>
       <button ion-item *ngIf="principal" (click)="goToMyProfilePage()">
         {{'sideMenu.leftMenu.myProfile' | translate}}
       </button>
@@ -102,8 +96,7 @@
 
 <ion-nav #myNav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
-<ion-menu [content]="content" side="right" id="rightSideMenu" type="overlay">
-
+<ion-menu *ngIf="rightMenu === 'places'" [content]="content" side="right" id="rightSideMenu" type="overlay">
   <ion-header>
     <ion-toolbar>
       <ion-title>{{'sideMenu.titleRight'|translate}}
@@ -152,6 +145,9 @@
     <ion-item>
       <ion-label>{{'sideMenu.filters.type' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
+        <ion-option value="">
+          None
+        </ion-option>
         <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">
           {{placeTypeM.name}}
         </ion-option>
@@ -161,6 +157,9 @@
     <ion-item>
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.city">
+        <ion-option value="">
+          None
+        </ion-option>
         <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
           {{cityM.name}}
         </ion-option>
@@ -169,8 +168,11 @@
 
     <!--todo serj translate-->
     <ion-item>
-      <ion-label> Кухня </ion-label>
+      <ion-label> Кухня</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.kitchen">
+        <ion-option value="">
+          None
+        </ion-option>
         <ion-option [value]="kitchenM.kitchen._id" *ngFor="let kitchenM of kitchensM">
           {{kitchenM.name}}
         </ion-option>
@@ -179,19 +181,41 @@
 
     <!--todo serj translate-->
     <ion-item>
-      <ion-label> Топ категорія </ion-label>
+      <ion-label> Топ категорія</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.topCategory">
+        <ion-option value="">
+          None
+        </ion-option>
         <ion-option [value]="topCategoryM.topCategory._id" *ngFor="let topCategoryM of topCategoriesM">
           {{topCategoryM.name}}
         </ion-option>
       </ion-select>
     </ion-item>
 
-    <ion-item *ngFor="let feature of ['wifi','karaoke','parking','vipRoom']">
-      <ion-label>{{feature}}</ion-label>
-      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature[feature]"></ion-checkbox>
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.wifi' | translate}}</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['wifi']"></ion-checkbox>
     </ion-item>
-
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.karaoke' | translate}}</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['karaoke']"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.parking' | translate}}</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['parking']"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.vipRoom' | translate}}</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['vipRoom']"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.businessLunch' | translate}}</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['businessLunch']"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.dayAndNight' | translate}}</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['dayAndNight']"></ion-checkbox>
+    </ion-item>
     <ion-buttons>
       <ion-grid>
         <ion-row>
@@ -212,3 +236,100 @@
 
 </ion-menu>
 
+<ion-menu *ngIf="rightMenu === 'promos'" [content]="content" side="right" id="rightSideMenuPromo" type="overlay">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{'sideMenu.titleRight'|translate}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-item>
+      <!--todo serj translate-->
+      <ion-label>Тип новини</ion-label>
+      <ion-select interface="popover" [(ngModel)]="searchPromoObject.kind">
+        <ion-option value="">
+          None
+        </ion-option>
+        <ion-option value="Bonuse">
+          Bonuse
+        </ion-option>
+        <ion-option value="News">
+          News
+        </ion-option>
+        <ion-option value="Event">
+          Event
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
+      <ion-select interface="popover" [(ngModel)]="searchPromoObject.city">
+        <ion-option value="">
+          None
+        </ion-option>
+        <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
+          {{cityM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-buttons>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button class="buttonUpdate" [outline]="true" type="submit" full
+                    (click)="showPromos(searchPromoObject)">
+              {{'sideMenu.filters.search' | translate}}
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button type="button" class="buttonDelete" [outline]="true" full (click)="resetPromos()">
+              {{'sideMenu.filters.reset' | translate}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-buttons>
+  </ion-content>
+</ion-menu>
+
+<ion-menu *ngIf="rightMenu === 'drinkApps'" [content]="content" side="right" id="rightSideMenuDrinkApp" type="overlay">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{'sideMenu.titleRight'|translate}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <!--todo serj translate-->
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
+      <ion-select interface="popover" [(ngModel)]="searchDrinkAppObject.city">
+        <ion-option value="">
+          None
+        </ion-option>
+        <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
+          {{cityM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-buttons>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button class="buttonUpdate" [outline]="true" type="submit" full
+                    (click)="showDrinkApps(searchDrinkAppObject)">
+              {{'sideMenu.filters.search' | translate}}
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button type="button" class="buttonDelete" [outline]="true" full
+                    (click)="resetDrinkApps()">
+              {{'sideMenu.filters.reset' | translate}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-buttons>
+  </ion-content>
+</ion-menu>
