@@ -10,43 +10,29 @@
         <ion-label>{{'switchLang' | translate}}</ion-label>
         <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()"></ion-toggle>
       </ion-item>
-      <!--<ion-item>-->
-      <!--<ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>-->
-      <!--<ion-select interface="action-sheet" [(ngModel)]="currentCity" (ionChange)="changeGlobalCity()">-->
-      <!--<ion-option value="">-->
-      <!--None-->
-      <!--</ion-option>-->
-      <!--<ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">-->
-      <!--{{cityM.name}}-->
-      <!--</ion-option>-->
-      <!--</ion-select>-->
-      <!--</ion-item>-->
       <button
         ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         (click)="goToPlaceTypesPage()">
         {{'sideMenu.leftMenu.managePlaceType' | translate}}
       </button>
-      <!--//todo Serj translate-->
       <button
         ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         (click)="goToKitchensPage()">
-        Типи кухонь
+        {{'sideMenu.leftMenu.kitchen' | translate}}
       </button>
-      <!--//todo Serj translate-->
       <button
         ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         (click)="goToCitiesPage()">
-        Міста
+        {{'sideMenu.leftMenu.city' | translate}}
       </button>
-      <!--//todo Serj translate-->
       <button
         ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         (click)="goToTopCategoriesPage()">
-        Топ категорї
+        {{'sideMenu.leftMenu.topCategory' | translate}}
       </button>
       <button
         ion-item
@@ -166,9 +152,8 @@
       </ion-select>
     </ion-item>
 
-    <!--todo serj translate-->
     <ion-item>
-      <ion-label> Кухня</ion-label>
+      <ion-label> {{'sideMenu.filters.kitchen' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.kitchen">
         <ion-option value="">
           None
@@ -179,9 +164,8 @@
       </ion-select>
     </ion-item>
 
-    <!--todo serj translate-->
     <ion-item>
-      <ion-label> Топ категорія</ion-label>
+      <ion-label> {{'sideMenu.filters.topCategory' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.topCategory">
         <ion-option value="">
           None
@@ -245,20 +229,19 @@
   </ion-header>
   <ion-content>
     <ion-item>
-      <!--todo serj translate-->
-      <ion-label>Тип новини</ion-label>
+      <ion-label> {{'sideMenu.filters.promoType' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchPromoObject.kind">
         <ion-option value="">
           None
         </ion-option>
         <ion-option value="Bonuse">
-          Bonuse
+          {{'sideMenu.filters.typePromo.bonuse' | translate}}
         </ion-option>
         <ion-option value="News">
-          News
+          {{'sideMenu.filters.typePromo.news' | translate}}
         </ion-option>
         <ion-option value="Event">
-          Event
+          {{'sideMenu.filters.typePromo.event' | translate}}
         </ion-option>
       </ion-select>
     </ion-item>
@@ -301,7 +284,6 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <!--todo serj translate-->
     <ion-item>
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchDrinkAppObject.city">

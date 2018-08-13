@@ -16,8 +16,9 @@
         </ion-label>
         <ion-input
           name="name"
-          ngModel
+          [(ngModel)]="nameInput"
           #name="ngModel"
+          (input)="validateName(name)"
           required
         ></ion-input>
       </ion-item>
@@ -198,10 +199,9 @@
       </ion-select>
     </ion-item>
 
-    <!--todo Serj translate-->
     <ion-item>
       <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
-        Kitchen
+        {{'createPlace.kitchens' | translate}}
       </ion-label>
       <ion-select
         name="kitchens"
@@ -218,10 +218,9 @@
     </ion-item>
 
 
-    <!--todo Serj translate-->
     <ion-item>
       <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
-        Cities
+        {{'createPlace.city' | translate}}
       </ion-label>
       <ion-select
         name="city"
@@ -236,10 +235,9 @@
       </ion-select>
     </ion-item>
 
-    <!--todo Serj translate-->
     <ion-item *ngIf="isAdmin">
       <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
-        Top categories
+        {{'createPlace.topCategories' | translate}}
       </ion-label>
       <ion-select
         name="topCategories"

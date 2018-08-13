@@ -13,13 +13,13 @@ import {createTranslateLoader} from "../../app/app.module";
   imports: [
     IonicPageModule.forChild(CreatePlaceTypePage),
     FormsModule,
-     TranslateModule.forChild({
-           loader: {
-             provide: TranslateLoader,
-             useFactory: createTranslateLoader,
-             deps: [HttpClient]
-           }
-         }),
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
   ],
 })
 export class CreatePlaceTypePageModule {}

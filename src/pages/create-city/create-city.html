@@ -1,8 +1,7 @@
-<!--// todo Serj translate-->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>create-city</ion-title>
+    <ion-title>{{'createCity.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,7 +13,7 @@
     <div *ngFor="let lang of langs">
 
       <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
-        {{lang.name}} Name:
+        {{lang.name}} {{'createCity.inputName' | translate}}:
       </ion-label>
       <ion-input
         type="text"
@@ -37,8 +36,7 @@
             [disabled]="!cityForm.valid"
             [outline]="true"
           >
-            <!--{{'placeType.save' | translate}}-->
-            Save
+            {{'city.save' | translate}}
           </button>
         </ion-col>
       </ion-row>

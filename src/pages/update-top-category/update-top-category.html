@@ -1,14 +1,13 @@
-<!--// ToDo Serj translate-->
 <ion-header>
   <ion-navbar>
-    <ion-title>update-top-category</ion-title>
+    <ion-title>{{'updateTopCategory.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <form #topCategoryForm='ngForm'>
     <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
-      Name:
+      {{'updateTopCategory.inputName' | translate}}:
     </ion-label>
     <ion-input
       type="text"
@@ -25,8 +24,7 @@
       (click)="updateTopCategory(topCategoryForm)"
       [disabled]="!topCategoryForm.valid"
     >
-      <!--{{'placeType.updateType' | translate}}-->
-      Update
+      {{'updateTopCategory.update' | translate}}
     </button>
   </form>
 </ion-content>

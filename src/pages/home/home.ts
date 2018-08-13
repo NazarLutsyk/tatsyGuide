@@ -21,25 +21,26 @@ export class HomePage implements OnInit {
 
 
   constructor(
-    translate: TranslateService,
+    private translate: TranslateService,
     public modal: ModalController,
     public storage: Storage,
     private events: Events,
-    private toastController: ToastController
+    private toastController: ToastController,
   ) {
   }
 
   ngOnInit(): void {
-    //todo serj translate
     this.events.subscribe('click-drink-app-create', () => {
-      let drinkerToast = this.toastController.create(
-        {
-          duration: 3000,
-          message: 'Please, select place...',
-          position: 'top'
-        }
-      );
-      drinkerToast.present();
+      this.translate.get('drinkApplicationToast.selectPlace').subscribe((text) => {
+        let drinkerToast = this.toastController.create(
+          {
+            duration: 3000,
+            message: text,
+            position: 'top'
+          }
+        );
+        drinkerToast.present();
+      });
     });
 
     this.storage.get('initialpopover').then((show) => {

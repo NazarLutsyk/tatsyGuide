@@ -6,6 +6,7 @@ import {TopCategoryMultilangProvider} from "../../providers/top-category-multila
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {CreateTopCategoryPage} from "../create-top-category/create-top-category";
 import {UpdateTopCategoryPage} from "../update-top-category/update-top-category";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -25,6 +26,7 @@ export class AllTopCategoriesPage {
     private events: Events,
     public modal: ModalController,
     public alertCtrl: AlertController,
+    private translate: TranslateService
   ) {
   }
 
@@ -62,34 +64,32 @@ export class AllTopCategoriesPage {
 
   removeTopCategory(topCategoryM: any) {
 
-    //todo Serj translate
-    // this.translate.get([
-    //   "placeInfo.cancel",
-    //   "placeInfo.confirm",
-    //   "placeInfo.delete",
-    // ]).subscribe(translations => {
+    this.translate.get([
+      "topCategoryRemove.cancel",
+      "topCategoryRemove.confirm",
+      "topCategoryRemove.text",
+    ]).subscribe(translations => {
 
-    let alertDelete = this.alertCtrl.create({
-      enableBackdropDismiss: true,
-      title: /*translations['placeInfo.delete'] + "?"*/ "Delete?",
-      buttons: [
-        {
-          text: /*translations['placeInfo.confirm']*/ "Delete",
-          handler: () => {
-            this.topCategoryService.remove(topCategoryM.topCategory).subscribe(() => {
-              this.topCategoriesM.splice(this.topCategoriesM.indexOf(topCategoryM, 1));
-            });
+      let alertDelete = this.alertCtrl.create({
+        enableBackdropDismiss: true,
+        title: translations['topCategoryRemove.text'],
+        buttons: [
+          {
+            text: translations['topCategoryRemove.confirm'],
+            handler: () => {
+              this.topCategoryService.remove(topCategoryM.topCategory).subscribe(() => {
+                this.topCategoriesM.splice(this.topCategoriesM.indexOf(topCategoryM, 1));
+              });
 
+            }
+          },
+          {
+            text: translations['topCategoryRemove.cancel']
           }
-        },
-        {
-          text: /*translations['placeInfo.cancel']*/ 'Cancel'
-        }
-      ]
+        ]
+      });
+      alertDelete.present()
     });
-    alertDelete.present()
-
-    // });
   }
 
 }

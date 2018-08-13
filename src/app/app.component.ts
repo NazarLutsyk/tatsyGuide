@@ -122,10 +122,14 @@ export class MyApp implements OnInit {
       this.getLang = val === 'lang' ? true : this.getLang;
       this.getLocation = val === 'location' ? true : this.getLocation;
       // this.getCity = val === 'city' ? true : this.getCity;
+      console.log('getlang', this.getLang);
+      console.log('getlocation', this.getLocation);
       if (this.getLang && this.getLocation/* && this.getCity*/) {
         console.log('init other settings');
         this.init();
       }
+    }, (err) => {
+      console.log(err);
     });
   }
 
@@ -409,28 +413,32 @@ export class MyApp implements OnInit {
   switchLang() {
     let selectedLang = this.globalConfig.deviceLang === 'ua' ? "en" : "ua";
     this.storage.set('lang', selectedLang);
-    //todo serj add translate
-    this.toastLang.create({
-      dismissOnPageChange: true,
-      message: "Please reload app!",
-      duration: 3000,
-      position: 'top'
-    }).present();
-  }
 
-  changeGlobalCity() {
-    this.storage.set('newCity', this.currentCity);
-    if (!this.changeCityFromInit) {
-      //todo serj add translate
+    this.translate.get('toast.reload').subscribe((text) => {
       this.toastLang.create({
         dismissOnPageChange: true,
-        message: "Please reload app!",
+        message: text,
         duration: 3000,
         position: 'top'
       }).present();
-    }
-    this.changeCityFromInit = false;
+    });
+
   }
+
+  // changeGlobalCity() {
+  //   this.storage.set('newCity', this.currentCity);
+  //   if (!this.changeCityFromInit) {
+  //     this.translate.get('toast.reload').subscribe((text) => {
+  //       this.toastLang.create({
+  //         dismissOnPageChange: true,
+  //         message: text,
+  //         duration: 3000,
+  //         position: 'top'
+  //       }).present();
+  //     });
+  //   };
+  //   this.changeCityFromInit = false;
+  // }
 }
 
 

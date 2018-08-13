@@ -1,8 +1,5 @@
 <ion-card (click)="openDrinkApplication(drinkApp)">
   <ion-card-content>
-    <!--<p>-->
-      <!--{{'drinker.who'|translate}} - {{drinkApp.organizer.name}} {{drinkApp.organizer.surname}}-->
-    <!--</p>-->
     <p>
       <span class="fontBold">{{'drinker.where'|translate}}</span> - {{pm.name}}
     </p>
@@ -27,7 +24,6 @@
             full
             class="buttonUpdate"
             outline
-            (click)="updateDrinkApp(drinkApp, $event)"
           > {{'drinker.update' | translate}}
           </button>
         </ion-col>

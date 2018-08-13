@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Events, IonicPage, NavController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
@@ -23,6 +23,8 @@ import {CityMultilangProvider} from "../../providers/city-multilang/city-multila
   templateUrl: 'create-place.html',
 })
 export class CreatePlacePage {
+
+  nameInput = '';
 
   location: any = {lat: 0, lng: 0};
   placeTypesM: PlaceTypeMultilang[] = [];
@@ -131,5 +133,13 @@ export class CreatePlacePage {
 
   goToChooseLocation() {
     this.navCtrl.push(ChooseLocationPage)
+  }
+
+  validateName(name) {
+    let nameValue = name.value;
+    let format = /#/;
+    if (format.test(nameValue)) {
+      this.nameInput = nameValue.slice(0, -1);
+    }
   }
 }

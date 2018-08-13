@@ -1,7 +1,6 @@
-<!--//todo serj translate-->
 <ion-header>
   <ion-navbar>
-    <ion-title>all-top-categories</ion-title>
+    <ion-title>{{'topCategories.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,8 +13,7 @@
     <ion-row>
       <ion-col col-6 offset-3>
         <button ion-button outline full class="defaultBackground2" (click)="goToCreateTopCategory()">
-          <!--{{'placeType.create'|translate}}-->
-          Create
+          {{'topCategories.create'|translate}}
         </button>
 
       </ion-col>

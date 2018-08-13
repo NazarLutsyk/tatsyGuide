@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PlaceStatisticPage } from './place-statistic';
 import {FormsModule} from "@angular/forms";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {createTranslateLoader} from "../../app/app.module";
+import {HttpClient} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -9,7 +12,14 @@ import {FormsModule} from "@angular/forms";
   ],
   imports: [
     IonicPageModule.forChild(PlaceStatisticPage),
-    FormsModule
+    FormsModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
   ],
 })
 export class PlaceStatisticPageModule {}

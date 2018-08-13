@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>top-place-application</ion-title>
+    <ion-title>{{'topPlaceApplication.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,7 +10,7 @@
   <form #form="ngForm">
     <ion-item>
       <ion-label [ngStyle]="{'color': (startDate.invalid && startDate.touched) ? 'red' : ''}">
-        Start date
+        {{'topPlaceApplication.inputStartDate' | translate}}
       </ion-label>
       <ion-datetime
         name="startDate"
@@ -21,7 +21,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (endDate.invalid && endDate.touched) ? 'red' : ''}">
-        End date
+        {{'topPlaceApplication.inputEndDate' | translate}}
       </ion-label>
       <ion-datetime
         name="endDate"
@@ -30,6 +30,6 @@
         required
       ></ion-datetime>
     </ion-item>
-    <button ion-button full [disabled]="!form.valid" (click)="sendApp(form)">Send</button>
+    <button ion-button full [disabled]="!form.valid" (click)="sendApp(form)">{{'topPlaceApplication.send' | translate}}</button>
   </form>
 </ion-content>

@@ -26,13 +26,14 @@
         <ion-col col-6>
           <button *ngIf="showRemoveButton" full ion-button class="buttonDelete" [outline]="true"
                   (click)="removeRating(rating,$event)">
-            remove
+            {{'testimonials.remove' | translate}}
           </button>
         </ion-col>
 
         <ion-col col-6="">
           <button *ngIf="showUpdateButton" full [outline]="true" ion-button class="defaultBackground2"
-                  (click)="updateRating(rating)">update
+                  (click)="updateRating(rating)">
+            {{'testimonials.update' | translate}}
           </button>
         </ion-col>
       </ion-row>

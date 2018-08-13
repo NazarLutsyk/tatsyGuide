@@ -6,6 +6,7 @@ import {KitchenMultilangProvider} from "../../providers/kitchen-multilang/kitche
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {CreateKitchenPage} from "../create-kitchen/create-kitchen";
 import {UpdateKitchenPage} from "../update-kitchen/update-kitchen";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -25,6 +26,7 @@ export class AllKitchensPage {
     private events: Events,
     public modal: ModalController,
     public alertCtrl: AlertController,
+    private translate: TranslateService
   ) {
   }
 
@@ -62,34 +64,32 @@ export class AllKitchensPage {
 
   removeKitchen(kitchenM: any) {
 
-    //todo Serj translate
-    // this.translate.get([
-    //   "placeInfo.cancel",
-    //   "placeInfo.confirm",
-    //   "placeInfo.delete",
-    // ]).subscribe(translations => {
+    this.translate.get([
+      "kitchenRemove.cancel",
+      "kitchenRemove.confirm",
+      "kitchenRemove.text",
+    ]).subscribe(translations => {
 
-    let alertDelete = this.alertCtrl.create({
-      enableBackdropDismiss: true,
-      title: /*translations['placeInfo.delete'] + "?"*/ "Delete?",
-      buttons: [
-        {
-          text: /*translations['placeInfo.confirm']*/ "Delete",
-          handler: () => {
-            this.kitchenService.remove(kitchenM.kitchen).subscribe(() => {
-              this.kitchensM.splice(this.kitchensM.indexOf(kitchenM, 1));
-            });
+      let alertDelete = this.alertCtrl.create({
+        enableBackdropDismiss: true,
+        title: translations['kitchenRemove.text'],
+        buttons: [
+          {
+            text: translations['kitchenRemove.confirm'],
+            handler: () => {
+              this.kitchenService.remove(kitchenM.kitchen).subscribe(() => {
+                this.kitchensM.splice(this.kitchensM.indexOf(kitchenM, 1));
+              });
 
+            }
+          },
+          {
+            text: translations['kitchenRemove.cancel']
           }
-        },
-        {
-          text: /*translations['placeInfo.cancel']*/ 'Cancel'
-        }
-      ]
+        ]
+      });
+      alertDelete.present()
     });
-    alertDelete.present()
-
-    // });
   }
 
 

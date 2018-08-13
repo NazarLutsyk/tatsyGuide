@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>update-rating</ion-title>
+    <ion-title>{{'updateRating.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,12 +14,12 @@
         <!--<ion-label stacked></ion-label>-->
         <ion-textarea
           name="comment"
-          [(ngModel)]="rating.comment" placeholder="Comment"
+          [(ngModel)]="rating.comment" placeholder="{{'updateRating.comment' | translate}}"
         ></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (starsRef.invalid && starsRef.touched) ? 'red' : ''}">
-          Rating
+          {{'updateRating.rating' | translate}}
         </ion-label>
         <ion-select
           type="number"
@@ -37,7 +37,7 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Sum</ion-label>
+        <ion-label>{{'updateRating.price' | translate}}</ion-label>
         <ion-input [(ngModel)]="rating.price" name="price" type="number"></ion-input>
       </ion-item>
     </div>
@@ -47,7 +47,7 @@
       class="buttonUpdate"
       margin-top
       [disabled]="!updateForm.valid"
-    >Update
+    >{{'updateRating.update' | translate}}
     </button>
   </form>
 </ion-content>

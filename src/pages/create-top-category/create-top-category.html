@@ -1,7 +1,6 @@
-<!--// todo Serj translate-->
 <ion-header>
   <ion-navbar>
-    <ion-title>create-top-category</ion-title>
+    <ion-title>{{'createTopCategory.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,7 +10,7 @@
     <div *ngFor="let lang of langs">
 
       <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
-        {{lang.name}} Name:
+        {{lang.name}} {{'createTopCategory.inputName' | translate}}:
       </ion-label>
       <ion-input
         type="text"
@@ -34,8 +33,7 @@
             [disabled]="!topCategoryForm.valid"
             [outline]="true"
           >
-            <!--{{'placeType.save' | translate}}-->
-            Save
+            {{'createTopCategory.save' | translate}}
           </button>
         </ion-col>
       </ion-row>

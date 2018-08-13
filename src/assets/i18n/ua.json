@@ -8,6 +8,7 @@
     "info": "Інформація",
     "descr": "Опис",
     "tags": "Теги",
+    "kitchens": "Кухні",
     "avgPrice": "Середній чек",
     "place": "місце",
     "drinker": "пиячок",
@@ -57,10 +58,18 @@
       "vipRoom": "віп кімната",
       "businessLunch": "бізнес ланчі",
       "dayAndNight": "працює цілодобово",
-      "city": "Місто",
+      "city": "Місто ",
+      "kitchen": "Кухня ",
+      "topCategory": "Топ категорія",
       "chooseCity": "Оберіть місто",
       "search": "ПОШУК",
-      "reset": "ОБНУЛИТИ"
+      "reset": "ОБНУЛИТИ",
+      "promoType": "Тип промо",
+      "typePromo": {
+        "bonuse": "Акція",
+        "event": "Подія",
+        "news": "Новина"
+      }
     },
     "leftMenu": {
       "stat": "Статистика",
@@ -76,11 +85,16 @@
       "myTestimonials": "Мої відгуки",
       "createPlace": "Додати заклад",
       "logout": "Вихід",
-      "login": "Увійти"
+      "login": "Увійти",
+      "city": "Міста ",
+      "kitchen": "Кухні ",
+      "topCategory": "Топ категорії"
     }
   },
   "testimonials": {
-    "add": "додати відгук"
+    "add": "додати відгук",
+    "remove": "Видалити",
+    "update": "Змінити"
   },
   "signUp": {
     "signUp": "Зареєструватись"
@@ -116,6 +130,8 @@
     "placeName": "Назва закладу",
     "description": "Опис закладу",
     "city": "Місто",
+    "kitchens": "Кухні",
+    "topCategories": "Топ категорії",
     "street": "Вулиця",
     "number": "Номер будинку",
     "topcategories": "Особливості закладу",
@@ -166,6 +182,7 @@
   },
   "drinker": {
     "title": "Заявки",
+    "singleTitle": "Заявка",
     "create": "Створити зявку",
     "who": "Хто",
     "when": "Коли",
@@ -207,9 +224,18 @@
     "create": "Створити подію"
   },
   "allBonuses": {
-    "title": "Всі події",
+    "title": "Всі акції",
     "create": "Створити акцію",
     "conditions": "Умови акції"
+  },
+  "singleBonuse": {
+    "title": "Акція"
+  },
+  "singleNews": {
+    "title": "Новина"
+  },
+  "singleEvent": {
+    "title": "Подія"
   },
   "myPlaces": {
     "title": "Мої заклади"
@@ -225,7 +251,6 @@
     "chooseLocation": "Обрати розташування",
     "placeName": "Назва закладу",
     "description": "Опис закладу",
-    "city": "Місто",
     "chooseCity": "Обрати місто",
     "lviv": "Львів",
     "kyiv": "Київ",
@@ -249,6 +274,9 @@
     "businessLunch": "бізнес ланчі",
     "dayAndNight": "працює цілодобово",
     "placeType": "Тип закладу",
+    "kitchens": "Кухні",
+    "city": "Місто",
+    "topCategories": "Топ категорії",
     "from": "Від",
     "to": "До",
     "save": "Зберегти",
@@ -375,7 +403,7 @@
     "remove": "Видалити"
   },
   "allPlaceStatistics": {
-    "title": "Змінити новину",
+    "title": "Статистика",
     "search": "Знайти",
     "start": "Початкова дата",
     "end": "Кінцева дата"
@@ -395,8 +423,92 @@
     "messageEnd": "З турботою про Вас, адміністрація Tasty Guide.",
     "understand": "Зрозуміло",
     "dontUnderstand": "Не зрозуміло"
+  },
+  "hashTags": {
+    "header": "Хештеги"
+  },
+  "cities": {
+    "title": "Міста",
+    "create": "Створити місто"
+  },
+  "kitchens": {
+    "title": "Кухні",
+    "create": "Створити кухню"
+  },
+  "topCategories": {
+    "title": "Топ категорії",
+    "create": "Створити топ категорію"
+  },
+  "chooseLocation": {
+    "title": "Карта"
+  },
+  "createCity": {
+    "title": "Створити місто",
+    "inputName": "Ім'я",
+    "save": "Створити"
+  },
+  "updateCity": {
+    "title": "Змітини місто",
+    "inputName": "Ім'я",
+    "update": "Змінити"
+  },
+  "updateKitchen": {
+    "title": "Змітини кухню",
+    "inputName": "Ім'я",
+    "update": "Змінити"
+  },
+  "createKitchen": {
+    "title": "Створити кухню",
+    "inputName": "Ім'я",
+    "save": "Створити"
+  },
+  "createTopCategory": {
+    "title": "Створити топ категорію",
+    "inputName": "Ім'я",
+    "save": "Створити"
+  },
+  "updateTopCategory": {
+    "title": "Змінити топ категорію",
+    "inputName": "Ім'я",
+    "update": "Змінити"
+  },
+  "modalTestimonial": {
+    "close": "Закрити"
+  },
+  "topPlaceApplication": {
+    "title": "Топ заклад, заявка",
+    "inputStartDate": "Початок",
+    "inputEndDate": "Кінець",
+    "send": "Надіслати"
+  },
+  "updateRating": {
+    "title": "Змінити рейтинг",
+    "comment": "Коментар",
+    "rating": "Рейтинг",
+    "update": "Змінити",
+    "price": "Ціна"
+  },
+  "toast": {
+    "reload": "Будь ласка перезавантажте додаток"
+  },
+  "cityRemove": {
+    "text": "Видалити?",
+    "cancel": "Відмінити",
+    "confirm": "Підтвердити"
+  },
+  "kitchenRemove": {
+    "text": "Видалити?",
+    "cancel": "Відмінити",
+    "confirm": "Підтвердити"
+  },
+  "topCategoryRemove": {
+    "text": "Видалити?",
+    "cancel": "Відмінити",
+    "confirm": "Підтвердити"
+  },
+  "drinkApplicationToast":{
+    "selectPlace": "Будь ласка виберіть місце"
   }
-
 }
 
 

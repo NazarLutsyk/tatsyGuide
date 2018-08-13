@@ -14,7 +14,7 @@
 
   <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
     <button
-      ion-button full [outline]="true" color="defaultApp"
+      ion-button full [outline]="true" class="defaultBackground2"
       (click)="goToCreateNews()">{{'news.create' | translate}}
     </button>
   </ion-row>

@@ -1,14 +1,13 @@
-<!--// ToDo Serj translate-->
 <ion-header>
   <ion-navbar>
-    <ion-title>update-kitchen</ion-title>
+    <ion-title>{{'updateKitchen.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <form #kitchenForm='ngForm'>
     <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
-      Name:
+      {{'updateKitchen.inputName' | translate}}:
     </ion-label>
     <ion-input
       type="text"
@@ -25,8 +24,7 @@
       (click)="updateKitchen(kitchenForm)"
       [disabled]="!kitchenForm.valid"
     >
-      <!--{{'placeType.updateType' | translate}}-->
-      Update
+      {{'updateKitchen.update' | translate}}
     </button>
   </form>
 </ion-content>

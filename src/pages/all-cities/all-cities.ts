@@ -6,6 +6,7 @@ import {CityMultilangProvider} from "../../providers/city-multilang/city-multila
 import {ModalChooseLangPage} from "../modal-choose-lang/modal-choose-lang";
 import {CreateCityPage} from "../create-city/create-city";
 import {UpdateCityPage} from "../update-city/update-city";
+import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -25,6 +26,7 @@ export class AllCitiesPage {
     public alertCtrl: AlertController,
     private cityService: CityProvider,
     private cityMultilangService: CityMultilangProvider,
+    private translate: TranslateService
   ) {
   }
 
@@ -62,19 +64,18 @@ export class AllCitiesPage {
 
   removeCity(cityM: any) {
 
-    //todo Serj translate
-    // this.translate.get([
-    //   "placeInfo.cancel",
-    //   "placeInfo.confirm",
-    //   "placeInfo.delete",
-    // ]).subscribe(translations => {
+    this.translate.get([
+      "cityRemove.cancel",
+      "cityRemove.confirm",
+      "cityRemove.text",
+    ]).subscribe(translations => {
 
     let alertDelete = this.alertCtrl.create({
       enableBackdropDismiss: true,
-      title: /*translations['placeInfo.delete'] + "?"*/ "Delete?",
+      title: translations['cityRemove.text'],
       buttons: [
         {
-          text: /*translations['placeInfo.confirm']*/ "Delete",
+          text: translations['cityRemove.confirm'],
           handler: () => {
             this.cityService.remove(cityM.city).subscribe(() => {
               this.citiesM.splice(this.citiesM.indexOf(cityM, 1));
@@ -83,12 +84,12 @@ export class AllCitiesPage {
           }
         },
         {
-          text: /*translations['placeInfo.cancel']*/ 'Cancel'
+          text: translations['cityRemove.cancel']
         }
       ]
     });
     alertDelete.present()
-    // });
+    });
   }
 
 }

@@ -1,8 +1,7 @@
-<!--// ToDo Serj translate-->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>update-city</ion-title>
+    <ion-title>{{'updateCity.title' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -11,7 +10,7 @@
 
   <form #cityForm='ngForm'>
     <ion-label [ngStyle]="{'color': (text.invalid && text.touched) ? 'red' : ''}">
-      Name:
+      {{'updateCity.inputName' | translate}}:
     </ion-label>
     <ion-input
       type="text"
@@ -28,8 +27,7 @@
       (click)="updateCity(cityForm)"
       [disabled]="!cityForm.valid"
     >
-      <!--{{'placeType.updateType' | translate}}-->
-      Update
+      {{'updateCity.update' | translate}}
     </button>
   </form>
 
