@@ -10,7 +10,6 @@ import {SingleDrinkApplicationPage} from "../single-drink-application/single-dri
 import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TranslateService} from "@ngx-translate/core";
-import {AllPlacesPage} from "../all-places/all-places";
 
 @IonicPage()
 @Component({
@@ -57,6 +56,7 @@ export class PlaceAppliactionsPage {
       this.principal = principal;
       this.loadDrinkApps().subscribe((apps) => {
         this.drinkApps = apps;
+        console.log(this.drinkApps);
       });
     });
   }
@@ -78,13 +78,35 @@ export class PlaceAppliactionsPage {
 
   private loadDrinkApps(): Observable<any> {
     return this.drinkAppsService.find({
-      query: {place: this.navParams.data._id},
-      sort: {createdAt: -1},
-      populate: [
-        {path: 'organizer'},
-      ],
-      skip: this.skip,
-      limit: this.limit
+      aggregate: [
+        {
+          $lookup: {
+            from: 'clients',
+            localField: 'organizer',
+            foreignField: '_id',
+            as: 'organizer',
+          }
+        },
+        {$unwind: "$organizer"},
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: 'place',
+            foreignField: 'place',
+            as: 'placeM',
+          }
+        },
+        {$unwind: "$placeM"},
+        {
+          $match: {
+            'placeM.lang': this.globalConfig.getGlobalLang(),
+            'placeM.place': this.navParams.data._id
+          }
+        },
+        {$sort: {createdAt: -1}},
+        {$skip: this.skip},
+        {$limit: this.limit},
+      ]
     })
   }
 

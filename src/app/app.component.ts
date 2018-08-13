@@ -112,11 +112,6 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configTabs();
-    // this.configGlobalCity();
-    this.configGlobalLang();
-    this.configGlobalLocation();
-
     this.doneSubject.subscribe((val) => {
       console.log('loaded', val);
       this.getLang = val === 'lang' ? true : this.getLang;
@@ -131,6 +126,10 @@ export class MyApp implements OnInit {
     }, (err) => {
       console.log(err);
     });
+    this.configTabs();
+    // this.configGlobalCity();
+    this.configGlobalLang();
+    this.configGlobalLocation();
   }
 
   private configTabs() {
@@ -205,9 +204,11 @@ export class MyApp implements OnInit {
     })
   }
 
-  private configGlobalLocation() {
+  configGlobalLocation() {
+    console.log('load location');
     if (this.platform.is("android") || this.platform.is("ios")) {
-      this.geolocation.getCurrentPosition({timeout: 6000,}).then((position) => {
+      console.log('mobile location');
+      this.geolocation.getCurrentPosition({timeout: 6000}).then((position) => {
         this.globalConfig.globalPosition.latitude = position.coords.latitude;
         this.globalConfig.globalPosition.longitude = position.coords.longitude;
         this.doneSubject.next('location');
@@ -217,6 +218,7 @@ export class MyApp implements OnInit {
         this.doneSubject.next('location');
       })
     } else {
+      console.log('browser location');
       this.globalConfig.globalPosition.latitude = 0;
       this.globalConfig.globalPosition.longitude = 0;
       this.doneSubject.next('location');
