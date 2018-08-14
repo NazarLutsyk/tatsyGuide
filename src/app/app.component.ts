@@ -47,7 +47,6 @@ import {TopCategoryMultilangProvider} from "../providers/top-category-multilang/
 })
 export class MyApp implements OnInit {
 
-
   @ViewChild('myNav')
   navCtrl: NavController;
   rootPage: any;
@@ -187,19 +186,26 @@ export class MyApp implements OnInit {
   // }
 
   private configGlobalLang() {
+    console.log('get lang');
     this.langService.find({}).subscribe((langs) => {
       this.globalConfig.langs = langs;
       this.storage.get('lang').then((lang) => {
         if ((this.platform.is("android") || this.platform.is("ios")) && !lang) {
+          console.log('get mobile lang');
           this.getPrefferedLang();
         } else {
+          console.log('get browser lang');
           this.globalConfig.deviceLang = lang || '';
           this.languageSwitcher = true;
           this.translate.use(this.globalConfig.deviceLang);
           this.doneSubject.next('lang');
         }
       }).catch(() => {
-        this.getPrefferedLang()
+        console.log('error : get browser lang');
+        this.globalConfig.deviceLang = '';
+        this.languageSwitcher = true;
+        this.translate.use(this.globalConfig.deviceLang);
+        this.doneSubject.next('lang');
       });
     })
   }

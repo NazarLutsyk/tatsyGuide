@@ -27,6 +27,9 @@ class DrinkerApplicationObjectTemplate {
 
 export class DrinkerApplicationPage {
 
+  minDate = '';
+  maxDate = '';
+
   drinkerApplicationObject: DrinkerApplicationObjectTemplate = new DrinkerApplicationObjectTemplate();
   isActive: boolean;
   places: Place[];
@@ -41,6 +44,12 @@ export class DrinkerApplicationPage {
     private events: Events,
     private translate: TranslateService
   ) {
+    let now = new Date();
+    let minDateTemp = now.toLocaleDateString().split('.');
+    let maxDateTemp = (new Date(now.setMonth(now.getMonth() + 1))).toLocaleDateString().split('.');
+    this.minDate = `${minDateTemp[2]}-${minDateTemp[1]}-${minDateTemp[0]}`;
+    this.maxDate = `${maxDateTemp[2]}-${maxDateTemp[1]}-${maxDateTemp[0]}`;
+
     if (this.navParams.data.place) {
       this.drinkerApplicationObject.place = this.navParams.data.place._id;
       this.drinkerApplicationObject.placeObj = this.navParams.data.place;

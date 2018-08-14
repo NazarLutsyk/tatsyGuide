@@ -39,14 +39,14 @@ export class TopPlacesPage {
       .subscribe(places => this.topPlaces = places);
   }
 
-  loadTopPlaces() {
+  loadTopPlaces(clearCache = false) {
     return new Observable<Place[]>((subscriber) => {
         let alreadyLoadedPlaces = this.topPlaces.map(value => (<any>value)._id);
         this.placeService.find({
           aggregate: [
             {
               $match: {
-                _id: {$nin: [...alreadyLoadedPlaces]}
+                _id: {$nin: clearCache ? [] : alreadyLoadedPlaces}
               }
             },
             {
@@ -131,9 +131,8 @@ export class TopPlacesPage {
   doRefresh(refresher) {
     this.skip = 0;
     this.allLoaded = false;
-    this.topPlaces = [];
 
-    this.loadTopPlaces()
+    this.loadTopPlaces(true)
       .subscribe(places => {
         this.topPlaces = places;
         refresher.complete();

@@ -12,6 +12,8 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
   templateUrl: 'update-drink-application.html',
 })
 export class UpdateDrinkApplicationPage {
+  minDate = '';
+  maxDate = '';
 
   drinkApp: DrinkApplication;
   drinkAppId: string;
@@ -20,13 +22,18 @@ export class UpdateDrinkApplicationPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private drinkAppService: DrinkApplicationProvider,
-    private translate : TranslateService,private globalConfig : GlobalConfigsService
+    private translate: TranslateService, private globalConfig: GlobalConfigsService
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
+
+    let now = new Date();
+    let minDateTemp = now.toLocaleDateString().split('.');
+    let maxDateTemp = (new Date(now.setMonth(now.getMonth() + 1))).toLocaleDateString().split('.');
+    this.minDate = `${minDateTemp[2]}-${minDateTemp[1]}-${minDateTemp[0]}`;
+    this.maxDate = `${maxDateTemp[2]}-${maxDateTemp[1]}-${maxDateTemp[0]}`;
   }
 
   ngOnInit() {
+
     this.drinkApp = this.navParams.data.drinkApp;
     this.drinkAppId = (<any>this.drinkApp)._id;
   }

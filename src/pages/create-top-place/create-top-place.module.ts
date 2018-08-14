@@ -13,13 +13,13 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
   imports: [
     IonicPageModule.forChild(CreateTopPlacePage),
     FormsModule,
-     TranslateModule.forChild({
-           loader: {
-             provide: TranslateLoader,
-             useFactory: createTranslateLoader,
-             deps: [HttpClient]
-           }
-         }),
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
   ],
 })
 export class CreateTopPlacePageModule {

@@ -44,7 +44,6 @@ import {HttpInterceptorProvider} from '../providers/http-interceptor/http-interc
 import {LangProvider} from '../providers/lang/lang';
 import {ModalTestimonialPageModule} from "../pages/modal-testimonial/modal-testimonial.module";
 import {CreatePlacePageModule} from "../pages/create-place/create-place.module";
-/*file transfer etc*/
 import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
 import {File} from '@ionic-native/file';
 import {Camera} from '@ionic-native/camera';
@@ -123,7 +122,6 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
-
   ],
   imports: [
     BrowserModule,
