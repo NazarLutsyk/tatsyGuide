@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MenuController, NavController, NavParams, Platform} from 'ionic-angular';
+import {LoadingController, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
 
 import {GoogleMap} from '@ionic-native/google-maps';
 import {Place} from "../../models/place/Place";
@@ -52,10 +52,15 @@ export class PlaceDeatilsPage {
               public translate: TranslateService,
               private placeService: PlacesProvider,
               private globalConfig: GlobalConfigsService,
+              private loadingCtrl: LoadingController
   ) {
   }
 
   ngOnInit() {
+    let spinner = this.loadingCtrl.create({
+      enableBackdropDismiss: false
+    });
+    spinner.present();
     this.loadPlace(this.navParams.data.id).subscribe((place) => {
       this.place = place;
       this.auth.loadPrincipal().subscribe((principal) => {
@@ -71,6 +76,9 @@ export class PlaceDeatilsPage {
         } else {
           this.isFavorite = false
         }
+
+        spinner.dismissAll();
+
       });
     });
   }

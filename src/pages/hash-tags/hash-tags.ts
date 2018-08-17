@@ -1,8 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import {InfiniteScroll, IonicPage, NavController, NavParams, Refresher, Searchbar} from 'ionic-angular';
+import {App, InfiniteScroll, IonicPage, NavController, NavParams, Refresher, Searchbar} from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
 
 @IonicPage()
 @Component({
@@ -25,7 +26,8 @@ export class HashTagsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private placesService: PlacesProvider,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private app: App
   ) {
   }
 
@@ -132,5 +134,9 @@ export class HashTagsPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  toDetails(id) {
+    this.app.getRootNav().push(PlaceDeatilsPage, {id});
   }
 }

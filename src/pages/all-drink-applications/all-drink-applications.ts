@@ -159,6 +159,7 @@ export class AllDrinkApplicationsPage {
   }
 
   goToSelectPlacePage() {
+    console.log('notify');
     this.navCtrl.parent.select(1);
     this.events.publish('click-drink-app-create');
   }

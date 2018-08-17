@@ -245,7 +245,7 @@ export class AllPlacesPage {
     this.skip = 0;
     this.allLoaded = false;
     setTimeout(() => {
-      let searchStrInput = event.target.value;
+      let searchStrInput = event.target.value || '';
       if (searchStrInput.indexOf('#') > -1) {
         this.searchHashTags = searchStrInput
           .trim()

@@ -3,7 +3,7 @@
   <ion-navbar hideBackButton>
     <ion-title></ion-title>
   </ion-navbar>
-  <ion-searchbar (ionInput)="onSearchPlaces($event)">
+  <ion-searchbar (ionInput)="onSearchPlaces($event)" (ionCancel)="onSearchPlaces($event)">
   </ion-searchbar>
 </ion-header>
 

@@ -19,7 +19,8 @@
     color="defaultApp"
     (click)="goToSelectPlacePage()"
     *ngIf="principal"
-  >Create
+  >
+    {{'allDrinkApplications.create' | translate}}
   </button>
 
   <div *ngIf="drinkApps && drinkApps.length > 0">

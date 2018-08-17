@@ -246,7 +246,7 @@ export class AllPromosPage implements OnInit {
     this.skip = 0;
     this.allLoaded = false;
     setTimeout(() => {
-      let searchStrInput = $event.target.value;
+      let searchStrInput = $event.target.value || '';
       this.searchStr = searchStrInput.trim();
       this.loadPromos(this.eventData).subscribe(promos => this.promos = promos);
     }, 500);

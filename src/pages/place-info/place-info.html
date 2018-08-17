@@ -25,9 +25,11 @@
     <ion-row>
 
       <ion-col col>
-        <span class="colorSilver">{{'placeInfo.reviews' | translate}}:</span>
-        {{place.reviews}}
-        <ion-icon name="eye"></ion-icon>
+        <div *ngIf="principal && (isAdmin || isBoss || principal.roles.indexOf('ADMIN') > -1)">
+          <span class="colorSilver">{{'placeInfo.reviews' | translate}}:</span>
+          {{place.reviews}}
+          <ion-icon name="eye"></ion-icon>
+        </div>
       </ion-col>
 
 
@@ -110,7 +112,8 @@
             </mat-expansion-panel-header>
             <p>
               <strong *ngFor="let hashTag of place.hashTags" (click)="findPlacesByHashTag(hashTag)">
-                #{{hashTag}},
+                #{{hashTag}}
+                <span *ngIf="(place.hashTags.length - 1) - place.hashTags.indexOf(hashTag) !== 0">,</span>
               </strong>
             </p>
           </mat-expansion-panel>

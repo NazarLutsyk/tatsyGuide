@@ -4,7 +4,6 @@
       <ion-row>
         <ion-col col-10 >
           {{place?.multilang[0]?.name}}
-          <span *ngIf="!place?.allowed">not allowed</span>
         </ion-col>
         <ion-col col-2>
           <span (click)="addToFavorite(place)" *ngIf="principal && place.allowed">

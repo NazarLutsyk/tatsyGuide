@@ -200,7 +200,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+      <ion-label [ngStyle]="{'color': (kithcens.invalid && kithcens.touched) ? 'red' : ''}">
         {{'createPlace.kitchens' | translate}}
       </ion-label>
       <ion-select
@@ -208,7 +208,7 @@
         ngModel
         okText="{{'placeInfo.confirm' | translate}}"
         cancelText="{{'placeInfo.cancel' | translate}}"
-        #types="ngModel"
+        #kithcens="ngModel"
         multiple="true"
       >
         <ion-option *ngFor="let kitchenM of kitchensM" [value]="kitchenM.kitchen">
@@ -219,15 +219,16 @@
 
 
     <ion-item>
-      <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
-        {{'createPlace.city' | translate}}
+      <ion-label [ngStyle]="{'color': (city.invalid && city.touched) ? 'red' : ''}">
+        {{'createPlace.city' | translate}}*
       </ion-label>
       <ion-select
         name="city"
         ngModel
         okText="{{'placeInfo.confirm' | translate}}"
         cancelText="{{'placeInfo.cancel' | translate}}"
-        #types="ngModel"
+        #city="ngModel"
+        required
       >
         <ion-option *ngFor="let cityM of citiesM" [value]="cityM.city">
           {{cityM.name}}
@@ -236,7 +237,7 @@
     </ion-item>
 
     <ion-item *ngIf="isAdmin">
-      <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
+      <ion-label [ngStyle]="{'color': (topCategories.invalid && topCategories.touched) ? 'red' : ''}">
         {{'createPlace.topCategories' | translate}}
       </ion-label>
       <ion-select
@@ -245,7 +246,7 @@
         okText="{{'placeInfo.confirm' | translate}}"
         cancelText="{{'placeInfo.cancel' | translate}}"
         multiple="true"
-        #types="ngModel"
+        #topCategories="ngModel"
       >
         <ion-option *ngFor="let topCategoryM of topCategoriesM" [value]="topCategoryM.topCategory">
           {{topCategoryM.name}}

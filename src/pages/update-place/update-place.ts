@@ -143,9 +143,9 @@ export class UpdatePlacePage {
     this.place = updateForm.form.value.place;
 
     this.place.images = this.imagesToUpdate;
-    this.place.topCategories = updateForm.form.value.place.topCategories;
+    this.place.topCategories = updateForm.form.value.place.topCategories ? updateForm.form.value.place.topCategories : [];
     this.place.hashTags =
-      this.hashTags.length > 0 ? this.hashTags.split(',') : [];
+      this.hashTags.length > 0 ? this.hashTags.replace(/[#' ']/gi,'').split(',').filter(value => value.length > 0) : [];
     this.place.days = {
       1: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
       2: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},

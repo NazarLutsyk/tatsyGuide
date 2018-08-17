@@ -412,7 +412,7 @@
   "tab": {
     "home": "Головна",
     "top": "ТОП",
-    "news": "Новини",
+    "news": "Промо",
     "drinker": "Пиячок"
   },
   "popover": {
@@ -437,7 +437,7 @@
   },
   "topCategories": {
     "title": "Топ категорії",
-    "create": "Створити топ категорію"
+    "create": "Створити категорію"
   },
   "chooseLocation": {
     "title": "Карта"
@@ -508,6 +508,9 @@
   },
   "drinkApplicationToast":{
     "selectPlace": "Будь ласка виберіть місце"
+  },
+  "allDrinkApplications":{
+    "create": "Створити"
   }
 }
 

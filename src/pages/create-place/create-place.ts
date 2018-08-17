@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {Events, IonicPage, NavController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
@@ -81,6 +81,7 @@ export class CreatePlacePage {
 
   createPlace(form: NgForm) {
     const formPlace = form.form.value;
+
     for (let key in formPlace.features) {
       if (typeof formPlace.features[key] === 'string') {
         formPlace.features[key] = true;
@@ -101,11 +102,11 @@ export class CreatePlacePage {
       phone: formPlace.phone,
       email: formPlace.email,
       features: formPlace.features,
-      types: formPlace.types,
+      types: formPlace.types ? formPlace.types : [],
       city: formPlace.city,
       site: formPlace.site,
-      kitchens: formPlace.kitchens,
-      hashTags: formPlace.hashTags.split(','),
+      kitchens: formPlace.kitchens ? formPlace.kitchens : [],
+      hashTags: formPlace.hashTags.replace(/[# ]/gi,'').split(',').filter(value => value.length > 0),
       days: {
         1: {start: formPlace.days[1].start, end: formPlace.days[1].end},
         2: {start: formPlace.days[1].start, end: formPlace.days[1].end},
@@ -119,7 +120,7 @@ export class CreatePlacePage {
     };
 
     if (this.isAdmin) {
-      place.topCategories = formPlace.topCategories;
+      place.topCategories = formPlace.topCategories ? formPlace.topCategories : [];
       place.allowed = formPlace.allowed;
     }
 

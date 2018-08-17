@@ -412,7 +412,7 @@
   "tab": {
     "home": "Home",
     "top": "TOP",
-    "news": "News",
+    "news": "Promo",
     "drinker": "Drinker"
   },
   "popover": {
@@ -437,7 +437,7 @@
   },
   "topCategories": {
     "title": "Top categories",
-    "create": "Create top category"
+    "create": "Create category"
   },
   "chooseLocation": {
     "title": "Map"
@@ -508,5 +508,8 @@
   },
   "drinkApplicationToast": {
     "selectPlace": "Please, select place..."
+  },
+  "allDrinkApplications":{
+    "create": "Create"
   }
 }
