@@ -52,7 +52,7 @@
     "com-sarriaroman-photoviewer": "^1.1.18",
     "com.synconset.imagepicker": "~2.1.10",
     "cordova-android": "7.0.0",
-    "cordova-android-play-services-gradle-release": "^1.4.2",
+    "cordova-android-play-services-gradle-release": "^1.4.3",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-facebook4": "^2.1.0",
@@ -110,15 +110,15 @@
       },
       "com-badrit-base64": {},
       "cordova-plugin-facebook4": {
-        "APP_ID": "387568105079528",
-        "APP_NAME": "com.oktenweb.tatsyguide",
+        "APP_ID": "236718893595006",
+        "APP_NAME": "com.oktenweb.tastyGuide",
         "ANDROID_SDK_VERSION": "4.+"
       },
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "637559649087-ev0cud8le919q9ffi8cn644sgp206687.apps.googleusercontent.com"
+        "REVERSED_CLIENT_ID": "367749237931-9i3tj7gl7pkm2vj6h9is2u5da8sesbi1.apps.googleusercontent.com"
       },
       "cordova-android-play-services-gradle-release": {
-        "PLAY_SERVICES_VERSION": "15.+"
+        "PLAY_SERVICES_VERSION": "12.+"
       },
       "cordova-plugin-globalization": {},
       "cordova-plugin-statusbar": {},

@@ -18,8 +18,6 @@ export class DrinkApplicationComponent {
   @Output() onUpdateDrinkApplication = new EventEmitter();
 
   constructor(private translate: TranslateService, private alert: AlertController,private globalConfig : GlobalConfigsService) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   openDrinkApplication(drinkApp) {
