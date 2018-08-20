@@ -25,23 +25,7 @@ export class HomePage implements OnInit {
     public modal: ModalController,
     public storage: Storage,
     private events: Events,
-    private toastController: ToastController,
   ) {
-    this.events.subscribe('click-drink-app-create', () => {
-      console.log('home event handle');
-      this.translate.get('drinkApplicationToast.selectPlace').subscribe((text) => {
-        console.log('get translate');
-        let drinkerToast = this.toastController.create(
-          {
-            duration: 3000,
-            message: text,
-            position: 'top'
-          }
-        );
-        drinkerToast.present();
-      });
-    });
-
   }
 
   ngOnInit(): void {

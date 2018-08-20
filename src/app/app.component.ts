@@ -101,7 +101,8 @@ export class MyApp implements OnInit {
               private fb: Facebook,
               private google: GooglePlus,
               private storage: Storage,
-              private toastLang: ToastController
+              private toastLang: ToastController,
+              private toastController: ToastController,
   ) {
     platform
       .ready().then(() => {
@@ -250,6 +251,20 @@ export class MyApp implements OnInit {
   }
 
   init() {
+    this.events.subscribe('click-drink-app-create', () => {
+      console.log('home event handle');
+      this.translate.get('drinkApplicationToast.selectPlace').subscribe((text) => {
+        console.log('get translate');
+        let drinkerToast = this.toastController.create(
+          {
+            duration: 3000,
+            message: text,
+            position: 'top',
+          }
+        );
+        drinkerToast.present();
+      });
+    });
     this.auth.principal.subscribe((principal) => {
       this.principal = principal;
     });

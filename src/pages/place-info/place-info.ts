@@ -9,7 +9,7 @@ import {
   ModalController,
   NavController,
   NavParams,
-  Platform
+  Platform, Refresher
 } from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
@@ -73,80 +73,35 @@ export class PlaceInfoPage {
     this.place = this.navParams.data;
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      if (this.principal) {
-        this.departmentService.find({
-          query: {place: (<any>this.place)._id, client: this.principal._id},
-          populate: [{path: 'client'}]
-        }).subscribe((departments) => {
-          if (departments.length > 0) {
-            let bossIndex = departments.findIndex((value, index, arr) => {
-              return value.roles.indexOf('BOSS_PLACE') >= 0 && value.client.email;
+      this.departmentService.find({
+        query: {place: (<any>this.place)._id},
+        populate: [{path: 'client'}]
+      }).subscribe((departments) => {
+        if (departments.length > 0) {
+          let bossIndex = departments.findIndex((value, index, arr) => {
+            return value.roles.indexOf('BOSS_PLACE') >= 0 && value.client.email;
+          });
+          if (bossIndex < 0) {
+            bossIndex = departments.findIndex((value, index, arr) => {
+              return value.client.email;
             });
-            if (bossIndex < 0) {
-              bossIndex = departments.findIndex((value, index, arr) => {
-                return value.client.email;
-              });
-            }
-            if (bossIndex >= 0) {
-              this.bossPlaceEmail = departments[bossIndex].client.email;
-            }
-            this.isAdmin = true;
-            for (const department of departments) {
-              if (department.roles.indexOf('BOSS_PLACE') >= 0)
-                this.isBoss = true;
-            }
           }
-        });
-      }
+          if (bossIndex >= 0) {
+            this.bossPlaceEmail = departments[bossIndex].client.email;
+          }
+          this.isAdmin = true;
+          for (const department of departments) {
+            if (department.roles.indexOf('BOSS_PLACE') >= 0)
+              this.isBoss = true;
+          }
+        }
+      });
     });
   }
-
 
   goToPlace(): void {
     window.location = `geo:${this.place.location.lat},${this.place.location.lng};u=35;`
   }
-
-  connectToManager() {
-    this.translate.get([
-      'alert.message',
-      'alert.email',
-    ])
-      .subscribe(value => {
-
-        let alert = this.alertController.create({
-          title: '',
-          inputs: [
-            {
-              name: 'from',
-              placeholder: value['alert.email']
-            },
-            {
-              name: 'message',
-              placeholder: value['alert.message'],
-            },
-
-          ],
-          buttons: [
-            {
-              text: 'send',
-              handler: data => {
-                if (data.from && data.message && data.from.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-                  data.message += `\n\tPlace ${this.place.multilang[0].name}`;
-                  data.to = this.bossPlaceEmail;
-                  this.mailService.sendMail(data).subscribe();
-                } else {
-                  alert.setMessage('Invalid data!');
-                  return false;
-                }
-              }
-            }
-          ]
-        });
-        alert.present();
-      });
-
-  }
-
 
   removePlace(place: any) {
     this.placeService.remove(place._id).subscribe(() => {
@@ -168,44 +123,57 @@ export class PlaceInfoPage {
   }
 
   sendComplaint() {
+    this.sendEmail(data => {
+        this.complaintService.create(new Complaint(null, data.message, null, (<any>this.place)._id)).subscribe();
+        data.message += `\n\tPlace ${this.place.multilang[0].name}`;
+        this.mailService.sendMail(data).subscribe();
+      }
+    )
+  }
 
+  connectToManager(email) {
+    this.sendEmail(data => {
+      data.message += `\n\tPlace ${this.place.multilang[0].name}`;
+      data.to = email || this.bossPlaceEmail;
+      console.log(data);
+      this.mailService.sendMail(data).subscribe();
+    });
+  }
+
+  sendEmail(handler) {
     this.translate.get([
       'alert.message',
       'alert.email',
-    ])
-      .subscribe(value => {
-        let alert: Alert = this.alertController.create({
-          title: '', inputs: [
-            {
-              name: 'from',
-              placeholder: value['alert.email'],
-              type: 'email'
-            },
-            {
-              name: 'message',
-              placeholder: value['alert.message'],
-            },
-
-          ],
-          buttons: [
-            {
-              text: 'send',
-              handler: data => {
-                if (data.message && data.from && data.from.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-                  this.complaintService.create(new Complaint(null, data.message, null, (<any>this.place)._id)).subscribe();
-                  data.message += `\n\tPlace ${this.place.multilang[0].name}`;
-                  this.mailService.sendMail(data).subscribe();
-                  return true;
-                } else {
-                  alert.setMessage('Invalid data!');
-                  return false;
-                }
+    ]).subscribe(value => {
+      let alert = this.alertController.create({
+        title: '',
+        inputs: [
+          {
+            name: 'from',
+            placeholder: value['alert.email']
+          },
+          {
+            name: 'message',
+            placeholder: value['alert.message'],
+          },
+        ],
+        buttons: [
+          {
+            text: 'send',
+            handler: (data) => {
+              if (data.message && data.from && data.from.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                handler(data);
+                return true;
+              } else {
+                alert.setMessage('Invalid data!');
+                return false;
               }
             }
-          ]
-        });
-        alert.present();
+          }
+        ]
       });
+      alert.present();
+    });
   }
 
   updatePlaceDepartments(place: Place) {
@@ -353,5 +321,9 @@ export class PlaceInfoPage {
     this.photoViewer.show(url);
 
     // this.photoViewer.show('https://mysite.com/path/to/image.jpg', 'My image title', {share: false});
+  }
+
+  goToPlaceSite(site: string) {
+    window.open(site, '_system', 'location=yes');
   }
 }

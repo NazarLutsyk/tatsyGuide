@@ -7,7 +7,7 @@
 
 <ion-content>
 
-  <ion-slides>
+  <ion-slides *ngIf="place.images && place.images.length > 0">
     <ion-slide *ngFor="let image of place.images">
       <ion-img #img src="{{globalHost}}{{image}}" (click)="showPhoto(img.src)"></ion-img>
     </ion-slide>
@@ -23,6 +23,20 @@
       </ion-col>
     </ion-row>
     <ion-row>
+
+      <ion-row col-12 margin-bottom>
+          <button
+            *ngIf="place.allowed"
+            ion-button
+            icon-start
+            full
+            strong
+            class="defaultBackground iconWhite"
+            (click)="toDrinkerPage()">
+            <ion-icon name="ios-beer-outline"></ion-icon>
+            {{'placeInfo.drinker' |translate}}
+          </button>
+      </ion-row>
 
       <ion-col col>
         <div *ngIf="principal && (isAdmin || isBoss || principal.roles.indexOf('ADMIN') > -1)">
@@ -47,7 +61,7 @@
     <ion-row>
       <ion-col col>
         <mat-accordion>
-          <mat-expansion-panel>
+          <mat-expansion-panel *ngIf="place.topCategories && place.topCategories.length > 0">
             <mat-expansion-panel-header>
               {{"placeInfo.category" | translate}}
             </mat-expansion-panel-header>
@@ -58,7 +72,7 @@
             </ul>
           </mat-expansion-panel>
 
-          <mat-expansion-panel>
+          <mat-expansion-panel *ngIf="place.kitchens && place.kitchens.length > 0">
             <mat-expansion-panel-header>
               {{'placeInfo.kitchens' | translate}}
             </mat-expansion-panel-header>
@@ -69,12 +83,13 @@
             </ul>
           </mat-expansion-panel>
 
-          <mat-expansion-panel>
+          <mat-expansion-panel *ngIf="place.multilang[0].description">
             <mat-expansion-panel-header>
               {{'placeInfo.descr' | translate}}
             </mat-expansion-panel-header>
             <p>{{place.multilang[0].description}}</p>
           </mat-expansion-panel>
+
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               {{'placeInfo.info' |translate}}
@@ -106,7 +121,8 @@
               </li>
             </ul>
           </mat-expansion-panel>
-          <mat-expansion-panel>
+
+          <mat-expansion-panel *ngIf="place.hashTags && place.hashTags.length > 0">
             <mat-expansion-panel-header>
               {{'placeInfo.tags' | translate}}
             </mat-expansion-panel-header>
@@ -120,6 +136,7 @@
         </mat-accordion>
       </ion-col>
     </ion-row>
+
     <div class="otherInformation">
       <ion-row>
         <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
@@ -130,7 +147,7 @@
           {{place.averagePrice}} {{'placeInfo.currency'|translate}}.
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="place.phone">
         <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
           <ion-icon name="ios-call-outline"></ion-icon>
         </ion-col>
@@ -147,7 +164,7 @@
           {{place.days["1"].end}}
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="place.email" (click)="connectToManager(place.email)">
         <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
           <ion-icon name="ios-mail-outline"></ion-icon>
         </ion-col>
@@ -155,7 +172,7 @@
           {{place.email}}
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="place.site" (click)="goToPlaceSite(place.site)">
         <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
           <ion-icon name="globe"></ion-icon>
         </ion-col>
@@ -172,39 +189,25 @@
           {{place.multilang[0].address.number}}
         </ion-col>
       </ion-row>
+
       <ion-row margin-top="15px" (click)="connectToManager()">
         <ion-col col-8 class="text-align-middle fontBold">
           {{'placeInfo.contactToManager'|translate}}
         </ion-col>
-        <ion-col col-3 offset-1>
+        <ion-col col-1 offset-3>
           <ion-icon name="ios-open-outline"></ion-icon>
         </ion-col>
       </ion-row>
-
 
       <ion-row
         *ngIf="place.allowed"
         (click)="sendComplaint()"
         align-items-end="">
-        <ion-col col-8 class="text-align-middle fontBold" icon-start class="colorDanger">
-          <ion-icon name="ios-flag-outline" icon-end class="colorDanger"></ion-icon>
+        <ion-col col-8 class="text-align-middle fontBold">
           {{'placeInfo.complaint' | translate}}
         </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col>
-          <button
-            *ngIf="place.allowed"
-            ion-button
-            icon-start
-            full
-            strong
-            class="defaultBackground iconWhite"
-            (click)="toDrinkerPage()">
-            <ion-icon name="ios-beer-outline"></ion-icon>
-            {{'placeInfo.drinker' |translate}}
-          </button>
+        <ion-col col-1 offset-3>
+          <ion-icon name="ios-flag-outline" icon-end class="colorDanger"></ion-icon>
         </ion-col>
       </ion-row>
     </div>
