@@ -34,7 +34,7 @@
     "@ionic-native/geolocation": "^4.7.0",
     "@ionic-native/globalization": "^4.7.0",
     "@ionic-native/google-maps": "^4.7.0",
-    "@ionic-native/google-plus": "^4.7.0",
+    "@ionic-native/google-plus": "^4.12.0",
     "@ionic-native/http": "^4.7.0",
     "@ionic-native/image-picker": "^4.7.0",
     "@ionic-native/native-page-transitions": "^4.7.0",
@@ -114,9 +114,6 @@
         "APP_NAME": "com.oktenweb.tastyGuide",
         "ANDROID_SDK_VERSION": "4.+"
       },
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "367749237931-9i3tj7gl7pkm2vj6h9is2u5da8sesbi1.apps.googleusercontent.com"
-      },
       "cordova-android-play-services-gradle-release": {
         "PLAY_SERVICES_VERSION": "12.+"
       },
@@ -124,7 +121,10 @@
       "cordova-plugin-statusbar": {},
       "mx.ferreyra.callnumber": {},
       "com-sarriaroman-photoviewer": {},
-      "call-number": {}
+      "call-number": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "367749237931-odf19u0dsj1nerec5bpvvqjl34v1is2e.apps.googleusercontent.com"
+      }
     },
     "platforms": [
       "android"

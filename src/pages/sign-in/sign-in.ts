@@ -91,20 +91,6 @@ export class SignInPage {
     this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender", ["public_profile"])
       .then(res => {
         this.users = res;
-        // this.auth.loginByFacebook({
-        //   user: {
-        //     name: {
-        //       givenName: res.givenName,
-        //       familyName: res.familyName
-        //     },
-        //     email: res.email,
-        //     avatar: res.imageUrl
-        //   },
-        //   socialName: 'facebook',
-        //   socialProfileId: res.userId
-        // }).subscribe((principal) => {
-        //   this.app.getRootNav().setRoot(HomePage);
-        // });
       })
       .catch(e => {
         console.log(e);
@@ -136,28 +122,11 @@ export class SignInPage {
         this.userId = res.userId;
         this.imageUrl = res.imageUrl;
         this.isGoogleLoggedIn = true;
-        // this.auth.loginBySocial({
-        //   user: {
-        //     name: {
-        //       givenName: res.givenName,
-        //       familyName: res.familyName
-        //     },
-        //     email: res.email,
-        //     avatar: res.imageUrl
-        //   },
-        //   socialName: 'google',
-        //   socialProfileId: res.userId
-        // }).subscribe((principal) => {
-        //   this.app.getRootNav().setRoot(HomePage);
-        // });
-
         this.auth.loginByGoolge(res.accessToken).subscribe(value => {
-          console.log('response login by google')
-          console.log(value)
+          console.log('response login by google');
+          console.log(value);
           this.app.getRootNav().setRoot(HomePage);
         });
-        // this.navCtrl.goToRoot({});
-
       })
       .catch(err => console.error(err));
   }

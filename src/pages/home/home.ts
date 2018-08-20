@@ -27,9 +27,6 @@ export class HomePage implements OnInit {
     private events: Events,
     private toastController: ToastController,
   ) {
-  }
-
-  ngOnInit(): void {
     this.events.subscribe('click-drink-app-create', () => {
       console.log('home event handle');
       this.translate.get('drinkApplicationToast.selectPlace').subscribe((text) => {
@@ -45,6 +42,9 @@ export class HomePage implements OnInit {
       });
     });
 
+  }
+
+  ngOnInit(): void {
     this.storage.get('initialpopover').then((show) => {
       if (show || show === null) {
         let modalPage = this.modal.create(
