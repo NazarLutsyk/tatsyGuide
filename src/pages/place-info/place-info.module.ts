@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {createTranslateLoader} from "../../app/app.module";
 import {CallNumber} from "@ionic-native/call-number";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
   ],
   providers: [
     CallNumber,
-    PhotoViewer
+    PhotoViewer,
+    InAppBrowser
   ]
 })
 export class PlaceInfoPageModule {

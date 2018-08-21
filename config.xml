@@ -92,7 +92,7 @@
     <plugin name="cordova-plugin-googlemaps" spec="^2.2.9">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCl26RXei_CpAVlUt-1k81QkcWSqk08P3s" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCl26RXei_CpAVlUt-1k81QkcWSqk08P3s" />
-        <variable name="PLAY_SERVICES_VERSION" value="12.0.0" />
+        <variable name="PLAY_SERVICES_VERSION" value="12.+" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.0" />
     </plugin>
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
@@ -123,5 +123,6 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
         <variable name="REVERSED_CLIENT_ID" value="367749237931-odf19u0dsj1nerec5bpvvqjl34v1is2e.apps.googleusercontent.com" />
     </plugin>
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <engine name="android" spec="7.0.0" />
 </widget>

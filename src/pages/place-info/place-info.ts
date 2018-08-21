@@ -29,6 +29,7 @@ import {CallNumber} from '@ionic-native/call-number';
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {TopPlaceApplicationPage} from "../top-place-application/top-place-application";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 declare var window: any;
 
@@ -65,6 +66,7 @@ export class PlaceInfoPage {
     private photoViewer: PhotoViewer,
     private globalConfig: GlobalConfigsService,
     public translate: TranslateService,
+    private iab: InAppBrowser
   ) {
   }
 
@@ -316,14 +318,10 @@ export class PlaceInfoPage {
   }
 
   showPhoto(url) {
-    console.log(url);
-
     this.photoViewer.show(url);
-
-    // this.photoViewer.show('https://mysite.com/path/to/image.jpg', 'My image title', {share: false});
   }
 
   goToPlaceSite(site: string) {
-    window.open(site, '_system', 'location=yes');
+    let inAppBrowserObject = this.iab.create(site,'_blank',{zoom: 'no'});
   }
 }

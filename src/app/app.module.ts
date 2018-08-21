@@ -240,7 +240,6 @@ export function createTranslateLoader(http: HttpClient) {
     PlaceMultilangProvider,
     PlaceTypeMultilangProvider,
     FileTransfer,
-    // FileUploadOptions, ???
     FileTransferObject,
     File,
     Camera,
