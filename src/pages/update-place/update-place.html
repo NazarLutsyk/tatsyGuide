@@ -151,7 +151,6 @@
         <ion-input
           type="url"
           name="site"
-          placeholder="http://url.com"
           [(ngModel)]="place.site"
         ></ion-input>
       </ion-item>
@@ -238,7 +237,7 @@
 
       <ion-item>
         <ion-label [ngStyle]="{'color': (city.invalid && city.touched) ? 'red' : ''}">
-          City
+          {{'updatePlace.city' | translate}}
         </ion-label>
         <ion-select
           name="city"
@@ -258,7 +257,7 @@
 
       <ion-item>
         <ion-label [ngStyle]="{'color': (kitchens.invalid && kitchens.touched) ? 'red' : ''}">
-          Kitchen
+          {{'updatePlace.kitchens' | translate}}
         </ion-label>
         <ion-select
           name="kitchens"
@@ -278,7 +277,7 @@
 
       <ion-item *ngIf="isAdmin">
         <ion-label [ngStyle]="{'color': (topCategories.invalid && topCategories.touched) ? 'red' : ''}">
-          Top categories
+          {{'updatePlace.topCategories' | translate}}
         </ion-label>
         <ion-select
           name="topCategories"

@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {
   ActionSheetController,
-  Alert,
   AlertController,
   App,
   Events,
@@ -9,7 +8,7 @@ import {
   ModalController,
   NavController,
   NavParams,
-  Platform, Refresher
+  Platform
 } from 'ionic-angular';
 import {Place} from "../../models/place/Place";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
@@ -322,6 +321,16 @@ export class PlaceInfoPage {
   }
 
   goToPlaceSite(site: string) {
-    let inAppBrowserObject = this.iab.create(site,'_blank',{zoom: 'no'});
+    let finalURL = '';
+    if (site.length > 0) {
+      let splitter = '://';
+      let protocolIndex = site.indexOf(splitter);
+      if (protocolIndex > 0) {
+        site = site.slice(protocolIndex + splitter.length);
+      }
+      finalURL = 'http://' + site;
+      console.log(finalURL);
+      let inAppBrowserObject = this.iab.create(finalURL, '_blank');
+    }
   }
 }
