@@ -5,6 +5,7 @@ import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkAp
 import {NgForm} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
 @Component({
@@ -22,7 +23,7 @@ export class UpdateDrinkApplicationPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private drinkAppService: DrinkApplicationProvider,
-    private translate: TranslateService, private globalConfig: GlobalConfigsService
+    public dateTimeConfig: DateTimePickerConfigProvider
   ) {
 
     let now = new Date();

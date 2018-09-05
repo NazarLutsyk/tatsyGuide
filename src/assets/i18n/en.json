@@ -72,6 +72,7 @@
       }
     },
     "leftMenu": {
+      "contact": "Contact us",
       "stat": "Statistic",
       "managePlaceType": "Place types ",
       "manageTopPlace": "TOP places",
@@ -340,7 +341,7 @@
     "title": "Create bonus",
     "getAvatar": "Choose avatar",
     "header": "Header",
-    "desc": "Create bonus",
+    "desc": "Description",
     "conditions": "Condition of bonus",
     "start": "Start",
     "end": "End",
@@ -353,7 +354,7 @@
     "title": "Create event",
     "getAvatar": "Choose avatar",
     "header": "Header",
-    "desc": "Create bonus",
+    "desc": "Description",
     "start": "Start",
     "end": "End",
     "top": "TOP",
@@ -365,7 +366,7 @@
     "title": "Create bonus",
     "getAvatar": "Choose avatar",
     "header": "Header",
-    "desc": "Create bonus",
+    "desc": "Description",
     "start": "Start",
     "end": "End",
     "top": "TOP",
@@ -410,7 +411,7 @@
   },
   "switchLang": "English",
   "tab": {
-    "home": "Home",
+    "home": "Places",
     "top": "TOP",
     "news": "Promo",
     "drinker": "Drinker"
@@ -511,5 +512,35 @@
   },
   "allDrinkApplications":{
     "create": "Create"
+  },
+  "dateTimePicker": {
+    "fullMonths":[
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "shortMonths":[
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
   }
 }

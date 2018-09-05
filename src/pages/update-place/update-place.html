@@ -8,8 +8,7 @@
 
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="updatePlace(form)">
-    <img [src]="avatarToShow" width="100%" height="200px">
-
+    <img [src]="avatarToShow" width="100%" height="200px" *ngIf="place.avatar">
     <ion-grid>
       <ion-row>
         <ion-col col-8 offset-2>
@@ -18,13 +17,11 @@
             outline class="defaultBackground2" full
             (click)="changeAvatar($event)">{{'updatePlace.changeAvatar' | translate}}
           </button>
-
         </ion-col>
       </ion-row>
     </ion-grid>
     <div style="overflow-x: scroll" *ngFor="let image of imagesToShow">
       <img [src]="image" width="100%" height="200px">
-
       <ion-grid>
         <ion-row>
           <ion-col col-8 offset-2>
@@ -33,7 +30,6 @@
               type="button" class="buttonDeleteOutline" full
               (click)="removeImage(image,$event)">{{'updatePlace.removeImage' | translate}}
             </button>
-
           </ion-col>
         </ion-row>
       </ion-grid>

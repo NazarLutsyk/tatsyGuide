@@ -1,5 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Events, MenuController, NavController, Platform, ToastController, ViewController} from 'ionic-angular';
+import {
+  AlertController,
+  Events,
+  MenuController,
+  NavController,
+  Platform,
+  ToastController,
+  ViewController
+} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -38,6 +46,7 @@ import {AllTopCategoriesPage} from "../pages/all-top-categories/all-top-categori
 import {CityMultilangProvider} from "../providers/city-multilang/city-multilang";
 import {KitchenMultilangProvider} from "../providers/kitchen-multilang/kitchen-multilang";
 import {TopCategoryMultilangProvider} from "../providers/top-category-multilang/top-category-multilang";
+import {MailProvider} from "../providers/mail/mail";
 
 
 @Component({
@@ -103,6 +112,8 @@ export class MyApp implements OnInit {
               private storage: Storage,
               private toastLang: ToastController,
               private toastController: ToastController,
+              private alertController: AlertController,
+              private mailService: MailProvider
   ) {
     platform
       .ready().then(() => {
@@ -298,14 +309,17 @@ export class MyApp implements OnInit {
 
   show(so) {
     this.events.publish('functionCall:find', so);
+    this.menuController.close();
   }
 
   showPromos(so) {
     this.events.publish('functionCall:findPromos', so);
+    this.menuController.close();
   }
 
   showDrinkApps(so) {
     this.events.publish('functionCall:findDrinkApps', so);
+    this.menuController.close();
   }
 
   reset(form: NgForm) {
@@ -445,7 +459,42 @@ export class MyApp implements OnInit {
         position: 'top'
       }).present();
     });
+  }
 
+  contactAdmin(){
+    this.translate.get([
+      'alert.message',
+      'alert.email',
+    ]).subscribe(value => {
+      let alert = this.alertController.create({
+        title: '',
+        inputs: [
+          {
+            name: 'from',
+            placeholder: value['alert.email']
+          },
+          {
+            name: 'message',
+            placeholder: value['alert.message'],
+          },
+        ],
+        buttons: [
+          {
+            text: 'send',
+            handler: (data) => {
+              if (data.message && data.from && data.from.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                this.mailService.sendMail(data).subscribe();
+                return true;
+              } else {
+                alert.setMessage('Invalid data!');
+                return false;
+              }
+            }
+          }
+        ]
+      });
+      alert.present();
+    })
   }
 
   // changeGlobalCity() {

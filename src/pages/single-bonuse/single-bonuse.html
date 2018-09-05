@@ -6,37 +6,37 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
+    <ion-item *ngIf="bonuse.image">
       <img src="{{globalHost+bonuse.image}}" alt=""/>
     </ion-item>
     <ion-item *ngIf="bonuse.pm">
-      <strong>Place:</strong>
+      <strong>{{'updateBonuse.place' | translate}}:</strong>
       <p>{{bonuse.pm.name}}</p>
     </ion-item>
     <ion-item>
-      <strong>Header:</strong>
+      <strong>{{'updateBonuse.header' | translate}}:</strong>
       <p>{{bonuse.multilang.header}}</p>
     </ion-item>
     <ion-item>
-      <strong>Description:</strong>
+      <strong>{{'updateBonuse.desc' | translate}}:</strong>
       <p>
         {{bonuse.multilang.description}}
       </p>
     </ion-item>
     <ion-item>
-      <strong>Conditions:</strong>
+      <strong>{{'updateBonuse.conditions' | translate}}:</strong>
       <p>
         {{bonuse.multilang.conditions}}
       </p>
     </ion-item>
     <ion-item>
-      <strong>Start date:</strong>
+      <strong>{{'updateBonuse.start' | translate}}:</strong>
       <p>
-        {{bonuse.startDate | date}}
+        {{bonuse.startDate | date:'dd/MM/yyyy'}}
       </p>
     </ion-item>
     <ion-item>
-      <strong>End date:</strong>
+      <strong>{{'updateBonuse.end' | translate}}:</strong>
       <p>
         {{bonuse.endDate | date:'dd/MM/yyyy'}}
       </p>

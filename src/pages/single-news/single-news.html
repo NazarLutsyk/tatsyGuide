@@ -9,31 +9,31 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
+    <ion-item *ngIf="singleNews.image">
       <img src="{{globalHost+singleNews.image}}" alt=""/>
     </ion-item>
     <ion-item *ngIf="singleNews.pm">
-      <strong>Place:</strong>
+      <strong>{{'updateNews.place' | translate}}:</strong>
       <p>{{singleNews.pm.name}}</p>
     </ion-item>
     <ion-item>
-      <strong>Header:</strong>
+      <strong>{{'updateNews.header' | translate}}:</strong>
       <p>{{singleNews.multilang.header}}</p>
     </ion-item>
     <ion-item>
-      <strong>Description:</strong>
+      <strong>{{'updateNews.desc' | translate}}:</strong>
       <p>
         {{singleNews.multilang.description}}
       </p>
     </ion-item>
     <ion-item>
-      <strong>Start date:</strong>
+      <strong>{{'updateNews.start' | translate}}:</strong>
       <p>
-        {{singleNews.startDate | date}}
+        {{singleNews.startDate | date:'dd/MM/yyyy'}}
       </p>
     </ion-item>
     <ion-item>
-      <strong>End date:</strong>
+      <strong>{{'updateNews.end' | translate}}:</strong>
       <p>
         {{singleNews.endDate | date:'dd/MM/yyyy'}}
       </p>

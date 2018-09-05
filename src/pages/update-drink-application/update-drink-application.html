@@ -53,10 +53,12 @@
         [(ngModel)]="drinkApp.date"
         name="date"
         #date="ngModel"
-        displayFormat="YYYY/MM/DD HH:mm"
-        pickerFormat="YYYY/MM/DD HH:mm"
+        displayFormat="YYYY/MMM/DD HH:mm"
+        pickerFormat="YYYY/MMM/DD HH:mm"
         [min]="minDate"
         [max]="maxDate"
+        [monthShortNames]="dateTimeConfig.getShortMonths() | async"
+        [monthNames]="dateTimeConfig.getMonths() | async"
         required
       ></ion-datetime>
     </ion-item>

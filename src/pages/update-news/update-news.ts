@@ -11,6 +11,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {TranslateService} from "@ngx-translate/core";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
 @Component({
@@ -36,10 +37,9 @@ export class UpdateNewsPage {
     private auth: AuthProvider,
     private globalConfig: GlobalConfigsService,
     private camera: Camera,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public dateTimeConfig: DateTimePickerConfigProvider
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

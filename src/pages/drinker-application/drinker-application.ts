@@ -6,6 +6,7 @@ import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkAp
 import {Place} from "../../models/place/Place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {TranslateService} from "@ngx-translate/core";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 
 class DrinkerApplicationObjectTemplate {
@@ -42,7 +43,7 @@ export class DrinkerApplicationPage {
     private drinkAppService: DrinkApplicationProvider,
     private placeService: PlacesProvider,
     private events: Events,
-    private translate: TranslateService
+    public dateTimeConfig: DateTimePickerConfigProvider
   ) {
     let now = new Date();
     let minDateTemp = now.toLocaleDateString().split('.');

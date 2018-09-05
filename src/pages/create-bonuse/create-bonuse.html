@@ -9,7 +9,6 @@
 
 <ion-content padding>
   <form (ngSubmit)="logForm(bonuseForm)" #bonuseForm="ngForm">
-
     <!--<img [src]="bonuseObject.image" alt="">-->
     <div ngModelGroup="multilang">
       <ion-item>
@@ -56,7 +55,10 @@
           ngModel
           name="startDate"
           #startDate="ngModel"
-          [
+          displayFormat="YYYY/MMM/DD"
+          pickerFormat="YYYY/MMM/DD"
+          [monthNames]="dateTimeConfig.getMonths() | async"
+          [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           required
         ></ion-datetime>
       </ion-item>
@@ -68,6 +70,10 @@
           ngModel
           name="endDate"
           #endDate="ngModel"
+          displayFormat="YYYY/MMM/DD"
+          pickerFormat="YYYY/MMM/DD"
+          [monthNames]="dateTimeConfig.getMonths() | async"
+          [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           required
         ></ion-datetime>
       </ion-item>

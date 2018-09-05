@@ -7,6 +7,7 @@ import {NewsMultilangProvider} from "../../providers/news-multilang/news-multila
 import {AuthProvider} from "../../providers/auth/auth";
 import {NgForm} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 
 @IonicPage()
@@ -28,10 +29,8 @@ export class CreateNewsPage {
     private globalConfig: GlobalConfigsService,
     private auth: AuthProvider,
     private events: Events,
-    private translate : TranslateService
+    public dateTimeConfig: DateTimePickerConfigProvider
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

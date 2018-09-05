@@ -7,6 +7,7 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NgForm} from "@angular/forms";
 import {AuthProvider} from "../../providers/auth/auth";
 import {TranslateService} from "@ngx-translate/core";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
 @Component({
@@ -18,6 +19,8 @@ export class CreateEventPage {
   isAdmin = false;
   imageToUpload;
 
+  maxEventDate: Date = new Date();
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,7 +30,7 @@ export class CreateEventPage {
     private globalConfig: GlobalConfigsService,
     private auth: AuthProvider,
     private events: Events,
-    private translate : TranslateService
+    public dateTimeConfig: DateTimePickerConfigProvider
   ) {
     // this.translate.setDefaultLang("en");
     // this.translate.use(this.globalConfig.deviceLang);

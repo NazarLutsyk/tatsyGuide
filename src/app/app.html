@@ -12,6 +12,11 @@
       </ion-item>
       <button
         ion-item
+        (click)="contactAdmin()">
+        {{'sideMenu.leftMenu.contact' | translate}}
+      </button>
+      <button
+        ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         (click)="goToPlaceTypesPage()">
         {{'sideMenu.leftMenu.managePlaceType' | translate}}

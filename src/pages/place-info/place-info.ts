@@ -74,29 +74,31 @@ export class PlaceInfoPage {
     this.place = this.navParams.data;
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.departmentService.find({
-        query: {place: (<any>this.place)._id},
-        populate: [{path: 'client'}]
-      }).subscribe((departments) => {
-        if (departments.length > 0) {
-          let bossIndex = departments.findIndex((value, index, arr) => {
-            return value.roles.indexOf('BOSS_PLACE') >= 0 && value.client.email;
-          });
-          if (bossIndex < 0) {
-            bossIndex = departments.findIndex((value, index, arr) => {
-              return value.client.email;
+      if (this.principal) {
+        this.departmentService.find({
+          query: {place: (<any>this.place)._id, client: this.principal._id},
+          populate: [{path: 'client'}]
+        }).subscribe((departments) => {
+          if (departments.length > 0) {
+            let bossIndex = departments.findIndex((value, index, arr) => {
+              return value.roles.indexOf('BOSS_PLACE') >= 0 && value.client.email;
             });
+            if (bossIndex < 0) {
+              bossIndex = departments.findIndex((value, index, arr) => {
+                return value.client.email;
+              });
+            }
+            if (bossIndex >= 0) {
+              this.bossPlaceEmail = departments[bossIndex].client.email;
+            }
+            this.isAdmin = true;
+            for (const department of departments) {
+              if (department.roles.indexOf('BOSS_PLACE') >= 0)
+                this.isBoss = true;
+            }
           }
-          if (bossIndex >= 0) {
-            this.bossPlaceEmail = departments[bossIndex].client.email;
-          }
-          this.isAdmin = true;
-          for (const department of departments) {
-            if (department.roles.indexOf('BOSS_PLACE') >= 0)
-              this.isBoss = true;
-          }
-        }
-      });
+        });
+      }
     });
   }
 

@@ -44,6 +44,11 @@
           ngModel
           name="startDate"
           #startDate="ngModel"
+          [max]="maxEventDate.getFullYear() + 2"
+          displayFormat="YYYY/MMM/DD"
+          pickerFormat="YYYY/MMM/DD"
+          [monthNames]="dateTimeConfig.getMonths() | async"
+          [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           required
         ></ion-datetime>
       </ion-item>
@@ -55,6 +60,11 @@
           ngModel
           name="endDate"
           #endDate="ngModel"
+          [max]="maxEventDate.getFullYear() + 2"
+          displayFormat="YYYY/MMM/DD"
+          pickerFormat="YYYY/MMM/DD"
+          [monthNames]="dateTimeConfig.getMonths() | async"
+          [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           required
         ></ion-datetime>
       </ion-item>
