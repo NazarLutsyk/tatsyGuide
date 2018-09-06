@@ -31,7 +31,9 @@
         <button
           ion-button
           full [outline]="true" class="buttonUpdate"
-          (click)="uploadImage()">
+          (click)="uploadImage($event)"
+          [disabled]="disableSendButton"
+        >
           {{'createPlace.upload' | translate}}
         </button>
 

@@ -115,21 +115,25 @@ export class PlacesProvider {
 
   upload(id, files: { avatar?: string, images?: string[] }) {
     return new Observable((subscriber) => {
-      let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}/upload`;
-      const transfer: FileTransferObject = this.fileTransfer.create();
-      if (files.avatar) {
-        fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'}))
-          .subscribe(() => {
-            subscriber.next(true);
-          });
-      }
-      if (files.images) {
-        for (const file of files.images) {
-          fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'}))
+      if (files.avatar || (files.images && files.images.length > 0)) {
+        let url = `${this.globalConfig.getGlobalHost()}/api/places/${id}/upload`;
+        const transfer: FileTransferObject = this.fileTransfer.create();
+        if (files.avatar) {
+          fromPromise(transfer.upload(files.avatar, url, {fileKey: 'avatar', httpMethod: 'put'}))
             .subscribe(() => {
               subscriber.next(true);
             });
         }
+        if (files.images) {
+          for (const file of files.images) {
+            fromPromise(transfer.upload(file, url, {fileKey: 'images', httpMethod: 'put'}))
+              .subscribe(() => {
+                subscriber.next(true);
+              });
+          }
+        }
+      } else {
+        subscriber.next();
       }
     });
   }

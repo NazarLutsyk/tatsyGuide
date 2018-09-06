@@ -118,10 +118,10 @@ export class AllPlacesPage {
     if (eventData.city) {
       this.placeQuery.query.city = eventData.city;
     }
-    for (const feature in eventData.filterFeature) {
-      if (!eventData.filterFeature[feature]) delete eventData.filterFeature[feature];
-      this.placeQuery.query['features.' + feature] = eventData.filterFeature[feature];
-    }
+    // for (const feature in eventData.filterFeature) {
+    //   if (!eventData.filterFeature[feature]) delete eventData.filterFeature[feature];
+    //   this.placeQuery.query['features.' + feature] = eventData.filterFeature[feature];
+    // }
     if (!ObjectUtils.isEmpty(eventData.range) && eventData.range.upper !== 10000 && eventData.range.lower !== 0) {
       this.placeQuery.query.averagePrice = {$gte: eventData.range.lower, $lte: eventData.range.upper};
     }
@@ -187,7 +187,7 @@ export class AllPlacesPage {
             allowed: {$first: '$allowed'},
             avatar: {$first: '$avatar'},
             location: {$first: '$location'},
-            features: {$first: '$features'},
+            // features: {$first: '$features'},
             topCategories: {$first: '$topCategories'},
             images: {$first: '$images'},
             days: {$first: '$days'},

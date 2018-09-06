@@ -67,7 +67,7 @@ export class MyApp implements OnInit {
   searchObject = {
     range: {lower: 0, upper: 10000},
     direction: false,
-    filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
+    // filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
     placeType: '',
     city: '',
     topCategory: '',
@@ -326,7 +326,7 @@ export class MyApp implements OnInit {
     this.searchObject = {
       range: {lower: 0, upper: 10000},
       direction: false,
-      filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
+      // filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
       placeType: '',
       city: '',
       topCategory: '',

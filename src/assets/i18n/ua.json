@@ -143,7 +143,7 @@
     "phone": "Телефон",
     "email": "Електронна пошта",
     "location": "Обрати розташування",
-    "features": "особливості",
+    "features": "Особливості",
     "wifi": "wi-fi",
     "karaoke": "Караоке",
     "parking": "Парковка",
@@ -280,11 +280,11 @@
     "topCategories": "Особливості",
     "from": "Від",
     "to": "До",
-    "save": "Зберегти",
+    "save": "Далі",
     "addAvatarAndPhoto": "Додати аватар/фото",
     "selectAvatar": "Обрати аватар (300*300px)",
     "selectPhotos": "Обрати фото (6 max)",
-    "upload": "Завантажити"
+    "upload": "Зберегти"
   },
   "topPlace": {
     "title": "ТОП заклади",

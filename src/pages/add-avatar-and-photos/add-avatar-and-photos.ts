@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {ImagePicker, ImagePickerOptions} from "@ionic-native/image-picker";
+import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
+import {zip} from "rxjs/observable/zip";
 import {HomePage} from "../home/home";
-import {TranslateService} from "@ngx-translate/core";
-import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 
 @IonicPage()
 @Component({
@@ -17,6 +17,10 @@ export class AddAvatarAndPhotosPage {
   avatar: string;
   imagesToShow: string[] = [];
   images: string[] = [];
+  disableSendButton = false;
+
+  place;
+  placeMultilang;
 
   constructor(
     public navCtrl: NavController,
@@ -25,36 +29,29 @@ export class AddAvatarAndPhotosPage {
     private placeService: PlacesProvider,
     private imagePicker: ImagePicker,
     private app: App,
-    private translate: TranslateService,
-    private globalConfig : GlobalConfigsService
+    private placeMultilangService: PlaceMultilangProvider,
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
-  uploadImage() {
+  ngOnInit() {
+    this.disableSendButton = false;
+    this.place = this.navParams.data.place;
+    this.placeMultilang = this.navParams.data.placeMultilang;
+  }
 
-    this.placeService.upload(
-      this.navParams.data.id,
-      {avatar: this.avatar, images: this.imagesToShow}
-    ).subscribe(() => {
-      this.app.getRootNav().setRoot(HomePage);
-
+  uploadImage(event: Event) {
+    this.disableSendButton = true;
+    this.placeService.create(this.place).subscribe((place) => {
+      this.placeMultilang.place = place._id;
+      zip(
+        this.placeMultilangService.create(this.placeMultilang),
+        this.placeService.upload(place._id, {avatar: this.avatar, images: this.imagesToShow})
+      ).subscribe(() => {
+        this.disableSendButton = false;
+        this.app.getRootNav().setRoot(HomePage);
+      });
     });
-
   }
-
-  // async getAvatar() {
-  //   const options: CameraOptions = {
-  //     quality: 100,
-  //     destinationType: this.camera.DestinationType.FILE_URI,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     mediaType: this.camera.MediaType.PICTURE,
-  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-  //   };
-  //   this.avatar = await this.camera.getPicture(options);
-  // }
-
 
   getAvatar() {
     const options: CameraOptions = {

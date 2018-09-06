@@ -9,7 +9,6 @@ import {PlaceMultilangProvider} from "../../providers/place-multilang/place-mult
 import {ChooseLocationPage} from "../choose-location/choose-location";
 import {AuthProvider} from "../../providers/auth/auth";
 import {AddAvatarAndPhotosPage} from "../add-avatar-and-photos/add-avatar-and-photos";
-import {TranslateService} from "@ngx-translate/core";
 import {KitchenMultilang} from "../../models/multilang/KitchenMultilang";
 import {TopCategoryMultilang} from "../../models/multilang/TopCategoryMultilang";
 import {CityMultilang} from "../../models/multilang/CityMultilang";
@@ -45,7 +44,6 @@ export class CreatePlacePage {
     private globalConfig: GlobalConfigsService,
     private navCtrl: NavController,
     private auth: AuthProvider,
-    private translate: TranslateService
   ) {
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
@@ -82,11 +80,11 @@ export class CreatePlacePage {
   createPlace(form: NgForm) {
     const formPlace = form.form.value;
 
-    for (let key in formPlace.features) {
-      if (typeof formPlace.features[key] === 'string') {
-        formPlace.features[key] = true;
-      }
-    }
+    // for (let key in formPlace.features) {
+    //   if (typeof formPlace.features[key] === 'string') {
+    //     formPlace.features[key] = true;
+    //   }
+    // }
 
     let placeMultilang = {
       name: formPlace.name,
@@ -101,12 +99,12 @@ export class CreatePlacePage {
     let place: any = {
       phone: formPlace.phone,
       email: formPlace.email,
-      features: formPlace.features,
+      // features: formPlace.features,
       types: formPlace.types ? formPlace.types : [],
       city: formPlace.city,
       site: formPlace.site,
       kitchens: formPlace.kitchens ? formPlace.kitchens : [],
-      hashTags: formPlace.hashTags.replace(/[# ]/gi,'').split(',').filter(value => value.length > 0),
+      hashTags: formPlace.hashTags.replace(/[# ]/gi, '').split(',').filter(value => value.length > 0),
       days: {
         1: {start: formPlace.days[1].start, end: formPlace.days[1].end},
         2: {start: formPlace.days[1].start, end: formPlace.days[1].end},
@@ -124,12 +122,8 @@ export class CreatePlacePage {
       place.allowed = formPlace.allowed;
     }
 
-    this.placeService.create(place).subscribe((place) => {
-      placeMultilang.place = (<any>place)._id;
-      this.placeMultilangService.create(placeMultilang).subscribe(multilang => {
-        this.navCtrl.push(AddAvatarAndPhotosPage, {id: (<any>place)._id});
-      });
-    });
+    this.navCtrl.push(AddAvatarAndPhotosPage, {place, placeMultilang});
+
   }
 
   goToChooseLocation() {

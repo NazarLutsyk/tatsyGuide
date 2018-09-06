@@ -164,52 +164,46 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <ion-item>
-          <ion-input name="lat" [(ngModel)]="place.location.lat" disabled></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input name="lng" [(ngModel)]="place.location.lng" disabled></ion-input>
-        </ion-item>
       </div>
-      <ion-list ngModelGroup="features">
-        <ion-list-header>{{'updatePlace.features' | translate}}</ion-list-header>
-        <ion-item>
-          <ion-label>
-            {{'updatePlace.wifi' | translate}}
-          </ion-label>
-          <ion-checkbox name="wifi" [(ngModel)]="place.features.wifi"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            {{'updatePlace.karaoke' | translate}}
-          </ion-label>
-          <ion-checkbox name="karaoke" [(ngModel)]="place.features.karaoke"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            {{'updatePlace.parking' | translate}}
-          </ion-label>
-          <ion-checkbox name="parking" [(ngModel)]="place.features.parking"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            {{'updatePlace.vipRoom' | translate}}
-          </ion-label>
-          <ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            {{'updatePlace.businessLunch' | translate}}
-          </ion-label>
-          <ion-checkbox name="businessLunch" [(ngModel)]="place.features.businessLunch"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            {{'updatePlace.dayAndNight' | translate}}
-          </ion-label>
-          <ion-checkbox name="dayAndNight" [(ngModel)]="place.features.dayAndNight"></ion-checkbox>
-        </ion-item>
-      </ion-list>
+      <!--<ion-list ngModelGroup="features">-->
+        <!--<ion-list-header>{{'updatePlace.features' | translate}}</ion-list-header>-->
+        <!--<ion-item>-->
+          <!--<ion-label>-->
+            <!--{{'updatePlace.wifi' | translate}}-->
+          <!--</ion-label>-->
+          <!--<ion-checkbox name="wifi" [(ngModel)]="place.features.wifi"></ion-checkbox>-->
+        <!--</ion-item>-->
+        <!--<ion-item>-->
+          <!--<ion-label>-->
+            <!--{{'updatePlace.karaoke' | translate}}-->
+          <!--</ion-label>-->
+          <!--<ion-checkbox name="karaoke" [(ngModel)]="place.features.karaoke"></ion-checkbox>-->
+        <!--</ion-item>-->
+        <!--<ion-item>-->
+          <!--<ion-label>-->
+            <!--{{'updatePlace.parking' | translate}}-->
+          <!--</ion-label>-->
+          <!--<ion-checkbox name="parking" [(ngModel)]="place.features.parking"></ion-checkbox>-->
+        <!--</ion-item>-->
+        <!--<ion-item>-->
+          <!--<ion-label>-->
+            <!--{{'updatePlace.vipRoom' | translate}}-->
+          <!--</ion-label>-->
+          <!--<ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>-->
+        <!--</ion-item>-->
+        <!--<ion-item>-->
+          <!--<ion-label>-->
+            <!--{{'updatePlace.businessLunch' | translate}}-->
+          <!--</ion-label>-->
+          <!--<ion-checkbox name="businessLunch" [(ngModel)]="place.features.businessLunch"></ion-checkbox>-->
+        <!--</ion-item>-->
+        <!--<ion-item>-->
+          <!--<ion-label>-->
+            <!--{{'updatePlace.dayAndNight' | translate}}-->
+          <!--</ion-label>-->
+          <!--<ion-checkbox name="dayAndNight" [(ngModel)]="place.features.dayAndNight"></ion-checkbox>-->
+        <!--</ion-item>-->
+      <!--</ion-list>-->
       <ion-item>
         <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
           {{'updatePlace.placeTypes' | translate}}

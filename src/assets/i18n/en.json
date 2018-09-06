@@ -280,11 +280,11 @@
     "topCategories": "Top categories",
     "from": "from",
     "to": "to",
-    "save": "save",
+    "save": "Next",
     "addAvatarAndPhoto": "Add avatar/photo",
     "selectAvatar": "Choose avatar (300*300px)",
     "selectPhotos": "Choose photo (6 max)",
-    "upload": "Upload"
+    "upload": "Save"
   },
   "topPlace": {
     "title": "TOP places",

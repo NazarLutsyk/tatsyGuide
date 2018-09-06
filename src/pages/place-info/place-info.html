@@ -90,37 +90,37 @@
             <p>{{place.multilang[0].description}}</p>
           </mat-expansion-panel>
 
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              {{'placeInfo.info' |translate}}
-            </mat-expansion-panel-header>
-            <ul>
-              <li *ngIf="place.features.wifi">
-                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
-                wifi
-              </li>
-              <li *ngIf="place.features.parking">
-                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
-                {{'placeInfo.parking' | translate}}
-              </li>
-              <li *ngIf="place.features.karaoke">
-                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
-                {{'placeInfo.karaoke'|translate}}
-              </li>
-              <li *ngIf="place.features.vipRoom">
-                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
-                {{'placeInfo.vipRoom'|translate}}
-              </li>
-              <li *ngIf="place.features.businessLunch">
-                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
-                {{'placeInfo.businessLunch'|translate}}
-              </li>
-              <li *ngIf="place.features.dayAndNight">
-                <ion-icon name="checkmark" padding-right="5px"></ion-icon>
-                {{'placeInfo.dayAndNight'|translate}}
-              </li>
-            </ul>
-          </mat-expansion-panel>
+          <!--<mat-expansion-panel>-->
+            <!--<mat-expansion-panel-header>-->
+              <!--{{'placeInfo.info' |translate}}-->
+            <!--</mat-expansion-panel-header>-->
+            <!--<ul>-->
+              <!--<li *ngIf="place.features.wifi">-->
+                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
+                <!--wifi-->
+              <!--</li>-->
+              <!--<li *ngIf="place.features.parking">-->
+                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
+                <!--{{'placeInfo.parking' | translate}}-->
+              <!--</li>-->
+              <!--<li *ngIf="place.features.karaoke">-->
+                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
+                <!--{{'placeInfo.karaoke'|translate}}-->
+              <!--</li>-->
+              <!--<li *ngIf="place.features.vipRoom">-->
+                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
+                <!--{{'placeInfo.vipRoom'|translate}}-->
+              <!--</li>-->
+              <!--<li *ngIf="place.features.businessLunch">-->
+                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
+                <!--{{'placeInfo.businessLunch'|translate}}-->
+              <!--</li>-->
+              <!--<li *ngIf="place.features.dayAndNight">-->
+                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
+                <!--{{'placeInfo.dayAndNight'|translate}}-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</mat-expansion-panel>-->
 
           <mat-expansion-panel *ngIf="place.hashTags && place.hashTags.length > 0">
             <mat-expansion-panel-header>
