@@ -3,7 +3,7 @@
     <ion-buttons start>
       <button ion-button (click)="dismiss()" color="light">{{'modalTestimonial.close' | translate}}</button>
     </ion-buttons>
-    <ion-title>Add Testimonial</ion-title>
+    <ion-title>{{'modalTestimonial.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
   <form #form="ngForm" (ngSubmit)="logForm()">
     <ion-item>
       <ion-label>
-        Testimonial
+        {{'modalTestimonial.message' | translate}}
       </ion-label>
       <ion-textarea
         [(ngModel)]="text"
@@ -21,7 +21,7 @@
     </ion-item>
     <ion-item>
       <ion-label [ngStyle]="{'color': (starsRef.invalid && starsRef.touched) ? 'red' : ''}">
-        Rating
+        {{'modalTestimonial.rating' | translate}}
       </ion-label>
       <ion-select
         type="number"
@@ -30,16 +30,16 @@
         interface="action-sheet"
         #starsRef="ngModel"
         required>
-        <ion-option value=1 selected>1 Stars</ion-option>
-        <ion-option value=2>2 Stars</ion-option>
-        <ion-option value=3>3 Stars</ion-option>
-        <ion-option value=4>4 Stars</ion-option>
-        <ion-option value=5>5 Stars</ion-option>
+        <ion-option value=1 selected>1 {{'modalTestimonial.1star' | translate}}</ion-option>
+        <ion-option value=2>2 {{'modalTestimonial.2star' | translate}}</ion-option>
+        <ion-option value=3>3 {{'modalTestimonial.3star' | translate}}</ion-option>
+        <ion-option value=4>4 {{'modalTestimonial.4star' | translate}}</ion-option>
+        <ion-option value=5>5 {{'modalTestimonial.5star' | translate}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>
-        Sum
+        {{'modalTestimonial.sum' | translate}}
       </ion-label>
       <ion-input required [(ngModel)]="sum" name="sum" type="number"></ion-input>
     </ion-item>
@@ -48,8 +48,7 @@
       type="submit"
       block
       [disabled]="!form.valid"
-    >Add Todo
-    </button>
+    >{{'modalTestimonial.create' | translate}}</button>
   </form>
 
 

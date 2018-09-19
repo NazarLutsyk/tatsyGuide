@@ -8,6 +8,8 @@ import {Storage} from "@ionic/storage";
 import {PopoverPage} from "../popover/popover";
 import {AllPromosPage} from "../all-promos/all-promos";
 
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

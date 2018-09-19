@@ -8,16 +8,16 @@
     </ion-item>
     <ion-item>
       <p>
-        Client: {{rating?.client.name}} {{rating?.client.surname}}
+        {{'modalTestimonial.client' | translate}}: {{rating?.client.name}} {{rating?.client.surname}}
       </p>
       <p>
-        Check : {{rating?.price}}
+        {{'modalTestimonial.sum' | translate}}: {{rating?.price}}
       </p>
       <p>
-        Comment: {{rating?.comment}}
+        {{'modalTestimonial.message' | translate}}: {{rating?.comment}}
       </p>
       <p *ngIf="rating.place.multilang && rating.place.multilang.length > 0">
-        Place: {{rating.place.multilang[0].name}}
+        {{'modalTestimonial.place' | translate}}: {{rating.place.multilang[0].name}}
       </p>
     </ion-item>
 

@@ -474,7 +474,19 @@
     "update": "Змінити"
   },
   "modalTestimonial": {
-    "close": "Закрити"
+    "close": "Закрити",
+    "title": "Залишити відгук",
+    "message":"Повідомлення",
+    "rating":"Рейтинг",
+    "1star":"Зірка",
+    "2star":"Зірки",
+    "3star":"Зірки",
+    "4star":"Зірки",
+    "5star":"Зірок",
+    "sum":"Сума",
+    "create":"Створити",
+    "client":"Клієнт",
+    "place":"Заклад"
   },
   "topPlaceApplication": {
     "title": "Топ заклад, заявка",

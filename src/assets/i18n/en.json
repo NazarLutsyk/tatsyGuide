@@ -474,7 +474,19 @@
     "update": "Update"
   },
   "modalTestimonial": {
-    "close": "Close"
+    "close": "Close",
+    "title": "Add testimonial",
+    "message":"Message",
+    "rating":"Rating",
+    "1star":"Stars",
+    "2star":"Stars",
+    "3star":"Stars",
+    "4star":"Stars",
+    "5star":"Stars",
+    "sum":"Sum",
+    "create":"Create",
+    "client":"Client",
+    "place":"Place"
   },
   "topPlaceApplication": {
     "title": "Top place application",
