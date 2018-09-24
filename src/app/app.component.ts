@@ -68,10 +68,10 @@ export class MyApp implements OnInit {
     range: {lower: 0, upper: 10000},
     direction: false,
     // filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
-    placeType: '',
+    placeType: [],
     city: '',
-    topCategory: '',
-    kitchen: ''
+    topCategory: [],
+    kitchen: []
   };
   searchPromoObject = {
     kind: '',
@@ -327,10 +327,10 @@ export class MyApp implements OnInit {
       range: {lower: 0, upper: 10000},
       direction: false,
       // filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
-      placeType: '',
+      placeType: [],
       city: '',
-      topCategory: '',
-      kitchen: ''
+      topCategory: [],
+      kitchen: []
     };
     form.reset();
     this.show(this.searchObject);

@@ -135,10 +135,7 @@
 
     <ion-item>
       <ion-label>{{'sideMenu.filters.type' | translate}}</ion-label>
-      <ion-select interface="popover" [(ngModel)]="searchObject.placeType">
-        <ion-option value="">
-
-        </ion-option>
+      <ion-select interface="popover" [(ngModel)]="searchObject.placeType" multiple="true">
         <ion-option value="{{placeTypeM.placeType._id}}" *ngFor="let placeTypeM of placeTypesM">
           {{placeTypeM.name}}
         </ion-option>
@@ -149,7 +146,7 @@
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchObject.city">
         <ion-option value="">
-
+          {{'sideMenu.filters.all' | translate}}
         </ion-option>
         <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
           {{cityM.name}}
@@ -159,10 +156,7 @@
 
     <ion-item>
       <ion-label> {{'sideMenu.filters.kitchen' | translate}}</ion-label>
-      <ion-select interface="popover" [(ngModel)]="searchObject.kitchen">
-        <ion-option value="">
-
-        </ion-option>
+      <ion-select interface="popover" [(ngModel)]="searchObject.kitchen" multiple="true">
         <ion-option [value]="kitchenM.kitchen._id" *ngFor="let kitchenM of kitchensM">
           {{kitchenM.name}}
         </ion-option>
@@ -171,10 +165,7 @@
 
     <ion-item>
       <ion-label> {{'sideMenu.filters.topCategory' | translate}}</ion-label>
-      <ion-select interface="popover" [(ngModel)]="searchObject.topCategory">
-        <ion-option value="">
-
-        </ion-option>
+      <ion-select interface="popover" [(ngModel)]="searchObject.topCategory" multiple="true">
         <ion-option [value]="topCategoryM.topCategory._id" *ngFor="let topCategoryM of topCategoriesM">
           {{topCategoryM.name}}
         </ion-option>
@@ -237,7 +228,7 @@
       <ion-label> {{'sideMenu.filters.promoType' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchPromoObject.kind">
         <ion-option value="">
-
+          {{'sideMenu.filters.all' | translate}}
         </ion-option>
         <ion-option value="Bonuse">
           {{'sideMenu.filters.typePromo.bonuse' | translate}}
@@ -254,7 +245,7 @@
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchPromoObject.city">
         <ion-option value="">
-
+          {{'sideMenu.filters.all' | translate}}
         </ion-option>
         <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
           {{cityM.name}}
@@ -293,7 +284,7 @@
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
       <ion-select interface="popover" [(ngModel)]="searchDrinkAppObject.city">
         <ion-option value="">
-
+          {{'sideMenu.filters.all' | translate}}
         </ion-option>
         <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
           {{cityM.name}}

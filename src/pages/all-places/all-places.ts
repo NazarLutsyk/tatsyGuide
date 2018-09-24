@@ -106,14 +106,14 @@ export class AllPlacesPage {
     if (eventData.sort === 'name') {
       this.placeMultilangQuery.sort['multilang.' + eventData.sort] = eventData.direction ? 1 : -1
     }
-    if (eventData.placeType) {
-      this.placeQuery.query.types = eventData.placeType;
+    if (eventData.placeType && eventData.placeType.length > 0) {
+      this.placeQuery.query.types = {$in: eventData.placeType};
     }
-    if (eventData.kitchen) {
-      this.placeQuery.query.kitchens = eventData.kitchen;
+    if (eventData.kitchen && eventData.kitchen.length > 0) {
+      this.placeQuery.query.kitchens = {$in: eventData.kitchen};
     }
-    if (eventData.topCategory) {
-      this.placeQuery.query.topCategories = eventData.topCategory;
+    if (eventData.topCategory && eventData.topCategory.length > 0) {
+      this.placeQuery.query.topCategories = {$in: eventData.topCategory};
     }
     if (eventData.city) {
       this.placeQuery.query.city = eventData.city;

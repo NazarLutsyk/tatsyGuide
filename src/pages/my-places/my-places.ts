@@ -85,7 +85,7 @@ export class MyPlacesPage {
         this.principal = principal;
         this.departmentService
           .find({
-            query: {client: (<any>this.principal)._id, roles: 'BOSS_PLACE'},
+            query: {client: (<any>this.principal)._id},
           })
           .subscribe((departments) => {
             let placeIds = departments.map(dep => dep.place);
@@ -153,47 +153,6 @@ export class MyPlacesPage {
 
   toDetails(place) {
     this.navCtrl.push(PlaceDeatilsPage, {id: place._id});
-  }
-
-
-  removePlace(place, event) {
-
-    event.stopPropagation();
-    this.translate.get([
-        'placeInfo.delete',
-        'placeInfo.confirm',
-        'placeInfo.cancel',
-      ]
-    ).subscribe(translations => {
-
-      event.stopPropagation();
-
-      let alertWindow = this.alert.create({
-        enableBackdropDismiss: true,
-        title: translations['placeInfo.delete'] + "?",
-        buttons: [
-          {
-            text: translations['placeInfo.confirm'],
-            handler: () => {
-
-              // event.stopPropagation();
-              // this.onRemoveDrinkApplication.emit(this.drinkApp);
-
-              this.places.splice(this.places.indexOf(place), 1);
-              this.placesService.remove(place._id).subscribe();
-
-            }
-          },
-          {
-            text: translations['placeInfo.cancel']
-          }
-        ]
-
-      });
-
-      alertWindow.present();
-    });
-
   }
 
   loadNextPlacesPage(event: InfiniteScroll) {

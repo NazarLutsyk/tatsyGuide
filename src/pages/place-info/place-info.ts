@@ -235,15 +235,6 @@ export class PlaceInfoPage {
             }
           },
           {
-            text: value['placeInfo.manageAdmins'],
-            cssClass: "xxx",
-            icon: !this.platform.is('ios') ? 'people' : null,
-
-            handler: () => {
-              this.updatePlaceDepartments(this.place);
-            }
-          },
-          {
             text: value['placeInfo.cancel'],
             icon: !this.platform.is('ios') ? 'close' : null,
             role: 'cancel',
@@ -270,34 +261,46 @@ export class PlaceInfoPage {
           });
         }
 
-        buttons.push({
-          text: value['placeInfo.deletePlace'],
-          cssClass: "actionSheetDeleteColor xxx",
-          role: 'destructive',
-          icon: !this.platform.is('ios') ? 'trash' : null,
-          handler: () => {
-            let alert = this.alertController.create({
-              title: value['placeInfo.deleteTitle'],
-              message: value['placeInfo.deleteMessage'],
-              buttons: [
-                {
-                  text: value['placeInfo.cancel'],
-                  role: 'cancel',
-                  handler: () => {
-                    console.log('Cancel clicked');
+        if (this.principal && (this.isBoss || this.principal.roles.indexOf('ADMIN') > -1)) {
+          buttons.push({
+            text: value['placeInfo.manageAdmins'],
+            cssClass: "xxx",
+            icon: !this.platform.is('ios') ? 'people' : null,
+
+            handler: () => {
+              this.updatePlaceDepartments(this.place);
+            }
+          });
+
+          buttons.push({
+            text: value['placeInfo.deletePlace'],
+            cssClass: "actionSheetDeleteColor xxx",
+            role: 'destructive',
+            icon: !this.platform.is('ios') ? 'trash' : null,
+            handler: () => {
+              let alert = this.alertController.create({
+                title: value['placeInfo.deleteTitle'],
+                message: value['placeInfo.deleteMessage'],
+                buttons: [
+                  {
+                    text: value['placeInfo.cancel'],
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('Cancel clicked');
+                    }
+                  },
+                  {
+                    text: value['placeInfo.confirm'],
+                    handler: () => {
+                      this.removePlace(this.place);
+                    }
                   }
-                },
-                {
-                  text: value['placeInfo.confirm'],
-                  handler: () => {
-                    this.removePlace(this.place);
-                  }
-                }
-              ]
-            });
-            alert.present();
-          }
-        });
+                ]
+              });
+              alert.present();
+            }
+          });
+        }
 
         const actionSheet = this.actionSheetCtrl.create({
             title: value['placeInfo.manage'],
