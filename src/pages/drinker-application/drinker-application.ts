@@ -5,7 +5,6 @@ import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
 import {Place} from "../../models/place/Place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
-import {TranslateService} from "@ngx-translate/core";
 import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 

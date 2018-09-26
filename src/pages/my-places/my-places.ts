@@ -1,14 +1,5 @@
 import {Component} from '@angular/core';
-import {
-  AlertController,
-  Events,
-  InfiniteScroll,
-  IonicPage,
-  LoadingController,
-  NavController,
-  NavParams,
-  Refresher
-} from 'ionic-angular';
+import {Events, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Place} from "../../models/place/Place";
@@ -21,7 +12,7 @@ import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {DepartmentProvider} from "../../providers/department/department-provider";
 import {Observable} from "rxjs/Observable";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
-import {TranslateService} from "@ngx-translate/core";
+import {LangProvider} from "../../providers/lang/lang";
 
 
 @IonicPage()
@@ -35,6 +26,8 @@ export class MyPlacesPage {
   places: Place[] = [];
   globalHost: string;
   principal: Client;
+  langs = [];
+  selectedLang = '';
 
   skip = 0;
   pageSize = 7;
@@ -53,10 +46,8 @@ export class MyPlacesPage {
     private events: Events,
     private auth: AuthProvider,
     private departmentService: DepartmentProvider,
-    private loadingCtrl: LoadingController,
-    private translate: TranslateService,
-    private alert: AlertController,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private langsService: LangProvider
   ) {
     // this.translate.setDefaultLang("en");
     // this.translate.use(this.globalConfig.deviceLang);
@@ -64,6 +55,9 @@ export class MyPlacesPage {
   }
 
   ngOnInit() {
+    this.selectedLang = this.globalConfig.getGlobalLang();
+    this.langsService.find({}).subscribe(langs => this.langs = langs);
+
     this.loadOwnPlaces().subscribe(places => {
       this.places = places;
     });
@@ -81,78 +75,107 @@ export class MyPlacesPage {
 
   loadOwnPlaces() {
     return new Observable<Place[]>((subscriber) => {
-      this.auth.loadPrincipal().subscribe((principal) => {
-        this.principal = principal;
-        this.departmentService
-          .find({
-            query: {client: (<any>this.principal)._id},
+      if (this.navParams.data.client) {
+        this.makeRequest(this.navParams.data.client).subscribe((places) => {
+          subscriber.next(places);
+        })
+      } else {
+        this.auth.loadPrincipal().subscribe((principal) => {
+          this.principal = principal;
+          this.makeRequest(this.principal).subscribe((places) => {
+            subscriber.next(places);
           })
-          .subscribe((departments) => {
-            let placeIds = departments.map(dep => dep.place);
-            this.placesService.find({
-              query: {_id: placeIds},
-              populate: [
-                {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}},
-                {
-                  path: 'types',
-                  populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-                },
-                {
-                  path: 'city',
-                  populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-                }
-              ],
-              skip: this.skip,
-              limit: this.limit
-            })
-              .subscribe(places => {
-                let okPlaces = [];
-                let otherPlacesIds = [];
-                for (const place of places) {
-                  if (!place.multilang || place.multilang.length === 0) {
-                    otherPlacesIds.push(place._id);
-                  } else {
-                    okPlaces.push(place);
-                  }
-                }
-                if (otherPlacesIds.length > 0) {
-                  this.placesService.find({
-                    query: {_id: {$in: otherPlacesIds}},
-                    populate: [
-                      {path: 'multilang'},
-                      {
-                        path: 'types',
-                        populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-                      },
-                      {
-                        path: 'city',
-                        populate: {path: 'multilang', match: {lang: this.globalVars.getGlobalLang()}}
-                      }
-                    ],
-                    $project: {
-                      multilang: {$arrayElemAt: ["$multilang", 0]},
-                      types: 1,
-                      rating: 1,
-                      city: 1,
-                    },
-                    skip: this.skip,
-                    limit: this.limit
-                  }).subscribe((places) => {
-                    okPlaces.push(...places);
-                    subscriber.next(okPlaces);
-                  });
-                } else {
-                  subscriber.next(okPlaces);
-                }
-              });
-
-          });
-      });
+        });
+      }
     })
   }
 
+  makeRequest(client) {
+    return this.placesService.find({
+      aggregate: [
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: '_id',
+            foreignField: 'place',
+            as: 'multilang',
+          }
+        },
+        {$unwind: "$multilang"},
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: 'types',
+            foreignField: 'placeType',
+            as: 'types',
+          }
+        },
+        {$unwind: "$types"},
+        {
+          $match: {
+            'types.lang': this.selectedLang,
+            'multilang.lang': this.selectedLang
+          }
+        },
+        {
+          $lookup: {
+            from: 'multilangs',
+            localField: 'city',
+            foreignField: 'city',
+            as: 'city',
+          }
+        },
+        {$unwind: "$city"},
+        {
+          $match: {
+            'city.lang': this.selectedLang,
+            'multilang.lang': this.selectedLang
+          }
+        },
+        {
+          $lookup: {
+            from: 'departments',
+            localField: '_id',
+            foreignField: 'place',
+            as: 'departments',
+          }
+        },
+        {$unwind: "$departments"},
+        {
+          $match: {
+            'departments.client': client._id,
+          }
+        },
+        {
+          $group: {
+            _id: '$_id',
+            types: {$push: '$types'},
+            multilang: {$addToSet: '$multilang'},
+            phone: {$first: '$phone'},
+            email: {$first: '$email'},
+            averagePrice: {$first: '$averagePrice'},
+            reviews: {$first: '$reviews'},
+            rating: {$first: '$rating'},
+            allowed: {$first: '$allowed'},
+            avatar: {$first: '$avatar'},
+            location: {$first: '$location'},
+            // features: {$first: '$features'},
+            topCategories: {$first: '$topCategories'},
+            images: {$first: '$images'},
+            days: {$first: '$days'},
+            hashTags: {$first: '$hashTags'},
+            city: {$first: '$city'},
+          }
+        },
+        {$skip: this.skip},
+        {$limit: this.limit},
+      ]
+    })
+
+  }
+
   toDetails(place) {
-    this.navCtrl.push(PlaceDeatilsPage, {id: place._id});
+    this.navCtrl.push(PlaceDeatilsPage, {id: place._id, preferredLanguage: this.selectedLang});
   }
 
   loadNextPlacesPage(event: InfiniteScroll) {
@@ -171,5 +194,9 @@ export class MyPlacesPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  changeLang() {
+    this.loadOwnPlaces().subscribe(places => this.places = places);
   }
 }

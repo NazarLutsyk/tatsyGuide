@@ -38,7 +38,10 @@ export class PurgatoryPlacesPage {
   ngOnInit() {
     this.globalHost = this.globalConfig.getGlobalHost();
     this.loadPlaces()
-      .subscribe(places => this.places = places);
+      .subscribe(places => {
+        this.places = places
+        console.log(places);
+      });
   }
 
   doRefresh(refresher: Refresher) {

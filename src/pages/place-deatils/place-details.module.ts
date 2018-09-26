@@ -5,6 +5,7 @@ import {IonicStorageModule} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {createTranslateLoader} from "../../app/app.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {createTranslateLoader} from "../../app/app.module";
         deps: [HttpClient]
       }
     }),
+    FormsModule
   ],
 
 })

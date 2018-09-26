@@ -40,6 +40,8 @@ export class PlaceDeatilsPage {
   principal;
   departments;
 
+  preferredLanguage = '';
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -61,6 +63,9 @@ export class PlaceDeatilsPage {
       enableBackdropDismiss: false
     });
     spinner.present();
+
+    this.preferredLanguage = this.navParams.data.preferredLanguage || this.globalConfig.getGlobalLang();
+
     this.loadPlace(this.navParams.data.id).subscribe((place) => {
       this.place = place;
       this.auth.loadPrincipal().subscribe((principal) => {
@@ -89,22 +94,22 @@ export class PlaceDeatilsPage {
         id,
         {
           populate: [
-            {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}},
+            {path: 'multilang', match: {lang: this.preferredLanguage}},
             {
               path: 'types',
-              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+              populate: {path: 'multilang', match: {lang: this.preferredLanguage}}
             },
             {
               path: 'topCategories',
-              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+              populate: {path: 'multilang', match: {lang: this.preferredLanguage}}
             },
             {
               path: 'kitchens',
-              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+              populate: {path: 'multilang', match: {lang: this.preferredLanguage}}
             },
             {
               path: 'city',
-              populate: {path: 'multilang', match: {lang: this.globalConfig.getGlobalLang()}}
+              populate: {path: 'multilang', match: {lang: this.preferredLanguage}}
             },
           ]
         }

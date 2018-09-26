@@ -96,7 +96,6 @@ import {SingleBonusePageModule} from "../pages/single-bonuse/single-bonuse.modul
 import {SingleEventPageModule} from "../pages/single-event/single-event.module";
 import {PopoverPageModule} from "../pages/popover/popover.module";
 import {TopPlaceApplicationPageModule} from "../pages/top-place-application/top-place-application.module";
-import {ClientPlacesPageModule} from "../pages/client-places/client-places.module";
 import {CityProvider} from '../providers/city/city';
 import {CityMultilangProvider} from '../providers/city-multilang/city-multilang';
 import {KitchenProvider} from '../providers/kitchen/kitchen';
@@ -185,7 +184,6 @@ export function createTranslateLoader(http: HttpClient) {
     SingleBonusePageModule,
     SingleEventPageModule,
     PopoverPageModule,
-    ClientPlacesPageModule,
     TopPlaceApplicationPageModule,
     AllKitchensPageModule,
     AllTopCategoriesPageModule,

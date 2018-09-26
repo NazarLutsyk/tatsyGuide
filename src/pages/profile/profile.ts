@@ -7,7 +7,7 @@ import {ClientProvider} from "../../providers/client/ClientProvider";
 import {ObjectUtils} from "../../utils/ObjectUtils";
 import {TranslateService} from "@ngx-translate/core";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {ClientPlacesPage} from "../client-places/client-places";
+import {MyPlacesPage} from "../my-places/my-places";
 
 @IonicPage()
 @Component({
@@ -17,6 +17,7 @@ import {ClientPlacesPage} from "../client-places/client-places";
 export class ProfilePage {
 
   client: Client = new Client();
+  principal: Client = new Client();
 
   constructor(
     public navCtrl: NavController,
@@ -26,7 +27,7 @@ export class ProfilePage {
     private app: App,
     private translate: TranslateService,
     private alert: AlertController,
-    private globalConfig : GlobalConfigsService
+    private globalConfig: GlobalConfigsService
   ) {
     // this.translate.setDefaultLang("en");
     // this.translate.use(this.globalConfig.deviceLang);
@@ -35,11 +36,13 @@ export class ProfilePage {
   ngOnInit() {
     if (!ObjectUtils.isEmpty(this.navParams.data)) {
       this.client = this.navParams.data;
-    } else {
-      this.auth.loadPrincipal().subscribe(client => {
-        this.client = client
-      });
     }
+    this.auth.loadPrincipal().subscribe(client => {
+      if (!this.client._id){
+        this.client = client;
+      }
+      this.principal = client
+    });
   }
 
   updateClient(client) {
@@ -82,6 +85,6 @@ export class ProfilePage {
   }
 
   goToClientPlacesPage() {
-    this.app.getRootNav().push(ClientPlacesPage, this.client);
+    this.app.getRootNav().push(MyPlacesPage, {client: this.client});
   }
 }

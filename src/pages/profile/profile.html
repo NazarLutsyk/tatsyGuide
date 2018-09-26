@@ -32,7 +32,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-grid>
+  <ion-grid *ngIf="principal._id === client?._id || principal.roles.indexOf('ADMIN') > -1">
     <ion-row>
       <ion-col col-6>
         <button ion-button outline class="buttonUpdate" full
@@ -55,7 +55,7 @@
           outline
           full
           (click)="goToClientPlacesPage()"
-          *ngIf="client && client.roles && client.roles.indexOf('ADMIN') >= 0"
+          *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         >{{'profile.places' | translate}}
         </button>
 
