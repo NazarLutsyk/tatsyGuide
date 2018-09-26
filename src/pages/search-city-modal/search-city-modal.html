@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name="close" color="light"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{'modalChooseCity.title' | translate}}</ion-title>
+  </ion-navbar>
+
+  <ion-searchbar (ionInput)="onSearchCities($event)" (ionCancel)="onSearchCities($event)">
+  </ion-searchbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list radio-group>
+    <ion-item>
+      <ion-label>
+        {{'sideMenu.filters.all' | translate}}
+      </ion-label>
+      <ion-radio [value]="''" (ionSelect)="cancel('')" [checked]="selectedCity === ''"></ion-radio>
+    </ion-item>
+    <ion-item *ngFor="let cityM of filteredCitiesM">
+      <ion-label>
+        {{cityM.name}}
+      </ion-label>
+      <ion-radio [value]="cityM.city._id" (ionSelect)="cancel(cityM.city._id)"
+                 [checked]="cityM.city._id === selectedCity"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

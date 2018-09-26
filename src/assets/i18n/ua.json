@@ -38,6 +38,9 @@
   "modalChooseLang": {
     "message": "Оберіть мову"
   },
+  "modalChooseCity": {
+    "title": "Виберіть місто"
+  },
   "sideMenu": {
     "titleLeft": "Меню",
     "titleRight": "Оберіть фільтр",

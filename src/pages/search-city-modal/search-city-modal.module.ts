@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
-import {PurgatoryPlacesPage} from './purgatory-places';
-import {HttpClient} from "@angular/common/http";
-import {createTranslateLoader} from "../../app/app.module";
+import {SearchCityModalPage} from './search-city-modal';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {createTranslateLoader} from "../../app/app.module";
+import {HttpClient} from "@angular/common/http";
 
 @NgModule({
   declarations: [
-    PurgatoryPlacesPage,
+    SearchCityModalPage,
   ],
   imports: [
-    IonicPageModule.forChild(PurgatoryPlacesPage),
+    IonicPageModule.forChild(SearchCityModalPage),
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -20,5 +20,5 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
     }),
   ],
 })
-export class PurgatoryPlacesPageModule {
+export class SearchCityModalPageModule {
 }

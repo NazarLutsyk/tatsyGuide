@@ -144,7 +144,11 @@
 
     <ion-item>
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
-      <ion-select interface="popover" [(ngModel)]="searchObject.city">
+      <ion-select
+        (ionFocus)="selectCity($event)"
+        interface="popover"
+        [(ngModel)]="searchObject.city"
+      >
         <ion-option value="">
           {{'sideMenu.filters.all' | translate}}
         </ion-option>
@@ -173,28 +177,28 @@
     </ion-item>
 
     <!--<ion-item>-->
-      <!--<ion-label> {{'sideMenu.filters.wifi' | translate}}</ion-label>-->
-      <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['wifi']"></ion-checkbox>-->
+    <!--<ion-label> {{'sideMenu.filters.wifi' | translate}}</ion-label>-->
+    <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['wifi']"></ion-checkbox>-->
     <!--</ion-item>-->
     <!--<ion-item>-->
-      <!--<ion-label> {{'sideMenu.filters.karaoke' | translate}}</ion-label>-->
-      <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['karaoke']"></ion-checkbox>-->
+    <!--<ion-label> {{'sideMenu.filters.karaoke' | translate}}</ion-label>-->
+    <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['karaoke']"></ion-checkbox>-->
     <!--</ion-item>-->
     <!--<ion-item>-->
-      <!--<ion-label> {{'sideMenu.filters.parking' | translate}}</ion-label>-->
-      <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['parking']"></ion-checkbox>-->
+    <!--<ion-label> {{'sideMenu.filters.parking' | translate}}</ion-label>-->
+    <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['parking']"></ion-checkbox>-->
     <!--</ion-item>-->
     <!--<ion-item>-->
-      <!--<ion-label> {{'sideMenu.filters.vipRoom' | translate}}</ion-label>-->
-      <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['vipRoom']"></ion-checkbox>-->
+    <!--<ion-label> {{'sideMenu.filters.vipRoom' | translate}}</ion-label>-->
+    <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['vipRoom']"></ion-checkbox>-->
     <!--</ion-item>-->
     <!--<ion-item>-->
-      <!--<ion-label> {{'sideMenu.filters.businessLunch' | translate}}</ion-label>-->
-      <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['businessLunch']"></ion-checkbox>-->
+    <!--<ion-label> {{'sideMenu.filters.businessLunch' | translate}}</ion-label>-->
+    <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['businessLunch']"></ion-checkbox>-->
     <!--</ion-item>-->
     <!--<ion-item>-->
-      <!--<ion-label> {{'sideMenu.filters.dayAndNight' | translate}}</ion-label>-->
-      <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['dayAndNight']"></ion-checkbox>-->
+    <!--<ion-label> {{'sideMenu.filters.dayAndNight' | translate}}</ion-label>-->
+    <!--<ion-checkbox color="dark" [(ngModel)]="searchObject.filterFeature['dayAndNight']"></ion-checkbox>-->
     <!--</ion-item>-->
     <ion-buttons>
       <ion-grid>
@@ -243,7 +247,11 @@
     </ion-item>
     <ion-item>
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
-      <ion-select interface="popover" [(ngModel)]="searchPromoObject.city">
+      <ion-select
+        interface="popover"
+        [(ngModel)]="searchPromoObject.city"
+        (ionFocus)="selectCity($event)"
+      >
         <ion-option value="">
           {{'sideMenu.filters.all' | translate}}
         </ion-option>
@@ -282,7 +290,11 @@
   <ion-content>
     <ion-item>
       <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
-      <ion-select interface="popover" [(ngModel)]="searchDrinkAppObject.city">
+      <ion-select
+        interface="popover"
+        [(ngModel)]="searchDrinkAppObject.city"
+        (ionFocus)="selectCity($event)"
+      >
         <ion-option value="">
           {{'sideMenu.filters.all' | translate}}
         </ion-option>

@@ -2,9 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   AlertController,
   Events,
-  MenuController,
+  MenuController, ModalController,
   NavController,
-  Platform,
+  Platform, Select,
   ToastController,
   ViewController
 } from 'ionic-angular';
@@ -47,6 +47,7 @@ import {CityMultilangProvider} from "../providers/city-multilang/city-multilang"
 import {KitchenMultilangProvider} from "../providers/kitchen-multilang/kitchen-multilang";
 import {TopCategoryMultilangProvider} from "../providers/top-category-multilang/top-category-multilang";
 import {MailProvider} from "../providers/mail/mail";
+import {SearchCityModalPage} from "../pages/search-city-modal/search-city-modal";
 
 
 @Component({
@@ -89,6 +90,8 @@ export class MyApp implements OnInit {
   changeCityFromInit = false;
   rightMenu = '';
 
+  selectedCity = '';
+
   constructor(public platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
@@ -113,7 +116,8 @@ export class MyApp implements OnInit {
               private toastLang: ToastController,
               private toastController: ToastController,
               private alertController: AlertController,
-              private mailService: MailProvider
+              private mailService: MailProvider,
+              private modalCtrl: ModalController
   ) {
     platform
       .ready().then(() => {
@@ -263,9 +267,7 @@ export class MyApp implements OnInit {
 
   init() {
     this.events.subscribe('click-drink-app-create', () => {
-      console.log('home event handle');
       this.translate.get('drinkApplicationToast.selectPlace').subscribe((text) => {
-        console.log('get translate');
         let drinkerToast = this.toastController.create(
           {
             duration: 3000,
@@ -332,6 +334,7 @@ export class MyApp implements OnInit {
       topCategory: [],
       kitchen: []
     };
+    this.selectedCity = '';
     form.reset();
     this.show(this.searchObject);
   }
@@ -461,7 +464,7 @@ export class MyApp implements OnInit {
     });
   }
 
-  contactAdmin(){
+  contactAdmin() {
     this.translate.get([
       'alert.message',
       'alert.email',
@@ -511,6 +514,22 @@ export class MyApp implements OnInit {
   //   };
   //   this.changeCityFromInit = false;
   // }
+
+  selectCity($event: Select) {
+    let modal = this.modalCtrl.create(SearchCityModalPage, {
+      citiesM: this.citiesM,
+      selectedCity: $event.value,
+    });
+    modal.onDidDismiss(data => {
+      this.selectedCity = data;
+      $event.value = this.selectedCity;
+    });
+    modal.present().then(() => {
+       $event.close();
+    });
+    return false;
+  }
 }
+
 
 

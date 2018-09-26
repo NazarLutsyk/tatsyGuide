@@ -38,6 +38,9 @@
   "modalChooseLang": {
     "message": "Choose language"
   },
+  "modalChooseCity": {
+    "title": "Choose city"
+  },
   "sideMenu": {
     "titleLeft": "Menu",
     "titleRight": "Choose filter",

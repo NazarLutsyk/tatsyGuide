@@ -114,7 +114,8 @@ import {CreateTopCategoryPageModule} from "../pages/create-top-category/create-t
 import {UpdateTopCategoryPageModule} from "../pages/update-top-category/update-top-category.module";
 import {PromoProvider} from '../providers/promo/promo';
 import {AllPromosPageModule} from "../pages/all-promos/all-promos.module";
-import { DateTimePickerConfigProvider } from '../providers/date-time-picker-config/date-time-picker-config';
+import {DateTimePickerConfigProvider} from '../providers/date-time-picker-config/date-time-picker-config';
+import {SearchCityModalPageModule} from "../pages/search-city-modal/search-city-modal.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -202,8 +203,8 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
-
+    }),
+    SearchCityModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
