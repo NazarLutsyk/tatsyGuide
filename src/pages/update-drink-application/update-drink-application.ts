@@ -3,8 +3,6 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
 import {NgForm} from "@angular/forms";
-import {TranslateService} from "@ngx-translate/core";
-import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
@@ -27,10 +25,14 @@ export class UpdateDrinkApplicationPage {
   ) {
 
     let now = new Date();
-    let minDateTemp = now.toLocaleDateString().split('.');
-    let maxDateTemp = (new Date(now.setMonth(now.getMonth() + 1))).toLocaleDateString().split('.');
-    this.minDate = `${minDateTemp[2]}-${minDateTemp[1]}-${minDateTemp[0]}`;
-    this.maxDate = `${maxDateTemp[2]}-${maxDateTemp[1]}-${maxDateTemp[0]}`;
+    let minDateTemp = now.toLocaleDateString().split('/');
+    let maxDateTemp = (new Date(now.setMonth(now.getMonth() + 1))).toLocaleDateString().split('/');
+    minDateTemp[0] = minDateTemp[0].length === 1 ? '0' + minDateTemp[0] : minDateTemp[0];
+    minDateTemp[1] = minDateTemp[1].length === 1 ? '0' + minDateTemp[1] : minDateTemp[1];
+    maxDateTemp[0] = maxDateTemp[0].length === 1 ? '0' + maxDateTemp[0] : maxDateTemp[0];
+    maxDateTemp[1] = maxDateTemp[1].length === 1 ? '0' + maxDateTemp[1] : maxDateTemp[1];
+    this.minDate = `${minDateTemp[2]}-${minDateTemp[0]}-${minDateTemp[1]}`;
+    this.maxDate = `${maxDateTemp[2]}-${maxDateTemp[0]}-${maxDateTemp[1]}`;
   }
 
   ngOnInit() {

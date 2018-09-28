@@ -50,6 +50,7 @@
         {{'drinker.when' | translate}}
       </ion-label>
       <ion-datetime
+        type="text"
         [(ngModel)]="drinkerApplicationObject.date"
         name="date"
         #date="ngModel"
@@ -84,7 +85,7 @@
       type="submit"
       block
       [disabled]="!form.valid"
-    >{{'drinker.update' | translate}}
+    >{{'drinker.create' | translate}}
     </button>
   </form>
 

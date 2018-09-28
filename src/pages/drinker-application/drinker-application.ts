@@ -45,10 +45,14 @@ export class DrinkerApplicationPage {
     public dateTimeConfig: DateTimePickerConfigProvider
   ) {
     let now = new Date();
-    let minDateTemp = now.toLocaleDateString().split('.');
-    let maxDateTemp = (new Date(now.setMonth(now.getMonth() + 1))).toLocaleDateString().split('.');
-    this.minDate = `${minDateTemp[2]}-${minDateTemp[1]}-${minDateTemp[0]}`;
-    this.maxDate = `${maxDateTemp[2]}-${maxDateTemp[1]}-${maxDateTemp[0]}`;
+    let minDateTemp = now.toLocaleDateString().split('/');
+    let maxDateTemp = (new Date(now.setMonth(now.getMonth() + 1))).toLocaleDateString().split('/');
+    minDateTemp[0] = minDateTemp[0].length === 1 ? '0' + minDateTemp[0] : minDateTemp[0];
+    minDateTemp[1] = minDateTemp[1].length === 1 ? '0' + minDateTemp[1] : minDateTemp[1];
+    maxDateTemp[0] = maxDateTemp[0].length === 1 ? '0' + maxDateTemp[0] : maxDateTemp[0];
+    maxDateTemp[1] = maxDateTemp[1].length === 1 ? '0' + maxDateTemp[1] : maxDateTemp[1];
+    this.minDate = `${minDateTemp[2]}-${minDateTemp[0]}-${minDateTemp[1]}`;
+    this.maxDate = `${maxDateTemp[2]}-${maxDateTemp[0]}-${maxDateTemp[1]}`;
 
     if (this.navParams.data.place) {
       this.drinkerApplicationObject.place = this.navParams.data.place._id;

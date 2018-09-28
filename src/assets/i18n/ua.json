@@ -243,7 +243,8 @@
     "title": "Подія"
   },
   "myPlaces": {
-    "title": "Мої заклади"
+    "title": "Мої заклади",
+    "selectLang": "Виберіть мову"
   },
   "myFavPlaces": {
     "title": "Мої улюбленні заклади"

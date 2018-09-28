@@ -1,11 +1,18 @@
 <ion-header>
   <ion-navbar text-center="">
-    <img src="assets/imgs/logo_orange.svg"  style="display:inline-block" />
     <button ion-button menuToggle left>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
     </ion-title>
+    <div style="
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top : 15%;
+    text-align:center;">
+      <img src="assets/imgs/logo_orange.svg"/>
+    </div>
     <button ion-button menuToggle="rightSideMenu" right>
       <ion-icon name="options"></ion-icon>
     </button>
@@ -19,7 +26,8 @@
 </ion-header>
 
 <ion-tabs (ionChange)="handleChangeTab($event)">
-  <ion-tab [root]="topPlacesTab" tabTitle="{{'tab.top' | translate}}" tabIcon="ios-information-circle-outline"></ion-tab>
+  <ion-tab [root]="topPlacesTab" tabTitle="{{'tab.top' | translate}}"
+           tabIcon="ios-information-circle-outline"></ion-tab>
   <ion-tab [root]="placesTab" tabTitle="{{'tab.home' | translate}}" tabIcon="ios-home-outline"></ion-tab>
   <ion-tab [root]="promosTab" tabTitle="{{'tab.news' | translate}}" tabIcon="ios-list-box-outline"></ion-tab>
   <ion-tab [root]="drinkerTab" tabTitle="{{'tab.drinker' | translate}}" tabIcon="ios-beer-outline"></ion-tab>

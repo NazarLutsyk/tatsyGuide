@@ -10,7 +10,7 @@
 <ion-content padding>
 
   <form (ngSubmit)="logForm(eventForm)" #eventForm="ngForm">
-    <!--<img [src]="eventObject.image" alt="">-->
+    <img [src]="imageToUpload" alt="">
     <div ngModelGroup="multilang">
       <ion-item>
         <ion-label [ngStyle]="{'color': (header.invalid && header.touched) ? 'red' : ''}">

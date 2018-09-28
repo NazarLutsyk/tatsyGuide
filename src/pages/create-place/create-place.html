@@ -23,15 +23,14 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <!--<ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">-->
-        <ion-label>
-          {{'createPlace.description' | translate}}
+        <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
+          {{'createPlace.description' | translate}}*
         </ion-label>
         <ion-input
           name="description"
           ngModel
           #description="ngModel"
-
+          required
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -64,7 +63,7 @@
     </ion-list>
     <ion-item>
       <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
-        {{'createPlace.phone' | translate}}
+        {{'createPlace.phone' | translate}}*
       </ion-label>
       <ion-input
         type="tel"
@@ -76,7 +75,6 @@
         maxlength="15"
         placeholder="0671234567"
         required
-
       ></ion-input>
     </ion-item>
 

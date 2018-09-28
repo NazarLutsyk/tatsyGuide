@@ -243,7 +243,8 @@
     "title": "Event"
   },
   "myPlaces": {
-    "title": "My places"
+    "title": "My places",
+    "selectLang": "Select language"
   },
   "myFavPlaces": {
     "title": "My favorite places"
