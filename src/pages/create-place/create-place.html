@@ -23,14 +23,13 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
-          {{'createPlace.description' | translate}}*
+        <ion-label>
+          {{'createPlace.description' | translate}}
         </ion-label>
         <ion-input
           name="description"
           ngModel
           #description="ngModel"
-          required
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -95,7 +94,7 @@
       <ion-label>
         {{'createPlace.tags' | translate}}
       </ion-label>
-      <ion-input name="hashTags" ngModel></ion-input>
+      <ion-input name="hashTags" ngModel placeholder="bear,music"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -108,7 +107,7 @@
     <div *ngIf="isAdmin">
       <ion-item>
         <ion-label [ngStyle]="{'color': (allowed.invalid && allowed.touched) ? 'red' : ''}">
-          {{'createPlace.allowed' | translate}}
+          {{'createPlace.allowed' | translate}}*
         </ion-label>
         <ion-select
           name="allowed"
@@ -137,46 +136,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
-    <!--<ion-list ngModelGroup="features">-->
-      <!--<ion-list-header>{{'createPlace.features' | translate}}</ion-list-header>-->
-      <!--<ion-item>-->
-        <!--<ion-label>-->
-          <!--{{'createPlace.wifi' | translate}}-->
-        <!--</ion-label>-->
-        <!--<ion-checkbox name="wifi" ngModel></ion-checkbox>-->
-      <!--</ion-item>-->
-      <!--<ion-item>-->
-        <!--<ion-label>-->
-          <!--{{'createPlace.karaoke' | translate}}-->
-        <!--</ion-label>-->
-        <!--<ion-checkbox name="karaoke" ngModel></ion-checkbox>-->
-      <!--</ion-item>-->
-      <!--<ion-item>-->
-        <!--<ion-label>-->
-          <!--{{'createPlace.parking' | translate}}-->
-        <!--</ion-label>-->
-        <!--<ion-checkbox name="parking" ngModel></ion-checkbox>-->
-      <!--</ion-item>-->
-      <!--<ion-item>-->
-        <!--<ion-label>-->
-          <!--{{'createPlace.vipRoom' | translate}}-->
-        <!--</ion-label>-->
-        <!--<ion-checkbox name="vipRoom" ngModel></ion-checkbox>-->
-      <!--</ion-item>-->
-      <!--<ion-item>-->
-        <!--<ion-label>-->
-          <!--{{'createPlace.businessLunch' | translate}}-->
-        <!--</ion-label>-->
-        <!--<ion-checkbox name="businessLunch" ngModel></ion-checkbox>-->
-      <!--</ion-item>-->
-      <!--<ion-item>-->
-        <!--<ion-label>-->
-          <!--{{'createPlace.dayAndNight' | translate}}-->
-        <!--</ion-label>-->
-        <!--<ion-checkbox name="dayAndNight" ngModel></ion-checkbox>-->
-      <!--</ion-item>-->
-    <!--</ion-list>-->
 
     <ion-item>
       <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
@@ -234,7 +193,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item *ngIf="isAdmin">
+    <ion-item>
       <ion-label [ngStyle]="{'color': (topCategories.invalid && topCategories.touched) ? 'red' : ''}">
         {{'createPlace.topCategories' | translate}}
       </ion-label>
@@ -253,34 +212,271 @@
     </ion-item>
 
     <ion-item-group ngModelGroup="days">
-      <ion-item-group ngModelGroup="1">
-        <ion-item>{{'updatePlace.workTime' | translate}}</ion-item>
-        <ion-item>
-          <ion-label [ngStyle]="{'color': (start.invalid && start.touched) ? 'red' : ''}">
-            {{'createPlace.from' | translate}} *
-          </ion-label>
-          <ion-datetime
-            displayFormat="HH"
-            name="start"
-            ngModel
-            #start="ngModel"
-            required
-          ></ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label [ngStyle]="{'color': (end.invalid && end.touched) ? 'red' : ''}">
-            {{'createPlace.to' | translate}} *
-          </ion-label>
-          <ion-datetime
-            displayFormat="HH"
-            name="end"
-            ngModel
-            #end="ngModel"
-            required
-          ></ion-datetime>
-        </ion-item>
-      </ion-item-group>
+      <mat-accordion>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <ion-icon
+              name="close"
+              large
+              left
+              class="colorDanger clearDateButton"
+              (click)="clearTimes(start1,end1,$event)"
+            ></ion-icon>
+            <span text-uppercase>{{'days.monday' | translate}}</span>
+          </mat-expansion-panel-header>
+          <ion-item-group ngModelGroup="1">
+            <ion-item>
+              <ion-label>
+                {{'createPlace.from' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="start"
+                ngModel
+                #start1="ngModel"
+              ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                {{'createPlace.to' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="end"
+                ngModel
+                #end1="ngModel"
+              ></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <ion-icon
+              name="close"
+              large
+              left
+              class="colorDanger
+              clearDateButton"
+              (click)="clearTimes(start2,end2,$event)"
+            ></ion-icon>
+            <span text-uppercase>{{'days.tuesday' | translate}}</span>
+          </mat-expansion-panel-header>
+          <ion-item-group ngModelGroup="2">
+            <ion-item>
+              <ion-label>
+                {{'createPlace.from' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="start"
+                ngModel
+                #start2="ngModel"
+              ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                {{'createPlace.to' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="end"
+                ngModel
+                #end2="ngModel"
+              ></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <ion-icon
+              name="close"
+              large
+              left
+              class="colorDanger clearDateButton"
+              (click)="clearTimes(start3,end3,$event)"
+            ></ion-icon>
+            <span text-uppercase>{{'days.wednesday' | translate}}</span>
+          </mat-expansion-panel-header>
+          <ion-item-group ngModelGroup="3">
+            <ion-item>
+              <ion-label>
+                {{'createPlace.from' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="start"
+                ngModel
+                #start3="ngModel"
+              ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                {{'createPlace.to' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="end"
+                ngModel
+                #end3="ngModel"
+              ></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <ion-icon
+              name="close"
+              large
+              left
+              class="colorDanger clearDateButton"
+              (click)="clearTimes(start4,end4,$event)"
+            ></ion-icon>
+            <span text-uppercase>{{'days.thursday' | translate}}</span>
+          </mat-expansion-panel-header>
+          <ion-item-group ngModelGroup="4">
+            <ion-item>
+              <ion-label>
+                {{'createPlace.from' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="start"
+                ngModel
+                #start4="ngModel"
+              ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                {{'createPlace.to' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="end"
+                ngModel
+                #end4="ngModel"
+              ></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <ion-icon
+              name="close"
+              large
+              left
+              class="colorDanger clearDateButton"
+              (click)="clearTimes(start5,end5,$event)"
+            ></ion-icon>
+            <span text-uppercase>{{'days.friday' | translate}}</span>
+          </mat-expansion-panel-header>
+          <ion-item-group ngModelGroup="5">
+            <ion-item>
+              <ion-label>
+                {{'createPlace.from' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="start"
+                ngModel
+                #start5="ngModel"
+              ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                {{'createPlace.to' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="end"
+                ngModel
+                #end5="ngModel"
+              ></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <ion-icon
+              name="close"
+              large
+              left
+              class="colorDanger clearDateButton"
+              (click)="clearTimes(start6,end6,$event)"
+            ></ion-icon>
+            <span text-uppercase>{{'days.saturday' | translate}}</span>
+          </mat-expansion-panel-header>
+          <ion-item-group ngModelGroup="6">
+            <ion-item>
+              <ion-label>
+                {{'createPlace.from' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="start"
+                ngModel
+                #start6="ngModel"
+              ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                {{'createPlace.to' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="end"
+                ngModel
+                #end6="ngModel"
+              ></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <ion-icon
+              name="close"
+              large
+              left
+              class="colorDanger clearDateButton"
+              (click)="clearTimes(start7,end7,$event)"
+            ></ion-icon>
+            <span text-uppercase>{{'days.sunday' | translate}}</span>
+          </mat-expansion-panel-header>
+          <ion-item-group ngModelGroup="7">
+            <ion-item>
+              <ion-label>
+                {{'createPlace.from' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="start"
+                ngModel
+                #start7="ngModel"
+              ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                {{'createPlace.to' | translate}}
+              </ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                name="end"
+                ngModel
+                #end7="ngModel"
+              ></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+        </mat-expansion-panel>
+
+      </mat-accordion>
     </ion-item-group>
+
     <button
       type="submit"
       ion-button

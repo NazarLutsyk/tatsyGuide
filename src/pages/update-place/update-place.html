@@ -61,14 +61,13 @@
           ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label [ngStyle]="{'color': (description.invalid && description.touched) ? 'red' : ''}">
+          <ion-label>
             {{'updatePlace.description' | translate}}
           </ion-label>
           <ion-input
             name="description"
             [(ngModel)]="placeMultilang.description"
             #description="ngModel"
-            required
           ></ion-input>
         </ion-item>
       </ion-list>
@@ -112,7 +111,7 @@
         <ion-label>
           {{'updatePlace.tags' | translate}}
         </ion-label>
-        <ion-input name="hashTags" [(ngModel)]="hashTags"></ion-input>
+        <ion-input name="hashTags" [(ngModel)]="hashTags" placeholder="bear,music"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
@@ -265,7 +264,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="isAdmin">
+      <ion-item>
         <ion-label [ngStyle]="{'color': (topCategories.invalid && topCategories.touched) ? 'red' : ''}">
           {{'updatePlace.topCategories' | translate}}
         </ion-label>
@@ -286,33 +285,273 @@
       </ion-item>
 
       <ion-item-group ngModelGroup="days">
-        <ion-item-group ngModelGroup="1">
-          <ion-item>
-            <ion-label [ngStyle]="{'color': (start.invalid && start.touched) ? 'red' : ''}">
-              {{'updatePlace.from' | translate}}
-            </ion-label>
-            <ion-datetime
-              displayFormat="HH"
-              name="start"
-              [(ngModel)]="place.days['1'].start"
-              #start="ngModel"
-              required
-            ></ion-datetime>
-          </ion-item>
-          <ion-item>
-            <ion-label [ngStyle]="{'color': (end.invalid && end.touched) ? 'red' : ''}">
-              {{'updatePlace.to' | translate}}
-            </ion-label>
-            <ion-datetime
-              displayFormat="HH"
-              name="end"
-              [(ngModel)]="place.days['1'].end"
-              #end="ngModel"
-              required
-            ></ion-datetime>
-          </ion-item>
-        </ion-item-group>
+        <mat-accordion>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <ion-icon
+                name="close"
+                large
+                left
+                class="colorDanger clearDateButton"
+                (click)="clearTimes(start1,end1,$event)"
+              ></ion-icon>
+              <span text-uppercase>{{'days.monday' | translate}}</span>
+            </mat-expansion-panel-header>
+            <ion-item-group ngModelGroup="1">
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.from' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="start"
+                  [(ngModel)]="place.days['1'].start"
+                  #start1="ngModel"
+                ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.to' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="end"
+                  [(ngModel)]="place.days['1'].end"
+                  #end1="ngModel"
+                ></ion-datetime>
+              </ion-item>
+            </ion-item-group>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <ion-icon
+                name="close"
+                large
+                left
+                class="colorDanger
+              clearDateButton"
+                (click)="clearTimes(start2,end2,$event)"
+              ></ion-icon>
+              <span text-uppercase>{{'days.tuesday' | translate}}</span>
+            </mat-expansion-panel-header>
+            <ion-item-group ngModelGroup="2">
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.from' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="start"
+                  [(ngModel)]="place.days['2'].start"
+                  #start2="ngModel"
+                ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.to' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="end"
+                  [(ngModel)]="place.days['2'].end"
+                  #end2="ngModel"
+                ></ion-datetime>
+              </ion-item>
+            </ion-item-group>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <ion-icon
+                name="close"
+                large
+                left
+                class="colorDanger clearDateButton"
+                (click)="clearTimes(start3,end3,$event)"
+              ></ion-icon>
+              <span text-uppercase>{{'days.wednesday' | translate}}</span>
+            </mat-expansion-panel-header>
+            <ion-item-group ngModelGroup="3">
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.from' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="start"
+                  [(ngModel)]="place.days['3'].start"
+                  #start3="ngModel"
+                ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.to' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="end"
+                  [(ngModel)]="place.days['3'].end"
+                  #end3="ngModel"
+                ></ion-datetime>
+              </ion-item>
+            </ion-item-group>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <ion-icon
+                name="close"
+                large
+                left
+                class="colorDanger clearDateButton"
+                (click)="clearTimes(start4,end4,$event)"
+              ></ion-icon>
+              <span text-uppercase>{{'days.thursday' | translate}}</span>
+            </mat-expansion-panel-header>
+            <ion-item-group ngModelGroup="4">
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.from' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="start"
+                  [(ngModel)]="place.days['4'].start"
+                  #start4="ngModel"
+                ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.to' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="end"
+                  [(ngModel)]="place.days['4'].end"
+                  #end4="ngModel"
+                ></ion-datetime>
+              </ion-item>
+            </ion-item-group>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <ion-icon
+                name="close"
+                large
+                left
+                class="colorDanger clearDateButton"
+                (click)="clearTimes(start5,end5,$event)"
+              ></ion-icon>
+              <span text-uppercase>{{'days.friday' | translate}}</span>
+            </mat-expansion-panel-header>
+            <ion-item-group ngModelGroup="5">
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.from' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="start"
+                  [(ngModel)]="place.days['5'].start"
+                  #start5="ngModel"
+                ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.to' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="end"
+                  [(ngModel)]="place.days['5'].end"
+                  #end5="ngModel"
+                ></ion-datetime>
+              </ion-item>
+            </ion-item-group>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <ion-icon
+                name="close"
+                large
+                left
+                class="colorDanger clearDateButton"
+                (click)="clearTimes(start6,end6,$event)"
+              ></ion-icon>
+              <span text-uppercase>{{'days.saturday' | translate}}</span>
+            </mat-expansion-panel-header>
+            <ion-item-group ngModelGroup="6">
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.from' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="start"
+                  [(ngModel)]="place.days['6'].start"
+                  #start6="ngModel"
+                ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.to' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="end"
+                  [(ngModel)]="place.days['6'].end"
+                  #end6="ngModel"
+                ></ion-datetime>
+              </ion-item>
+            </ion-item-group>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <ion-icon
+                name="close"
+                large
+                left
+                class="colorDanger clearDateButton"
+                (click)="clearTimes(start7,end7,$event)"
+              ></ion-icon>
+              <span text-uppercase>{{'days.sunday' | translate}}</span>
+            </mat-expansion-panel-header>
+            <ion-item-group ngModelGroup="7">
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.from' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="start"
+                  [(ngModel)]="place.days['7'].start"
+                  #start7="ngModel"
+                ></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  {{'createPlace.to' | translate}}
+                </ion-label>
+                <ion-datetime
+                  displayFormat="HH:mm"
+                  name="end"
+                  [(ngModel)]="place.days['7'].end"
+                  #end7="ngModel"
+                ></ion-datetime>
+              </ion-item>
+            </ion-item-group>
+          </mat-expansion-panel>
+
+        </mat-accordion>
       </ion-item-group>
+
+
+
     </div>
 
     <ion-grid>

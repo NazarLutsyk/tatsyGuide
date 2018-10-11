@@ -3,7 +3,11 @@
   <ion-navbar hideBackButton>
     <ion-title></ion-title>
   </ion-navbar>
-  <ion-searchbar (ionInput)="onSearchPlaces($event)" (ionCancel)="onSearchPlaces($event)">
+  <ion-searchbar
+    (ionInput)="onSearchPlaces($event)"
+    (ionCancel)="onSearchPlaces($event)"
+    [placeholder]="'home.searchBar' | translate"
+  >
   </ion-searchbar>
 </ion-header>
 
@@ -17,7 +21,8 @@
     <ion-list>
       <ion-item *ngFor="let place of places" (click)="toDetails(place._id)">
         <ion-thumbnail item-start>
-          <img [src]="globalHost+place?.avatar">
+          <img *ngIf="place.avatar" [src]="globalHost+place?.avatar">
+          <img *ngIf="!place.avatar" src='assets/imgs/empty-place.svg'>
         </ion-thumbnail>
         <h2 class="fontBold">{{place?.multilang[0]?.name}}</h2>
         <span> <ion-icon name="star"></ion-icon> {{place?.rating| number:'1.0-2'}} </span>

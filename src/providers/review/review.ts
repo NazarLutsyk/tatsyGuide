@@ -21,4 +21,14 @@ export class ReviewProvider {
     return this.http.get<any>(url);
   }
 
+  findMany(request) {
+    let url = this.globalConfig.getGlobalHost() + `/api/reviews/all?`;
+    for (const key in request) {
+      if (request[key]) {
+        url += `${key}=${JSON.stringify(request[key])}&`;
+      }
+    }
+    return this.http.get<any>(url);
+  }
+
 }

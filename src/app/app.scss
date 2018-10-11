@@ -20,6 +20,17 @@ $font-family-ios-base: 'Roboto'';
 $font-family-md-base: ' Roboto ';
 $font-family-wp-base: ' Roboto '';
 
+.create-place-button {
+  font-weight: bold;
+  color: #e28409;
+}
+
+.create-place-button ion-icon {
+  font-weight: bold;
+  color: #e28409;
+  padding-right: 10px;
+}
+
 .toolbar-background {
   background: map_get($colors, defaultApp) !important;
 
@@ -58,6 +69,7 @@ $font-family-wp-base: ' Roboto '';
   background: map-get($colors, defaultApp);
 
 }
+
 .defaultBackgroundBrown, button.defaultBackgroundBrown.activated {
   background: map-get($colors, defaultApp2);
 
@@ -276,30 +288,31 @@ ion-item.item-input-has-focus .item-inner {
   box-shadow: inset 0 -1px 0 0 transparent !important;
 }
 
-.button-md:hover:not(.disable-hover).defaultBackground, .button-ios:hover:not(.disable-hover).defaultBackground{
-  background: map_get($colors,defaultApp);
+.button-md:hover:not(.disable-hover).defaultBackground, .button-ios:hover:not(.disable-hover).defaultBackground {
+  background: map_get($colors, defaultApp);
 }
 
-.icon-delete{
+.icon-delete {
   color: #dd434c;
 }
 
-.icon-update, .icon-apply{
+.icon-update, .icon-apply {
   color: #caab85;
 }
 
-.navTitleColor{
- color: map_get($colors,light);
+.navTitleColor {
+  color: map_get($colors, light);
 }
 
-ion-app.md [padding] .scroll-content,ion-app.ios [padding] .scroll-content {
+ion-app.md [padding] .scroll-content, ion-app.ios [padding] .scroll-content {
   padding: 0 !important;
 }
 
-.buttonBorderWidth1px{
+.buttonBorderWidth1px {
   border-right-width: 1px !important;
   border-left-width: 1px !important;
 }
-.warningColor{
+
+.warningColor {
   color: #dd434c;
 }

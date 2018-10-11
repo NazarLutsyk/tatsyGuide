@@ -4,7 +4,7 @@ import {Place} from "../../models/place/Place";
 import {PlaceMultilang} from "../../models/multilang/PlaceMultilang";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
-import {NgForm} from "@angular/forms";
+import {NgForm, NgModel} from "@angular/forms";
 import {zip} from "rxjs/observable/zip";
 import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
 import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
@@ -128,6 +128,8 @@ export class UpdatePlacePage {
   }
 
   updatePlace(updateForm: NgForm) {
+    const formPlace = updateForm.form.value;
+
     let toUpload: any = {};
     let uploadImg = new Observable((subscriber) => subscriber.next(true));
     if (this.avatarToUpload) {
@@ -142,7 +144,7 @@ export class UpdatePlacePage {
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
 
-    if (this.isAdmin && updateForm.form.value.place.topCategories) {
+    if (updateForm.form.value.place.topCategories) {
       this.place.topCategories = updateForm.form.value.place.topCategories;
 
     }
@@ -150,15 +152,39 @@ export class UpdatePlacePage {
     this.place.images = this.imagesToUpdate;
     this.place.hashTags =
       this.hashTags.length > 0 ? this.hashTags.replace(/[#' ']/gi, '').split(',').filter(value => value.length > 0) : [];
-    this.place.days = {
-      1: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
-      2: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
-      3: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
-      4: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
-      5: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
-      6: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end},
-      7: {start: updateForm.form.value.place.days[1].start, end: updateForm.form.value.place.days[1].end}
-    };
+    this.place.days = (() => {
+      let inputtedDays = {
+        1: {start: '', end: ''},
+        2: {start: '', end: ''},
+        3: {start: '', end: ''},
+        4: {start: '', end: ''},
+        5: {start: '', end: ''},
+        6: {start: '', end: ''},
+        7: {start: '', end: ''}
+      };
+      if (this.place.days[1].start && this.place.days[1].end) {
+        inputtedDays[1] = {start: this.place.days[1].start, end: this.place.days[1].end}
+      }
+      if (this.place.days[2].start && this.place.days[2].end) {
+        inputtedDays[2] = {start: this.place.days[2].start, end: this.place.days[2].end}
+      }
+      if (this.place.days[3].start && this.place.days[3].end) {
+        inputtedDays[3] = {start: this.place.days[3].start, end: this.place.days[3].end}
+      }
+      if (this.place.days[4].start && this.place.days[4].end) {
+        inputtedDays[4] = {start: this.place.days[4].start, end: this.place.days[4].end}
+      }
+      if (this.place.days[5].start && this.place.days[5].end) {
+        inputtedDays[5] = {start: this.place.days[5].start, end: this.place.days[5].end}
+      }
+      if (this.place.days[6].start && this.place.days[6].end) {
+        inputtedDays[6] = {start: this.place.days[6].start, end: this.place.days[6].end}
+      }
+      if (this.place.days[7].start && this.place.days[7].end) {
+        inputtedDays[7] = {start: this.place.days[7].start, end: this.place.days[7].end}
+      }
+      return inputtedDays;
+    })();
     this.place.location = this.location;
 
     let placeUpdateQuery = this.placeService.update(this.placeId, this.place);
@@ -220,5 +246,11 @@ export class UpdatePlacePage {
     let pictures = await this.imagePicker.getPictures(options);
     this.imagesToUpload.push(...pictures);
     this.imagesToShow.push(...pictures);
+  }
+
+  clearTimes(start: NgModel, end: NgModel, event) {
+    event.stopPropagation();
+    start.control.setValue(null);
+    end.control.setValue(null);
   }
 }

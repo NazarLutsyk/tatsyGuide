@@ -10,10 +10,9 @@
         <ion-label>{{'switchLang' | translate}}</ion-label>
         <ion-toggle [(ngModel)]='languageSwitcher' (ionChange)="switchLang()"></ion-toggle>
       </ion-item>
-      <button
-        ion-item
-        (click)="contactAdmin()">
-        {{'sideMenu.leftMenu.contact' | translate}}
+      <button class="create-place-button" ion-item *ngIf="principal" (click)="goToCreatePlacePage()">
+        <ion-icon name="add" left></ion-icon>
+        {{'sideMenu.leftMenu.createPlace' | translate}}
       </button>
       <button
         ion-item
@@ -72,8 +71,10 @@
       <button ion-item *ngIf="principal" (click)="goToMyRatingsPage()">
         {{'sideMenu.leftMenu.myTestimonials' | translate}}
       </button>
-      <button ion-item *ngIf="principal" (click)="goToCreatePlacePage()">
-        {{'sideMenu.leftMenu.createPlace' | translate}}
+      <button
+        ion-item
+        (click)="contactAdmin()">
+        {{'sideMenu.leftMenu.contact' | translate}}
       </button>
       <button ion-item *ngIf="principal" (click)="logout()">
         {{'sideMenu.leftMenu.logout' | translate}}

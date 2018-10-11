@@ -8,8 +8,8 @@
 <ion-content>
 
   <ion-slides *ngIf="place.images && place.images.length > 0">
-    <ion-slide *ngFor="let image of place.images">
-      <ion-img #img src="{{globalHost}}{{image}}" (click)="showPhoto(img.src)"></ion-img>
+    <ion-slide *ngFor="let image of place.images; let i = index;">
+      <ion-img #img src="{{globalHost}}{{image}}" (click)="showPhoto(i)"></ion-img>
     </ion-slide>
   </ion-slides>
 
@@ -25,17 +25,17 @@
     <ion-row>
 
       <ion-row col-12 margin-bottom>
-          <button
-            *ngIf="place.allowed"
-            ion-button
-            icon-start
-            full
-            strong
-            class="defaultBackground iconWhite"
-            (click)="toDrinkerPage()">
-            <ion-icon name="ios-beer-outline"></ion-icon>
-            {{'placeInfo.drinker' |translate}}
-          </button>
+        <button
+          *ngIf="place.allowed"
+          ion-button
+          icon-start
+          full
+          strong
+          class="defaultBackground iconWhite"
+          (click)="toDrinkerPage()">
+          <ion-icon name="ios-beer-outline"></ion-icon>
+          {{'placeInfo.drinker' |translate}}
+        </button>
       </ion-row>
 
       <ion-col col>
@@ -61,6 +61,112 @@
     <ion-row>
       <ion-col col>
         <mat-accordion>
+          <mat-expansion-panel *ngIf="place.multilang[0].description">
+            <mat-expansion-panel-header>
+              {{'placeInfo.descr' | translate}}
+            </mat-expansion-panel-header>
+            <p>{{place.multilang[0].description}}</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              {{'placeInfo.calendar'| translate}}
+            </mat-expansion-panel-header>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <span text-uppercase>{{'days.monday'|translate}}</span>:
+                </ion-col>
+                <ion-col>
+                  <strong *ngIf="place.days['1'].start && place.days['1'].end">
+                    {{place.days["1"].start}} - {{place.days["1"].end}}
+                  </strong>
+                  <strong *ngIf="!(place.days['1'].start && place.days['1'].end)">
+                    {{'placeInfo.holiday'| translate}}
+                  </strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span text-uppercase>{{'days.tuesday'|translate}}</span>:
+                </ion-col>
+                <ion-col>
+                  <strong *ngIf="place.days['2'].start && place.days['2'].end">
+                    {{place.days["2"].start}} - {{place.days["2"].end}}
+                  </strong>
+                  <strong *ngIf="!(place.days['2'].start && place.days['2'].end)">
+                    {{'placeInfo.holiday'| translate}}
+                  </strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span text-uppercase>{{'days.wednesday'|translate}}</span>:
+                </ion-col>
+                <ion-col>
+                  <strong *ngIf="place.days['3'].start && place.days['3'].end">
+                    {{place.days["3"].start}} - {{place.days["3"].end}}
+                  </strong>
+                  <strong *ngIf="!(place.days['3'].start && place.days['3'].end)">
+                    {{'placeInfo.holiday'| translate}}
+                  </strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span text-uppercase>{{'days.thursday'|translate}}</span>:
+                </ion-col>
+                <ion-col>
+                  <strong *ngIf="place.days['4'].start && place.days['4'].end">
+                    {{place.days["4"].start}} - {{place.days["4"].end}}
+                  </strong>
+                  <strong *ngIf="!(place.days['4'].start && place.days['4'].end)">
+                    {{'placeInfo.holiday'| translate}}
+                  </strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span text-uppercase>{{'days.friday'|translate}}</span>:
+                </ion-col>
+                <ion-col>
+                  <strong *ngIf="place.days['5'].start && place.days['5'].end">
+                    {{place.days["5"].start}} - {{place.days["5"].end}}
+                  </strong>
+                  <strong *ngIf="!(place.days['5'].start && place.days['5'].end)">
+                    {{'placeInfo.holiday'| translate}}
+                  </strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span text-uppercase>{{'days.saturday'|translate}}</span>:
+                </ion-col>
+                <ion-col>
+                  <strong *ngIf="place.days['6'].start && place.days['6'].end">
+                    {{place.days["6"].start}} - {{place.days["6"].end}}
+                  </strong>
+                  <strong *ngIf="!(place.days['6'].start && place.days['6'].end)">
+                    {{'placeInfo.holiday'| translate}}
+                  </strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <span text-uppercase>{{'days.sunday'|translate}}</span>:
+                </ion-col>
+                <ion-col>
+                  <strong *ngIf="place.days['7'].start && place.days['7'].end">
+                    {{place.days["7"].start}} - {{place.days["7"].end}}
+                  </strong>
+                  <strong *ngIf="!(place.days['7'].start && place.days['7'].end)">
+                    {{'placeInfo.holiday'| translate}}
+                  </strong>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </mat-expansion-panel>
+
           <mat-expansion-panel *ngIf="place.topCategories && place.topCategories.length > 0">
             <mat-expansion-panel-header>
               {{"placeInfo.category" | translate}}
@@ -82,46 +188,6 @@
               </li>
             </ul>
           </mat-expansion-panel>
-
-          <mat-expansion-panel *ngIf="place.multilang[0].description">
-            <mat-expansion-panel-header>
-              {{'placeInfo.descr' | translate}}
-            </mat-expansion-panel-header>
-            <p>{{place.multilang[0].description}}</p>
-          </mat-expansion-panel>
-
-          <!--<mat-expansion-panel>-->
-            <!--<mat-expansion-panel-header>-->
-              <!--{{'placeInfo.info' |translate}}-->
-            <!--</mat-expansion-panel-header>-->
-            <!--<ul>-->
-              <!--<li *ngIf="place.features.wifi">-->
-                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
-                <!--wifi-->
-              <!--</li>-->
-              <!--<li *ngIf="place.features.parking">-->
-                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
-                <!--{{'placeInfo.parking' | translate}}-->
-              <!--</li>-->
-              <!--<li *ngIf="place.features.karaoke">-->
-                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
-                <!--{{'placeInfo.karaoke'|translate}}-->
-              <!--</li>-->
-              <!--<li *ngIf="place.features.vipRoom">-->
-                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
-                <!--{{'placeInfo.vipRoom'|translate}}-->
-              <!--</li>-->
-              <!--<li *ngIf="place.features.businessLunch">-->
-                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
-                <!--{{'placeInfo.businessLunch'|translate}}-->
-              <!--</li>-->
-              <!--<li *ngIf="place.features.dayAndNight">-->
-                <!--<ion-icon name="checkmark" padding-right="5px"></ion-icon>-->
-                <!--{{'placeInfo.dayAndNight'|translate}}-->
-              <!--</li>-->
-            <!--</ul>-->
-          <!--</mat-expansion-panel>-->
-
           <mat-expansion-panel *ngIf="place.hashTags && place.hashTags.length > 0">
             <mat-expansion-panel-header>
               {{'placeInfo.tags' | translate}}
@@ -155,15 +221,6 @@
           {{place.phone}}
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
-          <ion-icon name="ios-clock-outline"></ion-icon>
-        </ion-col>
-        <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
-          {{place.days["1"].start}} -
-          {{place.days["1"].end}}
-        </ion-col>
-      </ion-row>
       <ion-row *ngIf="place.email" (click)="connectToManager(place.email)">
         <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
           <ion-icon name="ios-mail-outline"></ion-icon>
@@ -185,7 +242,7 @@
           <ion-icon name="ios-pin-outline"></ion-icon>
         </ion-col>
         <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
-          {{place?.city?.multilang[0]?.name}} {{place.multilang[0].address.street}}
+          {{place?.city?.multilang[0]?.name}}, {{place.multilang[0].address.street}},
           {{place.multilang[0].address.number}}
         </ion-col>
       </ion-row>

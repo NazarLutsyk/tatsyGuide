@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Events, IonicPage, NavController} from 'ionic-angular';
-import {NgForm} from "@angular/forms";
+import {NgForm, NgModel} from "@angular/forms";
 import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
 import {PlaceTypeMultilangProvider} from "../../providers/place-type-multilang/place-type-multilang";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
@@ -97,28 +97,53 @@ export class CreatePlacePage {
       place: ''
     };
     let place: any = {
-      phone: formPlace.phone,
-      email: formPlace.email,
-      // features: formPlace.features,
-      types: formPlace.types ? formPlace.types : [],
-      city: formPlace.city,
-      site: formPlace.site,
-      kitchens: formPlace.kitchens ? formPlace.kitchens : [],
-      hashTags: formPlace.hashTags.replace(/[# ]/gi, '').split(',').filter(value => value.length > 0),
-      days: {
-        1: {start: formPlace.days[1].start, end: formPlace.days[1].end},
-        2: {start: formPlace.days[1].start, end: formPlace.days[1].end},
-        3: {start: formPlace.days[1].start, end: formPlace.days[1].end},
-        4: {start: formPlace.days[1].start, end: formPlace.days[1].end},
-        5: {start: formPlace.days[1].start, end: formPlace.days[1].end},
-        6: {start: formPlace.days[1].start, end: formPlace.days[1].end},
-        7: {start: formPlace.days[1].start, end: formPlace.days[1].end}
-      },
-      location: this.location
-    };
+        phone: formPlace.phone,
+        email: formPlace.email,
+        // features: formPlace.features,
+        types: formPlace.types ? formPlace.types : [],
+        city: formPlace.city,
+        site: formPlace.site,
+        kitchens: formPlace.kitchens ? formPlace.kitchens : [],
+        hashTags: formPlace.hashTags.replace(/[# ]/gi, '').split(',').filter(value => value.length > 0),
+        days: (() => {
+          let inputtedDays = {
+            1: {start: '', end: ''},
+            2: {start: '', end: ''},
+            3: {start: '', end: ''},
+            4: {start: '', end: ''},
+            5: {start: '', end: ''},
+            6: {start: '', end: ''},
+            7: {start: '', end: ''}
+          };
+          if (formPlace.days[1].start && formPlace.days[1].end) {
+            inputtedDays[1] = {start: formPlace.days[1].start, end: formPlace.days[1].end}
+          }
+          if (formPlace.days[2].start && formPlace.days[2].end) {
+            inputtedDays[2] = {start: formPlace.days[2].start, end: formPlace.days[2].end}
+          }
+          if (formPlace.days[3].start && formPlace.days[3].end) {
+            inputtedDays[3] = {start: formPlace.days[3].start, end: formPlace.days[3].end}
+          }
+          if (formPlace.days[4].start && formPlace.days[4].end) {
+            inputtedDays[4] = {start: formPlace.days[4].start, end: formPlace.days[4].end}
+          }
+          if (formPlace.days[5].start && formPlace.days[5].end) {
+            inputtedDays[5] = {start: formPlace.days[5].start, end: formPlace.days[5].end}
+          }
+          if (formPlace.days[6].start && formPlace.days[6].end) {
+            inputtedDays[6] = {start: formPlace.days[6].start, end: formPlace.days[6].end}
+          }
+          if (formPlace.days[7].start && formPlace.days[7].end) {
+            inputtedDays[7] = {start: formPlace.days[7].start, end: formPlace.days[7].end}
+          }
+          return inputtedDays;
+        })(),
+        location: this.location,
+        topCategories: formPlace.topCategories ? formPlace.topCategories : []
+      }
+    ;
 
     if (this.isAdmin) {
-      place.topCategories = formPlace.topCategories ? formPlace.topCategories : [];
       place.allowed = formPlace.allowed;
     }
 
@@ -136,5 +161,11 @@ export class CreatePlacePage {
     if (format.test(nameValue)) {
       this.nameInput = nameValue.slice(0, -1);
     }
+  }
+
+  clearTimes(start: NgModel, end: NgModel, event) {
+    event.stopPropagation();
+    start.control.setValue(null);
+    end.control.setValue(null);
   }
 }

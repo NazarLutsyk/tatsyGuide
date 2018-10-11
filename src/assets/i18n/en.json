@@ -1,5 +1,10 @@
 {
+  "home":{
+    "searchBar": "Name or #tag"
+  },
   "placeInfo": {
+    "calendar": "Calendar",
+    "holiday": "Holiday",
     "complaint": "Complaint",
     "contactToManager": "Contact to manager",
     "reviews": "reviews",
@@ -143,7 +148,7 @@
     "allowed": "Allowed",
     "yes": "Yes",
     "no": "No",
-    "tags": "Tags (coma separated)",
+    "tags": "Tags",
     "phone": "Phone",
     "email": "email",
     "location": "Choose location",
@@ -559,5 +564,14 @@
       "Nov",
       "Dec"
     ]
+  },
+  "days":{
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   }
 }

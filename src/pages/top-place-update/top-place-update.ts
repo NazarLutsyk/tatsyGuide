@@ -4,6 +4,7 @@ import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {NgForm} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
 @Component({
@@ -19,7 +20,8 @@ export class TopPlaceUpdatePage {
     public navParams: NavParams,
     private topPlaceService: TopPlaceProvider,
     private translate: TranslateService,
-    private globalConfig : GlobalConfigsService
+    private globalConfig : GlobalConfigsService,
+    public datePickerConfig: DateTimePickerConfigProvider
   ) {
 
     // this.translate.setDefaultLang("en");

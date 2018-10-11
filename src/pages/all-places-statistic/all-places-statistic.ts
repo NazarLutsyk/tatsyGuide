@@ -4,9 +4,11 @@ import {NgForm} from "@angular/forms";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {PlaceDeatilsPage} from "../place-deatils/place-deatils";
-import {Observable} from "rxjs/Observable";
 import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
-import {TranslateService} from "@ngx-translate/core";
+import {LangProvider} from "../../providers/lang/lang";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
+import {Observable} from "rxjs";
+import {ReviewProvider} from "../../providers/review/review";
 
 @IonicPage()
 @Component({
@@ -17,6 +19,12 @@ export class AllPlacesStatisticPage {
 
   globalHost;
   places: any[] = [];
+  selectedLang = '';
+  langs = [];
+
+
+  start;
+  end;
 
   skip = 0;
   pageSize = 7;
@@ -29,77 +37,86 @@ export class AllPlacesStatisticPage {
     private placeService: PlacesProvider,
     private globalConfig: GlobalConfigsService,
     private placeMultilangService: PlaceMultilangProvider,
-    private translate: TranslateService
+    private langsService: LangProvider,
+    public datePickerConfig: DateTimePickerConfigProvider,
+    private reviewService: ReviewProvider
   ) {
     this.globalHost = globalConfig.getGlobalHost();
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {
+    this.selectedLang = this.globalConfig.getGlobalLang();
+    this.langsService.find({}).subscribe(langs => this.langs = langs);
     this.loadStat().subscribe(places => this.places = places);
   }
 
-  loadStat(start = null, end = null) {
-    let query: any = {};
-    if (start && end) {
-      query.createdAt = {
-        $gte: start,
-        $lte: end
+  loadStat() {
+    let matchStatisticQuery: any = {};
+    if (this.start && this.end) {
+      matchStatisticQuery = {
+        start: this.start,
+        end: this.end
       };
     }
     return new Observable<any[]>((subscriber) => {
       this.placeService.find({
-        populate: [
+        aggregate: [
           {
-            path: 'multilang',
-            match: {lang: this.globalConfig.getGlobalLang()}
+            $lookup: {
+              from: 'multilangs',
+              localField: '_id',
+              foreignField: 'place',
+              as: 'multilang',
+            }
+          },
+          {$unwind: "$multilang"},
+          {
+            $match: {
+              'multilang.lang': this.selectedLang,
+            }
           },
           {
-            path: 'statistic',
-            match: query
-          }
-        ],
-        skip: this.skip,
-        limit: this.limit
+            $group: {
+              _id: '$_id',
+              multilang: {$addToSet: '$multilang'},
+              avatar: {$first: '$avatar'}
+            }
+          },
+          {$skip: this.skip},
+          {$limit: this.limit},
+        ]
       }).subscribe((places) => {
-        let okPlaces = [];
-        let otherPlacesIds = [];
-        for (const place of places) {
-          if (!place.multilang || place.multilang.length === 0) {
-            otherPlacesIds.push(place._id);
-          } else {
-            okPlaces.push(place);
+        let allPlaces = [...this.places, ...places];
+        let placeIds = allPlaces
+          .map(place => place._id)
+          .filter((v, i, a) => a.indexOf(v) === i);
+        this.reviewService.findMany({
+          query: {
+            places: placeIds,
+            ...matchStatisticQuery
           }
-        }
-        if (otherPlacesIds.length > 0) {
-          this.placeService.find({
-            query: {_id: {$in: otherPlacesIds}},
-            populate: [
-              {path: 'multilang', options: {limit: 1}},
-              {path: 'statistic', match: query}
-            ],
-            skip: this.skip,
-            limit: this.limit
-          }).subscribe((places) => {
-            okPlaces.push(...places);
-            subscriber.next(okPlaces);
-          });
-        } else {
-          subscriber.next(okPlaces);
-        }
-      });
+        }).subscribe(({count}) => {
+          for (const place of allPlaces) {
+            let foundedCount = count.find(singleCount => singleCount._id === place._id);
+            if (foundedCount) {
+              place.statistic = foundedCount.count;
+            } else {
+              place.statistic = 0;
+            }
+          }
+          subscriber.next(places);
+        })
+      })
     });
   }
 
   getStat(searchForm: NgForm) {
-    this.loadStat(searchForm.form.value.start, searchForm.form.value.end).subscribe(places => this.places = places);
+    this.loadStat().subscribe(places => this.places = places);
   }
 
   doRefresh(refresher: Refresher) {
     this.skip = 0;
     this.allLoaded = false;
-
     this.loadStat().subscribe(places => {
       this.places = places;
       refresher.complete();
@@ -107,7 +124,7 @@ export class AllPlacesStatisticPage {
   }
 
   toDetails(place) {
-    this.navCtrl.push(PlaceDeatilsPage, {id: place._id});
+    this.navCtrl.push(PlaceDeatilsPage, {id: place._id, preferredLanguage: this.selectedLang});
   }
 
   loadNextStatisticPage(event: InfiniteScroll) {
@@ -126,5 +143,9 @@ export class AllPlacesStatisticPage {
 
   setNextPage() {
     this.skip += this.pageSize;
+  }
+
+  changeLang() {
+    this.loadStat().subscribe(places => this.places = places);
   }
 }

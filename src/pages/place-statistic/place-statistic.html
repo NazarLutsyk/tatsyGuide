@@ -7,10 +7,22 @@
 <ion-content>
   <form #searchForm="ngForm" (ngSubmit)="getStat(searchForm)">
     <ion-item>
-      <ion-datetime ngModel name="start" placeholder="{{'allPlaceStatistics.start' | translate}}"></ion-datetime>
+      <ion-datetime
+        ngModel
+        name="start"
+        placeholder="{{'allPlaceStatistics.start' | translate}}"
+        [monthShortNames]="datePickerConfig.getShortMonths() | async"
+        [monthNames]="datePickerConfig.getMonths() | async"
+      ></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-datetime ngModel name="end" placeholder="{{'allPlaceStatistics.end' | translate}}"></ion-datetime>
+      <ion-datetime
+        ngModel
+        name="end"
+        placeholder="{{'allPlaceStatistics.end' | translate}}"
+        [monthShortNames]="datePickerConfig.getShortMonths() | async"
+        [monthNames]="datePickerConfig.getMonths() | async"
+      ></ion-datetime>
     </ion-item>
     <button ion-button type="submit" full [outline]="false" class="defaultBackgroundBrown" padding="50px" >{{'allPlaceStatistics.search' | translate}}</button>
   </form>

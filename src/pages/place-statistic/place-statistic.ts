@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {ReviewProvider} from "../../providers/review/review";
 import {NgForm} from "@angular/forms";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
 @Component({
@@ -15,7 +16,8 @@ export class PlaceStatisticPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private reviewService: ReviewProvider
+    private reviewService: ReviewProvider,
+    public datePickerConfig: DateTimePickerConfigProvider
   ) {
   }
 

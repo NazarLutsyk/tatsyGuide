@@ -8,6 +8,8 @@ import {createTranslateLoader} from "../../app/app.module";
 import {CallNumber} from "@ionic-native/call-number";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
+import * as ionicGalleryModal from 'ionic-gallery-modal';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
   imports: [
     IonicPageModule.forChild(PlaceInfoPage),
     MatExpansionModule,
+    ionicGalleryModal.GalleryModalModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -28,7 +31,11 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
   providers: [
     CallNumber,
     PhotoViewer,
-    InAppBrowser
+    InAppBrowser,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: ionicGalleryModal.GalleryModalHammerConfig,
+    },
   ]
 })
 export class PlaceInfoPageModule {

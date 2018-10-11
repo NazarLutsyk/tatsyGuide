@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {TranslateService} from "@ngx-translate/core";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
 @Component({
@@ -18,7 +19,8 @@ export class CreateTopPlacePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private topPlaceService: TopPlaceProvider,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public datePickerConfig: DateTimePickerConfigProvider
   ) {
   }
 

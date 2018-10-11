@@ -5,15 +5,37 @@
 </ion-header>
 
 <ion-content >
+
+  <ion-item>
+    <ion-label>{{'myPlaces.selectLang' | translate}}</ion-label>
+    <ion-select [(ngModel)]="selectedLang" (ionChange)="changeLang($event)">
+      <ion-option [value]="lang._id" *ngFor="let lang of langs">
+        {{lang.name}}
+      </ion-option>
+    </ion-select>
+  </ion-item>
+
   <form #searchForm="ngForm" (ngSubmit)="getStat(searchForm)">
     <ion-item>
 
-      <ion-datetime ngModel name="start" placeholder="{{'allPlaceStatistics.start' | translate}}">
+      <ion-datetime
+        [(ngModel)]="start"
+        name="start"
+        placeholder="{{'allPlaceStatistics.start' | translate}}"
+        [monthShortNames]="datePickerConfig.getShortMonths() | async"
+        [monthNames]="datePickerConfig.getMonths() | async"
+      >
 
       </ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-datetime ngModel name="end" placeholder="{{'allPlaceStatistics.end' | translate}}">
+      <ion-datetime
+        [(ngModel)]="end"
+        name="end"
+        placeholder="{{'allPlaceStatistics.end' | translate}}"
+        [monthShortNames]="datePickerConfig.getShortMonths() | async"
+        [monthNames]="datePickerConfig.getMonths() | async"
+      >
 
       </ion-datetime>
     </ion-item>
@@ -31,10 +53,11 @@
 
     <ion-item *virtualItem="let place" (click)="toDetails(place)">
       <ion-thumbnail item-start>
-        <img [src]="globalHost+place?.avatar">
+        <img *ngIf="place.avatar" [src]="globalHost+place?.avatar">
+        <img *ngIf="!place.avatar" src="assets/imgs/empty-place.svg">
       </ion-thumbnail>
       <h2>{{place?.multilang[0]?.name}}</h2>
-      <p>{{place.statistic.length}}</p>
+      <p>{{place.statistic}}</p>
       <ion-icon item-end name="ios-arrow-dropright"></ion-icon>
 
     </ion-item>

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {MailProvider} from "../../providers/mail/mail";
+import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
 @Component({
@@ -16,7 +17,8 @@ export class TopPlaceApplicationPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private mailService: MailProvider
+    private mailService: MailProvider,
+    public datePickerConfig: DateTimePickerConfigProvider
   ) {
   }
 

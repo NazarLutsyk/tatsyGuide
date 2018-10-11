@@ -17,6 +17,8 @@
         ngModel
         #startDate="ngModel"
         required
+        [monthShortNames]="datePickerConfig.getShortMonths() | async"
+        [monthNames]="datePickerConfig.getMonths() | async"
       ></ion-datetime>
     </ion-item>
     <ion-item>
@@ -28,6 +30,8 @@
         ngModel
         #endDate="ngModel"
         required
+        [monthShortNames]="datePickerConfig.getShortMonths() | async"
+        [monthNames]="datePickerConfig.getMonths() | async"
       ></ion-datetime>
     </ion-item>
     <button ion-button full [disabled]="!form.valid" (click)="sendApp(form)">{{'topPlaceApplication.send' | translate}}</button>

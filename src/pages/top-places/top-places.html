@@ -17,7 +17,8 @@
     <ion-list>
       <ion-item *ngFor="let place of topPlaces" (click)="toDetails(place)">
         <ion-thumbnail item-start>
-          <img [src]="globalHost+place?.avatar">
+          <img *ngIf="place.avatar" [src]="globalHost+place?.avatar">
+          <img *ngIf="!place.avatar" src='assets/imgs/empty-place.svg'>
         </ion-thumbnail>
         <h2>{{place?.multilang[0]?.name}}</h2>
         <span> <ion-icon name="star"></ion-icon> {{place?.rating| number:'1.0-2'}} </span>

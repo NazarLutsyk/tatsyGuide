@@ -26,9 +26,9 @@ import {CreateTopPlacePage} from "../create-top-place/create-top-place";
 import {TranslateService} from "@ngx-translate/core";
 import {CallNumber} from '@ionic-native/call-number';
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
-import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {TopPlaceApplicationPage} from "../top-place-application/top-place-application";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
+import { GalleryModal } from 'ionic-gallery-modal';
 
 declare var window: any;
 
@@ -62,7 +62,6 @@ export class PlaceInfoPage {
     private auth: AuthProvider,
     private callNumber: CallNumber,
     public actionSheetCtrl: ActionSheetController,
-    private photoViewer: PhotoViewer,
     private globalConfig: GlobalConfigsService,
     public translate: TranslateService,
     private iab: InAppBrowser
@@ -321,8 +320,12 @@ export class PlaceInfoPage {
     this.app.getRootNav().push(TopPlaceApplicationPage, {place: this.place, client: this.principal});
   }
 
-  showPhoto(url) {
-    this.photoViewer.show(url);
+  showPhoto(index) {
+    let modal = this.modal.create(GalleryModal, {
+      photos: this.place.images.map(image => {return {url: this.globalHost + image}}),
+      initialSlide: index
+    });
+    modal.present();
   }
 
   goToPlaceSite(site: string) {
