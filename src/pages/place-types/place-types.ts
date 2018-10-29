@@ -47,6 +47,7 @@ export class PlaceTypesPage {
   loadPlaceTypes() {
     return this.placeTypeMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()},
+      sort: {name: 1}
     });
   }
 

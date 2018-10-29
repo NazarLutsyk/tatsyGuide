@@ -47,6 +47,7 @@ export class AllKitchensPage {
   loadKitchens() {
     return this.kitchenMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()},
+      sort: {name: 1}
     });
   }
 

@@ -285,19 +285,23 @@ export class MyApp implements OnInit {
       this.auth.loadPrincipal(),
       this.placeTypeMultilangService.find({
         query: {lang: this.globalConfig.getGlobalLang()},
-        populate: [{path: 'placeType'}]
+        populate: [{path: 'placeType'}],
+        sort: {name: 1}
       }),
       this.kitchensMultilangService.find({
         query: {lang: this.globalConfig.getGlobalLang()},
-        populate: [{path: 'kitchen'}]
+        populate: [{path: 'kitchen'}],
+        sort: {name: 1}
       }),
       this.topCategoriesMultilangService.find({
         query: {lang: this.globalConfig.getGlobalLang()},
-        populate: [{path: 'topCategory'}]
+        populate: [{path: 'topCategory'}],
+        sort: {name: 1}
       }),
       this.citiesMultilangService.find({
         query: {lang: this.globalConfig.getGlobalLang()},
-        populate: [{path: 'city'}]
+        populate: [{path: 'city'}],
+        sort: {name: 1}
       }),
     ).subscribe(([principal, placeTypesM, kitchensM, topCategoriesM, citiesM]) => {
       this.placeTypesM = placeTypesM;

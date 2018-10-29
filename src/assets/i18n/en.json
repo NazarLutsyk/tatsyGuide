@@ -2,6 +2,9 @@
   "home":{
     "searchBar": "Name or #tag"
   },
+  "allpromos":{
+    "searchBar": "Name"
+  },
   "placeInfo": {
     "calendar": "Calendar",
     "holiday": "Holiday",

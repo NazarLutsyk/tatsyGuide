@@ -2,6 +2,9 @@
   "home": {
     "searchBar": "Назва або #тег"
   },
+  "allpromos": {
+    "searchBar": "Назва"
+  },
   "placeInfo": {
     "calendar": "Розклад",
     "holiday": "Вихідний",

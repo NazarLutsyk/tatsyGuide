@@ -2,7 +2,11 @@
   <ion-navbar>
     <ion-title></ion-title>
   </ion-navbar>
-  <ion-searchbar (ionInput)="onSearchPromos($event)" (ionCancel)="onSearchPromos($event)">
+  <ion-searchbar
+    (ionInput)="onSearchPromos($event)"
+    (ionCancel)="onSearchPromos($event)"
+    [placeholder]="'allpromos.searchBar' | translate"
+  >
   </ion-searchbar>
 </ion-header>
 

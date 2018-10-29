@@ -47,6 +47,7 @@ export class AllCitiesPage {
   loadCities() {
     return this.cityMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()},
+      sort: {name: 1}
     });
   }
 

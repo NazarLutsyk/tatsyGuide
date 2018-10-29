@@ -47,6 +47,7 @@ export class AllTopCategoriesPage {
   loadTopCategories() {
     return this.topCategoryMultilangService.find({
       query: {lang: this.globalConfig.getGlobalLang()},
+      sort: {name: 1}
     });
   }
 
