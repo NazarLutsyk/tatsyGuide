@@ -23,9 +23,7 @@ export class MapPage {
     private translate : TranslateService
     ) {
     this.currentPlace = this.navParams.data;
-    console.log(this.currentPlace.location.lat, this.currentPlace.location.lng);
     this.map = {
-
       lat: this.currentPlace.location.lat,
       lng: this.currentPlace.location.lng,
       zoom: 13,

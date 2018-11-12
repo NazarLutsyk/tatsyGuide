@@ -13,7 +13,7 @@
   </ion-refresher>
 
 
-  <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
+  <ion-row *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
     <button ion-button full [outline]="true"
             class="defaultBackground2"
             (click)="goToCreateBonuse()">

@@ -45,7 +45,7 @@ export class PlaceDeatilsPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              platform: Platform,
+              public platform: Platform,
               private menuController: MenuController,
               // private storage: Storage,
               private auth: AuthProvider,

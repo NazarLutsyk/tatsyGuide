@@ -195,9 +195,9 @@ ion-alert {
     [aria-checked=true] .alert-radio-icon, .alert-radio-icon {
       border-color: map_get($colors, defaultApp2);
     }
-    .alert-radio-inner {
-      background-color: map_get($colors, defaultApp2);
-    }
+    //.alert-radio-inner {
+    //  background-color: map_get($colors, defaultApp2);
+    //}
 
     [aria-checked=true] .alert-radio-label {
       color: #000;
@@ -315,4 +315,16 @@ ion-app.md [padding] .scroll-content, ion-app.ios [padding] .scroll-content {
 
 .warningColor {
   color: #dd434c;
+}
+
+.title-ios{
+  .toolbar-title-ios{
+    overflow: initial!important;
+  }
+}
+
+.toolbar-ios {
+  ion-title{
+    padding: 0 0!important;
+  }
 }

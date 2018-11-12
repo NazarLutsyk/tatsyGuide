@@ -2,7 +2,10 @@
   <ion-navbar>
     <ion-title>
       <ion-row>
-        <ion-col col-10 >
+        <ion-col *ngIf="platform.is('ios')" col-8 offset-2 text-center>
+          {{place?.multilang[0]?.name}}
+        </ion-col>
+        <ion-col *ngIf="!platform.is('ios')" col-10 text-center>
           {{place?.multilang[0]?.name}}
         </ion-col>
         <ion-col col-2>

@@ -32,16 +32,16 @@ export class ChooseLocationPage {
     public navParams: NavParams, private placeService: PlacesProvider,
     private navCtrl: NavController) {
 
-    this.placeService.promisefyMyPosition().then(position => {
+    // this.placeService.promisefyMyPosition().then(position => {
       this.map = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+        lat: 50.431782 ,/*position.coords.latitude,*/
+        lng: 30.516382,/*position.coords.longitude,*/
         zoom: 13,
       };
-      this.marker = {position: {lat: position.coords.latitude, lng: position.coords.longitude}};
+      // this.marker = {position: {lat: position.coords.latitude, lng: position.coords.longitude}};
+      this.marker = {position: {lat: 50.431782, lng: 30.516382}};
 
-
-    });
+    // });
 
   }
 

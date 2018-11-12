@@ -66,7 +66,7 @@ export class MyApp implements OnInit {
   citiesM = [];
   kitchensM = [];
   searchObject = {
-    range: {lower: 0, upper: 10000},
+    range: {lower: 0, upper: 600},
     direction: false,
     // filterFeature: {wifi: false, karaoke: false, parking: false, vipRoom: false},
     placeType: [],

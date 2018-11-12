@@ -12,7 +12,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
+  <div *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
     <button outline ion-button full class="defaultBackground2" (click)="goToCreateEvent()">
       {{'allEvents.create' | translate}}
     </button>

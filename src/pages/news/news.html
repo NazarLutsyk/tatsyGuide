@@ -6,13 +6,12 @@
 
 </ion-header>
 
-
 <ion-content>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-row margin-top="10px" *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
+  <ion-row *ngIf="principal && (departments?.length > 0 || principal?.roles.indexOf('ADMIN') >= 0)">
     <button
       ion-button full [outline]="true" class="defaultBackground2"
       (click)="goToCreateNews()">{{'news.create' | translate}}

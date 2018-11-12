@@ -91,13 +91,14 @@
 <ion-menu *ngIf="rightMenu === 'places'" [content]="content" side="right" id="rightSideMenu" type="overlay">
   <ion-header>
     <ion-toolbar>
-      <ion-title>{{'sideMenu.titleRight'|translate}}
+      <ion-title>
+        {{'sideMenu.titleRight'|translate}}
       </ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <form #filterForm="ngForm"></form>
-    <ion-list radio-group [(ngModel)]="searchObject.sort">
+    <ion-list radio-group [(ngModel)]="searchObject.sort" no-margin>
       <ion-item>
         <ion-label>{{'sideMenu.filters.noSort' | translate}}</ion-label>
         <ion-radio value=""></ion-radio>
@@ -118,13 +119,12 @@
         <ion-label>{{'sideMenu.filters.location' | translate}}</ion-label>
         <ion-radio value="location"></ion-radio>
       </ion-item>
+      <ion-item>
+        <ion-label *ngIf="searchObject.direction != true">{{'sideMenu.filters.asc' | translate}}</ion-label>
+        <ion-label *ngIf="searchObject.direction != false">{{'sideMenu.filters.desc' | translate}}</ion-label>
+        <ion-checkbox color="danger" checked="false" [(ngModel)]="searchObject.direction"></ion-checkbox>
+      </ion-item>
     </ion-list>
-    <ion-item>
-      <ion-label *ngIf="searchObject.direction != true">{{'sideMenu.filters.asc' | translate}}</ion-label>
-      <ion-label *ngIf="searchObject.direction != false">{{'sideMenu.filters.desc' | translate}}</ion-label>
-      <ion-checkbox color="danger" checked="false" [(ngModel)]="searchObject.direction"></ion-checkbox>
-    </ion-item>
-
     <ion-item>
       <ion-label>{{'sideMenu.filters.range' | translate}}</ion-label>
       <ion-range dualKnobs="true" [(ngModel)]="searchObject.range" min="0" max="600" step="1">

@@ -202,7 +202,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    SearchCityModalPageModule
+        SearchCityModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [],
