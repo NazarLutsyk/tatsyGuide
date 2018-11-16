@@ -20,6 +20,13 @@ $font-family-ios-base: 'Roboto'';
 $font-family-md-base: ' Roboto ';
 $font-family-wp-base: ' Roboto '';
 
+body{
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 .create-place-button {
   font-weight: bold;
   color: #e28409;

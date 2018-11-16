@@ -244,22 +244,20 @@ export class AllPlacesPage {
   onSearchPlaces(event) {
     this.skip = 0;
     this.allLoaded = false;
-    setTimeout(() => {
-      let searchStrInput = event.target.value || '';
-      if (searchStrInput.indexOf('#') > -1) {
-        this.searchHashTags = searchStrInput
-          .trim()
-          .replace(' ', '')
-          .split(',')
-          .filter(value => value.length > 0 && value[0] === '#')
-          .map(value => value.replace('#', ''));
-        this.searchStr = '';
-      } else {
-        this.searchStr = searchStrInput.trim();
-        this.searchHashTags = [];
-      }
-      this.findPlacesByFilter(this.eventData);
-    }, 500);
+    let searchStrInput = event.target.value || '';
+    if (searchStrInput.indexOf('#') > -1) {
+      this.searchHashTags = searchStrInput
+        .trim()
+        .replace(' ', '')
+        .split(',')
+        .filter(value => value.length > 0 && value[0] === '#')
+        .map(value => value.replace('#', ''));
+      this.searchStr = '';
+    } else {
+      this.searchStr = searchStrInput.trim();
+      this.searchHashTags = [];
+    }
+    this.findPlacesByFilter(this.eventData);
   }
 
   toDetails(id) {

@@ -18,6 +18,7 @@ export class AllDrinkApplicationsPage {
 
   principal;
   drinkApps: DrinkApplication[];
+  searchDrinkAppId;
 
   skip = 0;
   pageSize = 7;
@@ -27,6 +28,9 @@ export class AllDrinkApplicationsPage {
     city: ''
   };
   placeQuery: any = {
+    query: {}
+  };
+  drinkAppQuery: any = {
     query: {}
   };
 
@@ -72,9 +76,15 @@ export class AllDrinkApplicationsPage {
     this.placeQuery = {
       query: {}
     };
+    this.drinkAppQuery = {
+      query: {}
+    };
 
     if (dataQuery.city) {
       this.placeQuery.query['place.city'] = dataQuery.city;
+    }
+    if (this.searchDrinkAppId){
+      this.drinkAppQuery.query._id = this.searchDrinkAppId;
     }
   }
 
@@ -83,6 +93,9 @@ export class AllDrinkApplicationsPage {
 
     return this.drinkAppsService.find({
       aggregate: [
+        {
+          $match: {...this.drinkAppQuery.query}
+        },
         {
           $lookup: {
             from: 'clients',
@@ -159,8 +172,16 @@ export class AllDrinkApplicationsPage {
   }
 
   goToSelectPlacePage() {
-    console.log('notify');
     this.navCtrl.parent.select(1);
     this.events.publish('click-drink-app-create');
   }
+
+  onSearchDrinkApp(event) {
+    this.skip = 0;
+    this.allLoaded = false;
+    let searchStrInput = event.target.value || '';
+    this.searchDrinkAppId = searchStrInput.trim();
+    this.loadDrinkApps(this.eventData).subscribe(dapps => this.drinkApps = dapps);
+  }
+
 }

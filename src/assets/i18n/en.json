@@ -1,8 +1,8 @@
 {
-  "home":{
+  "home": {
     "searchBar": "Name or #tag"
   },
-  "allpromos":{
+  "allpromos": {
     "searchBar": "Name"
   },
   "placeInfo": {
@@ -489,17 +489,17 @@
   "modalTestimonial": {
     "close": "Close",
     "title": "Add testimonial",
-    "message":"Message",
-    "rating":"Rating",
-    "1star":"Stars",
-    "2star":"Stars",
-    "3star":"Stars",
-    "4star":"Stars",
-    "5star":"Stars",
-    "sum":"Sum",
-    "create":"Create",
-    "client":"Client",
-    "place":"Place"
+    "message": "Message",
+    "rating": "Rating",
+    "1star": "Stars",
+    "2star": "Stars",
+    "3star": "Stars",
+    "4star": "Stars",
+    "5star": "Stars",
+    "sum": "Sum",
+    "create": "Create",
+    "client": "Client",
+    "place": "Place"
   },
   "topPlaceApplication": {
     "title": "Top place application",
@@ -533,13 +533,16 @@
     "confirm": "Confirm"
   },
   "drinkApplicationToast": {
-    "selectPlace": "Please, select place..."
+    "selectPlace": "Please, select place...",
+    "faq": "Пиячок - це гід, який допоможе вам знайти компаньйона на чашку кави або чогось міцнішого. Для цього оберіть заявку для душі або створіть власну.",
+    "faqHeader": "Welcome!",
+    "geoInfo": "Для коректної роботи додатку, увімкніть геоданні"
   },
-  "allDrinkApplications":{
+  "allDrinkApplications": {
     "create": "Create"
   },
   "dateTimePicker": {
-    "fullMonths":[
+    "fullMonths": [
       "January",
       "February",
       "March",
@@ -553,7 +556,7 @@
       "November",
       "December"
     ],
-    "shortMonths":[
+    "shortMonths": [
       "Jan",
       "Feb",
       "Mar",
@@ -568,7 +571,7 @@
       "Dec"
     ]
   },
-  "days":{
+  "days": {
     "monday": "Monday",
     "tuesday": "Tuesday",
     "wednesday": "Wednesday",

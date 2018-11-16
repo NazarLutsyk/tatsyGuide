@@ -3,7 +3,12 @@
   <ion-navbar>
     <ion-title></ion-title>
   </ion-navbar>
-
+  <ion-searchbar
+    (ionInput)="onSearchDrinkApp($event)"
+    (ionCancel)="onSearchDrinkApp($event)"
+    placeholder="ID (5be2cd0f4edc73038e9a0a23)"
+  >
+  </ion-searchbar>
 </ion-header>
 
 

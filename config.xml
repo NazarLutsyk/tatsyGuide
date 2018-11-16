@@ -133,4 +133,11 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCl26RXei_CpAVlUt-1k81QkcWSqk08P3s" />
     </plugin>
     <plugin name="com.googlemaps.ios" spec="https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.3.2">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.367749237931-40hreoq4435emgnp2rdpi6gm36jsk6l4" />
+    </plugin>
+    <allow-navigation href="http://192.168.0.2:8100" sessionid="58775d12" />
+    <plugin name="cordova.plugins.diagnostic" spec="4.0.10" />
+    <engine name="android" spec="^6.3.0" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>

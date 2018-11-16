@@ -34,12 +34,12 @@ export class ChooseLocationPage {
 
     // this.placeService.promisefyMyPosition().then(position => {
       this.map = {
-        lat: 50.431782 ,/*position.coords.latitude,*/
-        lng: 30.516382,/*position.coords.longitude,*/
+        lat: 49.83826 ,/*position.coords.latitude,*/
+        lng: 24.02324,/*position.coords.longitude,*/
         zoom: 13,
       };
       // this.marker = {position: {lat: position.coords.latitude, lng: position.coords.longitude}};
-      this.marker = {position: {lat: 50.431782, lng: 30.516382}};
+      this.marker = {position: {lat: 49.83826, lng: 24.02324}};
 
     // });
 

@@ -115,6 +115,7 @@ import {PromoProvider} from '../providers/promo/promo';
 import {AllPromosPageModule} from "../pages/all-promos/all-promos.module";
 import {DateTimePickerConfigProvider} from '../providers/date-time-picker-config/date-time-picker-config';
 import {SearchCityModalPageModule} from "../pages/search-city-modal/search-city-modal.module";
+import {Diagnostic} from "@ionic-native/diagnostic";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -209,6 +210,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     GooglePlus,
     Facebook,
+    Diagnostic,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -256,7 +258,6 @@ export function createTranslateLoader(http: HttpClient) {
     TopCategoryMultilangProvider,
     PromoProvider,
     DateTimePickerConfigProvider,
-
   ],
   exports: [
 

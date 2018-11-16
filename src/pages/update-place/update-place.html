@@ -165,43 +165,43 @@
         </ion-grid>
       </div>
       <!--<ion-list ngModelGroup="features">-->
-        <!--<ion-list-header>{{'updatePlace.features' | translate}}</ion-list-header>-->
-        <!--<ion-item>-->
-          <!--<ion-label>-->
-            <!--{{'updatePlace.wifi' | translate}}-->
-          <!--</ion-label>-->
-          <!--<ion-checkbox name="wifi" [(ngModel)]="place.features.wifi"></ion-checkbox>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label>-->
-            <!--{{'updatePlace.karaoke' | translate}}-->
-          <!--</ion-label>-->
-          <!--<ion-checkbox name="karaoke" [(ngModel)]="place.features.karaoke"></ion-checkbox>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label>-->
-            <!--{{'updatePlace.parking' | translate}}-->
-          <!--</ion-label>-->
-          <!--<ion-checkbox name="parking" [(ngModel)]="place.features.parking"></ion-checkbox>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label>-->
-            <!--{{'updatePlace.vipRoom' | translate}}-->
-          <!--</ion-label>-->
-          <!--<ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label>-->
-            <!--{{'updatePlace.businessLunch' | translate}}-->
-          <!--</ion-label>-->
-          <!--<ion-checkbox name="businessLunch" [(ngModel)]="place.features.businessLunch"></ion-checkbox>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label>-->
-            <!--{{'updatePlace.dayAndNight' | translate}}-->
-          <!--</ion-label>-->
-          <!--<ion-checkbox name="dayAndNight" [(ngModel)]="place.features.dayAndNight"></ion-checkbox>-->
-        <!--</ion-item>-->
+      <!--<ion-list-header>{{'updatePlace.features' | translate}}</ion-list-header>-->
+      <!--<ion-item>-->
+      <!--<ion-label>-->
+      <!--{{'updatePlace.wifi' | translate}}-->
+      <!--</ion-label>-->
+      <!--<ion-checkbox name="wifi" [(ngModel)]="place.features.wifi"></ion-checkbox>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+      <!--<ion-label>-->
+      <!--{{'updatePlace.karaoke' | translate}}-->
+      <!--</ion-label>-->
+      <!--<ion-checkbox name="karaoke" [(ngModel)]="place.features.karaoke"></ion-checkbox>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+      <!--<ion-label>-->
+      <!--{{'updatePlace.parking' | translate}}-->
+      <!--</ion-label>-->
+      <!--<ion-checkbox name="parking" [(ngModel)]="place.features.parking"></ion-checkbox>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+      <!--<ion-label>-->
+      <!--{{'updatePlace.vipRoom' | translate}}-->
+      <!--</ion-label>-->
+      <!--<ion-checkbox name="vipRoom" [(ngModel)]="place.features.vipRoom"></ion-checkbox>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+      <!--<ion-label>-->
+      <!--{{'updatePlace.businessLunch' | translate}}-->
+      <!--</ion-label>-->
+      <!--<ion-checkbox name="businessLunch" [(ngModel)]="place.features.businessLunch"></ion-checkbox>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+      <!--<ion-label>-->
+      <!--{{'updatePlace.dayAndNight' | translate}}-->
+      <!--</ion-label>-->
+      <!--<ion-checkbox name="dayAndNight" [(ngModel)]="place.features.dayAndNight"></ion-checkbox>-->
+      <!--</ion-item>-->
       <!--</ion-list>-->
       <ion-item>
         <ion-label [ngStyle]="{'color': (types.invalid && types.touched) ? 'red' : ''}">
@@ -308,6 +308,7 @@
                   name="start"
                   [(ngModel)]="place.days['1'].start"
                   #start1="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
               <ion-item>
@@ -319,6 +320,7 @@
                   name="end"
                   [(ngModel)]="place.days['1'].end"
                   #end1="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
             </ion-item-group>
@@ -345,6 +347,7 @@
                   displayFormat="HH:mm"
                   name="start"
                   [(ngModel)]="place.days['2'].start"
+                  minuteValues="00,10,20,30,40,50"
                   #start2="ngModel"
                 ></ion-datetime>
               </ion-item>
@@ -356,6 +359,7 @@
                   displayFormat="HH:mm"
                   name="end"
                   [(ngModel)]="place.days['2'].end"
+                  minuteValues="00,10,20,30,40,50"
                   #end2="ngModel"
                 ></ion-datetime>
               </ion-item>
@@ -383,6 +387,7 @@
                   name="start"
                   [(ngModel)]="place.days['3'].start"
                   #start3="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
               <ion-item>
@@ -394,6 +399,7 @@
                   name="end"
                   [(ngModel)]="place.days['3'].end"
                   #end3="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
             </ion-item-group>
@@ -420,6 +426,7 @@
                   name="start"
                   [(ngModel)]="place.days['4'].start"
                   #start4="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
               <ion-item>
@@ -431,6 +438,7 @@
                   name="end"
                   [(ngModel)]="place.days['4'].end"
                   #end4="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
             </ion-item-group>
@@ -457,6 +465,7 @@
                   name="start"
                   [(ngModel)]="place.days['5'].start"
                   #start5="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
               <ion-item>
@@ -468,6 +477,7 @@
                   name="end"
                   [(ngModel)]="place.days['5'].end"
                   #end5="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
             </ion-item-group>
@@ -494,6 +504,7 @@
                   name="start"
                   [(ngModel)]="place.days['6'].start"
                   #start6="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
               <ion-item>
@@ -505,6 +516,7 @@
                   name="end"
                   [(ngModel)]="place.days['6'].end"
                   #end6="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
             </ion-item-group>
@@ -531,6 +543,7 @@
                   name="start"
                   [(ngModel)]="place.days['7'].start"
                   #start7="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
               <ion-item>
@@ -542,6 +555,7 @@
                   name="end"
                   [(ngModel)]="place.days['7'].end"
                   #end7="ngModel"
+                  minuteValues="00,10,20,30,40,50"
                 ></ion-datetime>
               </ion-item>
             </ion-item-group>
@@ -549,7 +563,6 @@
 
         </mat-accordion>
       </ion-item-group>
-
 
 
     </div>

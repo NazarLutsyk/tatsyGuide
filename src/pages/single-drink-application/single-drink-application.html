@@ -37,6 +37,10 @@
         <h2>{{'drinker.when' | translate}} :</h2>
         <p> {{drinkApp?.date | date:'dd/MM/yyyy HH:mm':'UTC/GMT'}}</p>
       </ion-item>
+      <ion-item>
+        <h2>ID :</h2>
+        <p> {{drinkApp?._id}}</p>
+      </ion-item>
     </ion-list>
     <form
       #commentForm="ngForm"

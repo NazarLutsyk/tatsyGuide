@@ -25,7 +25,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-tabs (ionChange)="handleChangeTab($event)">
+<ion-tabs (ionChange)="handleChangeTab($event)" #tabs>
   <ion-tab [root]="topPlacesTab" tabTitle="{{'tab.top' | translate}}"
            tabIcon="ios-information-circle-outline"></ion-tab>
   <ion-tab [root]="placesTab" tabTitle="{{'tab.home' | translate}}" tabIcon="ios-home-outline"></ion-tab>

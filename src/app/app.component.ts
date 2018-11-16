@@ -48,6 +48,8 @@ import {KitchenMultilangProvider} from "../providers/kitchen-multilang/kitchen-m
 import {TopCategoryMultilangProvider} from "../providers/top-category-multilang/top-category-multilang";
 import {MailProvider} from "../providers/mail/mail";
 import {SearchCityModalPage} from "../pages/search-city-modal/search-city-modal";
+import {Diagnostic} from "@ionic-native/diagnostic";
+import {PopoverPage} from "../pages/popover/popover";
 
 
 @Component({
@@ -94,7 +96,7 @@ export class MyApp implements OnInit {
 
   constructor(public platform: Platform,
               statusBar: StatusBar,
-              splashScreen: SplashScreen,
+              private splashScreen: SplashScreen,
               private placeTypeService: PlaceTypeProvider,
               private placeService: PlacesProvider,
               private placeTypeMultilangService: PlaceTypeMultilangProvider,
@@ -117,13 +119,9 @@ export class MyApp implements OnInit {
               private toastController: ToastController,
               private alertController: AlertController,
               private mailService: MailProvider,
-              private modalCtrl: ModalController
+              private modalCtrl: ModalController,
+              private diagnostic: Diagnostic
   ) {
-    platform
-      .ready().then(() => {
-        splashScreen.hide();
-      }
-    );
   }
 
   ngOnInit(): void {
@@ -136,6 +134,18 @@ export class MyApp implements OnInit {
       console.log('getlocation', this.getLocation);
       if (this.getLang && this.getLocation/* && this.getCity*/) {
         console.log('init other settings');
+        this.diagnostic.isLocationEnabled().then((gpsEnabled) => {
+          if (!gpsEnabled) {
+            this.translate.get('drinkApplicationToast.geoInfo').subscribe((geoInfo) => {
+              let geoInfoAlert = this.alertController.create({
+                enableBackdropDismiss: true,
+                message: geoInfo
+              });
+              geoInfoAlert.present();
+            });
+          }
+        }, () => {
+        });
         this.init();
       }
     }, (err) => {
@@ -145,6 +155,32 @@ export class MyApp implements OnInit {
     // this.configGlobalCity();
     this.configGlobalLang();
     this.configGlobalLocation();
+    this.welcomePopovers();
+  }
+
+  private welcomePopovers() {
+    this.storage.get('initialpopover').then((show) => {
+      if (show || show === null) {
+        let modalPage = this.modalCtrl.create(
+          PopoverPage,
+          {},
+          {enableBackdropDismiss: false, showBackdrop: false}
+        );
+        modalPage.present();
+        modalPage.onWillDismiss(() => {
+          this.translate.get(['drinkApplicationToast.faq', 'drinkApplicationToast.faqHeader']).subscribe((trans) => {
+            let drinkerGuideAlert = this.alertController.create(
+              {
+                enableBackdropDismiss: true,
+                title: trans['drinkApplicationToast.faqHeader'],
+                message: trans['drinkApplicationToast.faq']
+              }
+            );
+            drinkerGuideAlert.present();
+          });
+        });
+      }
+    });
   }
 
   private configTabs() {
@@ -230,7 +266,7 @@ export class MyApp implements OnInit {
     console.log('load location');
     if (this.platform.is("android") || this.platform.is("ios")) {
       console.log('mobile location');
-      this.geolocation.getCurrentPosition({timeout: 6000}).then((position) => {
+      this.geolocation.getCurrentPosition({timeout: 8000}).then((position) => {
         this.globalConfig.globalPosition.latitude = position.coords.latitude;
         this.globalConfig.globalPosition.longitude = position.coords.longitude;
         this.doneSubject.next('location');
@@ -529,7 +565,7 @@ export class MyApp implements OnInit {
       $event.value = this.selectedCity;
     });
     modal.present().then(() => {
-       $event.close();
+      $event.close();
     });
     return false;
   }
