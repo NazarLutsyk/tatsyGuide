@@ -213,22 +213,37 @@
           {{place.averagePrice}} {{'placeInfo.currency'|translate}}.
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="place.phone">
-        <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
-          <ion-icon name="ios-call-outline"></ion-icon>
-        </ion-col>
-        <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px" (click)="callToPlace()">
-          {{place.phone}}
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="place.email" (click)="connectToManager(place.email)">
-        <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
-          <ion-icon name="ios-mail-outline"></ion-icon>
-        </ion-col>
-        <ion-col col offset-1 class="silverUnderline" padding-bottom="12px" padding-top="12px">
-          {{place.email}}
-        </ion-col>
-      </ion-row>
+
+      <div *ngIf="place.phones && place.phones.length > 0">
+        <ion-row align-items-center>
+          <ion-col col-1 offset-1 padding-bottom>
+            <ion-icon name="ios-call-outline"></ion-icon>
+          </ion-col>
+          <ion-col col offset-1 class="silverUnderline" padding-bottom padding-top>
+            <ion-label *ngFor="let phone of place.phones" (click)="callToPlace(phone)">
+              {{phone}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div *ngIf="place.emails && place.emails.length > 0">
+        <ion-row align-items-center>
+          <ion-col col-1 offset-1 padding-bottom>
+            <ion-icon name="ios-mail-outline"></ion-icon>
+          </ion-col>
+          <ion-col col offset-1 class="silverUnderline" padding-bottom padding-top>
+            <ion-label
+              *ngFor="let email of place.emails"
+              (click)="connectToManager(email)"
+            >
+              {{email}}
+            </ion-label>
+            <br>
+          </ion-col>
+        </ion-row>
+      </div>
+
       <ion-row *ngIf="place.site" (click)="goToPlaceSite(place.site)">
         <ion-col col-1 offset-1 padding-bottom="12px" padding-top="12px">
           <ion-icon name="globe"></ion-icon>

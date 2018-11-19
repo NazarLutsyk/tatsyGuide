@@ -56,6 +56,22 @@ page-update-place {
     box-shadow: none;
   }
 
+  .email-expansion-panel .mat-expansion-panel-body{
+    padding: 0 0;
+  }
+  .email-expansion-panel .mat-expansion-panel-body .add-email-phone-button{
+    padding: 0 0;
+    background: rgba(42, 255, 0, 0.15);
+  }
+  .email-expansion-panel *{
+    background: none;
+  }
+  [name='add-circle-outline']{
+    font-weight: bold;
+    font-size: 30px;
+    color: #1da800;
+  }
+
 
 
 

@@ -113,32 +113,61 @@
         </ion-label>
         <ion-input name="hashTags" [(ngModel)]="hashTags" placeholder="bear,music"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label [ngStyle]="{'color': (phone.invalid && phone.touched) ? 'red' : ''}">
-          {{'updatePlace.phone' | translate}}
-        </ion-label>
-        <ion-input
-          type="tel"
-          name="phone"
-          [(ngModel)]="place.phone"
-          #phone="ngModel"
-          minlength="6"
-          maxlength="15"
-          placeholder="0671234567"
-          required
-        ></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label [ngStyle]="{'color': (email.invalid && email.touched) ? 'red' : ''}">
-          {{'updatePlace.email' | translate}}
-        </ion-label>
-        <ion-input
-          name="email"
-          [(ngModel)]="place.email"
-          #email="ngModel"
-        ></ion-input>
-      </ion-item>
 
+      <mat-expansion-panel class="email-expansion-panel">
+        <mat-expansion-panel-header>
+          <span text-uppercase>{{'updatePlace.phone' | translate}}</span>
+        </mat-expansion-panel-header>
+        <ion-item-group no-margin no-padding>
+          <ion-item *ngFor="let phone of phones | keyvalue">
+            <button type="button" ion-button icon-only item-start margin-left (click)="removePhone(phone.key, $event)">
+              <ion-icon
+                item-right
+                name="close"
+                large
+                class="colorDanger clearDateButton">
+              </ion-icon>
+            </button>
+            <ion-input
+              [name]="'phone-'+phone.key"
+              [(ngModel)]="phones[phone.key]"
+              type="number"
+              minlength="6"
+              maxlength="15"
+              placeholder="0671234567"
+            ></ion-input>
+          </ion-item>
+          <ion-item class="add-email-phone-button" text-center no-margin no-padding (click)="addPhone()">
+            <ion-icon name="add-circle-outline" no-margin></ion-icon>
+          </ion-item>
+        </ion-item-group>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="email-expansion-panel">
+        <mat-expansion-panel-header>
+          <span text-uppercase>{{'updatePlace.email' | translate}}</span>
+        </mat-expansion-panel-header>
+        <ion-item-group no-margin no-padding>
+          <ion-item *ngFor="let email of emails | keyvalue">
+            <button type="button" ion-button icon-only item-start margin-left (click)="removeEmail(email.key, $event)">
+              <ion-icon
+                item-right
+                name="close"
+                large
+                class="colorDanger clearDateButton">
+              </ion-icon>
+            </button>
+            <ion-input
+              [name]="'email-'+email.key"
+              [(ngModel)]="emails[email.key]"
+            ></ion-input>
+          </ion-item>
+          <ion-item class="add-email-phone-button" text-center no-margin no-padding (click)="addEmail()">
+            <ion-icon name="add-circle-outline" no-margin></ion-icon>
+          </ion-item>
+        </ion-item-group>
+      </mat-expansion-panel>
+      
       <ion-item>
         <ion-label>
           {{'createPlace.site' | translate}}

@@ -186,14 +186,14 @@ export class PlaceInfoPage {
     this.app.getRootNav().push(CreateTopPlacePage, place);
   }
 
-  callToPlace() {
+  callToPlace(phone) {
     let alertForCall = this.alertController.create({
-      title: this.place.phone,
+      title: phone,
       buttons: [
         {
           text: 'ok',
           handler: () => {
-            this.callNumber.callNumber(this.place.phone, true)
+            this.callNumber.callNumber(phone, true)
               .then(value => console.log('call number', value))
               .catch(reason => console.log(reason))
           }

@@ -49,6 +49,8 @@ export class UpdatePlacePage {
   imagesToUpdate = [];
   avatarToShow = '';
   avatarToUpload = '';
+  emails = {};
+  phones = {};
 
   constructor(
     public navCtrl: NavController,
@@ -64,10 +66,7 @@ export class UpdatePlacePage {
     private auth: AuthProvider,
     private camera: Camera,
     private imagePicker: ImagePicker,
-    private translate: TranslateService
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
     this.event.subscribe("choosePosition", (data) => {
       this.location.lat = data.lat;
       this.location.lng = data.lng;
@@ -123,6 +122,17 @@ export class UpdatePlacePage {
       this.avatarToShow = this.place.avatar ? this.globalHost + this.place.avatar : '';
       this.imagesToShow = this.place.images ? this.place.images.map(image => this.globalHost + image) : [];
       this.imagesToUpdate = this.place.images ? this.place.images : [];
+
+      let emailsTemp = {};
+      let phonesTemp = {};
+      for (const key in this.place.emails) {
+        emailsTemp[key] = this.place.emails[key];
+      }
+      for (const key in this.place.phones) {
+        phonesTemp[key] = this.place.phones[key];
+      }
+      this.emails = {...emailsTemp};
+      this.phones = {...phonesTemp};
     });
 
   }
@@ -143,11 +153,18 @@ export class UpdatePlacePage {
     }
     this.placeMultilang = updateForm.form.value.multilang;
     this.place = updateForm.form.value.place;
+    for (const key of Object.keys(this.place)) {
+      if (key.match(/(email|phone)-[0-9]/gmi)){
+        delete this.place[key];
+      }
+    }
 
     if (updateForm.form.value.place.topCategories) {
       this.place.topCategories = updateForm.form.value.place.topCategories;
-
     }
+
+    this.place.phones = (<any>Object).values(this.phones).filter(value => value.length > 0);
+    this.place.emails = (<any>Object).values(this.emails).filter(value => value.length > 0);
 
     this.place.images = this.imagesToUpdate;
     this.place.hashTags =
@@ -198,6 +215,7 @@ export class UpdatePlacePage {
       placeMultilangUpdateQuery =
         this.placeMultilangService.create(this.placeMultilang);
     }
+
     zip(
       placeMultilangUpdateQuery,
       placeUpdateQuery,
@@ -252,5 +270,35 @@ export class UpdatePlacePage {
     event.stopPropagation();
     start.control.setValue(null);
     end.control.setValue(null);
+  }
+
+  addEmail() {
+    let keys = Object.keys(this.emails);
+    if (keys.length < 5) {
+      let lastIndex = keys.length > 0 ? +keys[keys.length - 1] + 1 : 0;
+      this.emails[lastIndex] = '';
+      this.emails = {...this.emails};
+    }
+  }
+
+  removeEmail(index, e) {
+    e.stopPropagation();
+    delete this.emails[index];
+    this.emails = {...this.emails};
+  }
+
+  addPhone() {
+    let keys = Object.keys(this.phones);
+    if (keys.length < 5) {
+      let lastIndex = keys.length > 0 ? +keys[keys.length - 1] + 1 : 0;
+      this.phones[lastIndex] = '';
+      this.phones = {...this.phones};
+    }
+  }
+
+  removePhone(index, e) {
+    e.stopPropagation();
+    delete this.phones[index];
+    this.phones = {...this.phones};
   }
 }

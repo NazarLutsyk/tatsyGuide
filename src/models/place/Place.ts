@@ -16,8 +16,8 @@ export class Place {
 
   constructor(
     public _id: string = '',
-    public phone: string = '',
-    public email: string = '',
+    public phones: string[] = [],
+    public emails: string[] = [],
     public site: string = '',
     public averagePrice: number = 0,
     public reviews: number = 0,

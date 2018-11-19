@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {Events, IonicPage, NavController} from 'ionic-angular';
 import {NgForm, NgModel} from "@angular/forms";
 import {PlaceTypeMultilang} from "../../models/multilang/PlaceTypeMultilang";
@@ -22,7 +22,6 @@ import {CityMultilangProvider} from "../../providers/city-multilang/city-multila
   templateUrl: 'create-place.html',
 })
 export class CreatePlacePage {
-
   nameInput = '';
 
   location: any = {lat: 0, lng: 0};
@@ -30,6 +29,9 @@ export class CreatePlacePage {
   kitchensM: KitchenMultilang[] = [];
   topCategoriesM: TopCategoryMultilang[] = [];
   citiesM: CityMultilang[] = [];
+
+  emails = {};
+  phones = {};
 
   isAdmin = false;
 
@@ -97,58 +99,55 @@ export class CreatePlacePage {
       place: ''
     };
     let place: any = {
-        phone: formPlace.phone,
-        email: formPlace.email,
-        // features: formPlace.features,
-        types: formPlace.types ? formPlace.types : [],
-        city: formPlace.city,
-        site: formPlace.site,
-        kitchens: formPlace.kitchens ? formPlace.kitchens : [],
-        hashTags: formPlace.hashTags.replace(/[# ]/gi, '').split(',').filter(value => value.length > 0),
-        days: (() => {
-          let inputtedDays = {
-            1: {start: '', end: ''},
-            2: {start: '', end: ''},
-            3: {start: '', end: ''},
-            4: {start: '', end: ''},
-            5: {start: '', end: ''},
-            6: {start: '', end: ''},
-            7: {start: '', end: ''}
-          };
-          if (formPlace.days[1].start && formPlace.days[1].end) {
-            inputtedDays[1] = {start: formPlace.days[1].start, end: formPlace.days[1].end}
-          }
-          if (formPlace.days[2].start && formPlace.days[2].end) {
-            inputtedDays[2] = {start: formPlace.days[2].start, end: formPlace.days[2].end}
-          }
-          if (formPlace.days[3].start && formPlace.days[3].end) {
-            inputtedDays[3] = {start: formPlace.days[3].start, end: formPlace.days[3].end}
-          }
-          if (formPlace.days[4].start && formPlace.days[4].end) {
-            inputtedDays[4] = {start: formPlace.days[4].start, end: formPlace.days[4].end}
-          }
-          if (formPlace.days[5].start && formPlace.days[5].end) {
-            inputtedDays[5] = {start: formPlace.days[5].start, end: formPlace.days[5].end}
-          }
-          if (formPlace.days[6].start && formPlace.days[6].end) {
-            inputtedDays[6] = {start: formPlace.days[6].start, end: formPlace.days[6].end}
-          }
-          if (formPlace.days[7].start && formPlace.days[7].end) {
-            inputtedDays[7] = {start: formPlace.days[7].start, end: formPlace.days[7].end}
-          }
-          return inputtedDays;
-        })(),
-        location: this.location,
-        topCategories: formPlace.topCategories ? formPlace.topCategories : []
-      }
-    ;
+      phones: (<any>Object).values(this.phones).filter(value => value.length > 0),
+      emails: (<any>Object).values(this.emails).filter(value => value.length > 0),
+      features: formPlace.features,
+      types: formPlace.types ? formPlace.types : [],
+      city: formPlace.city,
+      site: formPlace.site,
+      kitchens: formPlace.kitchens ? formPlace.kitchens : [],
+      hashTags: formPlace.hashTags.replace(/[# ]/gi, '').split(',').filter(value => value.length > 0),
+      days: (() => {
+        let inputtedDays = {
+          1: {start: '', end: ''},
+          2: {start: '', end: ''},
+          3: {start: '', end: ''},
+          4: {start: '', end: ''},
+          5: {start: '', end: ''},
+          6: {start: '', end: ''},
+          7: {start: '', end: ''}
+        };
+        if (formPlace.days[1].start && formPlace.days[1].end) {
+          inputtedDays[1] = {start: formPlace.days[1].start, end: formPlace.days[1].end}
+        }
+        if (formPlace.days[2].start && formPlace.days[2].end) {
+          inputtedDays[2] = {start: formPlace.days[2].start, end: formPlace.days[2].end}
+        }
+        if (formPlace.days[3].start && formPlace.days[3].end) {
+          inputtedDays[3] = {start: formPlace.days[3].start, end: formPlace.days[3].end}
+        }
+        if (formPlace.days[4].start && formPlace.days[4].end) {
+          inputtedDays[4] = {start: formPlace.days[4].start, end: formPlace.days[4].end}
+        }
+        if (formPlace.days[5].start && formPlace.days[5].end) {
+          inputtedDays[5] = {start: formPlace.days[5].start, end: formPlace.days[5].end}
+        }
+        if (formPlace.days[6].start && formPlace.days[6].end) {
+          inputtedDays[6] = {start: formPlace.days[6].start, end: formPlace.days[6].end}
+        }
+        if (formPlace.days[7].start && formPlace.days[7].end) {
+          inputtedDays[7] = {start: formPlace.days[7].start, end: formPlace.days[7].end}
+        }
+        return inputtedDays;
+      })(),
+      location: this.location,
+      topCategories: formPlace.topCategories ? formPlace.topCategories : []
+    };
 
     if (this.isAdmin) {
       place.allowed = formPlace.allowed;
     }
-
     this.navCtrl.push(AddAvatarAndPhotosPage, {place, placeMultilang});
-
   }
 
   goToChooseLocation() {
@@ -167,5 +166,35 @@ export class CreatePlacePage {
     event.stopPropagation();
     start.control.setValue(null);
     end.control.setValue(null);
+  }
+
+  addEmail() {
+    let keys = Object.keys(this.emails);
+    if (keys.length < 5) {
+      let lastIndex = keys.length > 0 ? +keys[keys.length - 1] + 1 : 0;
+      this.emails[lastIndex] = '';
+      this.emails = {...this.emails};
+    }
+  }
+
+  removeEmail(index, e) {
+    e.stopPropagation();
+    delete this.emails[index];
+    this.emails = {...this.emails};
+  }
+
+  addPhone() {
+    let keys = Object.keys(this.phones);
+    if (keys.length < 5) {
+      let lastIndex = keys.length > 0 ? +keys[keys.length - 1] + 1 : 0;
+      this.phones[lastIndex] = '';
+      this.phones = {...this.phones};
+    }
+  }
+
+  removePhone(index, e) {
+    e.stopPropagation();
+    delete this.phones[index];
+    this.phones = {...this.phones};
   }
 }
