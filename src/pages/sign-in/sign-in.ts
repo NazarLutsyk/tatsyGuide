@@ -112,7 +112,10 @@ export class SignInPage {
   isGoogleLoggedIn: boolean = false;
 
   googleLogin() {
-    this.googlePlus.login({})
+    this.googlePlus.login({
+      'webClientId':'367749237931-ndqn6hdo8djbe8u1348vts0s5ovbede0.apps.googleusercontent.com',
+      'offline': true
+    })
       .then(res => {
         console.log(res);
         this.displayName = res.displayName;

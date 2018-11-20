@@ -1,5 +1,14 @@
-import {Component} from '@angular/core';
-import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
+import {Component, Renderer2} from '@angular/core';
+import {
+  AlertController,
+  App,
+  Events,
+  InfiniteScroll,
+  IonicPage,
+  NavController,
+  NavParams,
+  Refresher
+} from 'ionic-angular';
 import {DrinkApplication} from "../../models/drinkApplication/DrinkApplication";
 import {DrinkApplicationProvider} from "../../providers/drinkApplication/drinkApplication-provider";
 import {Observable} from "rxjs/Observable";
@@ -7,6 +16,8 @@ import {UpdateDrinkApplicationPage} from "../update-drink-application/update-dri
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {SingleDrinkApplicationPage} from "../single-drink-application/single-drink-application";
 import {AuthProvider} from "../../providers/auth/auth";
+import {Storage} from "@ionic/storage";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @IonicPage()
@@ -41,11 +52,35 @@ export class AllDrinkApplicationsPage {
     private gc: GlobalConfigsService,
     private drinkAppsService: DrinkApplicationProvider,
     private auth: AuthProvider,
-    private events: Events
+    private events: Events,
+    private renderer: Renderer2,
+    private storage: Storage,
+    private alertController: AlertController,
+    private translate: TranslateService
   ) {
+
+    this.storage.get('firstStart').then((isFirst) => {
+      if (!isFirst) {
+        this.storage.set('firstStart', true);
+        this.translate.get(['drinkApplicationToast.faq', 'drinkApplicationToast.faqHeader']).subscribe((trans) => {
+          let drinkerGuideAlert = this.alertController.create(
+            {
+              enableBackdropDismiss: true,
+              title: trans['drinkApplicationToast.faqHeader'],
+              message: trans['drinkApplicationToast.faq']
+            }
+          );
+          drinkerGuideAlert.present();
+        });
+      }
+    });
+
   }
 
   ngOnInit() {
+    this.renderer.removeClass(document.getElementById('tab-t0-3'), 'pulse');
+
+
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.loadDrinkApps().subscribe((apps) => {
@@ -83,7 +118,7 @@ export class AllDrinkApplicationsPage {
     if (dataQuery.city) {
       this.placeQuery.query['place.city'] = dataQuery.city;
     }
-    if (this.searchDrinkAppId){
+    if (this.searchDrinkAppId) {
       this.drinkAppQuery.query._id = this.searchDrinkAppId;
     }
   }

@@ -11,7 +11,7 @@
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="4000" />
+    <preference name="SplashScreenDelay" value="8000" />
     <preference name="CordovaWebViewEngine" value="CDVUIWebViewEngine" />
     <access launch-external="yes" origin="geo:*" />
     <platform name="android">
@@ -139,5 +139,4 @@
     <allow-navigation href="http://192.168.0.2:8100" sessionid="58775d12" />
     <plugin name="cordova.plugins.diagnostic" spec="4.0.10" />
     <engine name="android" spec="^6.3.0" />
-    <engine name="ios" spec="^4.5.5" />
 </widget>

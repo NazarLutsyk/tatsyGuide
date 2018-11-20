@@ -534,9 +534,9 @@
   },
   "drinkApplicationToast": {
     "selectPlace": "Please, select place...",
-    "faq": "Пиячок - це гід, який допоможе вам знайти компаньйона на чашку кави або чогось міцнішого. Для цього оберіть заявку для душі або створіть власну.",
+    "faq": "`Pyachok` is a guide that helps you find a companion for a cup of coffee or something stronger. To do this, select an application for the soul or create your own.",
     "faqHeader": "Welcome!",
-    "geoInfo": "Для коректної роботи додатку, увімкніть геоданні"
+    "geoInfo": "To enable the application to work properly, enable location."
   },
   "allDrinkApplications": {
     "create": "Create"

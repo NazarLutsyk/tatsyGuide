@@ -167,20 +167,9 @@ export class MyApp implements OnInit {
           {enableBackdropDismiss: false, showBackdrop: false}
         );
         modalPage.present();
-        modalPage.onWillDismiss(() => {
-          this.translate.get(['drinkApplicationToast.faq', 'drinkApplicationToast.faqHeader']).subscribe((trans) => {
-            let drinkerGuideAlert = this.alertController.create(
-              {
-                enableBackdropDismiss: true,
-                title: trans['drinkApplicationToast.faqHeader'],
-                message: trans['drinkApplicationToast.faq']
-              }
-            );
-            drinkerGuideAlert.present();
-          });
-        });
       }
     });
+
   }
 
   private configTabs() {

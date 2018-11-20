@@ -18,5 +18,21 @@ page-home {
     }
   }
 
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      background: rgba(204,169,44, 0.4);
+    }
+    50% {
+      background: rgba(204,169,44, 0);
+    }
+    100% {
+      background: rgba(204,169,44, 0);
+    }
+  }
+
 }
 

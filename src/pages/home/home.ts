@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {AllPlacesPage} from "../all-places/all-places";
 import {TopPlacesPage} from "../top-places/top-places";
 import {AllDrinkApplicationsPage} from "../all-drink-applications/all-drink-applications";
@@ -30,10 +30,16 @@ export class HomePage implements OnInit {
     private events: Events,
     private navCtrl: NavController,
     private alertController: AlertController,
+    private renderer: Renderer2
   ) {
   }
 
   ngOnInit(): void {
+    this.storage.get('firstStart').then((isFirst) => {
+      if (!isFirst) {
+        this.renderer.addClass(document.getElementById('tab-t0-3'), 'pulse');
+      }
+    });
   }
 
   handleChangeTab($event: Tab) {
