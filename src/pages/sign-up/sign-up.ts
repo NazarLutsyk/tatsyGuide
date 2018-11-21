@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, Button, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
 import {TranslateService} from "@ngx-translate/core";
+import {NgForm} from "@angular/forms";
 
 @IonicPage()
 @Component({
@@ -18,8 +19,6 @@ export class SignUpPage {
   login: string = "";
   password: string = "";
 
-  message: string;
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,19 +27,28 @@ export class SignUpPage {
     private app: App,
     private auth: AuthProvider,
     private translate: TranslateService,
-    private globalConfig : GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private toastCtrl: ToastController
   ) {
     // this.translate.setDefaultLang("en");
     // this.translate.use(this.globalConfig.deviceLang);
 
   }
 
-  signUpMe() {
+  signUpMe(form: NgForm, button: Button) {
+    button.getNativeElement().disabled = true;
     this.auth.registration({
       name: this.name, surname: this.surname, email: this.email,
       login: this.login, password: this.password
     }).subscribe(() => {
-      this.message = 'Please check your email, and sign in!';
+      // this.message = 'Please check your email, and sign in!';
+
+      this.translate.get('signUp.toast').subscribe((message) => {
+        this.toastCtrl.create({position: 'top', duration: 3000, message}).present();
+        form.resetForm();
+        button.getNativeElement().disabled = false;
+      });
+
     }, (error) => {
       console.log(error);
     });

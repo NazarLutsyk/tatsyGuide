@@ -117,6 +117,7 @@ import {DateTimePickerConfigProvider} from '../providers/date-time-picker-config
 import {SearchCityModalPageModule} from "../pages/search-city-modal/search-city-modal.module";
 import {Diagnostic} from "@ionic-native/diagnostic";
 import {PipesModule} from "../pipes/pipes.module";
+import {RecoverPasspordPageModule} from "../pages/recover-passpord/recover-passpord.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -198,6 +199,7 @@ export function createTranslateLoader(http: HttpClient) {
     UpdateTopCategoryPageModule,
     AllPromosPageModule,
     PipesModule,
+    RecoverPasspordPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

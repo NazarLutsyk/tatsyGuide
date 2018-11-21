@@ -1,9 +1,12 @@
 <ion-header>
 
   <ion-navbar>
-
-    <ion-title (click)="pop()">
-      <ion-icon name="arrow-round-back" icon-start></ion-icon>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="pop()">
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
       {{'modalChooseLang.message' | translate}}
     </ion-title>
   </ion-navbar>

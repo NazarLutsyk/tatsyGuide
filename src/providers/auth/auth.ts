@@ -26,7 +26,7 @@ export class AuthProvider {
   }
 
   loginByGoolge(token) {
-    console.log("auth google" , token);
+    console.log("auth google", token);
     return this.http
       .post<Client>(`${this.globalVars.getGlobalHost()}/auth/google-native`, {access_token: token})
       .map((principal) => {
@@ -74,5 +74,17 @@ export class AuthProvider {
         this.principal.next(principal);
         return principal;
       });
+  }
+
+  sendCode(email: string, login: string): Observable<boolean> {
+    return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/generateRecoverCode', {email, login});
+  }
+
+  verifyCode(code: string): Observable<boolean> {
+    return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/verifyRecoverCode', {code});
+  }
+
+  changePassword(login: string, email: string, password: string): Observable<boolean> {
+    return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/changePassword', {password, email, login});
   }
 }

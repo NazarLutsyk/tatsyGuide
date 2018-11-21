@@ -272,7 +272,7 @@
       </ion-row>
 
       <ion-row
-        *ngIf="place.allowed"
+        *ngIf="place.allowed && principal && principal._id"
         (click)="sendComplaint()"
         align-items-end="">
         <ion-col col-8 class="text-align-middle fontBold">

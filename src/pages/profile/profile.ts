@@ -27,7 +27,7 @@ export class ProfilePage {
     private app: App,
     private translate: TranslateService,
     private alert: AlertController,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
   ) {
     // this.translate.setDefaultLang("en");
     // this.translate.use(this.globalConfig.deviceLang);
@@ -38,7 +38,7 @@ export class ProfilePage {
       this.client = this.navParams.data;
     }
     this.auth.loadPrincipal().subscribe(client => {
-      if (!this.client._id){
+      if (!this.client._id) {
         this.client = client;
       }
       this.principal = client
@@ -68,6 +68,9 @@ export class ProfilePage {
             handler: () => {
 
               event.stopPropagation();
+              if (this.principal._id === this.client._id) {
+                this.auth.principal.next(null);
+              }
               this.clientService.remove(client._id).subscribe(() => {
                 this.navCtrl.goToRoot({});
               })

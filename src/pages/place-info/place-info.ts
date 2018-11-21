@@ -28,7 +28,8 @@ import {CallNumber} from '@ionic-native/call-number';
 import {PlaceAppliactionsPage} from "../place-appliactions/place-appliactions";
 import {TopPlaceApplicationPage} from "../top-place-application/top-place-application";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
-import { GalleryModal } from 'ionic-gallery-modal';
+import {GalleryModal} from 'ionic-gallery-modal';
+import {Client} from "../../models/client/Client";
 
 declare var window: any;
 
@@ -72,32 +73,34 @@ export class PlaceInfoPage {
     this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
     this.auth.loadPrincipal().subscribe((principal) => {
-      this.principal = principal;
-      if (this.principal) {
-        this.departmentService.find({
-          query: {place: (<any>this.place)._id, client: this.principal._id},
-          populate: [{path: 'client'}]
-        }).subscribe((departments) => {
-          if (departments.length > 0) {
-            let bossIndex = departments.findIndex((value, index, arr) => {
-              return value.roles.indexOf('BOSS_PLACE') >= 0 && value.client.email;
+      this.principal = principal ? principal : new Client();
+      this.departmentService.find({
+        query: {place: (<any>this.place)._id},
+        populate: [{path: 'client'}]
+      }).subscribe((departments) => {
+        if (departments.length > 0) {
+          let bossIndex = departments.findIndex((value, index, arr) => {
+            return value.roles.indexOf('BOSS_PLACE') >= 0 && value.client.email;
+          });
+          if (bossIndex < 0) {
+            bossIndex = departments.findIndex((value, index, arr) => {
+              return value.client.email;
             });
-            if (bossIndex < 0) {
-              bossIndex = departments.findIndex((value, index, arr) => {
-                return value.client.email;
-              });
-            }
-            if (bossIndex >= 0) {
-              this.bossPlaceEmail = departments[bossIndex].client.email;
-            }
+          }
+          if (bossIndex >= 0) {
+            this.bossPlaceEmail = departments[bossIndex].client.email;
+          }
+
+          if (departments.findIndex((value) => value.client._id == this.principal._id) > -1) {
             this.isAdmin = true;
             for (const department of departments) {
-              if (department.roles.indexOf('BOSS_PLACE') >= 0)
+              if (department.roles.indexOf('BOSS_PLACE') >= 0 && department.client._id == this.principal._id)
                 this.isBoss = true;
             }
           }
-        });
-      }
+
+        }
+      });
     });
   }
 
@@ -127,7 +130,31 @@ export class PlaceInfoPage {
   sendComplaint() {
     this.sendEmail(data => {
         this.complaintService.create(new Complaint(null, data.message, null, (<any>this.place)._id)).subscribe();
-        data.message += `\n\tPlace ${this.place.multilang[0].name}`;
+
+        let userName = this.principal && this.principal.name ? this.principal.name : 'Anonim';
+        let userSurname = this.principal && this.principal.surname ? this.principal.surname : '';
+        let userEmail = this.principal && this.principal.email ? this.principal.email : data.from;
+        let placeName = this.place && this.place.multilang && this.place.multilang.length > 0 ? this.place.multilang[0].name : '';
+        let placeEmails = this.place && this.place.emails ? this.place.emails.join('  ') : '';
+        let placeId = this.place && this.place._id ? this.place._id : '';
+
+        data.subject = 'Complaint';
+
+        data.message = `
+                  <h4>User:</h4> 
+                      ${userName} 
+                      ${userSurname} <br>
+                      ${userEmail}
+                  <h4>Message:</h4> 
+                      ${data.message}
+                  <h4>Place:</h4>
+                      ${placeId} <br>
+                      ${placeName} <br>    
+                      ${placeEmails} <br>    
+                  <h4>Admin email:</h4>
+                      ${this.bossPlaceEmail}    
+                `;
+
         this.mailService.sendMail(data).subscribe();
       }
     )
@@ -135,9 +162,46 @@ export class PlaceInfoPage {
 
   connectToManager(email) {
     this.sendEmail(data => {
-      data.message += `\n\tPlace ${this.place.multilang[0].name}`;
-      data.to = email || this.bossPlaceEmail;
-      console.log(data);
+      data.subject = 'You have a message from "Tasty Guide" user';
+      let userName = this.principal && this.principal.name ? this.principal.name : 'Anonim';
+      let userSurname = this.principal && this.principal.surname ? this.principal.surname : '';
+      let userEmail = this.principal && this.principal.email ? this.principal.email : data.from;
+      let placeName = this.place && this.place.multilang && this.place.multilang.length > 0 ? this.place.multilang[0].name : '';
+      let cityName = this.place
+      && this.place.city
+      && (<any>this.place.city).multilang
+      && (<any>this.place.city).multilang.length > 0
+      && (<any>this.place.city).multilang[0].name
+        ? (<any>this.place.city).multilang[0].name : '';
+
+      let streetName = this.place
+      && this.place.multilang
+      && this.place.multilang.length > 0
+      && this.place.multilang[0]
+      && this.place.multilang[0].address
+      && this.place.multilang[0].address.street
+        ? this.place.multilang[0].address.street : '';
+
+      let number = this.place
+      && this.place.multilang
+      && this.place.multilang.length > 0
+      && this.place.multilang[0]
+      && this.place.multilang[0].address
+      && this.place.multilang[0].address.number
+        ? this.place.multilang[0].address.number : '';
+
+      data.message = `
+                  <h4>User:</h4> 
+                      ${userName} 
+                      ${userSurname} <br>
+                      ${userEmail}
+                  <h4>Message:</h4> 
+                      ${data.message}
+                  <h4>Place:</h4>
+                      ${placeName} <br>    
+                      ${cityName} ${streetName} ${number}<br>    
+                `;
+      data.to = email ? email : this.bossPlaceEmail;
       this.mailService.sendMail(data).subscribe();
     });
   }
@@ -322,7 +386,9 @@ export class PlaceInfoPage {
 
   showPhoto(index) {
     let modal = this.modal.create(GalleryModal, {
-      photos: this.place.images.map(image => {return {url: this.globalHost + image}}),
+      photos: this.place.images.map(image => {
+        return {url: this.globalHost + image}
+      }),
       initialSlide: index
     });
     modal.present();

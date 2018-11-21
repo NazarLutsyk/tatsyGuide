@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, Events, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {HomePage} from "../home/home";
@@ -7,6 +7,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {Facebook} from "@ionic-native/facebook";
 import {GooglePlus} from '@ionic-native/google-plus';
 import {TranslateService} from "@ngx-translate/core";
+import {RecoverPasspordPage} from "../recover-passpord/recover-passpord";
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class SignInPage {
     private events: Events,
     private auth: AuthProvider,
     private translate: TranslateService,
-    private globalConfig: GlobalConfigsService
+    private globalConfig: GlobalConfigsService,
+    private modalCtrl: ModalController
   ) {
     fb.getLoginStatus()
       .then(res => {
@@ -117,7 +119,6 @@ export class SignInPage {
       'offline': true
     })
       .then(res => {
-        console.log(res);
         this.displayName = res.displayName;
         this.email = res.email;
         this.familyName = res.familyName;
@@ -134,4 +135,8 @@ export class SignInPage {
       .catch(err => console.error(err));
   }
 
+  goToRecoverPasswordPage() {
+    let modal = this.modalCtrl.create(RecoverPasspordPage,{},{showBackdrop: true});
+    modal.present();
+  }
 }

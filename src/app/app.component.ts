@@ -515,6 +515,13 @@ export class MyApp implements OnInit {
             text: 'send',
             handler: (data) => {
               if (data.message && data.from && data.from.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                data.subject = 'Contact us';
+                data.message = `
+                  <h4>User email:</h4> 
+                      ${data.from}
+                  <h4>Message:</h4> 
+                      ${data.message}
+                `;
                 this.mailService.sendMail(data).subscribe();
                 return true;
               } else {

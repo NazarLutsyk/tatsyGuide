@@ -110,7 +110,8 @@
     "update": "Змінити"
   },
   "signUp": {
-    "signUp": "Зареєструватись"
+    "signUp": "Зареєструватись",
+    "toast": "Перевірте свою пошту"
   },
   "login": {
     "signIn": "Вхід",
@@ -120,7 +121,8 @@
     "enter": "Увійти",
     "message": "Не вірний логін або пароль!",
     "enterWithFB": "Facebook",
-    "enterWithG": "Google"
+    "enterWithG": "Google",
+    "forgot": "Забули пароль?"
   },
   "placeholder": {
     "name": "Ім'я",
@@ -579,6 +581,15 @@
     "friday": "П'ятниця",
     "saturday": "Субота",
     "sunday": "Неділя"
+  },
+  "recoverPass": {
+    "header": "Відновлення паролю",
+    "email": "Пошта",
+    "login": "Псевдонім",
+    "code": "Код",
+    "password": "Пароль",
+    "send": "Надіслати",
+    "alertCheckEmail": "Перевіте свою пошту"
   }
 }
 

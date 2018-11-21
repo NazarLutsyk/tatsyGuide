@@ -9,7 +9,7 @@
 
 <ion-content padding>
 
-  <form>
+  <form #signUpForm="ngForm">
     <ion-item>
       <ion-label [ngStyle]="{'color': (nameRef.invalid && nameRef.touched) ? 'red' : ''}">
         {{'placeholder.name' | translate}}
@@ -82,13 +82,12 @@
     <ion-grid>
       <ion-row>
         <ion-col col-6 offset-3>
-          <button margin-top="20px" ion-button [full]="true" outline class="defaultBackground2 fontBold"
-                  (click)="signUpMe()">
+          <button margin-top="20px" ion-button [full]="true" outline class="defaultBackground2 fontBold" #regButton
+                  (click)="signUpMe(signUpForm, regButton)">
             {{'signUp.signUp' |translate}}
           </button>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
-  <div *ngIf="message">{{message}}</div>
 </ion-content>

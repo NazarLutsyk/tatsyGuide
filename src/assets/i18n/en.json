@@ -110,7 +110,8 @@
     "update": "Update"
   },
   "signUp": {
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "toast": "Check your email"
   },
   "login": {
     "signIn": "sign In",
@@ -120,7 +121,8 @@
     "enter": "Enter",
     "message": "Wrong login or password",
     "enterWithFB": "Facebook",
-    "enterWithG": "Google"
+    "enterWithG": "Google",
+    "forgot": "Forgot Password?"
   },
   "placeholder": {
     "name": "Name",
@@ -579,5 +581,14 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday"
+  },
+  "recoverPass": {
+    "header": "Recover password",
+    "email": "Email",
+    "login": "Login",
+    "code": "Code",
+    "password": "Password",
+    "send": "Send",
+    "alertCheckEmail": "Check your email"
   }
 }

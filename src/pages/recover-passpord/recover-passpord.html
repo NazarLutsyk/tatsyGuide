@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{'recoverPass.header' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form #emailForm="ngForm">
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (emailRef.invalid && emailRef.touched) ? 'red' : ''}">
+        {{'recoverPass.email' | translate}}
+      </ion-label>
+      <ion-input
+        name="email"
+        #emailRef="ngModel"
+        ngModel
+        required
+        email
+        [disabled]="step !== 0"
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (loginRef.invalid && loginRef.touched) ? 'red' : ''}">
+        {{'recoverPass.login' | translate}}
+      </ion-label>
+      <ion-input
+        name="login"
+        #loginRef="ngModel"
+        ngModel
+        required
+        [disabled]="step !== 0"
+      >
+      </ion-input>
+    </ion-item>
+    <button
+      #emailSendButton
+      *ngIf="step === 0"
+      ion-button
+      full
+      [outline]="true"
+      margin-top="25px"
+      (click)="sendCode(emailRef, loginRef, emailSendButton)"
+      [disabled]="!emailForm.valid"
+    >
+      {{'recoverPass.send' | translate}}
+    </button>
+  </form>
+
+  <form  #codeForm="ngForm" *ngIf="step > 0">
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (codeRef.invalid && codeRef.touched) ? 'red' : ''}">{{'recoverPass.code' | translate}}</ion-label>
+      <ion-input
+        name="code"
+        #codeRef="ngModel"
+        ngModel
+        required
+        [disabled]="step !== 1"
+      ></ion-input>
+    </ion-item>
+    <button
+      *ngIf="step === 1"
+      ion-button
+      full
+      [outline]="true"
+      margin-top="25px"
+      (click)="verifyCode(codeRef)"
+      [disabled]="!codeRef.valid"
+    >
+      {{'recoverPass.send' | translate}}
+    </button>
+  </form>
+
+  <form #newPassword="ngForm" *ngIf="step > 1">
+    <ion-item>
+      <ion-label [ngStyle]="{'color': (passwordRef.invalid && passwordRef.touched) ? 'red' : ''}">{{'recoverPass.password' | translate}}</ion-label>
+      <ion-input
+        [disabled]="step !== 2"
+        type="password"
+        name="password"
+        #passwordRef="ngModel"
+        ngModel
+        minlength="4"
+        required
+      ></ion-input>
+    </ion-item>
+    <button
+      *ngIf="step === 2"
+      ion-button
+      full
+      [outline]="true"
+      margin-top="25px"
+      (click)="changePassword(passwordRef, loginRef, emailRef)"
+      [disabled]="!passwordRef.valid"
+    >
+      {{'recoverPass.send' | translate}}
+    </button>
+  </form>
+
+</ion-content>
