@@ -78,7 +78,9 @@ export class AllDrinkApplicationsPage {
   }
 
   ngOnInit() {
-    this.renderer.removeClass(document.getElementById('tab-t0-3'), 'pulse');
+    if (document.getElementById('tab-t0-3')) {
+      this.renderer.removeClass(document.getElementById('tab-t0-3'), 'pulse');
+    }
 
 
     this.auth.loadPrincipal().subscribe((principal) => {

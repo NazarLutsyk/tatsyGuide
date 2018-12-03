@@ -66,7 +66,6 @@ export class ProfilePage {
           {
             text: translations['placeInfo.confirm'],
             handler: () => {
-
               event.stopPropagation();
               if (this.principal._id === this.client._id) {
                 this.auth.principal.next(null);
@@ -74,8 +73,6 @@ export class ProfilePage {
               this.clientService.remove(client._id).subscribe(() => {
                 this.navCtrl.goToRoot({});
               })
-
-
             }
           },
           {

@@ -17,6 +17,8 @@
         name="startDate"
         #startDate="ngModel"
         required
+        [min]="minDate"
+        [max]="maxDate"
         [monthNames]="datePickerConfig.getMonths() | async"
         [monthShortNames]="datePickerConfig.getShortMonths() | async"
       ></ion-datetime>
@@ -30,6 +32,8 @@
         name="endDate"
         #endDate="ngModel"
         required
+        [min]="minDate"
+        [max]="maxDate"
         [monthNames]="datePickerConfig.getMonths() | async"
         [monthShortNames]="datePickerConfig.getShortMonths() | async"
       ></ion-datetime>

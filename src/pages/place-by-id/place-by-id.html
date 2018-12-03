@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'placeById.header' | translate}}</ion-title>
+  </ion-navbar>
+  <ion-searchbar
+    (ionInput)="onSearchPlace()"
+    (ionCancel)="onSearchPlace()"
+    placeholder="ID"
+    #searchBar
+  >
+  </ion-searchbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="placesRes && placesRes.length > 0">
+    <ion-list>
+      <ion-item *ngFor="let place of placesRes" (click)="toDetails(place._id, place.multilang.lang)">
+        <ion-thumbnail item-start>
+          <img *ngIf="place.avatar" [src]="globalVars.getGlobalHost() + place.avatar">
+          <img *ngIf="!place.avatar" src='assets/imgs/empty-place.svg'>
+        </ion-thumbnail>
+        <h2 class="fontBold">{{place.multilang.name}}</h2>
+        <span> <ion-icon name="star"></ion-icon> {{place.rating| number:'1.0-2'}} </span>
+        <ion-icon item-end name="ios-arrow-dropright"></ion-icon>
+        <p><span *ngFor="let placeType of place?.types">{{placeType.name}} </span></p>
+        <p>{{place?.city?.name}}</p>
+        <p> {{place.multilang?.address?.street}}
+          {{place.multilang?.address?.number}}</p>
+        <p>{{place.distance | number : '0.0-2'}} км</p>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="places && places.length <= 0">
+    <empty>
+    </empty>
+  </div>
+</ion-content>

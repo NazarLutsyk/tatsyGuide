@@ -101,7 +101,8 @@
       "login": "Увійти",
       "city": "Міста ",
       "kitchen": "Кухні ",
-      "topCategory": "Особливості закладу"
+      "topCategory": "Особливості закладу",
+      "placeById": "Знайти заклад"
     }
   },
   "testimonials": {
@@ -590,6 +591,9 @@
     "password": "Пароль",
     "send": "Надіслати",
     "alertCheckEmail": "Перевіте свою пошту"
+  },
+  "placeById": {
+    "header": "Знайти заклад"
   }
 }
 

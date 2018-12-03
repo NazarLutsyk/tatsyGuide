@@ -101,7 +101,8 @@
       "login": "LogIn",
       "city": "Cities ",
       "kitchen": "Kitchens ",
-      "topCategory": "Top categories"
+      "topCategory": "Top categories",
+      "placeById": "Search place"
     }
   },
   "testimonials": {
@@ -590,5 +591,8 @@
     "password": "Password",
     "send": "Send",
     "alertCheckEmail": "Check your email"
+  },
+  "placeById": {
+    "header": "Find place"
   }
 }

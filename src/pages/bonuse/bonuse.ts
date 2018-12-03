@@ -60,7 +60,6 @@ export class BonusePage {
   ngOnInit() {
     this.globalHost = this.gc.getGlobalHost();
     this.place = this.navParams.data;
-
     this.events.subscribe('refresh:bonuses', () => {
       this.skip = 0;
       this.allLoaded = false;
@@ -114,7 +113,7 @@ export class BonusePage {
           }
         },
         {$unwind: "$multilang"},
-        {$match: {'multilang.lang': this.gc.getGlobalLang()}},
+        {$match: {'multilang.lang': this.place.multilang[0].lang}},
         {
           $project: {
             _id: 1,

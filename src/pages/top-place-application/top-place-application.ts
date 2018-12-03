@@ -13,6 +13,8 @@ export class TopPlaceApplicationPage {
 
   place;
   client;
+  minDate;
+  maxDate;
 
   constructor(
     public navCtrl: NavController,
@@ -20,6 +22,8 @@ export class TopPlaceApplicationPage {
     private mailService: MailProvider,
     public datePickerConfig: DateTimePickerConfigProvider
   ) {
+    this.minDate = (new Date()).getFullYear();
+    this.maxDate = (new Date()).getFullYear() + 1;
   }
 
   ngOnInit() {
@@ -29,10 +33,32 @@ export class TopPlaceApplicationPage {
 
   sendApp(form: NgForm) {
     let value = form.form.value;
-    this.mailService.sendMail({
-      from: this.client.email,
-      message: `To top place ${this.place.multilang[0].name} from ${value.startDate} to ${value.endDate}`
-    }).subscribe();
+
+    let userName = this.client && this.client.name ? this.client.name : 'Anonim';
+    let userSurname = this.client && this.client.surname ? this.client.surname : '';
+    let userEmail = this.client && this.client.email ? this.client.email : value.from;
+    let placeName = this.place && this.place.multilang && this.place.multilang.length > 0 ? this.place.multilang[0].name : '';
+    let placeEmails = this.place && this.place.emails ? this.place.emails.join('  ') : '';
+    let placeId = this.place && this.place._id ? this.place._id : '';
+
+    let data: any = {};
+    data.subject = 'Top Place Application';
+    data.from = this.client.email;
+    data.message = `
+                  <h4>User:</h4> 
+                      ${userName} 
+                      ${userSurname} <br>
+                      ${userEmail}
+                  <h4>Date:</h4> 
+                      From: ${value.startDate} <br>
+                      To: ${value.endDate} <br>
+                  <h4>Place:</h4>
+                      ${placeId} <br>
+                      ${placeName} <br>    
+                      ${placeEmails} <br>    
+                `;
+
+    this.mailService.sendMail(data).subscribe();
     this.navCtrl.pop();
   }
 }

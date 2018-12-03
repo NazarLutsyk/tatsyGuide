@@ -50,7 +50,7 @@ export class CreateEventPage {
     let eventMultilang = formValues.multilang;
 
     event.place = this.navParams.data.place._id;
-    eventMultilang.lang = this.globalConfig.getGlobalLang();
+    eventMultilang.lang = this.navParams.data.place.multilang[0].lang;
 
     this.eventService.create(event).subscribe(event => {
       eventMultilang.promo = (<any>event)._id;

@@ -17,6 +17,12 @@
       <button
         ion-item
         *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="goToPlaceByIdPage()">
+        {{'sideMenu.leftMenu.placeById' | translate}}
+      </button>
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
         (click)="goToPlaceTypesPage()">
         {{'sideMenu.leftMenu.managePlaceType' | translate}}
       </button>

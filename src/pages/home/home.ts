@@ -36,7 +36,7 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.storage.get('firstStart').then((isFirst) => {
-      if (!isFirst) {
+      if (!isFirst && document.getElementById('tab-t0-3')) {
         this.renderer.addClass(document.getElementById('tab-t0-3'), 'pulse');
       }
     });

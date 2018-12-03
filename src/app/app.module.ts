@@ -118,6 +118,7 @@ import {SearchCityModalPageModule} from "../pages/search-city-modal/search-city-
 import {Diagnostic} from "@ionic-native/diagnostic";
 import {PipesModule} from "../pipes/pipes.module";
 import {RecoverPasspordPageModule} from "../pages/recover-passpord/recover-passpord.module";
+import {PlaceByIdPageModule} from "../pages/place-by-id/place-by-id.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -200,6 +201,7 @@ export function createTranslateLoader(http: HttpClient) {
     AllPromosPageModule,
     PipesModule,
     RecoverPasspordPageModule,
+    PlaceByIdPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

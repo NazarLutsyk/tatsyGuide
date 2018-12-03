@@ -50,6 +50,7 @@ import {MailProvider} from "../providers/mail/mail";
 import {SearchCityModalPage} from "../pages/search-city-modal/search-city-modal";
 import {Diagnostic} from "@ionic-native/diagnostic";
 import {PopoverPage} from "../pages/popover/popover";
+import {PlaceByIdPage} from "../pages/place-by-id/place-by-id";
 
 
 @Component({
@@ -155,7 +156,6 @@ export class MyApp implements OnInit {
     // this.configGlobalCity();
     this.configGlobalLang();
     this.configGlobalLocation();
-    this.welcomePopovers();
   }
 
   private welcomePopovers() {
@@ -255,7 +255,7 @@ export class MyApp implements OnInit {
     console.log('load location');
     if (this.platform.is("android") || this.platform.is("ios")) {
       console.log('mobile location');
-      this.geolocation.getCurrentPosition({timeout: 8000}).then((position) => {
+      this.geolocation.getCurrentPosition({timeout: 6000}).then((position) => {
         this.globalConfig.globalPosition.latitude = position.coords.latitude;
         this.globalConfig.globalPosition.longitude = position.coords.longitude;
         this.doneSubject.next('location');
@@ -334,6 +334,8 @@ export class MyApp implements OnInit {
       this.topCategoriesM = topCategoriesM;
       this.citiesM = citiesM;
       this.rootPage = HomePage;
+      this.splashScreen.hide();
+      this.welcomePopovers();
     }, (err) => {
     })
   }
@@ -477,6 +479,11 @@ export class MyApp implements OnInit {
   goToTopCategoriesPage() {
     this.menuController.close();
     this.navCtrl.push(AllTopCategoriesPage);
+  }
+
+  goToPlaceByIdPage(){
+    this.menuController.close();
+    this.navCtrl.push(PlaceByIdPage);
   }
 
   switchLang() {

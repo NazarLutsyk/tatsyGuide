@@ -106,7 +106,7 @@ export class NewsPage {
           }
         },
         {$unwind: "$multilang"},
-        {$match: {'multilang.lang': this.gc.getGlobalLang()}},
+        {$match: {'multilang.lang': this.place.multilang[0].lang}},
         {
           $project: {
             _id: 1,

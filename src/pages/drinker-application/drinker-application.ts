@@ -27,8 +27,8 @@ class DrinkerApplicationObjectTemplate {
 
 export class DrinkerApplicationPage {
 
-  minDate = '';
-  maxDate = '';
+  minDate;
+  maxDate;
 
   drinkerApplicationObject: DrinkerApplicationObjectTemplate = new DrinkerApplicationObjectTemplate();
   isActive: boolean;
@@ -44,17 +44,10 @@ export class DrinkerApplicationPage {
     private events: Events,
     public dateTimeConfig: DateTimePickerConfigProvider,
   ) {
-    let now = new Date();
-    let separator = now.toLocaleDateString().indexOf('/') > 0 ? '/' : '.';
-    let minDateTemp = now.toLocaleDateString().split(separator);
-    now.setMonth(now.getMonth() + 1);
-    let maxDateTemp = now.toLocaleDateString().split(separator);
-    minDateTemp[0] = minDateTemp[0].length === 1 ? '0' + minDateTemp[0] : minDateTemp[0];
-    minDateTemp[1] = minDateTemp[1].length === 1 ? '0' + minDateTemp[1] : minDateTemp[1];
-    maxDateTemp[0] = maxDateTemp[0].length === 1 ? '0' + maxDateTemp[0] : maxDateTemp[0];
-    maxDateTemp[1] = maxDateTemp[1].length === 1 ? '0' + maxDateTemp[1] : maxDateTemp[1];
-    this.minDate = `${minDateTemp[2]}-${minDateTemp[1]}-${minDateTemp[0]}`;
-    this.maxDate = `${maxDateTemp[2]}-${maxDateTemp[1]}-${maxDateTemp[0]}`;
+
+    this.minDate = (new Date()).getFullYear();
+    this.maxDate = (new Date()).getFullYear() + 1;
+
 
     if (this.navParams.data.place) {
       this.drinkerApplicationObject.place = this.navParams.data.place._id;

@@ -56,7 +56,6 @@ export class PlaceAppliactionsPage {
       this.principal = principal;
       this.loadDrinkApps().subscribe((apps) => {
         this.drinkApps = apps;
-        console.log(this.drinkApps);
       });
     });
   }
@@ -99,7 +98,7 @@ export class PlaceAppliactionsPage {
         {$unwind: "$placeM"},
         {
           $match: {
-            'placeM.lang': this.globalConfig.getGlobalLang(),
+            'placeM.lang': this.place.multilang[0].lang,
             'placeM.place': this.navParams.data._id
           }
         },

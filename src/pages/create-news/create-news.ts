@@ -46,7 +46,7 @@ export class CreateNewsPage {
     let news = formValues.news;
     let newsMultilang = formValues.multilang;
     news.place = this.navParams.data.place._id;
-    newsMultilang.lang = this.globalConfig.getGlobalLang();
+    newsMultilang.lang = this.navParams.data.place.multilang[0].lang;
     this.newsService.create(news).subscribe(news => {
       newsMultilang.promo = (<any>news)._id;
       this.newsMultilangService.create(newsMultilang).subscribe((newsM) => {

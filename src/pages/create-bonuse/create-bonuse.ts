@@ -45,7 +45,7 @@ export class CreateBonusePage {
     let bonuse = bonuseFormValues.bonuse;
     let bonuseMultilang = bonuseFormValues.multilang;
     bonuse.place = this.navParams.data.place._id;
-    bonuseMultilang.lang = this.globalConfig.getGlobalLang();
+    bonuseMultilang.lang = this.navParams.data.place.multilang[0].lang;
     this.bonuseService.create(bonuse).subscribe(bonuse => {
       bonuseMultilang.promo = (<any>bonuse)._id;
       this.bonuseMultilangService.create(bonuseMultilang).subscribe((bonuseM) => {
