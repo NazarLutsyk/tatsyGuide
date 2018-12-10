@@ -17,8 +17,8 @@
         [(ngModel)]="topPlace.startDate"
         name="startDate"
         #startDate="ngModel"
-        [min]="minDate"
-        [max]="maxDate"
+        [min]="now.getFullYear()"
+        [max]="now.getFullYear() + 2"
         [monthShortNames]="datePickerConfig.getShortMonths() | async"
         [monthNames]="datePickerConfig.getMonths() | async"
         required
@@ -32,8 +32,8 @@
         [(ngModel)]="topPlace.endDate"
         name="endDate"
         #endDate="ngModel"
-        [min]="minDate"
-        [max]="maxDate"
+        [min]="now.getFullYear()"
+        [max]="now.getFullYear() + 2"
         [monthShortNames]="datePickerConfig.getShortMonths() | async"
         [monthNames]="datePickerConfig.getMonths() | async"
         required

@@ -56,8 +56,11 @@ export class AuthProvider {
     return this.http
       .post<Client>(`${this.globalVars.getGlobalHost()}/auth/local/signup`, obj)
       .map((principal) => {
-        this.principal.next(principal);
-        return principal;
+        if (Object.keys(principal).length > 3) {
+          this.principal.next(principal);
+          return principal;
+        }
+        return null;
       });
   }
 
@@ -76,15 +79,15 @@ export class AuthProvider {
       });
   }
 
-  sendCode(email: string, login: string): Observable<boolean> {
-    return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/generateRecoverCode', {email, login});
+  sendCode(email: string): Observable<boolean> {
+    return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/generateRecoverCode', {email});
   }
 
   verifyCode(code: string): Observable<boolean> {
     return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/verifyRecoverCode', {code});
   }
 
-  changePassword(login: string, email: string, password: string): Observable<boolean> {
-    return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/changePassword', {password, email, login});
+  changePassword(email: string, password: string): Observable<boolean> {
+    return this.http.post<boolean>(this.globalVars.getGlobalHost() + '/auth/changePassword', {password, email});
   }
 }

@@ -50,11 +50,7 @@ export class BonusePage {
     private departmentService: DepartmentProvider,
     public modal: ModalController,
     private events: Events,
-    private translate: TranslateService,
-    private globalConfig: GlobalConfigsService
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {
@@ -66,8 +62,11 @@ export class BonusePage {
       this.loadBonuses().subscribe(bonuses => this.bonuses = bonuses);
     });
 
-    this.auth.loadPrincipal().subscribe((principal) => {
+    this.auth.loadPrincipal({populate: [{path: 'departments'}]}).subscribe((principal) => {
       this.principal = principal;
+      if (this.principal && this.principal.departments && this.principal.departments.length > 0) {
+        this.principal.departments = this.principal.departments.map(dep => dep.place);
+      }
       if (this.principal) {
         this.departmentService.find({
           query: {place: (<any>this.place)._id, client: this.principal._id},

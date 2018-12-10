@@ -6,7 +6,6 @@ import {EventMultilangProvider} from "../../providers/event-multilang/event-mult
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {NgForm} from "@angular/forms";
 import {AuthProvider} from "../../providers/auth/auth";
-import {TranslateService} from "@ngx-translate/core";
 import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
@@ -32,8 +31,6 @@ export class CreateEventPage {
     private events: Events,
     public dateTimeConfig: DateTimePickerConfigProvider
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {

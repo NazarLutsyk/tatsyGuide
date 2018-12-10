@@ -10,7 +10,6 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
 import {Camera, CameraOptions} from "@ionic-native/camera";
-import {TranslateService} from "@ngx-translate/core";
 import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()
@@ -28,6 +27,9 @@ export class UpdateBonusePage {
   image: string;
   imageToShow: string;
   isAdmin = false;
+
+  maxEventDate: Date = new Date();
+
 
   constructor(
     public navCtrl: NavController,
@@ -65,7 +67,7 @@ export class UpdateBonusePage {
   }
 
   updatePromo(updateForm: NgForm) {
-    let uploadImg = new Observable((subscriber)=>subscriber.next(true));
+    let uploadImg = new Observable((subscriber) => subscriber.next(true));
 
     if (this.bonuse.image !== this.image) {
       uploadImg = this.bonuseService.upload(this.bonuseId, this.image);

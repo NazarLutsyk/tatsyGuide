@@ -13,8 +13,7 @@ export class TopPlaceApplicationPage {
 
   place;
   client;
-  minDate;
-  maxDate;
+  now = new Date();
 
   constructor(
     public navCtrl: NavController,
@@ -22,8 +21,6 @@ export class TopPlaceApplicationPage {
     private mailService: MailProvider,
     public datePickerConfig: DateTimePickerConfigProvider
   ) {
-    this.minDate = (new Date()).getFullYear();
-    this.maxDate = (new Date()).getFullYear() + 1;
   }
 
   ngOnInit() {

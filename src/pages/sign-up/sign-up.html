@@ -82,12 +82,13 @@
     <ion-grid>
       <ion-row>
         <ion-col col-6 offset-3>
-          <button margin-top="20px" ion-button [full]="true" outline class="defaultBackground2 fontBold" #regButton
+          <button [disabled]="!signUpForm.valid" margin-top="20px" ion-button [full]="true" outline class="defaultBackground2 fontBold" #regButton
                   (click)="signUpMe(signUpForm, regButton)">
             {{'signUp.signUp' |translate}}
           </button>
         </ion-col>
       </ion-row>
     </ion-grid>
+    <div *ngIf="message" text-center class="errorColor">{{message}}</div>
   </form>
 </ion-content>

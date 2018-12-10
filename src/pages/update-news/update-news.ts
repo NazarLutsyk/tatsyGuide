@@ -29,6 +29,9 @@ export class UpdateNewsPage {
   image: string;
   isAdmin = false;
 
+  maxEventDate: Date = new Date();
+
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,

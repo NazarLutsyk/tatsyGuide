@@ -65,8 +65,11 @@ export class AllPromosPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.loadPrincipal().subscribe((principal) => {
+    this.auth.loadPrincipal({populate: [{path: 'departments'}]}).subscribe((principal) => {
       this.principal = principal;
+      if (this.principal && this.principal.departments && this.principal.departments.length > 0) {
+        this.principal.departments = this.principal.departments.map(dep => dep.place);
+      }
       this.globalHost = this.globalConfig.getGlobalHost();
       this.loadPromos().subscribe((promos) => {
         this.promos = promos;

@@ -15,7 +15,7 @@ export class GlobalConfigsService {
     private platform: Platform,
   ) {
     this.globalHost = 'http://ec2-18-222-181-7.us-east-2.compute.amazonaws.com';
-    // this.globalHost = 'http://192.168.0.2:3000';
+    // this.globalHost = 'http://192.168.0.4:3000';
   }
 
   getGlobalHost(): string {

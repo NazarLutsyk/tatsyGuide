@@ -1,14 +1,5 @@
 import {Component} from '@angular/core';
-import {
-  App,
-  Events,
-  InfiniteScroll,
-  IonicPage,
-  LoadingController,
-  NavController,
-  NavParams,
-  Refresher
-} from 'ionic-angular';
+import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams, Refresher} from 'ionic-angular';
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
 import {BonuseProvider} from "../../providers/bonuse/bonuseProvider";
 import {ClientProvider} from "../../providers/client/ClientProvider";
@@ -18,7 +9,6 @@ import {Client} from "../../models/client/Client";
 import {HttpClient} from "@angular/common/http";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {AuthProvider} from "../../providers/auth/auth";
-import {PlaceMultilangProvider} from "../../providers/place-multilang/place-multilang";
 import {Geolocation} from "@ionic-native/geolocation";
 import {ObjectUtils} from "../../utils/ObjectUtils";
 
@@ -55,10 +45,7 @@ export class AllPlacesPage {
     private clientService: ClientProvider,
     private bonuseService: BonuseProvider,
     private events: Events,
-    private auth: AuthProvider,
-    private placeMultilangService: PlaceMultilangProvider,
-    private loadingCtrl: LoadingController,
-    private globalConfig: GlobalConfigsService,
+    private auth: AuthProvider
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
@@ -118,23 +105,17 @@ export class AllPlacesPage {
     if (eventData.city) {
       this.placeQuery.query.city = eventData.city;
     }
-    // for (const feature in eventData.filterFeature) {
-    //   if (!eventData.filterFeature[feature]) delete eventData.filterFeature[feature];
-    //   this.placeQuery.query['features.' + feature] = eventData.filterFeature[feature];
-    // }
     if (!ObjectUtils.isEmpty(eventData.range) && eventData.range.upper !== 10000 && eventData.range.lower !== 0) {
       this.placeQuery.query.averagePrice = {$gte: eventData.range.lower, $lte: eventData.range.upper};
     }
     if (this.searchStr) {
       this.placeMultilangQuery.query['multilang.name'] = {$regex: this.searchStr, $options: "i"};
-    }
-    else {
+    } else {
       delete this.placeMultilangQuery.query['multilang.name'];
     }
     if (this.searchHashTags.length > 0) {
       this.placeQuery.query.hashTags = {$in: this.searchHashTags};
-    }
-    else {
+    } else {
       delete this.placeQuery.query['hashTags'];
     }
   }
@@ -162,7 +143,6 @@ export class AllPlacesPage {
           }
         },
         {$unwind: "$types"},
-        {$match: {'types.lang': this.globalVars.getGlobalLang(), 'multilang.lang': this.globalVars.getGlobalLang()}},
         {
           $lookup: {
             from: 'multilangs',
@@ -172,22 +152,27 @@ export class AllPlacesPage {
           }
         },
         {$unwind: "$city"},
-        {$match: {'city.lang': this.globalVars.getGlobalLang(), 'multilang.lang': this.globalVars.getGlobalLang()}},
+        {
+          $match: {
+            'types.lang': this.globalVars.getGlobalLang(),
+            'multilang.lang': this.globalVars.getGlobalLang(),
+            'city.lang': this.globalVars.getGlobalLang()
+          }
+        },
         {$match: this.placeMultilangQuery.query},
         {
           $group: {
             _id: '$_id',
-            types: {$push: '$types'},
+            types: {$addToSet: '$types'},
             multilang: {$addToSet: '$multilang'},
-            phones: {$push: '$phones'},
-            emails: {$push: '$emails'},
+            phones: {$addToSet: '$phones'},
+            emails: {$addToSet: '$emails'},
             averagePrice: {$first: '$averagePrice'},
             reviews: {$first: '$reviews'},
             rating: {$first: '$rating'},
             allowed: {$first: '$allowed'},
             avatar: {$first: '$avatar'},
             location: {$first: '$location'},
-            // features: {$first: '$features'},
             topCategories: {$first: '$topCategories'},
             images: {$first: '$images'},
             days: {$first: '$days'},
@@ -197,15 +182,7 @@ export class AllPlacesPage {
         },
         {
           $sort: (() => {
-            let sort = {review: 1};
-            if (Object.keys(this.placeQuery.sort).length > 0) {
-              sort = this.placeQuery.sort;
-            } else if (Object.keys(this.placeMultilangQuery.sort).length > 0) {
-              sort = this.placeMultilangQuery.sort;
-            } else {
-              sort = {review: 1};
-            }
-            return sort;
+            return {...this.placeQuery.sort, ...this.placeMultilangQuery.sort, _id: 1};
           })()
         },
         {$skip: this.skip},

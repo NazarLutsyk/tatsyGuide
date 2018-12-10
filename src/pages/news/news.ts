@@ -62,8 +62,11 @@ export class NewsPage {
       this.loadNews().subscribe(news => this.news = news);
     });
 
-    this.auth.loadPrincipal().subscribe((principal) => {
+    this.auth.loadPrincipal({populate: [{path: 'departments'}]}).subscribe((principal) => {
       this.principal = principal;
+      if (this.principal && this.principal.departments && this.principal.departments.length > 0) {
+        this.principal.departments = this.principal.departments.map(dep => dep.place);
+      }
       if (this.principal) {
         this.departmentService.find({
           query: {place: (<any>this.place)._id, client: this.principal._id},

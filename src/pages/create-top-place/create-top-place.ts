@@ -14,8 +14,7 @@ export class CreateTopPlacePage {
 
   placeName = '';
   placeId = '';
-  minDate;
-  maxDate;
+  now = new Date();
 
   constructor(
     public navCtrl: NavController,
@@ -24,8 +23,6 @@ export class CreateTopPlacePage {
     private translate: TranslateService,
     public datePickerConfig: DateTimePickerConfigProvider
   ) {
-    this.minDate = (new Date()).getFullYear();
-    this.maxDate = (new Date()).getFullYear() + 1;
   }
 
   ngOnInit() {

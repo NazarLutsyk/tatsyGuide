@@ -112,7 +112,8 @@
   },
   "signUp": {
     "signUp": "Sign Up",
-    "toast": "Check your email"
+    "toast": "Check your email",
+    "error": "Please check your inputs"
   },
   "login": {
     "signIn": "sign In",

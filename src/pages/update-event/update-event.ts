@@ -10,7 +10,6 @@ import {Event} from "../../models/promo/event/Event";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {Observable} from "rxjs/Observable";
 import {Camera, CameraOptions} from "@ionic-native/camera";
-import {TranslateService} from "@ngx-translate/core";
 import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 @IonicPage()

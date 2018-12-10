@@ -216,7 +216,8 @@ export class PlaceInfoPage {
         inputs: [
           {
             name: 'from',
-            placeholder: value['alert.email']
+            placeholder: value['alert.email'],
+            value: this.principal && this.principal.email ? this.principal.email : ''
           },
           {
             name: 'message',

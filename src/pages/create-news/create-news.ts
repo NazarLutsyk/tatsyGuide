@@ -6,7 +6,6 @@ import {NewsProvider} from "../../providers/news/NewsProvider";
 import {NewsMultilangProvider} from "../../providers/news-multilang/news-multilang";
 import {AuthProvider} from "../../providers/auth/auth";
 import {NgForm} from "@angular/forms";
-import {TranslateService} from "@ngx-translate/core";
 import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-config/date-time-picker-config";
 
 
@@ -19,6 +18,9 @@ export class CreateNewsPage {
 
   imageToUpload;
   isAdmin = false;
+
+  maxEventDate: Date = new Date();
+
 
   constructor(
     public navCtrl: NavController,

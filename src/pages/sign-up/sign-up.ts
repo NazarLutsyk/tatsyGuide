@@ -13,6 +13,8 @@ import {NgForm} from "@angular/forms";
 })
 export class SignUpPage {
 
+  message = '';
+
   name: string = "";
   surname: string = "";
   email: string = "";
@@ -30,9 +32,6 @@ export class SignUpPage {
     private globalConfig: GlobalConfigsService,
     private toastCtrl: ToastController
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
-
   }
 
   signUpMe(form: NgForm, button: Button) {
@@ -41,16 +40,21 @@ export class SignUpPage {
       name: this.name, surname: this.surname, email: this.email,
       login: this.login, password: this.password
     }).subscribe(() => {
-      // this.message = 'Please check your email, and sign in!';
 
       this.translate.get('signUp.toast').subscribe((message) => {
         this.toastCtrl.create({position: 'top', duration: 3000, message}).present();
+        this.message = '';
         form.resetForm();
         button.getNativeElement().disabled = false;
       });
 
     }, (error) => {
-      console.log(error);
+      this.translate.get('signUp.error').subscribe((trans) => {
+        this.message = trans;
+        setTimeout(() => {
+          button.getNativeElement().disabled = false;
+        }, 2000);
+      })
     });
   }
 }

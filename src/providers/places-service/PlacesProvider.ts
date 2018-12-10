@@ -142,5 +142,4 @@ export class PlacesProvider {
     return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/places/${_id}`);
   }
 
-
 }

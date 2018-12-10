@@ -68,6 +68,7 @@
           #startDate="ngModel"
           displayFormat="YYYY/MMM/DD"
           pickerFormat="YYYY/MMM/DD"
+          [max]="maxEventDate.getFullYear() + 2"
           [monthNames]="dateTimeConfig.getMonths() | async"
           [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           required
@@ -83,6 +84,7 @@
           [(ngModel)]="bonuse.endDate"
           displayFormat="YYYY/MMM/DD"
           pickerFormat="YYYY/MMM/DD"
+          [max]="maxEventDate.getFullYear() + 2"
           [monthNames]="dateTimeConfig.getMonths() | async"
           [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           #endDate="ngModel"

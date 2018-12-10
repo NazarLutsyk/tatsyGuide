@@ -14,8 +14,7 @@ import {DateTimePickerConfigProvider} from "../../providers/date-time-picker-con
 export class TopPlaceUpdatePage {
 
   topPlace;
-  minDate;
-  maxDate;
+  now = new Date();
 
 
   constructor(
@@ -26,8 +25,6 @@ export class TopPlaceUpdatePage {
     private globalConfig : GlobalConfigsService,
     public datePickerConfig: DateTimePickerConfigProvider
   ) {
-    this.minDate = (new Date()).getFullYear();
-    this.maxDate = (new Date()).getFullYear() + 1;
   }
 
   ngOnInit() {

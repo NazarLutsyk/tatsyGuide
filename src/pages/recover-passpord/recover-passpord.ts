@@ -31,11 +31,10 @@ export class RecoverPasspordPage {
     this.navCtrl.pop();
   }
 
-  sendCode(emailInput: NgModel, loginInput: NgModel, button: Button) {
+  sendCode(emailInput: NgModel, button: Button) {
     button.getNativeElement().disabled = true;
     let email = emailInput.value;
-    let login = loginInput.value;
-    this.authService.sendCode(email, login).subscribe((sended: boolean) => {
+    this.authService.sendCode(email).subscribe((sended: boolean) => {
       if (sended) {
         this.step = 1;
         this.translate.get('recoverPass.alertCheckEmail').subscribe((message) => {
@@ -43,7 +42,6 @@ export class RecoverPasspordPage {
         })
       } else {
         emailInput.control.setErrors({});
-        loginInput.control.setErrors({});
       }
     })
   }
@@ -59,11 +57,10 @@ export class RecoverPasspordPage {
     });
   }
 
-  changePassword(passwordInput: NgModel, loginInput: NgModel, emailInput: NgModel) {
+  changePassword(passwordInput: NgModel, emailInput: NgModel) {
     let password = passwordInput.value;
-    let login = loginInput.value;
     let email = emailInput.value;
-    this.authService.changePassword(login, email, password).subscribe((changed: boolean) => {
+    this.authService.changePassword(email, password).subscribe((changed: boolean) => {
       if (changed) {
         this.step = 3;
         this.navCtrl.pop();

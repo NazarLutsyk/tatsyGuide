@@ -26,19 +26,6 @@
       >
       </ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label [ngStyle]="{'color': (loginRef.invalid && loginRef.touched) ? 'red' : ''}">
-        {{'recoverPass.login' | translate}}
-      </ion-label>
-      <ion-input
-        name="login"
-        #loginRef="ngModel"
-        ngModel
-        required
-        [disabled]="step !== 0"
-      >
-      </ion-input>
-    </ion-item>
     <button
       #emailSendButton
       *ngIf="step === 0"
@@ -46,7 +33,7 @@
       full
       [outline]="true"
       margin-top="25px"
-      (click)="sendCode(emailRef, loginRef, emailSendButton)"
+      (click)="sendCode(emailRef, emailSendButton)"
       [disabled]="!emailForm.valid"
     >
       {{'recoverPass.send' | translate}}
@@ -96,7 +83,7 @@
       full
       [outline]="true"
       margin-top="25px"
-      (click)="changePassword(passwordRef, loginRef, emailRef)"
+      (click)="changePassword(passwordRef, emailRef)"
       [disabled]="!passwordRef.valid"
     >
       {{'recoverPass.send' | translate}}

@@ -49,8 +49,6 @@ export class EventPage {
     private departmentService: DepartmentProvider,
     public modal: ModalController,
     private globalEvents: Events,
-    private translate: TranslateService,
-    private globalConfig : GlobalConfigsService
   ) {
   }
 
@@ -64,8 +62,11 @@ export class EventPage {
       this.loadEvents().subscribe(events => this.events = events);
     });
 
-    this.auth.loadPrincipal().subscribe((principal) => {
+    this.auth.loadPrincipal({populate: [{path: 'departments'}]}).subscribe((principal) => {
       this.principal = principal;
+      if (this.principal && this.principal.departments && this.principal.departments.length > 0) {
+        this.principal.departments = this.principal.departments.map(dep => dep.place);
+      }
       if (this.principal) {
         this.departmentService.find({
           query: {place: (<any>this.place)._id, client: this.principal._id},

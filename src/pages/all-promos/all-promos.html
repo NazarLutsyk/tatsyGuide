@@ -24,7 +24,7 @@
         [news]="promo"
         [pm]="promo.placeM"
         [globalHost]="globalHost"
-        [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+        [showControlButtons]="(principal && principal.departments.indexOf(promo.place._id) > -1) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
         (onRemovePromo)="removePromo($event)"
         (onUpdatePromo)="updatePromo($event)"
         (click)="goToSinglePromo(promo)">
@@ -34,7 +34,7 @@
         [bonuse]="promo"
         [pm]="promo.placeM"
         [globalHost]="globalHost"
-        [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+        [showControlButtons]="(principal && principal.departments.indexOf(promo.place._id) > -1) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
         (onRemovePromo)="removePromo($event)"
         (onUpdatePromo)="updatePromo($event)"
         (click)="goToSinglePromo(promo)">
@@ -44,7 +44,7 @@
         [event]="promo"
         [pm]="promo.placeM"
         [globalHost]="globalHost"
-        [showControlButtons]="(principal && principal?._id === promo.author) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
+        [showControlButtons]="(principal && principal.departments.indexOf(promo.place._id) > -1) || (principal && principal.roles.indexOf('ADMIN') >= 0)"
         (onRemovePromo)="removePromo($event)"
         (onUpdatePromo)="updatePromo($event)"
         (click)="goToSinglePromo(promo)">

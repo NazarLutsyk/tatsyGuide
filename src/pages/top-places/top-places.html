@@ -21,13 +21,14 @@
           <img *ngIf="!place.avatar" src='assets/imgs/empty-place.svg'>
         </ion-thumbnail>
         <h2>{{place?.multilang[0]?.name}}</h2>
-        <span> <ion-icon name="star"></ion-icon> {{place?.rating| number:'1.0-2'}} </span>
+        <span> <ion-icon name="star"></ion-icon>
+          {{place?.rating| number:'1.0-2'}} </span>
         <ion-icon item-end name="ios-arrow-dropright"></ion-icon>
 
         <p><span *ngFor="let placeType of place?.types">{{placeType?.name}} </span></p>
         <p>{{place?.city?.name}} {{place?.multilang[0]?.address.street}}
           {{place?.multilang[0]?.address.number}}</p>
-        <p>{{place?.distance | number : '3.1-2'}} км</p>
+        <p>{{place?.distance | number : '0.0-2'}} км</p>
       </ion-item>
     </ion-list>
   </div>
