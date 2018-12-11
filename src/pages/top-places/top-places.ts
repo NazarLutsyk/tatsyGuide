@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, InfiniteScroll, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {App, Events, InfiniteScroll, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
 import {TopPlaceProvider} from "../../providers/top-place/top-place";
 import {PlacesProvider} from "../../providers/places-service/PlacesProvider";
@@ -17,10 +17,16 @@ export class TopPlacesPage {
   globalHost;
   topPlaces: Place[] = [];
 
+  eventData = {
+    city: ''
+  };
+
   skip = 0;
   pageSize = 7;
   limit = this.pageSize;
   allLoaded = false;
+
+  placeQuery: any = {};
 
   constructor(
     public navCtrl: NavController,
@@ -29,24 +35,42 @@ export class TopPlacesPage {
     private placeService: PlacesProvider,
     private globalVars: GlobalConfigsService,
     private app: App,
-    private loadingCtrl: LoadingController
+    private events: Events
   ) {
     this.globalHost = globalVars.getGlobalHost();
   }
 
   ngOnInit() {
-    this.loadTopPlaces()
+    this.events.subscribe('functionCall:findTops', (eventData) => {
+      this.skip = 0;
+      this.allLoaded = false;
+      this.eventData = eventData;
+      this.loadTopPlaces(true, eventData).subscribe(topPlaces => this.topPlaces = topPlaces);
+    });
+    this.loadTopPlaces(true, this.eventData)
       .subscribe(places => this.topPlaces = places);
   }
 
-  loadTopPlaces(clearCache = false) {
+  prepareQuery(dataQuery = {city: ''}) {
+    this.placeQuery = {
+      query: {},
+    };
+    if (dataQuery.city) {
+      this.placeQuery.query['city'] = dataQuery.city;
+    }
+  }
+
+
+  loadTopPlaces(clearCache = false, dataQuery = {city: ''}) {
+    this.prepareQuery(dataQuery);
     return new Observable<Place[]>((subscriber) => {
         let alreadyLoadedPlaces = this.topPlaces.map(value => (<any>value)._id);
         this.placeService.find({
           aggregate: [
             {
               $match: {
-                _id: {$nin: clearCache ? [] : alreadyLoadedPlaces}
+                _id: {$nin: clearCache ? [] : alreadyLoadedPlaces},
+                ...this.placeQuery.query
               }
             },
             {
@@ -84,7 +108,7 @@ export class TopPlacesPage {
             {
               $match: {
                 'types.lang': this.globalVars.getGlobalLang(),
-                'multilang.lang': this.globalVars.getGlobalLang()
+                'multilang.lang': this.globalVars.getGlobalLang(),
               }
             },
             {
@@ -96,7 +120,12 @@ export class TopPlacesPage {
               }
             },
             {$unwind: "$city"},
-            {$match: {'city.lang': this.globalVars.getGlobalLang(), 'multilang.lang': this.globalVars.getGlobalLang()}},
+            {
+              $match: {
+                'city.lang': this.globalVars.getGlobalLang(),
+                'multilang.lang': this.globalVars.getGlobalLang(),
+              }
+            },
             {
               $group: {
                 _id: '$_id',
@@ -132,7 +161,7 @@ export class TopPlacesPage {
     this.skip = 0;
     this.allLoaded = false;
 
-    this.loadTopPlaces(true)
+    this.loadTopPlaces(true, this.eventData)
       .subscribe(places => {
         this.topPlaces = places;
         refresher.complete();
@@ -149,7 +178,7 @@ export class TopPlacesPage {
       event.complete();
     } else {
       this.setNextPage();
-      this.loadTopPlaces()
+      this.loadTopPlaces(false, this.eventData)
         .subscribe((topPlaces) => {
           if (topPlaces.length < this.pageSize) this.allLoaded = true;
           this.topPlaces.push(...topPlaces);

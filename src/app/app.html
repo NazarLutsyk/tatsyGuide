@@ -262,6 +262,49 @@
   </ion-content>
 </ion-menu>
 
+<ion-menu *ngIf="rightMenu === 'tops'" [content]="content" side="right" id="rightSideMenuTop" type="overlay">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{'sideMenu.titleRight'|translate}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-item>
+      <ion-label> {{'sideMenu.filters.city' | translate}}</ion-label>
+      <ion-select
+        interface="popover"
+        [(ngModel)]="searchTopObject.city"
+        (ionFocus)="selectCity($event)"
+      >
+        <ion-option value="">
+          {{'sideMenu.filters.all' | translate}}
+        </ion-option>
+        <ion-option [value]="cityM.city._id" *ngFor="let cityM of citiesM">
+          {{cityM.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-buttons>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button class="buttonUpdate" [outline]="true" type="submit" full
+                    (click)="showTops(searchTopObject)">
+              {{'sideMenu.filters.search' | translate}}
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button type="button" class="buttonDelete" [outline]="true" full (click)="resetTops()">
+              {{'sideMenu.filters.reset' | translate}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-buttons>
+  </ion-content>
+</ion-menu>
+
 <ion-menu *ngIf="rightMenu === 'drinkApps'" [content]="content" side="right" id="rightSideMenuDrinkApp" type="overlay">
   <ion-header>
     <ion-toolbar>

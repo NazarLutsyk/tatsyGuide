@@ -84,6 +84,9 @@ export class MyApp implements OnInit {
   searchDrinkAppObject = {
     city: ''
   };
+  searchTopObject = {
+    city: ''
+  };
   principal: Client = null;
   doneSubject = new Subject();
   getLang = false;
@@ -174,7 +177,9 @@ export class MyApp implements OnInit {
 
   private configTabs() {
     this.events.subscribe('changeTab', (index) => {
-      if (index === 1) {
+      if (index === 0) {
+        this.rightMenu = 'tops';
+      } else if (index === 1) {
         this.rightMenu = 'places';
       } else if (index === 2) {
         this.rightMenu = 'promos';
@@ -197,6 +202,9 @@ export class MyApp implements OnInit {
 
       this.menuController.swipeEnable(shouldEnable, 'rightSideMenuDrinkApp');
       this.menuController.enable(shouldEnable, 'rightSideMenuDrinkApp');
+
+      this.menuController.swipeEnable(shouldEnable, 'rightSideMenuTop');
+      this.menuController.enable(shouldEnable, 'rightSideMenuTop');
     });
   }
 
@@ -350,6 +358,11 @@ export class MyApp implements OnInit {
     this.menuController.close();
   }
 
+  showTops(so) {
+    this.events.publish('functionCall:findTops', so);
+    this.menuController.close();
+  }
+
   showDrinkApps(so) {
     this.events.publish('functionCall:findDrinkApps', so);
     this.menuController.close();
@@ -376,6 +389,13 @@ export class MyApp implements OnInit {
       city: '',
     };
     this.showPromos(this.searchPromoObject);
+  }
+
+  resetTops() {
+    this.searchTopObject = {
+      city: '',
+    };
+    this.showTops(this.searchTopObject);
   }
 
   resetDrinkApps() {
@@ -481,7 +501,7 @@ export class MyApp implements OnInit {
     this.navCtrl.push(AllTopCategoriesPage);
   }
 
-  goToPlaceByIdPage(){
+  goToPlaceByIdPage() {
     this.menuController.close();
     this.navCtrl.push(PlaceByIdPage);
   }
