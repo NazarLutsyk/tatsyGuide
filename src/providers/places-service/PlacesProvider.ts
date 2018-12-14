@@ -142,4 +142,7 @@ export class PlacesProvider {
     return this.http.delete(`${this.globalConfig.getGlobalHost()}/api/places/${_id}`);
   }
 
+  getGlobalStatistic(){
+    return this.http.get(`${this.globalConfig.getGlobalHost()}/api/places/statistic`);
+  }
 }

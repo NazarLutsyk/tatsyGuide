@@ -70,8 +70,9 @@ export class AllPromosPage implements OnInit {
       if (this.principal && this.principal.departments && this.principal.departments.length > 0) {
         this.principal.departments = this.principal.departments.map(dep => dep.place);
       }
+      this.eventData.city = this.globalConfig.globalCity;
       this.globalHost = this.globalConfig.getGlobalHost();
-      this.loadPromos().subscribe((promos) => {
+      this.loadPromos(this.eventData).subscribe((promos) => {
         this.promos = promos;
         this.events.subscribe('functionCall:findPromos', (eventData) => {
           this.skip = 0;

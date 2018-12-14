@@ -58,7 +58,6 @@ export class AllDrinkApplicationsPage {
     private alertController: AlertController,
     private translate: TranslateService
   ) {
-
     this.storage.get('firstStart').then((isFirst) => {
       if (!isFirst) {
         this.storage.set('firstStart', true);
@@ -85,7 +84,8 @@ export class AllDrinkApplicationsPage {
 
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
-      this.loadDrinkApps().subscribe((apps) => {
+      this.eventData.city = this.gc.globalCity;
+      this.loadDrinkApps(this.eventData).subscribe((apps) => {
         this.drinkApps = apps;
         this.events.subscribe('functionCall:findDrinkApps', (eventData) => {
           this.skip = 0;

@@ -102,7 +102,8 @@
       "city": "Cities ",
       "kitchen": "Kitchens ",
       "topCategory": "Top categories",
-      "placeById": "Search place"
+      "placeById": "Search place",
+      "globalStatistic": "Get report"
     }
   },
   "testimonials": {

@@ -53,6 +53,8 @@ export class AllPlacesPage {
   ngOnInit() {
 
     this.eventData = {};
+    this.eventData.city = this.globalVars.globalCity;
+
     this.auth.principal.subscribe(principal => this.principal = principal);
     this.auth.loadPrincipal().subscribe();
 

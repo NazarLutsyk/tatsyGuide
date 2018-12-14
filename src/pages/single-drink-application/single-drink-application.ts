@@ -7,7 +7,6 @@ import {NgForm} from "@angular/forms";
 import {DrinkApplicationComment} from "../../models/drinkApplicationComment/DrinkApplicationComment";
 import {AuthProvider} from "../../providers/auth/auth";
 import {GlobalConfigsService} from "../../configs/GlobalConfigsService";
-import {TranslateService} from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -33,10 +32,7 @@ export class SingleDrinkApplicationPage {
     private drinkAppCommentService: DrinkApplicationCommentProvider,
     private auth: AuthProvider,
     private globalConfig: GlobalConfigsService,
-    private translate: TranslateService
   ) {
-    // this.translate.setDefaultLang("en");
-    // this.translate.use(this.globalConfig.deviceLang);
   }
 
   ngOnInit() {
@@ -44,7 +40,9 @@ export class SingleDrinkApplicationPage {
     this.auth.loadPrincipal().subscribe((principal) => {
       this.principal = principal;
       this.loadApplication()
-        .subscribe((drinkApps) => this.drinkApp = drinkApps[0])
+        .subscribe((drinkApps) => {
+          this.drinkApp = drinkApps[0]
+        })
     });
   }
 

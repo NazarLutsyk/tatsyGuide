@@ -2,9 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   AlertController,
   Events,
-  MenuController, ModalController,
+  MenuController,
+  ModalController,
   NavController,
-  Platform, Select,
+  Platform,
+  Select,
   ToastController,
   ViewController
 } from 'ionic-angular';
@@ -337,13 +339,33 @@ export class MyApp implements OnInit {
         sort: {name: 1}
       }),
     ).subscribe(([principal, placeTypesM, kitchensM, topCategoriesM, citiesM]) => {
+
       this.placeTypesM = placeTypesM;
       this.kitchensM = kitchensM;
       this.topCategoriesM = topCategoriesM;
       this.citiesM = citiesM;
-      this.rootPage = HomePage;
-      this.splashScreen.hide();
-      this.welcomePopovers();
+
+      let locationModal = this.modalCtrl.create(
+        SearchCityModalPage,
+        {
+          citiesM: this.citiesM,
+        },
+        {enableBackdropDismiss: false, showBackdrop: false}
+      );
+      locationModal.onDidDismiss(data => {
+        this.globalConfig.globalCity = data;
+
+        this.searchTopObject = {city: data};
+        this.searchDrinkAppObject = {city: data};
+        this.searchPromoObject = {city: data, kind: ''};
+        this.searchObject = {...this.searchObject, city: data};
+
+        this.rootPage = HomePage;
+        this.splashScreen.hide();
+        this.welcomePopovers();
+      });
+      locationModal.present();
+
     }, (err) => {
     })
   }
@@ -592,6 +614,10 @@ export class MyApp implements OnInit {
       $event.close();
     });
     return false;
+  }
+
+  sendGlobalStatistic() {
+    this.placeService.getGlobalStatistic().subscribe(res => console.log(res));
   }
 }
 

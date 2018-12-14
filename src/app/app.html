@@ -82,6 +82,12 @@
         (click)="contactAdmin()">
         {{'sideMenu.leftMenu.contact' | translate}}
       </button>
+      <button
+        ion-item
+        *ngIf="principal && principal.roles && principal.roles.indexOf('ADMIN') >= 0"
+        (click)="sendGlobalStatistic()">
+        {{'sideMenu.leftMenu.globalStatistic' | translate}}
+      </button>
       <button ion-item *ngIf="principal" (click)="logout()">
         {{'sideMenu.leftMenu.logout' | translate}}
       </button>

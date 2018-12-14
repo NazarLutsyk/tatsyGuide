@@ -41,6 +41,7 @@ export class TopPlacesPage {
   }
 
   ngOnInit() {
+    this.eventData.city = this.globalVars.globalCity;
     this.events.subscribe('functionCall:findTops', (eventData) => {
       this.skip = 0;
       this.allLoaded = false;

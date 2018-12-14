@@ -102,7 +102,8 @@
       "city": "Міста ",
       "kitchen": "Кухні ",
       "topCategory": "Особливості закладу",
-      "placeById": "Знайти заклад"
+      "placeById": "Знайти заклад",
+      "globalStatistic": "Отримати звіт"
     }
   },
   "testimonials": {

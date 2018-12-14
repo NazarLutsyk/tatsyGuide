@@ -58,6 +58,7 @@
           [monthNames]="dateTimeConfig.getMonths() | async"
           [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           [max]="maxEventDate.getFullYear() + 2"
+          [min]="maxEventDate.getFullYear()"
         ></ion-datetime>
       </ion-item>
       <ion-item>
@@ -75,6 +76,7 @@
           [monthNames]="dateTimeConfig.getMonths() | async"
           [monthShortNames]="dateTimeConfig.getShortMonths() | async"
           [max]="maxEventDate.getFullYear() + 2"
+          [min]="maxEventDate.getFullYear()"
         ></ion-datetime>
       </ion-item>
       <ion-item *ngIf="isAdmin">
