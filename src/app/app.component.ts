@@ -360,9 +360,9 @@ export class MyApp implements OnInit {
         this.searchObject = {...this.searchObject, city: data};
 
         this.rootPage = HomePage;
-        this.splashScreen.hide();
         this.welcomePopovers();
       });
+      this.splashScreen.hide();
       locationModal.present();
 
     }, (err) => {
