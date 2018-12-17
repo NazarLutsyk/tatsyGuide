@@ -121,7 +121,6 @@ export class MyApp implements OnInit {
               private fb: Facebook,
               private google: GooglePlus,
               private storage: Storage,
-              private toastLang: ToastController,
               private toastController: ToastController,
               private alertController: AlertController,
               private mailService: MailProvider,
@@ -533,7 +532,7 @@ export class MyApp implements OnInit {
     this.storage.set('lang', selectedLang);
 
     this.translate.get('toast.reload').subscribe((text) => {
-      this.toastLang.create({
+      this.toastController.create({
         dismissOnPageChange: true,
         message: text,
         duration: 3000,
@@ -617,7 +616,18 @@ export class MyApp implements OnInit {
   }
 
   sendGlobalStatistic() {
-    this.placeService.getGlobalStatistic().subscribe(res => console.log(res));
+    this.placeService.getGlobalStatistic().subscribe(() => {
+      this.translate.get('reportAlert.text').subscribe((text) => {
+        let drinkerToast = this.toastController.create(
+          {
+            duration: 3000,
+            message: text,
+            position: 'top',
+          }
+        );
+        drinkerToast.present();
+      });
+    });
   }
 }
 

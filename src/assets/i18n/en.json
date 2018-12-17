@@ -596,5 +596,9 @@
   },
   "placeById": {
     "header": "Find place"
+  },
+  "reportAlert": {
+    "text": "Please check your email!"
   }
+
 }
