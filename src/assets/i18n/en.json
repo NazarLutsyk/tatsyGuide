@@ -435,11 +435,11 @@
     "drinker": "Drinker"
   },
   "popover": {
-    "title": "Atention!",
+    "title": "Welcome to the Tasty Guide!",
     "request": "Dear users!",
-    "preMessage": "We urge you to be careful and cautious when choosing colleagues in 'Pyachka'.",
-    "message": "The administration can not predict the outcome of your meeting and, accordingly, be responsible for it. Therefore, we urge you to be careful in choosing colleagues for rest, not to visit unfamiliar and suspicious places for you, not to use extra. For the sake of your safety and tranquility.",
-    "messageEnd": " Taking care of you, the administration of Tasty Guide.",
+    "preMessage": "This app will help you find the best place for your beautiful holiday, delicious dinner, and also find a friend or girlfriend for a good evening!",
+    "message": "And in order to get the maximum of positive emotions and unforgettable impressions, we recommend do not drink too much, do not visit the little-known places and be alert to strangers!",
+    "messageEnd": "Sincerely, administration of the Tasty Guide!",
     "understand": "Understand",
     "dontUnderstand": "Don`t understand"
   },
